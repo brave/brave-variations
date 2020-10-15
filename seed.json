@@ -1,0 +1,43 @@
+{
+    "version": "1",
+    "serial_number": "1",
+    "studies": [
+        {
+            "name": "ContextualAdsTrial",
+            "experiments": [
+                {
+                    "name": "classificationHistorySmall",
+                    "probability_weight": 50,
+                    "parameters": [
+                        {
+                            "name": "classification_history_size",
+                            "value": "50"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["ContextualAdsControl"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "classificationHistoryControll",
+                    "probability_weight": 50,
+                    "parameters": [
+                        {
+                            "name": "classification_history_size",
+                            "value": "5"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["ContextualAdsControl"],
+                        "disable_feature": []
+                    }
+                }
+            ],
+            "filter": {
+                "platform": ["WINDOWS", "MAC", "LINUX"],
+                "country": ["US", "GB"]
+            }
+        }
+    ]
+}
