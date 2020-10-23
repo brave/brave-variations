@@ -3,14 +3,14 @@
     "serial_number": "1",
     "studies": [
         {
-            "name": "PageClassificationHistoryStudy",
+            "name": "PageProbabilitiesHistoryStudy",
             "experiments": [
                 {
                     "name": "TreatmentGroupA",
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_classification_history_size",
+                            "name": "page_probabilities_history_entries",
                             "value": "25"
                         }
                     ],
@@ -24,7 +24,7 @@
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_classification_history_size",
+                            "name": "page_probabilities_history_entries",
                             "value": "50"
                         }
                     ],
@@ -38,7 +38,7 @@
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_classification_history_size",
+                            "name": "page_probabilities_history_entries",
                             "value": "100"
                         }
                     ],
@@ -52,7 +52,7 @@
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_classification_history_size",
+                            "name": "page_probabilities_history_entries",
                             "value": "500"
                         }
                     ],
@@ -66,7 +66,7 @@
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_classification_history_size",
+                            "name": "page_probabilities_history_entries",
                             "value": "5"
                         }
                     ],
