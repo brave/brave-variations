@@ -3,14 +3,28 @@
     "serial_number": "1",
     "studies": [
         {
-            "name": "ContextualAdsTrial",
+            "name": "PageClassificationHistoryStudy",
             "experiments": [
                 {
-                    "name": "classificationHistorySmall",
-                    "probability_weight": 50,
+                    "name": "TreatmentGroupA",
+                    "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "classification_history_size",
+                            "name": "page_classification_history_size",
+                            "value": "25"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["ContextualAdsControl"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "TreatmentGroupB",
+                    "probability_weight": 10,
+                    "parameters": [
+                        {
+                            "name": "page_classification_history_size",
                             "value": "50"
                         }
                     ],
@@ -20,11 +34,39 @@
                     }
                 },
                 {
-                    "name": "classificationHistoryControll",
-                    "probability_weight": 50,
+                    "name": "TreatmentGroupC",
+                    "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "classification_history_size",
+                            "name": "page_classification_history_size",
+                            "value": "100"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["ContextualAdsControl"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "TreatmentGroupD",
+                    "probability_weight": 10,
+                    "parameters": [
+                        {
+                            "name": "page_classification_history_size",
+                            "value": "500"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["ContextualAdsControl"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "ControllGroup",
+                    "probability_weight": 10,
+                    "parameters": [
+                        {
+                            "name": "page_classification_history_size",
                             "value": "5"
                         }
                     ],
@@ -36,7 +78,7 @@
             ],
             "filter": {
                 "platform": ["WINDOWS", "MAC", "LINUX"],
-                "country": ["US", "GB"]
+                "country": ["FR", "GB"]
             }
         }
     ]
