@@ -41,9 +41,9 @@ def validate(seed):
 
             total_proba += experiment['probability_weight']
 
-        # Probability weights have to sum to 100
-        if total_proba != TOTAL_PROBA:
-            print("total_proba != ", TOTAL_PROBA)
+        # Probability weights have to sum to at most 100
+        if total_proba > TOTAL_PROBA:
+            print("total_proba > ", TOTAL_PROBA)
             return False
 
         # Anonymity set size constraint
