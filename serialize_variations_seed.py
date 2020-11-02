@@ -13,7 +13,7 @@ MIN_PROBA = 10
 TOTAL_PROBA = 100
 PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
 COUNTRIES = set(["us", "gb", "fr", "in", "de"])
-CHANNELS = set(["RELEASE"])
+CHANNELS = set(["UNKNOWN", "STABLE"])
 
 
 def load(seed_json_path):
@@ -39,6 +39,10 @@ def validate(seed):
 
         if total_proba > TOTAL_PROBA:
             print("total_proba > ", TOTAL_PROBA)
+            return False
+
+        if not set(study['filter']['channel']).issubset(CHANNELS):
+            print("channel not in ", CHANNELS)
             return False
 
         if not set(study['filter']['country']).issubset(COUNTRIES):
