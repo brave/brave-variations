@@ -6,11 +6,11 @@
             "name": "PageProbabilitiesHistoryStudy",
             "experiments": [
                 {
-                    "name": "TreatmentGroupA",
+                    "name": "GroupA",
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_probabilities_history_entries",
+                            "name": "page_probabilities_history_size",
                             "value": "25"
                         }
                     ],
@@ -20,11 +20,11 @@
                     }
                 },
                 {
-                    "name": "TreatmentGroupB",
+                    "name": "GroupB",
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_probabilities_history_entries",
+                            "name": "page_probabilities_history_size",
                             "value": "50"
                         }
                     ],
@@ -34,11 +34,11 @@
                     }
                 },
                 {
-                    "name": "TreatmentGroupC",
+                    "name": "GroupC",
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_probabilities_history_entries",
+                            "name": "page_probabilities_history_size",
                             "value": "100"
                         }
                     ],
@@ -48,12 +48,12 @@
                     }
                 },
                 {
-                    "name": "TreatmentGroupD",
+                    "name": "GroupD",
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_probabilities_history_entries",
-                            "value": "500"
+                            "name": "page_probabilities_history_size",
+                            "value": "250"
                         }
                     ],
                     "feature_association": {
@@ -66,7 +66,7 @@
                     "probability_weight": 10,
                     "parameters": [
                         {
-                            "name": "page_probabilities_history_entries",
+                            "name": "page_probabilities_history_size",
                             "value": "5"
                         }
                     ],
@@ -77,8 +77,8 @@
                 }
             ],
             "filter": {
-                "platform": ["WINDOWS", "MAC", "LINUX"],
-                "country": ["FR", "GB"]
+                "platform": ["macos", "linux", "windows", "ios", "android"],
+                "country": ["FR", "GB", "DE"]
             }
         }
     ]
