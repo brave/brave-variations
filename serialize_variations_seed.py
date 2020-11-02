@@ -91,6 +91,11 @@ def serialize_and_save_variations_seed_message(seed_data, path):
         # if study_data['filter']['end_date_utc']:
         #     study.filter.end_date = string_to_timestamp(study_data['filter']['end_date_utc'])
 
+        # TODO: Delete all but STABLE
+        study.filter.channel.append(study_pb2.Study.Channel.UNKNOWN)
+        study.filter.channel.append(study_pb2.Study.Channel.CANARY)
+        study.filter.channel.append(study_pb2.Study.Channel.DEV)
+        study.filter.channel.append(study_pb2.Study.Channel.BETA)
         study.filter.channel.append(study_pb2.Study.Channel.STABLE)
 
         for platform in study_data['filter']['platform']:
