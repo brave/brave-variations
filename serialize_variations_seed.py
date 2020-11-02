@@ -91,12 +91,15 @@ def serialize_and_save_variations_seed_message(seed_data, path):
         # if study_data['filter']['end_date_utc']:
         #     study.filter.end_date = string_to_timestamp(study_data['filter']['end_date_utc'])
 
-        # TODO: Delete all but STABLE
-        study.filter.channel.append(study_pb2.Study.Channel.UNKNOWN)
-        # study.filter.channel.append(study_pb2.Study.Channel.CANARY)
-        # study.filter.channel.append(study_pb2.Study.Channel.DEV)
-        # study.filter.channel.append(study_pb2.Study.Channel.BETA)
-        study.filter.channel.append(study_pb2.Study.Channel.STABLE)
+        for channel in study_date['filter']['channel']:
+            supported_channels = {
+                'UNKNOWN': study_pb2.Study.Channel.UNKNOWN,
+                'CANARY': study_pb2.Study.Channel.CANARY,
+                'DEV': study_pb2.Study.Channel.DEV,
+                'BETA': study_pb2.Study.Channel.BETA,
+                'STABLE': study_pb2.Study.Channel.STABLE
+            }
+            study.filter.channel.append(supported_channels[channel])
 
         for platform in study_data['filter']['platform']:
             supported_platforms = {
@@ -108,8 +111,8 @@ def serialize_and_save_variations_seed_message(seed_data, path):
             }
             study.filter.platform.append(supported_platforms[platform])
 
-        # for country in study_data['filter']['country']:
-        #     study.filter.country.append(country)
+        for country in study_data['filter']['country']:
+            study.filter.country.append(country)
 
     # Serialize and save
     with open(path, "wb") as file:
