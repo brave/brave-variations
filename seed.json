@@ -78,8 +78,7 @@
             ],
             "filter": {
                 "channel": ["UNKNOWN", "STABLE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"],
-                "country": ["us", "fr", "gb", "de"]
+                "platform": ["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"]
             }
         }
     ]
