@@ -17,8 +17,6 @@ CHANNELS = set(["RELEASE"])
 
 
 def load(seed_json_path):
-    # TODO: try/catch for malformed json?
-    # TODO: schema check?
     with open(seed_json_path, "r") as file:
         seed_data = json.load(file)
 
@@ -26,7 +24,6 @@ def load(seed_json_path):
 
 
 def validate(seed):
-    # For now, avoid interaction effects due to limited reporting
     if len(seed['studies']) > MAX_STUDIES:
         print("number of studies > ", MAX_STUDIES)
         return False
@@ -34,19 +31,16 @@ def validate(seed):
     for study in seed['studies']:
         total_proba = 0
         for experiment in study['experiments']:
-            # Anonymity set size constraint
             if experiment['probability_weight'] < MIN_PROBA:
                 print("probability_weight < ", MIN_PROBA)
                 return False
 
             total_proba += experiment['probability_weight']
 
-        # Probability weights have to sum to at most 100
         if total_proba > TOTAL_PROBA:
             print("total_proba > ", TOTAL_PROBA)
             return False
 
-        # Anonymity set size constraint
         if not set(study['filter']['country']).issubset(COUNTRIES):
             print("country not in ", COUNTRIES)
             return False
@@ -72,9 +66,7 @@ def serialize_and_save_variations_seed_message(seed_data, path):
     for study_data in seed_data['studies']:
         study = seed.study.add()
         study.name = study_data['name']
-        # TODO: Support all consistency types
         study.consistency = study_pb2.Study.Consistency.PERMANENT
-        # TODO: Support all activation types
         study.activation_type = study_pb2.Study.ActivationType.ACTIVATE_ON_STARTUP
 
         for experiment_data in study_data['experiments']:
@@ -99,20 +91,20 @@ def serialize_and_save_variations_seed_message(seed_data, path):
         # if study_data['filter']['end_date_utc']:
         #     study.filter.end_date = string_to_timestamp(study_data['filter']['end_date_utc'])
 
-        # study.filter.channel.append(study_pb2.Study.Channel.STABLE)
+        study.filter.channel.append(study_pb2.Study.Channel.STABLE)
 
-        # for platform in study_data['filter']['platform']:
-        #     supported_platforms = {
-        #         'WINDOWS': study_pb2.Study.Platform.PLATFORM_WINDOWS,
-        #         'MAC': study_pb2.Study.Platform.PLATFORM_MAC,
-        #         'LINUX': study_pb2.Study.Platform.PLATFORM_LINUX,
-        #         'IOS': study_pb2.Study.Platform.PLATFORM_IOS,
-        #         'ANDROID': study_pb2.Study.Platform.PLATFORM_ANDROID
-        #     }
-        #     study.filter.platform.append(supported_platforms[platform])
+        for platform in study_data['filter']['platform']:
+            supported_platforms = {
+                'WINDOWS': study_pb2.Study.Platform.PLATFORM_WINDOWS,
+                'MAC': study_pb2.Study.Platform.PLATFORM_MAC,
+                'LINUX': study_pb2.Study.Platform.PLATFORM_LINUX,
+                'IOS': study_pb2.Study.Platform.PLATFORM_IOS,
+                'ANDROID': study_pb2.Study.Platform.PLATFORM_ANDROID
+            }
+            study.filter.platform.append(supported_platforms[platform])
 
-        # for country in study_data['filter']['country']:
-        #     study.filter.country.append(country)
+        for country in study_data['filter']['country']:
+            study.filter.country.append(country)
 
     # Serialize and save
     with open(path, "wb") as file:
