@@ -12,7 +12,7 @@ CONSISTENCY = "permanent"
 MIN_PROBA = 10
 TOTAL_PROBA = 100
 PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
-COUNTRIES = set(["US", "GB", "FR", "IN", "DE"])
+COUNTRIES = set(["us", "gb", "fr", "in", "de"])
 CHANNELS = set(["RELEASE"])
 
 
