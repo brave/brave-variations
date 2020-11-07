@@ -7,6 +7,8 @@ import (
 	"crypto/sha256"
 	"crypto/x509"
 	"encoding/base64"
+	"encoding/pem"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -25,7 +27,16 @@ func GenerateKeyPair() error {
 		return err
 	}
 
-	err = ioutil.WriteFile("./privatekey", []byte(privateKeyBytes), 0644)
+	privateKeyPem := pem.EncodeToMemory(
+		&pem.Block{
+			Type:  "ECDSA PRIVATE KEY",
+			Bytes: privateKeyBytes,
+		},
+	)
+
+	fmt.Printf("%s\n", string(privateKeyPem))
+
+	err = ioutil.WriteFile("./privatekey.pem", []byte(privateKeyPem), 0644)
 	if err != nil {
 		return err
 	}
@@ -46,12 +57,17 @@ func GenerateKeyPair() error {
 // Uses the private key in `./privatekey`. If no private key exists one can be
 // generated via `go run ./crypto.go keygen`
 func SignSeedData() error {
-	privateKeyDer, err := ioutil.ReadFile("./privatekey")
+	privateKeyPem, err := ioutil.ReadFile("./privatekey.pem")
 	if err != nil {
 		return err
 	}
 
-	privateKey, err := x509.ParseECPrivateKey(privateKeyDer)
+	privateKeyBlock, _ := pem.Decode([]byte(privateKeyPem))
+	if privateKeyBlock == nil {
+		return errors.New("Error decoding PEM file")
+	}
+
+	privateKey, err := x509.ParseECPrivateKey(privateKeyBlock.Bytes)
 	if err != nil {
 		return err
 	}
@@ -75,7 +91,7 @@ func SignSeedData() error {
 }
 
 func main() {
-	usageInfo := "Usage: go run ./sign.go [keygen|sign]"
+	usageInfo := "Usage: go run ./crypto.go [keygen|sign]"
 	args := os.Args[1:]
 	if len(args) == 0 {
 		println(usageInfo)
