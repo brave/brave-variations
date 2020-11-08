@@ -13,7 +13,7 @@ MIN_PROBA = 10
 TOTAL_PROBA = 100
 PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
 COUNTRIES = set(["us", "gb", "fr", "in", "de"])
-CHANNELS = set(["UNKNOWN", "STABLE"])
+CHANNELS = set(["UNKNOWN", "NIGHTLY", "RELEASE"])
 
 
 def load(seed_json_path):
@@ -98,10 +98,10 @@ def serialize_and_save_variations_seed_message(seed_data, path):
         for channel in study_data['filter']['channel']:
             supported_channels = {
                 'UNKNOWN': study_pb2.Study.Channel.UNKNOWN,
-                'CANARY': study_pb2.Study.Channel.CANARY,
+                'NIGHTLY': study_pb2.Study.Channel.CANARY,
                 'DEV': study_pb2.Study.Channel.DEV,
                 'BETA': study_pb2.Study.Channel.BETA,
-                'STABLE': study_pb2.Study.Channel.STABLE
+                'RELEASE': study_pb2.Study.Channel.STABLE
             }
             study.filter.channel.append(supported_channels[channel])
 
