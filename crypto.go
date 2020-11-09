@@ -14,8 +14,8 @@ import (
 	"os"
 )
 
-// GenerateKeyPair creates the private key to sign the seed file, as well as
-// the public key as used for `kPublicKey` in `variations_seed_store.cc`.
+// GenerateKeyPair creates both the private key to sign the seed file, as well
+// as the public key as used for `kPublicKey` in `variations_seed_store.cc`.
 func GenerateKeyPair() error {
 	privateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {

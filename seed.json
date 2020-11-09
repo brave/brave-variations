@@ -48,22 +48,8 @@
                     }
                 },
                 {
-                    "name": "GroupD",
-                    "probability_weight": 10,
-                    "parameters": [
-                        {
-                            "name": "page_probabilities_history_size",
-                            "value": "250"
-                        }
-                    ],
-                    "feature_association": {
-                        "enable_feature": ["ContextualAdsControl"],
-                        "disable_feature": []
-                    }
-                },
-                {
                     "name": "ControllGroup",
-                    "probability_weight": 10,
+                    "probability_weight": 70,
                     "parameters": [
                         {
                             "name": "page_probabilities_history_size",

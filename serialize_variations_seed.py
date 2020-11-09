@@ -37,8 +37,8 @@ def validate(seed):
 
             total_proba += experiment['probability_weight']
 
-        if total_proba > TOTAL_PROBA:
-            print("total_proba > ", TOTAL_PROBA)
+        if total_proba != TOTAL_PROBA:
+            print("total_proba != ", TOTAL_PROBA)
             return False
 
         if not set(study['filter']['channel']).issubset(CHANNELS):
