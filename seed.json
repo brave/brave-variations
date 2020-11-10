@@ -1,12 +1,12 @@
 {
     "version": "1",
-    "serial_number": "3",
+    "serial_number": "4",
     "studies": [
         {
             "name": "PageProbabilitiesHistoryStudy",
             "experiments": [
                 {
-                    "name": "GroupA",
+                    "name": "PageProbabilitiesHistorySize-25",
                     "probability_weight": 10,
                     "parameters": [
                         {
@@ -20,7 +20,7 @@
                     }
                 },
                 {
-                    "name": "GroupB",
+                    "name": "PageProbabilitiesHistorySize-50",
                     "probability_weight": 10,
                     "parameters": [
                         {
@@ -34,7 +34,7 @@
                     }
                 },
                 {
-                    "name": "GroupC",
+                    "name": "PageProbabilitiesHistorySize-100",
                     "probability_weight": 10,
                     "parameters": [
                         {
@@ -48,7 +48,7 @@
                     }
                 },
                 {
-                    "name": "ControllGroup",
+                    "name": "PageProbabilitiesHistorySize-Controll",
                     "probability_weight": 70,
                     "parameters": [
                         {
@@ -65,7 +65,7 @@
             "filter": {
                 "channel": ["UNKNOWN", "NIGHTLY", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"],
-                "country": ["us", "gb", "de", "fr"]
+                "country": ["gb", "de", "fr"]
             }
         }
     ]

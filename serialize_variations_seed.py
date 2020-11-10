@@ -89,12 +89,6 @@ def serialize_and_save_variations_seed_message(seed_data, path):
             for feature in experiment_data['feature_association']['disable_feature']:
                 experiment.feature_association.disable_feature.append(feature)
 
-        # if study_data['filter']['start_date_utc']:
-        #     study.filter.start_date = string_to_timestamp(study_data['filter']['start_date_utc'])
-
-        # if study_data['filter']['end_date_utc']:
-        #     study.filter.end_date = string_to_timestamp(study_data['filter']['end_date_utc'])
-
         for channel in study_data['filter']['channel']:
             supported_channels = {
                 'UNKNOWN': study_pb2.Study.Channel.UNKNOWN,
