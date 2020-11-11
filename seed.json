@@ -1,6 +1,5 @@
 {
     "version": "1",
-    "serial_number": "4",
     "studies": [
         {
             "name": "PageProbabilitiesHistoryStudy",
@@ -48,8 +47,22 @@
                     }
                 },
                 {
-                    "name": "PageProbabilitiesHistorySize-Controll",
-                    "probability_weight": 70,
+                    "name": "PageProbabilitiesHistorySize-Control",
+                    "probability_weight": 10,
+                    "parameters": [
+                        {
+                            "name": "page_probabilities_history_size",
+                            "value": "5"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["ContextualAdsControl"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "PageProbabilitiesHistorySize-Default",
+                    "probability_weight": 60,
                     "parameters": [
                         {
                             "name": "page_probabilities_history_size",

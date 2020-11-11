@@ -1,12 +1,16 @@
 #! /usr/bin/python
+
+import datetime
+import hashlib
 import json
-import variations_seed_pb2
 import study_pb2
 import sys
-import datetime
+import time
+import variations_seed_pb2
 
 SEED_JSON_PATH = "./seed.json"
 SEED_BIN_PATH = "./seed"
+SERIALNUMBER_PATH = "./serialnumber"
 MAX_STUDIES = 1
 CONSISTENCY = "permanent"
 MIN_PROBA = 10
@@ -62,10 +66,27 @@ def string_to_timestamp(time_string):
     return int(dt.replace(tzinfo=datetime.timezone.utc).timestamp())
 
 
+def get_serial_number():
+    ts = str(time.time()).encode('utf-8')
+    m = hashlib.md5(ts)
+    return m.hexdigest()
+
+
+def update_serial_number(serialnumber):
+    # Update `serialnumber` file for CI to be set in ETAG header
+    with open(SERIALNUMBER_PATH, "w") as file:
+        file.write(serialnumber)
+        file.close()
+
+    print("Updated serial number with %s in %s" % (serialnumber, SERIALNUMBER_PATH))
+
+
 def serialize_and_save_variations_seed_message(seed_data, path):
     seed = variations_seed_pb2.VariationsSeed()
     seed.version = seed_data['version']
-    seed.serial_number = seed_data['serial_number']
+    serialnumber = get_serial_number()
+    seed.serial_number = serialnumber
+    update_serial_number(serialnumber)
 
     for study_data in seed_data['studies']:
         study = seed.study.add()
