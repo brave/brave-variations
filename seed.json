@@ -2,6 +2,26 @@
     "version": "1",
     "studies": [
         {
+            "name": "EphemeralStorageStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": ["EphemeralStorage"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY", "BETA"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
             "name": "PageProbabilitiesHistoryStudy",
             "experiments": [
                 {
