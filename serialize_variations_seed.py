@@ -11,13 +11,13 @@ import variations_seed_pb2
 SEED_JSON_PATH = "./seed.json"
 SEED_BIN_PATH = "./seed"
 SERIALNUMBER_PATH = "./serialnumber"
-MAX_STUDIES = 1
+MAX_STUDIES = 2
 CONSISTENCY = "permanent"
 MIN_PROBA = 10
 TOTAL_PROBA = 100
 PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
 COUNTRIES = set(["us", "gb", "fr", "in", "de"])
-CHANNELS = set(["UNKNOWN", "NIGHTLY", "RELEASE"])
+CHANNELS = set(["UNKNOWN", "NIGHTLY", "BETA", "RELEASE"])
 
 
 def load(seed_json_path):
@@ -35,10 +35,6 @@ def validate(seed):
     for study in seed['studies']:
         total_proba = 0
         for experiment in study['experiments']:
-            if experiment['probability_weight'] < MIN_PROBA:
-                print("probability_weight < ", MIN_PROBA)
-                return False
-
             total_proba += experiment['probability_weight']
 
         if total_proba != TOTAL_PROBA:
@@ -47,10 +43,6 @@ def validate(seed):
 
         if not set(study['filter']['channel']).issubset(CHANNELS):
             print("channel not in ", CHANNELS)
-            return False
-
-        if not set(study['filter']['country']).issubset(COUNTRIES):
-            print("country not in ", COUNTRIES)
             return False
 
         if not set(study['filter']['platform']).issubset(PLATFORMS):
@@ -99,16 +91,20 @@ def serialize_and_save_variations_seed_message(seed_data, path):
             experiment.name = experiment_data['name']
             experiment.probability_weight = experiment_data['probability_weight']
 
-            for param_data in experiment_data['parameters']:
-                param = experiment.param.add()
-                param.name = param_data['name']
-                param.value = param_data['value']
+            if 'parameters' in experiment_data:
+                for param_data in experiment_data['parameters']:
+                    param = experiment.param.add()
+                    param.name = param_data['name']
+                    param.value = param_data['value']
 
-            for feature in experiment_data['feature_association']['enable_feature']:
-                experiment.feature_association.enable_feature.append(feature)
+            if 'feature_association' in experiment_data:
+                if 'enable_feature' in experiment_data['feature_association']:
+                    for feature in experiment_data['feature_association']['enable_feature']:
+                        experiment.feature_association.enable_feature.append(feature)
 
-            for feature in experiment_data['feature_association']['disable_feature']:
-                experiment.feature_association.disable_feature.append(feature)
+                if 'disable_feature' in experiment_data['feature_association']:
+                    for feature in experiment_data['feature_association']['disable_feature']:
+                        experiment.feature_association.disable_feature.append(feature)
 
         for channel in study_data['filter']['channel']:
             supported_channels = {
@@ -130,8 +126,12 @@ def serialize_and_save_variations_seed_message(seed_data, path):
             }
             study.filter.platform.append(supported_platforms[platform])
 
-        for country in study_data['filter']['country']:
-            study.filter.country.append(country)
+        if 'country' in study_data['filter']:
+            for country in study_data['filter']['country']:
+                study.filter.country.append(country)
+
+        if 'min_version' in study_data['filter']:
+            study.filter.min_version = study_data['filter']['min_version']
 
     # Serialize and save
     with open(path, "wb") as file:
