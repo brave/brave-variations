@@ -6,6 +6,34 @@
             "experiments": [
                 {
                     "name": "Enabled",
+                    "probability_weight": 5,
+                    "feature_association": {
+                        "enable_feature": ["EphemeralStorage"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 95,
+                    "feature_association": {
+                        "disable_feature": ["EphemeralStorage"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "89.1.21.73",
+                "channel": ["RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
+            "name": "EphemeralStorageStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
                         "enable_feature": ["EphemeralStorage"]
