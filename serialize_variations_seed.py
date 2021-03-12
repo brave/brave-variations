@@ -11,12 +11,9 @@ import variations_seed_pb2
 SEED_JSON_PATH = "./seed.json"
 SEED_BIN_PATH = "./seed"
 SERIALNUMBER_PATH = "./serialnumber"
-MAX_STUDIES = 2
 CONSISTENCY = "permanent"
-MIN_PROBA = 10
 TOTAL_PROBA = 100
 PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
-COUNTRIES = set(["us", "gb", "fr", "in", "de"])
 CHANNELS = set(["UNKNOWN", "NIGHTLY", "BETA", "RELEASE"])
 
 
@@ -28,10 +25,6 @@ def load(seed_json_path):
 
 
 def validate(seed):
-    if len(seed['studies']) > MAX_STUDIES:
-        print("number of studies > ", MAX_STUDIES)
-        return False
-
     for study in seed['studies']:
         total_proba = 0
         for experiment in study['experiments']:
