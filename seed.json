@@ -102,7 +102,7 @@
             ],
             "filter": {
                 "min_version": "89.1.21.73",
-                "channel": ["NIGHTLY", "BETA"],
+                "channel": ["DEV", "NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
