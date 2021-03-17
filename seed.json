@@ -6,14 +6,14 @@
             "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 10,
+                    "probability_weight": 20,
                     "feature_association": {
                         "enable_feature": ["EphemeralStorage"]
                     }
                 },
                 {
                     "name": "Disabled",
-                    "probability_weight": 90,
+                    "probability_weight": 80,
                     "feature_association": {
                         "disable_feature": ["EphemeralStorage"]
                     }
