@@ -1,0 +1,25 @@
+name: Deploy to Production
+on:
+  push:
+    branches: [ main ]
+    paths:
+    - 'web/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Deploy static files
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_STAGING_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_STAGING_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-west-2
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_STAGING_DISTRIBUTION_ID }}
+        run: |
+          cd ./html
+          aws s3 sync . s3://brave-production-griffin-origin/ --delete
+          aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
