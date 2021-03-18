@@ -14,7 +14,7 @@ SERIALNUMBER_PATH = "./serialnumber"
 CONSISTENCY = "permanent"
 TOTAL_PROBA = 100
 PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
-CHANNELS = set(["UNKNOWN", "NIGHTLY", "BETA", "RELEASE"])
+CHANNELS = set(["UNKNOWN", "DEV", "NIGHTLY", "BETA", "RELEASE"])
 
 
 def load(seed_json_path):
