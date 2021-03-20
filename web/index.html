@@ -1,319 +1,43 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-    <title>Brave Variations Status</title>
-
-    <style>
-      .container {
-        max-width: 970px;
-      }
-
-      .container h1 {
-        background: url("brave_lion.svg") no-repeat left center/24px;
-        font-size: 24px;
-        padding: 0 0 0 32px;
-        margin: 0;
-      }
-
-      section.navbar {
-        margin: 15px 0 5px 0;
-        padding: 0;
-      }
-
-      .nav-pills .nav-link {
-        color: #212529 !important;
-      }
-
-      .nav-pills .nav-link.active {
-        background-color: #FF5500 !important;
-        color: #f8f9fa !important;
-      }
-
-      #tabContent {
-        padding: 0;
-      }
-
-      #tabContent p.source {
-        padding: 5px 10px;
-      }
-
-      .card {
-        width: 100%;
-        margin: 15px 0;
-      }
-      
-      .card h5 {
-        font-size: 0.8em;
-        font-weight: normal;
-        color: grey;
-        margin: 0;
-      }
-
-      .list-group-item {
-        padding: 5px 0;
-      }
-
-      ul.study-meta {
-        font-size: 0.8em;
-        color: grey;
-        padding: 0;
-        margin: 0 0;
-      }
-
-      ul.study-meta li {
-        display: inline;
-      }
-
-      ul.study-meta li:after {
-        content: ", ";
-      }
-
-      ul.study-meta li:last-child:after {
-        content: "";
-      }
-    </style>
+    <title>Brave Variations</title>
   </head>
 
   <body class="bg-light">  
-    <div class="container">
+    <div class="container" id="app">
       <section class="navbar navbar-light bg-light">
-        <h1>Brave Variations Status</h1>
+        <h1>Brave Variations</h1>
         <nav class="nav nav-pills">
-          <a href="#" class="nav-item nav-link active btn-sm" id="production-tab" data-bs-toggle="tab" data-bs-target="#production" aria-controls="production" aria-selected="true">Production</a>
-          <a href="#" class="nav-item nav-link btn-sm" id="staging-tab" data-bs-toggle="tab" data-bs-target="#staging" aria-controls="staging" aria-selected="false">Staging</a>
+          <a href="#" class="nav-item nav-link btn-sm" :class="[isProduction ? 'active' : '']" v-on:click="isProduction=true">Production</a>
+          <a href="#" class="nav-item nav-link btn-sm" :class="[isProduction ? '' : 'active']" v-on:click="isProduction=false">Staging</a>
         </nav>
       </section>
 
-      <main id="app">
+      <main>
+        <div class="d-flex justify-content-center loading" v-if="loading">
+          <div class="spinner-border" role="status"></div>
+        </div>
         <div class="row">          
           <div class="col-sm-12">
-            <div class="tab-content" id="tabContent">
-              <div class="tab-pane fade show active" id="production" role="tabpanel" aria-labelledby="production-tab">
-                <study-item
-                  v-for="item in productionStudies"
-                  v-bind:study="item"
-                  v-bind:key="item.id"
-                ></study-item>
-              </div>
-              <div class="tab-pane fade" id="staging" role="tabpanel" aria-labelledby="staging-tab">
-                <study-item
-                  v-for="study in stagingStudies"
-                  v-bind:study="study"
-                  v-bind:key="study.name"
-                ></study-item>
-              </div>
-            </div>
+            <study-item v-if="isProduction"
+              v-for="item in productionStudies"
+              v-bind:study="item"
+              v-bind:key="item.id"
+            ></study-item>
+
+            <study-item v-if="!isProduction"
+              v-for="study in stagingStudies"
+              v-bind:study="study"
+              v-bind:key="study.name"
+            ></study-item>
           </div>
         </div>
       </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <script src="https://cdn.rawgit.com/dcodeIO/protobuf.js/6.8.8/dist/protobuf.min.js"></script>
-    
-    <script>
-      Vue.component('study-item', {
-        props: ['study'],
-        template:
-          `<div class="card mb-3">
-            <div class="card-header">{{ study.name }}</div>
-            <div class="card-body">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-for="experiment in study.experiment">
-                  {{ experiment.name }} ({{ experiment.probabilityWeight }}%)
-                  <ul class="study-meta">
-                    <span>Enabled Features:</span>
-                    <li v-for="feature in experiment.processedEnabledFeatures">{{ feature }}</li>
-                  </ul>
-                  <ul class="study-meta">
-                    <span>Disabled Features:</span>
-                    <li v-for="feature in experiment.processedDisabledFeatures">{{ feature }}</li>
-                  </ul>
-                  <ul class="study-meta">
-                    <span>Parameters:</span>
-                    <li v-for="parameter in experiment.processedParameters">{{ parameter }}</li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div class="card-footer">
-              <ul class="study-meta">
-                <span>Channels:</span>
-                <li v-for="channel in study.filter.processedChannels">{{ channel }}</li>
-              </ul>
-              <ul class="study-meta">
-                <span>Countries:</span>
-                <li v-for="country in study.filter.processedCountries">{{ country }}</li>
-              </ul>
-              <ul class="study-meta">
-                <span>Platforms:</span>
-                <li v-for="platform in study.filter.processedPlatforms">{{ platform }}</li>
-              </ul>
-            </div>
-          </div>`
-      })
-
-      var app = new Vue({
-        el: '#app',
-        data: {
-          stagingStudies: [],
-          productionStudies: []
-        },
-        methods: {
-          addStagingStudy: function(study) {
-            this.stagingStudies.push(study)
-          },
-          addProductionStudy: function(study) {
-            this.productionStudies.push(study)
-          }
-        },
-        computed: {
-          StagingStudiesLength: function() {
-            return this.stagingStudies.length
-          },
-          ProductionStudiesLength: function() {
-            return this.productionStudies.length
-          }
-        }
-      })
-
-      let variationsStagingUrl = "https://variations.bravesoftware.com/seed"
-      let variationsProductionUrl = "https://variations.brave.com/seed"
-
-      function loadSeed(url, isProduction) {
-        let xhr = new XMLHttpRequest();
-        // TODO: Add allow origin header to seed response
-        xhr.open("GET", "https://cors-anywhere.herokuapp.com/" + url, true /* async */);
-        xhr.responseType = "arraybuffer";
-        xhr.onload = (evt) => onLoadSeed(xhr.response, isProduction);
-        xhr.send(null);
-      }
-
-      function onLoadSeed(seedProtobufBytes, isProduction) {
-        let seedBytes = new Uint8Array(seedProtobufBytes);
-        protobuf.load("variations_seed.proto", function (err, root) {
-          if (err) { throw err; }
-          let variationSeedType = root.lookupType("variations.VariationsSeed");
-          let seed = variationSeedType.decode(seedBytes);
-          parseSeed(seed, isProduction);
-        });
-      }
-
-      function parseSeed(seed, isProduction) {
-        let channels = { Unknown: -1, Nightly: 0, Dev: 1, Beta: 2, Release: 3 }
-        function getChannel(ix) {
-          return Object.keys(channels).find(key => channels[key] === ix)
-        }
-
-        let platforms = { Windows: 0, Mac: 1, Linux: 2, Android: 4, iOS: 5 }
-        function getPlatform(ix) {
-          return Object.keys(platforms).find(key => platforms[key] === ix)
-        }
-
-        function processStudy(study) {
-          // Channels
-          processedChannel = [];
-          study.filter.channel.forEach(channel_ix => {
-            processedChannel.push(getChannel(channel_ix))
-          })
-          
-          if (!processedChannel.length) {
-            processedChannel.push("All")
-          }
-
-          study.filter.processedChannels = processedChannel
-
-          // Countries
-          processedCountry = [];
-          study.filter.country.forEach(country_ix => {
-            processedCountry.push(country_ix.toUpperCase())
-          })
-
-          if (!processedCountry.length) {
-            processedCountry.push("All")
-          }
-
-          study.filter.processedCountries = processedCountry
-
-          // Platforms
-          processedPlatforms = []
-          study.filter.platform.forEach(platform_ix => {
-            processedPlatforms.push(getPlatform(platform_ix))
-          })
-
-          if (!processedPlatforms.length) {
-            processedPlatforms.push("All")
-          }
-
-          study.filter.processedPlatforms = processedPlatforms
-
-          // Experiments
-          for (let i = 0; i < study.experiment.length; i++) {
-            // Features
-            let experiment = study.experiment[i]
-
-            processedEnabledFeatures = []
-            processedDisabledFeatures = []
-
-            if (experiment.featureAssociation) {
-              experiment.featureAssociation.enableFeature.forEach(feature => {
-                processedEnabledFeatures.push(feature)
-              })
-
-              experiment.featureAssociation.disableFeature.forEach(feature => {
-                processedDisabledFeatures.push(feature)
-              })
-            }
-
-            if (!processedEnabledFeatures.length) {
-              processedEnabledFeatures.push("None")
-            }
-
-            study.experiment[i].processedEnabledFeatures = processedEnabledFeatures
-
-            if (!processedDisabledFeatures.length) {
-              processedDisabledFeatures.push("None")
-            }
-
-            study.experiment[i].processedDisabledFeatures = processedDisabledFeatures
-
-            // Parameters
-            processedParameters = []
-            if (experiment.param) {
-              experiment.param.forEach(parameter => {
-                processedParameters.push(parameter.name + ": " + parameter.value)
-              })
-            }
-
-            if (!processedParameters.length) {
-              processedParameters.push("None")
-            }
-
-            study.experiment[i].processedParameters = processedParameters
-          }
-
-          return study
-        }
-
-        seed['study'].forEach(study => {
-          if (isProduction) {
-            app.addProductionStudy(processStudy(study))
-          } else {
-            app.addStagingStudy(processStudy(study))
-          }
-        });
-      }
-
-      loadSeed(variationsProductionUrl, /* isProduction */ true)
-      loadSeed(variationsStagingUrl, /* isProduction */ false)
-    </script>
+    <script src="static/bundle.js"></script>
   </body>
 </html>
