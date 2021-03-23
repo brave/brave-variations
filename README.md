@@ -19,10 +19,10 @@ On initial deployment and subsequent key rotations a new key pair has to be gene
 ## Seed Serialization, Signing and Serving
 The following steps are performed by CI to publish the updated seed file:
 
-1. Run `$ python seed/serialize.py` to compile the protobuf.
+1. Run `$ python seed/serialize.py seed/seed.json` to compile the protobuf.
 2. Sign the seed file with `$ go run /crypto/crypto_util.go sign`.
 3. Update the `X-Seed-Signature` response header.
-4. Update the ETAG header with the contents of `/seed/serialnumber`.
+4. Update the ETAG header with the contents of `serialnumber`.
 
 ## Some Notes on using variations in the Browser
 - Studies only take effect after restarting the browser.
