@@ -20,7 +20,7 @@ jobs:
           AWS_REGION: us-west-2
           CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
-          cd ./html
+          cd ./web
           npm install
           npm run build
           aws s3 sync . s3://brave-production-griffin-origin/ --delete --exclude '*' --include 'index.html' --include 'static/*'
