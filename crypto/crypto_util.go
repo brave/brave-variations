@@ -72,7 +72,7 @@ func SignSeedData() error {
 		return err
 	}
 
-	seedData, err := ioutil.ReadFile("./seed")
+	seedData, err := ioutil.ReadFile("./seed.bin")
 	if err != nil {
 		return err
 	}

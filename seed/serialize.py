@@ -3,13 +3,12 @@
 import datetime
 import hashlib
 import json
-import study_pb2
+import proto.study_pb2 as study_pb2
 import sys
 import time
-import variations_seed_pb2
+import proto.variations_seed_pb2 as variations_seed_pb2
 
-SEED_JSON_PATH = "./seed.json"
-SEED_BIN_PATH = "./seed"
+SEED_BIN_PATH = "./seed.bin"
 SERIALNUMBER_PATH = "./serialnumber"
 CONSISTENCY = "permanent"
 TOTAL_PROBA = 100
@@ -134,7 +133,7 @@ def serialize_and_save_variations_seed_message(seed_data, path):
 
 if __name__ == "__main__":
     print("Load seed.json")
-    seed_data = load(SEED_JSON_PATH)
+    seed_data = load(sys.argv[1])
 
     print("Validate seed data")
     if validate(seed_data):

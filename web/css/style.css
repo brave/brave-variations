@@ -1,0 +1,63 @@
+.loading {
+  margin: 50px 0;
+}
+
+.container {
+  max-width: 970px;
+}
+
+.container h1 {
+  background: url("../img/brave_lion.svg") no-repeat left center/24px;
+  font-size: 24px;
+  padding: 0 0 0 32px;
+  margin: 0;
+}
+
+section.navbar {
+  margin: 15px 0 5px 0;
+  padding: 0;
+}
+
+.nav-pills .nav-link {
+  color: #212529 !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #FF5500 !important;
+  color: #f8f9fa !important;
+}
+
+.card {
+  width: 100%;
+  margin: 15px 0;
+}
+
+.card h5 {
+  font-size: 0.8em;
+  font-weight: normal;
+  color: grey;
+  margin: 0;
+}
+
+.list-group-item {
+  padding: 5px 0;
+}
+
+ul.study-meta {
+  font-size: 0.8em;
+  color: grey;
+  padding: 0;
+  margin: 0 0;
+}
+
+ul.study-meta li {
+  display: inline;
+}
+
+ul.study-meta li:after {
+  content: ", ";
+}
+
+ul.study-meta li:last-child:after {
+  content: "";
+}

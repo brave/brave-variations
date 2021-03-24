@@ -1,6 +1,3 @@
-__pycache__
 .vscode
-venv
-seed
-privatekey.pem
+seed.bin
 serialnumber
