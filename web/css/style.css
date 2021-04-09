@@ -3,7 +3,7 @@
 }
 
 .container {
-  max-width: 970px;
+  max-width: 720px;
 }
 
 .container h1 {
@@ -32,7 +32,7 @@ section.navbar {
   margin: 15px 0;
 }
 
-.card h5 {
+.card .card-header .description {
   font-size: 0.8em;
   font-weight: normal;
   color: grey;

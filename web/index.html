@@ -11,8 +11,8 @@
       <section class="navbar navbar-light bg-light">
         <h1>Brave Variations</h1>
         <nav class="nav nav-pills">
-          <a href="#" class="nav-item nav-link btn-sm" :class="[isProduction ? 'active' : '']" v-on:click="isProduction=true">Production</a>
-          <a href="#" class="nav-item nav-link btn-sm" :class="[isProduction ? '' : 'active']" v-on:click="isProduction=false">Staging</a>
+          <a href="#" class="nav-item nav-link btn-sm" :class="[isProduction ? 'active' : '']" v-on:click="isProduction=true">Production ({{ numGroupsProduction }})</a>
+          <a href="#" class="nav-item nav-link btn-sm" :class="[isProduction ? '' : 'active']" v-on:click="isProduction=false">Staging ({{ numGroupsStaging }})</a>
         </nav>
       </section>
 

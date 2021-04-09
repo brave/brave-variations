@@ -10,7 +10,15 @@ Vue.component('study-item', {
   props: ['study'],
   template:
     `<div class="card mb-3">
-      <div class="card-header">{{ study.name }}</div>
+      <div class="card-header">
+        {{ study.name }} ({{study.experiment.length}} Groups)
+        <section class="description">
+          Use Case: -<br />
+          DOM visible side effects: -<br />
+          Data Collection: -<br />
+          Description: -
+        </section>
+      </div>
       <div class="card-body">
         <ul class="list-group list-group-flush">
           <li class="list-group-item" v-for="experiment in study.experiment">
@@ -71,6 +79,14 @@ var app = new Vue({
     addProductionStudy: function(study) {
       this.productionStudies.push(study)
     }
+  },
+  computed: {
+    numGroupsStaging: function() {
+      return this.stagingStudies.length
+    },
+    numGroupsProduction: function() {
+      return this.productionStudies.length
+    }
   }
 })
 
@@ -81,6 +97,21 @@ async function loadSeed(url, isProduction) {
   xhr.onload = (evt) => onLoadSeed(xhr.response, isProduction);
   xhr.send(null);
 }
+
+async function loadSeedDefinition(url, isProduction) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true /* async */);
+  xhr.responseType = "json";
+  xhr.onload = (evt) => onLoadSeedDefinition(xhr.response, isProduction);
+  xhr.send(null);
+}
+
+function onLoadSeedDefinition(seed, isProduction) {
+  console.log(seed.studies.length);
+}
+
+let seedDefinitionUrl = "https://raw.githubusercontent.com/brave/brave-variations/main/seed.json?token=AAJTSZ6QHSNTKSPI7PXRGYTAMGRNA"
+loadSeedDefinition(seedDefinitionUrl, true)
 
 function onLoadSeed(seedProtobufBytes, isProduction) {
   let seedBytes = new Uint8Array(seedProtobufBytes);

@@ -3,6 +3,12 @@
     "studies": [
         {
             "name": "EphemeralStorageStudy",
+            "meta": {
+                "use_case": "staged_rollout/parameter_server/split_test",
+                "dom_visible_side_effects": true/false,
+                "data_collection": "none/p3a/confirmations/stats",
+                "description": "mention one of reliability/security/ux/business"
+            },
             "experiments": [
                 {
                     "name": "Enabled",
