@@ -24,7 +24,7 @@
                 }
             ],
             "filter": {
-                "max_version": "89.1.23",
+                "max_version": "90.1.23.*",
                 "channel": ["RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
