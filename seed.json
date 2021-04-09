@@ -2,6 +2,34 @@
     "version": "1",
     "studies": [
         {
+            "name": "BraveDomainBlockStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "enable_feature": ["BraveDomainBlock"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": ["BraveDomainBlock"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "max_version": "89.1.23",
+                "channel": ["RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
             "name": "AdvertiserSplitTestingStudy",
             "experiments": [
                 {
