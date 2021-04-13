@@ -35,7 +35,7 @@ The following steps are performed by CI to publish the updated seed file:
 - Filter rules might include
   - Countries: The ISO country code is set in the `X-Country` response header and is inferred from the source IP by the CDN.
   - Channels: Use e.g. `--fake-variations-channel=beta` to override the channel of your build.
-- To verify if the browser signed up for any studies eight augment logs with `--vmodule="*/variations/*"=1` or inspect `brave://version/` under the "Variations" section.
+- To verify if the browser signed up for any studies eight augment logs with `--vmodule="*/variations/*"=1` or inspect `brave://version/?show-variations-cmd` under the "Variations" section.
 
 ## Dashboard
 To build the dashboard:
