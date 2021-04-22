@@ -2,34 +2,6 @@
     "version": "1",
     "studies": [
         {
-            "name": "BraveDomainBlockStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "enable_feature": ["BraveDomainBlock"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "disable_feature": ["BraveDomainBlock"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "max_version": "90.1.23.*",
-                "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
-            }
-        },
-        {
             "name": "EphemeralStorageStudy",
             "experiments": [
                 {
@@ -82,6 +54,55 @@
             "filter": {
                 "min_version": "89.1.21.73",
                 "channel": ["NIGHTLY", "BETA"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
+            "name": "AdvertiserSplitTestingStudy",
+            "experiments": [
+                {
+                    "name": "GroupA",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupB",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupC",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupD",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupE",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupF",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupG",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupH",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupI",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "GroupJ",
+                    "probability_weight": 10
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         }
