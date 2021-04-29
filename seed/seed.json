@@ -106,6 +106,34 @@
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["US"]
             }
+        },
+        {
+            "name": "PermissionLifetimeStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": ["PermissionLifetime"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["PermissionLifetime"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "90.0.4430.85",
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
         }
     ]
 }
