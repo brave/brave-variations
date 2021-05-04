@@ -58,7 +58,7 @@
             }
         },
         {
-            "name": "AdvertiserSplitTestingStudy",
+            "name": "AdvertiserSplitTestStudy",
             "experiments": [
                 {
                     "name": "GroupA",
