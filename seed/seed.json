@@ -134,6 +134,33 @@
                 "channel": ["NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
+        },
+        {
+            "name": "AdRewardsStudy",
+            "experiments": [
+                {
+                    "name": "AdRewards",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "next_payment_day",
+                            "value": "8"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdRewards"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["UNKNOWN", "NIGHTLY", "BETA"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
         }
     ]
 }
