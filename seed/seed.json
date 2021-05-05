@@ -136,6 +136,33 @@
             }
         },
         {
+            "name": "AdNotificationsStudy",
+            "experiments": [
+                {
+                    "name": "AdNotifications",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "false"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["BETA", "RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
             "name": "AdRewardsStudy",
             "experiments": [
                 {
