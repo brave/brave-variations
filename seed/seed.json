@@ -145,17 +145,20 @@
                         "enable_feature": ["EpsilonGreedyBandit"],
                         "disable_feature": ["TextClassification"]
                     },
-                    "parameters": {
-                      "epsilon_value": 0.33
-                    }
+                    "parameters": [
+                      {
+                        "name": "epsilon_value",
+                        "value": "0.33"
+                      }
+                    ]
                 },
                 {
                     "name": "Control",
-                    "probability_weight": 10,
+                    "probability_weight": 10
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 80,
+                    "probability_weight": 80
                 }
             ],
             "filter": {
