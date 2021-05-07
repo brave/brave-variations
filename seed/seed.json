@@ -136,6 +136,38 @@
             }
         },
         {
+            "name": "EpsilonGreedyBanditStudy",
+            "experiments": [
+                {
+                    "name": "Treatment",
+                    "probability_weight": 10,
+                    "feature_association": {
+                        "enable_feature": ["EpsilonGreedyBandit"],
+                        "disable_feature": ["TextClassification"]
+                    },
+                    "parameters": [
+                      {
+                        "name": "epsilon_value",
+                        "value": "0.33"
+                      }
+                    ]
+                },
+                {
+                    "name": "Control",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 80
+                }
+            ],
+            "filter": {
+                "channel": ["RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
+                "country": ["GB"]
+            }
+        },
+        {
             "name": "AdNotificationsStudy",
             "experiments": [
                 {
