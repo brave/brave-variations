@@ -166,6 +166,60 @@
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["GB"]
             }
+        },
+        {
+            "name": "AdNotificationsStudy",
+            "experiments": [
+                {
+                    "name": "AdNotifications",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "false"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["BETA", "RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
+            "name": "AdRewardsStudy",
+            "experiments": [
+                {
+                    "name": "AdRewards",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "next_payment_day",
+                            "value": "8"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdRewards"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["UNKNOWN", "NIGHTLY", "BETA"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
         }
     ]
 }
