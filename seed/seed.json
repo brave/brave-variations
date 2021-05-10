@@ -162,7 +162,7 @@
                 }
             ],
             "filter": {
-                "channel": ["RELEASE"],
+                "channel": ["BETA", "NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["GB"]
             }
