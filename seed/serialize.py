@@ -10,10 +10,11 @@ import proto.variations_seed_pb2 as variations_seed_pb2
 
 SEED_BIN_PATH = "./seed.bin"
 SERIALNUMBER_PATH = "./serialnumber"
-CONSISTENCY = "permanent"
 TOTAL_PROBA = 100
 PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
 CHANNELS = set(["UNKNOWN", "NIGHTLY", "BETA", "RELEASE"])
+ADS_TRIAL_STRING = "BraveAds"
+ALLOWED_ADS_STUDIES = 1
 
 
 def load(seed_json_path):
@@ -40,6 +41,16 @@ def validate(seed):
         if not set(study['filter']['platform']).issubset(PLATFORMS):
             print("platform not in ", PLATFORMS)
             return False
+
+    num_ads_studies = 0
+    for study in seed['studies']:
+        if ADS_TRIAL_STRING in study['name']:
+            num_ads_studies += 1
+
+    # NOTE: Before increasing ALLOWED_ADS_STUDIES a security review is required
+    if num_ads_studies > ALLOWED_ADS_STUDIES:
+        print("Only", ALLOWED_ADS_STUDIES, "*BraveAds* studies allowed")
+        return False
 
     return True
 
