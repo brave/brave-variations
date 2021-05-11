@@ -24,6 +24,12 @@ The following steps are performed by CI to publish the updated seed file:
 3. Update the `X-Seed-Signature` response header.
 4. Update the ETAG header with the contents of `serialnumber`.
 
+Constraints:
+
+- All studies are [one time randomized](https://source.chromium.org/chromium/chromium/src/+/main:base/metrics/field_trial.h;l=99).
+- Platform and channel filters must be applied. See `PLATFORMS` and `CHANNELS` constants in `serialize.py`.
+- Brave Ads studies must contain the stubstring "BraveAds" in their study name. Only one ads study should run at any given time. To run simultaneous ads studies a security and privacy review is required.
+
 ## Some Notes on using variations in the Browser
 - Studies only take effect after restarting the browser.
 - Pull from staging endpoint with `--variations-server-url=https://variations.bravesoftware.com/seed`.
