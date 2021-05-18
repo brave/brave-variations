@@ -130,8 +130,8 @@
                 }
             ],
             "filter": {
-                "min_version": "90.1.25.42",
-                "channel": ["NIGHTLY"],
+                "min_version": "90.1.25.57",
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         }
