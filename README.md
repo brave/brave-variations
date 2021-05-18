@@ -28,7 +28,7 @@ Constraints:
 
 - All studies are [one time randomized](https://source.chromium.org/chromium/chromium/src/+/main:base/metrics/field_trial.h;l=99).
 - Platform and channel filters must be applied. See `PLATFORMS` and `CHANNELS` constants in `serialize.py`.
-- Brave Ads studies must contain the stubstring "BraveAds" in their study name. Only one ads study should run at any given time. To run simultaneous ads studies a security and privacy review is required.
+- Brave Ads studies must contain the stubstring "BraveAds" in their study name. Only one ads study with page visible side effects is allowed to run. Multiple studies without visible side effects can run simultanesouly.
 
 ## Some Notes on using variations in the Browser
 - Studies only take effect after restarting the browser.
