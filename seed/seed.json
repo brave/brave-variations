@@ -134,6 +134,122 @@
                 "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
+        },
+        {
+            "name": "DoNotShowCustomAdNotificationsOnBetaAndReleaseChannelsStudy",
+            "experiments": [
+                {
+                    "name": "AdNotifications",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "false"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["BETA", "RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
+            "name": "BraveAds.DoNotShowCustomAdNotificationsOnNightlyChannelStudy",
+            "experiments": [
+                {
+                    "name": "AdNotifications",
+                    "probability_weight": 40,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "false"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 60
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
+            "name": "BraveAds.CustomAdNotificationPositionedTopRightOnWindowsStudy",
+            "experiments": [
+                {
+                    "name": "AdNotifications",
+                    "probability_weight": 50,
+                    "parameters": [
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_x",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_y",
+                            "value": "0.0"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS"]
+            }
+        },
+        {
+            "name": "BraveAds.CustomAdNotificationPositionedBottomRightOnMacStudy",
+            "experiments": [
+                {
+                    "name": "AdNotifications",
+                    "probability_weight": 50,
+                    "parameters": [
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_x",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_y",
+                            "value": "1.0"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY"],
+                "platform": ["MAC"]
+            }
         }
     ]
 }
