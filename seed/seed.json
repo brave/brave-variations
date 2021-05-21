@@ -250,6 +250,33 @@
                 "channel": ["NIGHTLY"],
                 "platform": ["MAC"]
             }
+        },
+        {
+            "name": "BraveAds.UserActivityIdleTimeThresholdStudy",
+            "experiments": [
+                {
+                    "name": "UserActivity",
+                    "probability_weight": 50,
+                    "parameters": [
+                        {
+                            "name": "idle_time_threshold",
+                            "value": "5"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX"]
+            }
         }
     ]
 }
