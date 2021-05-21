@@ -158,6 +158,7 @@
                 }
             ],
             "filter": {
+                "max_version": "91.1.26.36",
                 "channel": ["BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
@@ -185,12 +186,41 @@
                 }
             ],
             "filter": {
+                "max_version": "91.1.26.36",
                 "channel": ["NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
         {
-            "name": "BraveAds.CustomAdNotificationPositionedTopRightOnWindowsStudy",
+            "name": "BraveAds.ShowCustomAdNotificationsOnNightlyChannelStudy",
+            "experiments": [
+                {
+                    "name": "AdNotifications",
+                    "probability_weight": 60,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "true"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 40
+                }
+            ],
+            "filter": {
+                "min_version": "91.1.26.37",
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
+            "name": "BraveAds.CustomAdNotificationPositionedBottomRightOffsetToTheLeftOfSystemNotificationsOnWindowsStudy",
             "experiments": [
                 {
                     "name": "AdNotifications",
@@ -201,8 +231,16 @@
                             "value": "1.0"
                         },
                         {
+                            "name": "ad_notification_inset_x",
+                            "value": "-370"
+                        },
+                        {
                             "name": "ad_notification_normalized_display_coordinate_y",
-                            "value": "0.0"
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_y",
+                            "value": "-10"
                         }
                     ],
                     "feature_association": {
@@ -232,8 +270,16 @@
                             "value": "1.0"
                         },
                         {
+                            "name": "ad_notification_inset_x",
+                            "value": "-10"
+                        },
+                        {
                             "name": "ad_notification_normalized_display_coordinate_y",
                             "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_y",
+                            "value": "-10"
                         }
                     ],
                     "feature_association": {
