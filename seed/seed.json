@@ -323,6 +323,34 @@
                 "channel": ["NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX"]
             }
+        },
+        {
+            "name": "MaxAdNotificationsPerDayStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "60"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdServing"],
+                        "disable_feature": []
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
+                "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
+            }
         }
     ]
 }
