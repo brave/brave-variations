@@ -139,7 +139,7 @@
             "name": "DoNotShowCustomAdNotificationsOnBetaAndReleaseChannelsStudy",
             "experiments": [
                 {
-                    "name": "AdNotifications",
+                    "name": "Enabled",
                     "probability_weight": 100,
                     "parameters": [
                         {
@@ -148,8 +148,14 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"],
-                        "disable_feature": []
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdNotifications"]
                     }
                 },
                 {
@@ -167,7 +173,7 @@
             "name": "BraveAds.DoNotShowCustomAdNotificationsOnNightlyChannelStudy",
             "experiments": [
                 {
-                    "name": "AdNotifications",
+                    "name": "Enabled",
                     "probability_weight": 40,
                     "parameters": [
                         {
@@ -176,8 +182,14 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"],
-                        "disable_feature": []
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdNotifications"]
                     }
                 },
                 {
@@ -192,10 +204,10 @@
             }
         },
         {
-            "name": "BraveAds.ShowCustomAdNotificationsOnNightlyChannelStudy",
+            "name": "BraveAds.ShowCustomAdNotificationStudy",
             "experiments": [
                 {
-                    "name": "AdNotifications",
+                    "name": "Enabled",
                     "probability_weight": 60,
                     "parameters": [
                         {
@@ -204,8 +216,48 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"],
-                        "disable_feature": []
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 40
+                }
+            ],
+            "filter": {
+                "min_version": "91.1.26.37",
+                "channel": ["NIGHTLY", "BETA"],
+                "platform": ["WINDOWS", "MAC", "LINUX"]
+            }
+        },
+        {
+            "name": "BraveAds.ShowCustomAdNotificationStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 60,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "true"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdNotifications"]
                     }
                 },
                 {
@@ -216,14 +268,14 @@
             "filter": {
                 "min_version": "91.1.26.37",
                 "channel": ["NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "platform": ["ANDROID"]
             }
         },
         {
             "name": "BraveAds.CustomAdNotificationPositionedBottomRightOffsetToTheLeftOfSystemNotificationsOnWindowsStudy",
             "experiments": [
                 {
-                    "name": "AdNotifications",
+                    "name": "Enabled",
                     "probability_weight": 50,
                     "parameters": [
                         {
@@ -244,8 +296,14 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"],
-                        "disable_feature": []
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdNotifications"]
                     }
                 },
                 {
@@ -254,7 +312,7 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS"]
             }
         },
@@ -262,7 +320,7 @@
             "name": "BraveAds.CustomAdNotificationPositionedBottomRightOnMacStudy",
             "experiments": [
                 {
-                    "name": "AdNotifications",
+                    "name": "Enabled",
                     "probability_weight": 50,
                     "parameters": [
                         {
@@ -283,8 +341,14 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"],
-                        "disable_feature": []
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdNotifications"]
                     }
                 },
                 {
@@ -293,7 +357,7 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["MAC"]
             }
         },
@@ -301,7 +365,7 @@
             "name": "BraveAds.UserActivityIdleTimeThresholdStudy",
             "experiments": [
                 {
-                    "name": "UserActivity",
+                    "name": "Enabled",
                     "probability_weight": 50,
                     "parameters": [
                         {
@@ -310,8 +374,14 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"],
-                        "disable_feature": []
+                        "enable_feature": ["UserActivity"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["UserActivity"]
                     }
                 },
                 {
@@ -320,7 +390,7 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX"]
             }
         },
@@ -337,8 +407,14 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdServing"],
-                        "disable_feature": []
+                        "enable_feature": ["AdServing"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdServing"]
                     }
                 },
                 {
