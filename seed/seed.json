@@ -204,7 +204,133 @@
             }
         },
         {
-            "name": "BraveAds.ShowCustomAdNotificationStudy",
+            "name": "BraveAds.ShowCustomAdNotificationOnWindowsStudy",
+            "experiments": [
+                {
+                    "name": "CustomAdNotificationPositionedBottomRightOffsetToTheLeftOfSystemNotifications",
+                    "probability_weight": 30,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "true"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_x",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_x",
+                            "value": "-370"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_y",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_y",
+                            "value": "-10"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "CustomAdNotificationDefaultPosition",
+                    "probability_weight": 30,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "true"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 40
+                }
+            ],
+            "filter": {
+                "min_version": "91.1.26.37",
+                "channel": ["NIGHTLY", "BETA"],
+                "platform": ["WINDOWS"]
+            }
+        },
+        {
+            "name": "BraveAds.ShowCustomAdNotificationOnMacStudy",
+            "experiments": [
+                {
+                    "name": "CustomAdNotificationPositionedBottomRight",
+                    "probability_weight": 30,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "true"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_x",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_x",
+                            "value": "-10"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_y",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_y",
+                            "value": "-10"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "CustomAdNotificationDefaultPosition",
+                    "probability_weight": 30,
+                    "parameters": [
+                        {
+                            "name": "should_show_custom_notifications",
+                            "value": "true"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 40
+                }
+            ],
+            "filter": {
+                "min_version": "91.1.26.37",
+                "channel": ["NIGHTLY", "BETA"],
+                "platform": ["MAC"]
+            }
+        },
+        {
+            "name": "BraveAds.ShowCustomAdNotificationOnLinuxStudy",
             "experiments": [
                 {
                     "name": "Enabled",
@@ -234,11 +360,11 @@
             "filter": {
                 "min_version": "91.1.26.37",
                 "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
+                "platform": ["LINUX"]
             }
         },
         {
-            "name": "BraveAds.ShowCustomAdNotificationStudy",
+            "name": "BraveAds.ShowCustomAdNotificationOnAndroidStudy",
             "experiments": [
                 {
                     "name": "Enabled",
@@ -272,100 +398,10 @@
             }
         },
         {
-            "name": "BraveAds.CustomAdNotificationPositionedBottomRightOffsetToTheLeftOfSystemNotificationsOnWindowsStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 50,
-                    "parameters": [
-                        {
-                            "name": "ad_notification_normalized_display_coordinate_x",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "ad_notification_inset_x",
-                            "value": "-370"
-                        },
-                        {
-                            "name": "ad_notification_normalized_display_coordinate_y",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "ad_notification_inset_y",
-                            "value": "-10"
-                        }
-                    ],
-                    "feature_association": {
-                        "enable_feature": ["AdNotifications"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["AdNotifications"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 50
-                }
-            ],
-            "filter": {
-                "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS"]
-            }
-        },
-        {
-            "name": "BraveAds.CustomAdNotificationPositionedBottomRightOnMacStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 50,
-                    "parameters": [
-                        {
-                            "name": "ad_notification_normalized_display_coordinate_x",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "ad_notification_inset_x",
-                            "value": "-10"
-                        },
-                        {
-                            "name": "ad_notification_normalized_display_coordinate_y",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "ad_notification_inset_y",
-                            "value": "-10"
-                        }
-                    ],
-                    "feature_association": {
-                        "enable_feature": ["AdNotifications"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["AdNotifications"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 50
-                }
-            ],
-            "filter": {
-                "channel": ["NIGHTLY", "BETA"],
-                "platform": ["MAC"]
-            }
-        },
-        {
             "name": "BraveAds.UserActivityIdleTimeThresholdStudy",
             "experiments": [
                 {
-                    "name": "Enabled",
+                    "name": "UserActivityIdleTimeThreshold.5",
                     "probability_weight": 50,
                     "parameters": [
                         {
@@ -398,7 +434,7 @@
             "name": "MaxAdNotificationsPerDayStudy",
             "experiments": [
                 {
-                    "name": "Enabled",
+                    "name": "MaxAdNotificationsPerDay.60",
                     "probability_weight": 100,
                     "parameters": [
                         {
