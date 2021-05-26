@@ -430,6 +430,44 @@
             }
         },
         {
+            "name": "BraveAds.UserActivityTriggerStudy",
+            "experiments": [
+                {
+                    "name": "UserActivityTriggers.None",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "triggers",
+                            "value": ""
+                        }
+                        {
+                            "name": "threshold",
+                            "value": "0.0"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["UserActivity"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["UserActivity"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
+                "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
+            }
+        },
+        {
             "name": "BraveAds.UserActivityIdleTimeThresholdStudy",
             "experiments": [
                 {
