@@ -430,10 +430,10 @@
             }
         },
         {
-            "name": "BraveAds.UserActivityTriggerStudy",
+            "name": "BraveAds.UserActivityStudy",
             "experiments": [
                 {
-                    "name": "UserActivityTriggers.None",
+                    "name": "Triggers=EMPTY/Threshold=0.0/IdleTimeThreshold=5",
                     "probability_weight": 100,
                     "parameters": [
                         {
@@ -443,17 +443,14 @@
                         {
                             "name": "threshold",
                             "value": "0.0"
+                        },
+                        {
+                            "name": "idle_time_threshold",
+                            "value": "5"
                         }
                     ],
                     "feature_association": {
                         "enable_feature": ["UserActivity"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["UserActivity"]
                     }
                 },
                 {
@@ -468,43 +465,10 @@
             }
         },
         {
-            "name": "BraveAds.UserActivityIdleTimeThresholdStudy",
+            "name": "AdServingStudy",
             "experiments": [
                 {
-                    "name": "UserActivityIdleTimeThreshold.5",
-                    "probability_weight": 100,
-                    "parameters": [
-                        {
-                            "name": "idle_time_threshold",
-                            "value": "5"
-                        }
-                    ],
-                    "feature_association": {
-                        "enable_feature": ["UserActivity"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["UserActivity"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
-            }
-        },
-        {
-            "name": "MaxAdNotificationsPerDayStudy",
-            "experiments": [
-                {
-                    "name": "MaxAdNotificationsPerDay.60",
+                    "name": "MaximumAdNotificationsPerDay=60",
                     "probability_weight": 100,
                     "parameters": [
                         {
@@ -514,13 +478,6 @@
                     ],
                     "feature_association": {
                         "enable_feature": ["AdServing"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["AdServing"]
                     }
                 },
                 {
@@ -538,7 +495,7 @@
             "name": "AdRewardsStudy",
             "experiments": [
                 {
-                    "name": "Enabled",
+                    "name": "NextPaymentDay=8",
                     "probability_weight": 100,
                     "parameters": [
                         {
@@ -548,13 +505,6 @@
                     ],
                     "feature_association": {
                         "enable_feature": ["AdRewards"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["AdRewards"]
                     }
                 },
                 {
