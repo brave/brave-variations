@@ -439,7 +439,7 @@
                         {
                             "name": "triggers",
                             "value": ""
-                        }
+                        },
                         {
                             "name": "threshold",
                             "value": "0.0"
