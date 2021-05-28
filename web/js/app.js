@@ -110,86 +110,97 @@ function getPlatform(ix) {
 }
 
 function processStudy(study) {
-  // Channels
-  processedChannel = [];
-  study.filter.channel.forEach(channel_ix => {
-    processedChannel.push(getChannel(channel_ix))
-  })
-  
-  if (!processedChannel.length) {
-    processedChannel.push("All")
-  }
+  const _study = Object.assign({}, study);
 
-  study.filter.processedChannels = processedChannel
+  // Channels
+  _study.filter.processedChannels = getProcessedChannels(_study);
 
   // Countries
-  processedCountry = [];
-  study.filter.country.forEach(country_ix => {
-    processedCountry.push(country_ix.toUpperCase())
-  })
-
-  if (!processedCountry.length) {
-    processedCountry.push("All")
-  }
-
-  study.filter.processedCountries = processedCountry
+  _study.filter.processedCountries = getProcessedCountries(_study);
 
   // Platforms
-  processedPlatforms = []
-  study.filter.platform.forEach(platform_ix => {
-    processedPlatforms.push(getPlatform(platform_ix))
-  })
-
-  if (!processedPlatforms.length) {
-    processedPlatforms.push("All")
-  }
-
-  study.filter.processedPlatforms = processedPlatforms
+  _study.filter.processedPlatforms = getProcessedPlatforms(_study);
 
   // Experiments
-  for (let i = 0; i < study.experiment.length; i++) {
+  for (let i = 0; i < _study.experiment.length; i++) {
     // Features
-    let experiment = study.experiment[i]
+    let experiment = _study.experiment[i];
 
-    processedEnabledFeatures = []
-    processedDisabledFeatures = []
+    let processedEnabledFeatures = ["None"];
+    let processedDisabledFeatures = ["None"];
 
-    if (experiment.featureAssociation) {
-      experiment.featureAssociation.enableFeature.forEach(feature => {
-        processedEnabledFeatures.push(feature)
-      })
+    if (experiment.featureAssociation.enableFeature?.length) {
+      processedEnabledFeatures = [
+        ...experiment.featureAssociation.enableFeature
+      ];
 
-      experiment.featureAssociation.disableFeature.forEach(feature => {
-        processedDisabledFeatures.push(feature)
-      })
+      processedDisabledFeatures = [
+        ...experiment.featureAssociation.disableFeature
+      ];
     }
 
-    if (!processedEnabledFeatures.length) {
-      processedEnabledFeatures.push("None")
-    }
-
-    study.experiment[i].processedEnabledFeatures = processedEnabledFeatures
-
-    if (!processedDisabledFeatures.length) {
-      processedDisabledFeatures.push("None")
-    }
-
-    study.experiment[i].processedDisabledFeatures = processedDisabledFeatures
+    _study.experiment[i].processedEnabledFeatures = processedEnabledFeatures;
+    _study.experiment[i].processedDisabledFeatures = processedDisabledFeatures;
 
     // Parameters
-    processedParameters = []
-    if (experiment.param) {
-      experiment.param.forEach(parameter => {
-        processedParameters.push(parameter.name + ": " + parameter.value)
-      })
-    }
-
-    if (!processedParameters.length) {
-      processedParameters.push("None")
-    }
-
-    study.experiment[i].processedParameters = processedParameters
+    _study.experiment[i].processedParameters = getProcessedParameters(experiment);
   }
 
-  return study
+  return _study;
+}
+
+function getProcessedParameters(experiment) {
+  const processedParameters = [];
+
+  if (experiment.param) {
+    experiment.param.forEach((parameter) => {
+      processedParameters.push(parameter.name + ": " + parameter.value);
+    });
+  }
+
+  if (!processedParameters.length) {
+    processedParameters.push("None");
+  }
+
+  return processedParameters;
+}
+
+function getProcessedCountries(study) {
+  const processedCountry = [];
+  study.filter.country.forEach((country_ix) => {
+    processedCountry.push(country_ix.toUpperCase());
+  });
+
+  if (!processedCountry.length) {
+    processedCountry.push("All");
+  }
+
+  return processedCountry;
+}
+
+function getProcessedChannels(study) {
+  const processedChannel = [];
+  study.filter.channel.forEach((channel_ix) => {
+    processedChannel.push(getChannel(channel_ix));
+  });
+
+  if (!processedChannel.length) {
+    processedChannel.push("All");
+  }
+
+  return processedChannel;
+}
+
+function getProcessedPlatforms(study) {
+  const processedPlatforms = [];
+
+  study.filter.platform.forEach((platform_ix) => {
+    processedPlatforms.push(getPlatform(platform_ix));
+  });
+
+  if (!processedPlatforms.length) {
+    processedPlatforms.push("All");
+  }
+
+  return processedPlatforms;
 }
