@@ -472,7 +472,7 @@
                         },
                         {
                             "name": "idle_time_threshold",
-                            "value": "5"
+                            "value": "5s"
                         }
                     ],
                     "feature_association": {
