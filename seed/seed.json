@@ -542,6 +542,50 @@
                 "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
+        },
+        {
+            "name": "OperationalProfilesCollectionStudyBeta",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 10,
+                    "feature_association": {
+                        "enable_feature": ["FederatedLearningOperationalProfiling"]
+                    },
+                    "parameters": [
+                        {
+                            "name": "collection_slot_size_in_minutes",
+                            "value": "30"
+                        }, 
+                        {
+                            "name": "simulate_local_training_step_duration_in_minutes",
+                            "value": "5"
+                        },
+                        {
+                            "name": "collection_id_lifetime_in_days",
+                            "value": "30"
+
+                        }
+                    ]
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 90,
+                    "feature_association": {
+                        "disable_feature": ["FederatedLearningOperationalProfiling"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "90.1.27.68",
+                "channel": ["BETA"],
+                "platform": ["WINDOWS", "MAC", "IOS", "ANDROID"],
+                "country": ["US"]
+            }
         }
     ]
 }
