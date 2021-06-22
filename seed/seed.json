@@ -451,8 +451,10 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "min_version": "91.1.26.60",
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
+                "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
             }
         },
         {
