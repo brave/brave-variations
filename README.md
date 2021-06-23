@@ -47,3 +47,8 @@ Constraints:
 To build the dashboard:
 1. Install dependencies `$ npm install`
 2. Bundle resources `$ npm run build`
+
+## Git flow
+1. Work in feature branch and when done create a PR to `main` branch (which will be picked up by CI for staging).
+2. Verify that everything works as intended via the staging endpoint `--variations-server-url=https://variations.bravesoftware.com/seed`.
+3. Cherry-pick the commit to production.
