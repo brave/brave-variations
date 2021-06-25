@@ -523,12 +523,12 @@
             "name": "AdServingStudy",
             "experiments": [
                 {
-                    "name": "MaximumAdNotificationsPerDay=60",
+                    "name": "MaximumAdNotificationsPerDay=100",
                     "probability_weight": 100,
                     "parameters": [
                         {
                             "name": "maximum_ad_notifications_per_day",
-                            "value": "60"
+                            "value": "100"
                         }
                     ],
                     "feature_association": {
