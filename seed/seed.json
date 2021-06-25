@@ -2,6 +2,33 @@
     "version": "1",
     "studies": [
         {
+            "name": "VulkanStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "enable_feature": ["Vulkan"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": ["Vulkan"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
+                "platform": ["ANDROID"]
+            }
+        },
+        {
             "name": "EphemeralStorageStudy",
             "experiments": [
                 {
