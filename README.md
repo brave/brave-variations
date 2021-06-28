@@ -12,7 +12,7 @@ A continuous integration server (CI) serializes and signs the updated seed file 
 ## Git flow
 1. Work in feature branch and when done create a PR to `main` branch (which will be picked up by CI for staging).
 2. Verify that everything works as intended via the staging endpoint `--variations-server-url=https://variations.bravesoftware.com/seed`.
-3. Cherry-pick the commit to production.
+3. Cherry-pick the commit to production by creating another PR to `production` branch (which will be picked up by CI again).
 
 ## Key Generation and Exchange
 On initial deployment and subsequent key rotations a new key pair has to be generated. The public key is exchanged by patching the hard-coded public key bytes in [variations_seed_store.cc#L37](https://source.chromium.org/chromium/chromium/src/+/master:components/variations/variations_seed_store.cc;l=37):
