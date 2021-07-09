@@ -24,8 +24,8 @@
                 }
             ],
             "filter": {
-                "min_version": "91.0.4472.114",
-                "channel": ["NIGHTLY", "BETA"],
+                "min_version": "91.1.26.74",
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX"]
             }
         },
