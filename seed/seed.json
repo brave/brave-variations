@@ -631,6 +631,34 @@
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["GB"]
             }
+        },
+        {
+            "name": "MacCoreLocationBackendStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": ["MacCoreLocationBackend"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["MacCoreLocationBackend"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "91.1.26.74",
+                "channel": ["BETA", "NIGHTLY"],
+                "platform": ["MAC"]
+            }
         }
     ]
 }
