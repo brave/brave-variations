@@ -656,7 +656,7 @@
             ],
             "filter": {
                 "min_version": "91.1.26.74",
-                "channel": ["BETA", "NIGHTLY"],
+                "channel": ["RELEASE", "BETA", "NIGHTLY"],
                 "platform": ["MAC"]
             }
         }
