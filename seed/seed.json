@@ -709,7 +709,7 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
+                "channel": ["BETA", "NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX"]
             }
         }
