@@ -241,7 +241,7 @@
                 }
             ],
             "filter": {
-                "min_version": "92.0.4515.115",
+                "min_version": "92.1.28.100",
                 "channel": ["RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX"]
             }
