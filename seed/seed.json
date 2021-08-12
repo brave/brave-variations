@@ -373,6 +373,7 @@
             ],
             "filter": {
                 "min_version": "91.1.26.37",
+                "max_version": "92.1.30.18",
                 "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS"]
             }
@@ -436,6 +437,7 @@
             ],
             "filter": {
                 "min_version": "91.1.26.37",
+                "max_version": "92.1.30.18",
                 "channel": ["NIGHTLY", "BETA"],
                 "platform": ["MAC"]
             }
@@ -470,6 +472,7 @@
             ],
             "filter": {
                 "min_version": "91.1.26.37",
+                "max_version": "92.1.30.18",
                 "channel": ["NIGHTLY", "BETA"],
                 "platform": ["LINUX"]
             }
@@ -504,6 +507,169 @@
             ],
             "filter": {
                 "min_version": "91.1.26.37",
+                "max_version": "92.1.30.18",
+                "channel": ["NIGHTLY"],
+                "platform": ["ANDROID"]
+            }
+        },
+        {
+            "name": "BraveAds.ShowCustomAdNotificationOnWindowsStudy",
+            "experiments": [
+                {
+                    "name": "CustomAdNotificationPositionedBottomRightOffsetToTheLeftOfSystemNotifications",
+                    "probability_weight": 30,
+                    "parameters": [
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_x",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_x",
+                            "value": "-370"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_y",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_y",
+                            "value": "-10"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "CustomAdNotificationDefaultPosition",
+                    "probability_weight": 30,
+                    "feature_association": {
+                        "enable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 40
+                }
+            ],
+            "filter": {
+                "min_version": "92.1.30.19",
+                "channel": ["NIGHTLY", "BETA"],
+                "platform": ["WINDOWS"]
+            }
+        },
+        {
+            "name": "BraveAds.ShowCustomAdNotificationOnMacStudy",
+            "experiments": [
+                {
+                    "name": "CustomAdNotificationPositionedBottomRight",
+                    "probability_weight": 30,
+                    "parameters": [
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_x",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_x",
+                            "value": "-10"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_y",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_y",
+                            "value": "-10"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "CustomAdNotificationDefaultPosition",
+                    "probability_weight": 30,
+                    "feature_association": {
+                        "enable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 40
+                }
+            ],
+            "filter": {
+                "min_version": "92.1.30.19",
+                "channel": ["NIGHTLY", "BETA"],
+                "platform": ["MAC"]
+            }
+        },
+        {
+            "name": "BraveAds.ShowCustomAdNotificationOnLinuxStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 60,
+                    "feature_association": {
+                        "enable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 40
+                }
+            ],
+            "filter": {
+                "min_version": "92.1.30.19",
+                "channel": ["NIGHTLY", "BETA"],
+                "platform": ["LINUX"]
+            }
+        },
+        {
+            "name": "BraveAds.ShowCustomAdNotificationOnAndroidStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 60,
+                    "feature_association": {
+                        "enable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["CustomAdNotifications"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 40
+                }
+            ],
+            "filter": {
+                "min_version": "92.1.30.19",
                 "channel": ["NIGHTLY"],
                 "platform": ["ANDROID"]
             }
