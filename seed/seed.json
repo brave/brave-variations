@@ -579,12 +579,20 @@
             "name": "AdServingStudy",
             "experiments": [
                 {
-                    "name": "MaximumAdNotificationsPerDay=100",
+                    "name": "MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=8/MaximumInlineContentAdsPerDay=40",
                     "probability_weight": 100,
                     "parameters": [
                         {
                             "name": "maximum_ad_notifications_per_day",
                             "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "8"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "40"
                         }
                     ],
                     "feature_association": {
