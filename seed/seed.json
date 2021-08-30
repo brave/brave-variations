@@ -831,6 +831,32 @@
             }
         },
         {
+            "name": "ConversionsParametersStudy",
+            "experiments": [
+                {
+                    "name": "NewDefaultPattern",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "conversions_default_conversion_id_pattern",
+                            "value": "<meta.*name=\"ad-conversion-id\".*content=\"([-a-zA-Z0-9]*)\".*>"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["Conversions"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
             "name": "BraveAds.EpsilonGreedyBanditStudy",
             "experiments": [
                 {
