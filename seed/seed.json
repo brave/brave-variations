@@ -811,7 +811,7 @@
                     "parameters": [
                         {
                             "name": "conversions_default_conversion_id_pattern",
-                            "value": "<meta.*name=\"ad-conversion-id\".*content=\"([^\"]*)\".*>"
+                            "value": "<meta.*name=\"ad-conversion-id\".*content=\"([-a-zA-Z0-9]*)\".*>"
                         }
                     ],
                     "feature_association": {
