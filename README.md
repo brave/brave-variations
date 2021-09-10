@@ -40,7 +40,7 @@ Constraints:
 - Pull from staging endpoint with `--variations-server-url=https://variations.bravesoftware.com/seed`.
 - Precedence rules for feature overrides (starting with highest precedence):
   - Flags via `brave://flags`
-  - CLI overrides with `--disable-features="..." --enable-features="..."`
+  - CLI overrides with `--disable-features="..." --enable-features="..."`, e.g. enable feature `FooBar` with parameters `param1=2` and `param3=4` via `--enable-features=FooBar:param1/2/param3/4`
   - Variations overrides as defined in the `seed`
   - hard-coded `base::feature` defaults
 - Filter rules might include
