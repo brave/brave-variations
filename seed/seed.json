@@ -1074,6 +1074,46 @@
                 "channel": ["NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
+        },
+        {
+            "name": "BraveAds.AdServingImprovementsStudy",
+            "experiments": [
+                {
+                    "name": "Treatment/AdServingVersion=2",
+                    "probability_weight": 50,
+                    "parameters": [
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdServing"]
+                    }
+                },
+                {
+                    "name": "Control/AdServingVersion=1",
+                    "probability_weight": 50,
+                    "parameters": [
+                        {
+                            "name": "ad_serving_version",
+                            "value": "1"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdServing"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "94.1.32.17",
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
         }
     ]
 }
