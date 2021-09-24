@@ -575,6 +575,12 @@
                 {
                     "name": "CustomAdNotificationDefaultPosition",
                     "probability_weight": 30,
+                    "parameters": [
+                        {
+                            "name": "can_fallback_to_custom_notifications",
+                            "value": "true"
+                        }
+                    ],
                     "feature_association": {
                         "enable_feature": ["CustomAdNotifications"]
                     }
