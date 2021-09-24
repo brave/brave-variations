@@ -1050,7 +1050,7 @@
                         {
                             "name": "collection_slot_size_in_minutes",
                             "value": "30"
-                        }, 
+                        },
                         {
                             "name": "simulate_local_training_step_duration_in_minutes",
                             "value": "5"
@@ -1111,6 +1111,34 @@
             ],
             "filter": {
                 "min_version": "94.1.32.17",
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
+            "name": "BraveDebounceStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 5,
+                    "feature_association": {
+                        "enable_feature": ["BraveDebounce"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 95,
+                    "feature_association": {
+                        "disable_feature": ["BraveDebounce"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "94.0.4606.54",
                 "channel": ["NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
