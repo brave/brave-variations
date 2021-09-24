@@ -125,6 +125,15 @@ def serialize_and_save_variations_seed_message(seed_data, path):
         if 'min_version' in study_data['filter']:
             study.filter.min_version = study_data['filter']['min_version']
 
+        if 'max_version' in study_data['filter']:
+            study.filter.max_version = study_data['filter']['max_version']
+
+        if 'min_os_version' in study_data['filter']:
+            study.filter.min_os_version = study_data['filter']['min_os_version']
+
+        if 'max_os_version' in study_data['filter']:
+            study.filter.max_os_version = study_data['filter']['max_os_version']
+
     # Serialize and save
     with open(path, "wb") as file:
         file.write(seed.SerializeToString())
