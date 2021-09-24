@@ -952,7 +952,6 @@
                     "feature_association": {
                         "enable_feature": [
                             "PartitionConnectionsByNetworkIsolationKey",
-                            "PartitionDomainReliabilityByNetworkIsolationKey",
                             "PartitionExpectCTStateByNetworkIsolationKey",
                             "PartitionHttpServerPropertiesByNetworkIsolationKey",
                             "PartitionSSLSessionsByNetworkIsolationKey",
