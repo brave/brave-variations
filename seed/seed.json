@@ -1078,7 +1078,8 @@
             "filter": {
                 "min_version": "92.1.28.42",
                 "channel": ["NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
+                "country": ["US"]
             }
         },
         {
