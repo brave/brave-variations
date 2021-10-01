@@ -1042,6 +1042,33 @@
                 "channel": ["RELEASE", "BETA", "NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX"]
             }
+        },
+        {
+            "name": "PartitionConnectionsByNetworkIsolationKeyStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 50,
+                    "feature_association": {
+                        "enable_feature": [
+                            "PartitionConnectionsByNetworkIsolationKey",
+                            "PartitionExpectCTStateByNetworkIsolationKey",
+                            "PartitionHttpServerPropertiesByNetworkIsolationKey",
+                            "PartitionSSLSessionsByNetworkIsolationKey",
+                            "SplitHostCacheByNetworkIsolationKey"
+                        ]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "min_version": "94.1.31.51",
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
         }
     ]
 }
