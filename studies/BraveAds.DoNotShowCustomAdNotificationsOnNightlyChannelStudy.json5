@@ -1,0 +1,34 @@
+[
+    {
+        "experiments": [
+            {
+                "name": "Enabled",
+                "probability_weight": 40,
+                "parameters": [
+                    {
+                        "name": "should_show_custom_notifications",
+                        "value": "false"
+                    }
+                ],
+                "feature_association": {
+                    "enable_feature": ["AdNotifications"]
+                }
+            },
+            {
+                "name": "Disabled",
+                "probability_weight": 0,
+                "feature_association": {
+                    "disable_feature": ["AdNotifications"]
+                }
+            },
+            {
+                "name": "Default",
+                "probability_weight": 60
+            }
+        ],
+        "filter": {
+            "channel": ["NIGHTLY"],
+            "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+        }
+    }
+]

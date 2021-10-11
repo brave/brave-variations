@@ -1,0 +1,29 @@
+[
+    {
+        "experiments": [
+            {
+                "name": "Enabled",
+                "probability_weight": 0,
+                "feature_association": {
+                    "enable_feature": ["BraveAdblockDefault1pBlocking"]
+                }
+            },
+            {
+                "name": "Disabled",
+                "probability_weight": 100,
+                "feature_association": {
+                    "disable_feature": ["BraveAdblockDefault1pBlocking"]
+                }
+            },
+            {
+                "name": "Default",
+                "probability_weight": 0
+            }
+        ],
+        "filter": {
+            "min_version": "92.1.30.57",
+            "channel": ["NIGHTLY", "BETA"],
+            "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+        }
+    }
+]
