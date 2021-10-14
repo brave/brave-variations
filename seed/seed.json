@@ -635,6 +635,24 @@
                 {
                     "name": "Enabled",
                     "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_x",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_x",
+                            "value": "-370"
+                        },
+                        {
+                            "name": "ad_notification_normalized_display_coordinate_y",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "ad_notification_inset_y",
+                            "value": "-10"
+                        }
+                    ],
                     "feature_association": {
                         "enable_feature": ["CustomAdNotifications"]
                     }
