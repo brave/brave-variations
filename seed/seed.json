@@ -589,72 +589,7 @@
             ],
             "filter": {
                 "min_version": "92.1.30.19",
-                "min_os_version": "10.0.17134.*",
-                "channel": ["BETA", "NIGHTLY"],
-                "platform": ["WINDOWS"]
-            }
-        },
-        {
-            "name": "AdNotificationsWindowsStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 100,
-                    "parameters": [
-                        {
-                            "name": "can_fallback_to_custom_notifications",
-                            "value": "true"
-                        }
-                    ],
-                    "feature_association": {
-                        "enable_feature": ["AdNotifications"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["AdNotifications"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "min_version": "94.1.30.87",
-                "min_os_version": "10.0.17134.*",
-                "channel": ["RELEASE", "BETA", "NIGHTLY"],
-                "platform": ["WINDOWS"]
-            }
-        },
-        {
-            "name": "BraveAds.ShowCustomAdNotificationOnWindowsStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "enable_feature": ["CustomAdNotifications"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["CustomAdNotifications"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "min_version": "92.1.30.19",
-                "max_os_version": "10.0.16299.*",
-                "channel": ["RELEASE", "NIGHTLY", "BETA"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS"]
             }
         },
@@ -707,37 +642,7 @@
             ],
             "filter": {
                 "min_version": "92.1.30.19",
-                "min_os_version": "10.14.*",
                 "channel": ["NIGHTLY", "BETA"],
-                "platform": ["MAC"]
-            }
-        },
-        {
-            "name": "BraveAds.ShowCustomAdNotificationOnMacStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "enable_feature": ["CustomAdNotifications"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["CustomAdNotifications"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "min_version": "92.1.30.19",
-                "max_os_version": "10.13.*",
-                "channel": ["RELEASE", "NIGHTLY", "BETA"],
                 "platform": ["MAC"]
             }
         },
@@ -746,7 +651,7 @@
             "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 100,
+                    "probability_weight": 60,
                     "feature_association": {
                         "enable_feature": ["CustomAdNotifications"]
                     }
@@ -760,12 +665,12 @@
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 0
+                    "probability_weight": 40
                 }
             ],
             "filter": {
                 "min_version": "92.1.30.19",
-                "channel": ["RELEASE", "NIGHTLY", "BETA"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["LINUX"]
             }
         },
@@ -793,72 +698,7 @@
             ],
             "filter": {
                 "min_version": "92.1.30.19",
-                "min_os_version": "8.*",
-                "channel": ["BETA", "NIGHTLY"],
-                "platform": ["ANDROID"]
-            }
-        },
-        {
-            "name": "AdNotificationsAndroidStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 100,
-                    "parameters": [
-                        {
-                            "name": "can_fallback_to_custom_notifications",
-                            "value": "true"
-                        }
-                    ],
-                    "feature_association": {
-                        "enable_feature": ["AdNotifications"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["AdNotifications"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "min_version": "94.1.30.87",
-                "min_os_version": "8.*",
-                "channel": ["RELEASE", "BETA", "NIGHTLY"],
-                "platform": ["ANDROID"]
-            }
-        },
-        {
-            "name": "BraveAds.ShowCustomAdNotificationOnAndroidStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "enable_feature": ["CustomAdNotifications"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["CustomAdNotifications"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "min_version": "92.1.30.19",
-                "max_os_version": "7.*",
-                "channel": ["RELEASE", "BETA", "NIGHTLY"],
+                "channel": ["NIGHTLY"],
                 "platform": ["ANDROID"]
             }
         },
