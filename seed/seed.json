@@ -1008,6 +1008,34 @@
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["US"]
             }
+        },
+        {
+            "name": "RequestAdsEnabledApiStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": ["RequestAdsEnabledApi"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["RequestAdsEnabledApi"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "95.1.33.7",
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
         }
     ]
 }
