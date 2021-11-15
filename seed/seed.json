@@ -1042,7 +1042,7 @@
             "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 5,
+                    "probability_weight": 15,
                     "feature_association": {
                         "enable_feature": [
                             "PartitionConnectionsByNetworkIsolationKey",
@@ -1055,7 +1055,7 @@
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 95
+                    "probability_weight": 85
                 }
             ],
             "filter": {
