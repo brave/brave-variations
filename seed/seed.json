@@ -437,6 +437,58 @@
             }
         },
         {
+            "name": "BraveAds.AdNotificationsStudy",
+            "experiments": [
+                {
+                    "name": "AdNotificationTimeout=60",
+                    "probability_weight": 25,
+                    "parameters": [
+                        {
+                            "name": "ad_notification_timeout",
+                            "value": "60"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "AdNotificationTimeout=30",
+                    "probability_weight": 25,
+                    "parameters": [
+                        {
+                            "name": "ad_notification_timeout",
+                            "value": "30"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "AdNotificationTimeout=15",
+                    "probability_weight": 25,
+                    "parameters": [
+                        {
+                            "name": "ad_notification_timeout",
+                            "value": "15"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdNotifications"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 25
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX"]
+            }
+        },
+        {
             "name": "AdRewardsStudy",
             "experiments": [
                 {
