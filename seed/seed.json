@@ -381,7 +381,7 @@
             "experiments": [
                 {
                     "name": "MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=8/MaximumInlineContentAdsPerDay=40/AdServingVersion=1",
-                    "probability_weight": 50,
+                    "probability_weight": 20,
                     "parameters": [
                         {
                             "name": "maximum_ad_notifications_per_day",
@@ -406,7 +406,7 @@
                 },
                 {
                     "name": "MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=8/MaximumInlineContentAdsPerDay=40/AdServingVersion=2",
-                    "probability_weight": 50,
+                    "probability_weight": 20,
                     "parameters": [
                         {
                             "name": "maximum_ad_notifications_per_day",
@@ -428,10 +428,97 @@
                     "feature_association": {
                         "enable_feature": ["AdServing"]
                     }
+                },
+                {
+                    "name": "MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=8/MaximumInlineContentAdsPerDay=40/AdServingVersion=2/AdPredictorWeights=16.0,8.0,16.0,8.0,0.0,0.0,0.0",
+                    "probability_weight": 20,
+                    "parameters": [
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "8"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "40"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        },
+                        {
+                            "name": "ad_predictor_weights",
+                            "value": "16.0, 8.0, 16.0, 8.0, 0.0, 0.0, 0.0"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdServing"]
+                    }
+                },
+                {
+                    "name": "MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=8/MaximumInlineContentAdsPerDay=40/AdServingVersion=2/AdPredictorWeights=0.0,0.0,0.0,0.0,16.0,16.0,0.0",
+                    "probability_weight": 20,
+                    "parameters": [
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "8"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "40"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        },
+                        {
+                            "name": "ad_predictor_weights",
+                            "value": "0.0, 0.0, 0.0, 0.0, 16.0, 16.0, 0.0"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdServing"]
+                    }
+                },
+                {
+                    "name": "MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=8/MaximumInlineContentAdsPerDay=40/AdServingVersion=2/AdPredictorWeights=32.0,16.0,16.0,8.0,4.0,2.0,1.0",
+                    "probability_weight": 20,
+                    "parameters": [
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "8"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "40"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        },
+                        {
+                            "name": "ad_predictor_weights",
+                            "value": "32.0, 16.0, 16.0, 8.0, 4.0, 2.0, 1.0"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdServing"]
+                    }
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
             }
