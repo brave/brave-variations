@@ -44,7 +44,7 @@ Constraints:
   - Variations overrides as defined in the `seed`
   - hard-coded `base::feature` defaults
 - Filter rules might include
-  - Countries: The ISO country code is set in the `X-Country` response header and is inferred from the source IP by the CDN.
+  - Countries: The ISO country code is set in the `X-Country` response header and is inferred from the source IP by the CDN but can be faked with e.g. `--variations-override-country=us`
   - Channels: Use e.g. `--fake-variations-channel=beta` to override the channel of your build.
 - To verify if the browser signed up for any studies eight augment logs with `--vmodule="*/variations/*"=1` or inspect `brave://version/?show-variations-cmd` under the "Variations" section.
 
