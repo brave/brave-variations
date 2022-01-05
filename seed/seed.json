@@ -937,6 +937,41 @@
                 "channel": ["NIGHTLY"],
                 "platform": ["ANDROID"]
             }
+        },
+        {
+            "name": "HangWatcher",
+            "experiments": [
+                {
+                    "name": "AdNotificationTimeout=60",
+                    "probability_weight": 50,
+                    "parameters": [
+                        {
+                            "name": "ui_thread_log_level",
+                            "value": "2"
+                        },
+                        {
+                            "name": "io_thread_log_level",
+                            "value": "2"
+                        },
+                        {
+                            "name": "threadpool_log_level",
+                            "value": "2"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["HangWatcher"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX"],
+                "min_version": "97.1.36.14"
+            }
         }       
     ]
 }
