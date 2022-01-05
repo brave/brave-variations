@@ -891,7 +891,7 @@
             "name": "HangWatcher",
             "experiments": [
                 {
-                    "name": "AdNotificationTimeout=60",
+                    "name": "HangWatcherEnableDumps",
                     "probability_weight": 50,
                     "parameters": [
                         {
