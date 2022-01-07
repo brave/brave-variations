@@ -778,7 +778,7 @@
             ],
             "filter": {
                 "min_version": "94.1.32.25",
-                "channel": ["NIGHTLY"],
+                "channel": ["RELEASE", "BETA", "NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
@@ -997,7 +997,7 @@
                 }
             ],
             "filter": {
-                "channel": ["RELEASE", "BETA", "NIGHTLY"],
+                "channel": ["NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX"],
                 "min_version": "97.1.36.14"
             }
