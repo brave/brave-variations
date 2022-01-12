@@ -1001,6 +1001,26 @@
                 "platform": ["WINDOWS", "MAC", "LINUX"],
                 "min_version": "97.1.36.14"
             }
-        }       
+        },
+        {
+            "name": "DisableCnameUncloakingForAndroid",
+            "experiments": [
+                {
+                    "name": "Disabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": ["BraveAdblockCnameUncloaking"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
+                "platform": ["ANDROID"]
+            }
+        }
     ]
 }
