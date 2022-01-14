@@ -502,7 +502,7 @@
                 }
             ],
             "filter": {
-                "channel": ["RELEASE", "BETA"],
+                "channel": ["RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
@@ -668,7 +668,7 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
             }
