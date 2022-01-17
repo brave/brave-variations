@@ -988,7 +988,7 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["HangWatcher"]
+                        "enable_feature": ["EnableHangWatcher"]
                     }
                 },
                 {
