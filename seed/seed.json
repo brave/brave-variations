@@ -367,7 +367,7 @@
             "experiments": [
                 {
                     "name": "Triggers=EMPTY/Threshold=0.0/IdleTimeThreshold=5",
-                    "probability_weight": 100,
+                    "probability_weight": 90,
                     "parameters": [
                         {
                             "name": "triggers",
@@ -377,6 +377,19 @@
                             "name": "threshold",
                             "value": "0.0"
                         },
+                        {
+                            "name": "idle_time_threshold",
+                            "value": "5s"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["UserActivity"]
+                    }
+                },
+                {
+                    "name": "IdleTimeThreshold=5",
+                    "probability_weight": 10,
+                    "parameters": [
                         {
                             "name": "idle_time_threshold",
                             "value": "5s"
