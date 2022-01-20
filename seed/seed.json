@@ -855,30 +855,7 @@
             ],
             "filter": {
                 "min_version": "96.1.34.20",
-                "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
-            }
-        },
-        {
-            "name": "PartitionBlinkMemoryCacheStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 50,
-                    "feature_association": {
-                        "enable_feature": [
-                            "PartitionBlinkMemoryCache"
-                        ]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 50
-                }
-            ],
-            "filter": {
-                "min_version": "96.1.34.20",
-                "channel": ["RELEASE"],
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
