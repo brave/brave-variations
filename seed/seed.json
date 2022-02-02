@@ -440,7 +440,7 @@
                 }
             ],
             "filter": {
-                "channel": ["BETA", "RELEASE"],
+                "channel": ["RELEASE", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
             }
