@@ -1011,6 +1011,22 @@
                 "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["ANDROID"]
             }
+        },
+        {
+            "name": "NavigationThreadingOptimizationsCompat",
+            "experiments": [
+                {
+                    "name": "Disabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": ["NavigationThreadingOptimizations"]
+                    }
+                }
+             ],
+            "filter": {
+                "platform": ["WINDOWS", "MAC", "LINUX"],
+                "max_version": "99.0.0.0"
+            }
         }
     ]
 }
