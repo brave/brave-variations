@@ -1021,6 +1021,10 @@
                     "feature_association": {
                         "disable_feature": ["NavigationThreadingOptimizations"]
                     }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
                 }
              ],
             "filter": {
