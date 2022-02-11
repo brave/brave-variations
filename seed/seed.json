@@ -1045,6 +1045,26 @@
             "experiments": [
                 {
                     "name": "Disabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": ["NavigationThreadingOptimizations"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+             ],
+            "filter": {
+                "platform": ["WINDOWS", "MAC", "LINUX"],
+                "channel": ["NIGHTLY", "BETA"]
+            }
+        },
+        {
+            "name": "NavigationThreadingOptimizationsCompat",
+            "experiments": [
+                {
+                    "name": "Disabled",
                     "probability_weight": 5,
                     "feature_association": {
                         "disable_feature": ["NavigationThreadingOptimizations"]
@@ -1057,7 +1077,7 @@
              ],
             "filter": {
                 "platform": ["WINDOWS", "MAC", "LINUX"],
-                "channel": ["NIGHTLY", "BETA", "RELEASE"]
+                "channel": ["RELEASE"]
             }
         }
     ]
