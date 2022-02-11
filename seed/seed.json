@@ -1045,14 +1045,14 @@
             "experiments": [
                 {
                     "name": "Disabled",
-                    "probability_weight": 100,
+                    "probability_weight": 5,
                     "feature_association": {
                         "disable_feature": ["NavigationThreadingOptimizations"]
                     }
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 0
+                    "probability_weight": 95
                 }
              ],
             "filter": {
