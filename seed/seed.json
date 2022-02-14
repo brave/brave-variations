@@ -930,34 +930,6 @@
             }
         },
         {
-            "name": "BraveNewsStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "enable_feature": ["BraveNews"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["BraveNews"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "min_version": "96.1.34.39",
-                "channel": ["NIGHTLY"],
-                "platform": ["ANDROID"]
-            }
-        },
-        {
             "name": "EnableHangWatcher",
             "experiments": [
                 {
