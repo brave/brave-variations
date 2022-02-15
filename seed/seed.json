@@ -303,6 +303,30 @@
             }
         },
         {
+          "name": "FirstPartyEphemeralDomainBlockStudy",
+          "experiments": [
+              {
+                  "name": "Enabled",
+                  "probability_weight": 20,
+                  "feature_association": {
+                      "enable_feature": [
+                          "BraveFirstPartyEphemeralStorage",
+                          "BraveDomainBlock1PES"
+                      ]
+                  }
+              },
+              {
+                  "name": "Default",
+                  "probability_weight": 80
+              }
+          ],
+          "filter": {
+              "min_version": "98.1.37.50",
+              "channel": ["NIGHTLY"],
+              "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+          }
+        },
+        {
             "name": "SpeedreaderReleaseStudy",
             "experiments": [
                 {
