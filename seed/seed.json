@@ -1001,8 +1001,7 @@
              ],
             "filter": {
                 "platform": ["WINDOWS", "MAC", "LINUX"],
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "max_version": "99.0.0.0"
+                "channel": ["NIGHTLY", "BETA", "RELEASE"]
             }
         }
     ]
