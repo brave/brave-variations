@@ -299,6 +299,30 @@
           }
         },
         {
+          "name": "FirstPartyEphemeralDomainBlockStudy",
+          "experiments": [
+              {
+                  "name": "Enabled",
+                  "probability_weight": 25,
+                  "feature_association": {
+                      "enable_feature": [
+                          "BraveFirstPartyEphemeralStorage",
+                          "BraveDomainBlock1PES"
+                      ]
+                  }
+              },
+              {
+                  "name": "Default",
+                  "probability_weight": 75
+              }
+          ],
+          "filter": {
+              "min_version": "98.1.37.50",
+              "channel": ["BETA"],
+              "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+          }
+        },
+        {
             "name": "SpeedreaderReleaseStudy",
             "experiments": [
                 {
