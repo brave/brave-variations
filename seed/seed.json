@@ -1021,7 +1021,19 @@
                             "value": "2"
                         },
                         {
-                            "name": "threadpool_log_level",
+                            "name": "renderer_process_main_thread_log_level",
+                            "value": "2"
+                        },
+                        {
+                            "name": "renderer_process_io_thread_log_level",
+                            "value": "2"
+                        },
+                        {
+                            "name": "utility_process_main_thread_log_level",
+                            "value": "2"
+                        },
+                        {
+                            "name": "utility_process_io_thread_log_level",
                             "value": "2"
                         }
                     ],
