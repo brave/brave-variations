@@ -419,11 +419,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "8"
+                            "value": "12"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "40"
+                            "value": "60"
                         }
                     ],
                     "feature_association": {
@@ -437,8 +437,7 @@
             ],
             "filter": {
                 "channel": ["RELEASE", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
-                "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
         {
@@ -454,11 +453,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "8"
+                            "value": "12"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "40"
+                            "value": "60"
                         },
                         {
                             "name": "ad_serving_version",
@@ -479,11 +478,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "8"
+                            "value": "12"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "40"
+                            "value": "60"
                         },
                         {
                             "name": "ad_serving_version",
@@ -504,11 +503,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "8"
+                            "value": "12"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "40"
+                            "value": "60"
                         },
                         {
                             "name": "ad_serving_version",
@@ -533,11 +532,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "8"
+                            "value": "12"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "40"
+                            "value": "60"
                         },
                         {
                             "name": "ad_serving_version",
@@ -562,11 +561,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "8"
+                            "value": "12"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "40"
+                            "value": "60"
                         },
                         {
                             "name": "ad_serving_version",
