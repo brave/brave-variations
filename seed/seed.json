@@ -869,45 +869,6 @@
             }
         },
         {
-            "name": "OperationalPatternsCollectionStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 10,
-                    "feature_association": {
-                        "enable_feature": ["FederatedLearningOperationalPatterns"]
-                    },
-                    "parameters": [
-                        {
-                            "name": "collection_slot_size_in_minutes",
-                            "value": "30"
-                        },
-                        {
-                            "name": "simulate_local_training_step_duration_in_minutes",
-                            "value": "5"
-                        },
-                        {
-                            "name": "collection_id_lifetime_in_days",
-                            "value": "30"
-                        }
-                    ]
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 90,
-                    "feature_association": {
-                        "disable_feature": ["FederatedLearningOperationalPatterns"]
-                    }
-                }
-            ],
-            "filter": {
-                "min_version": "92.1.28.42",
-                "channel": ["NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
-                "country": ["US"]
-            }
-        },
-        {
             "name": "PartitionConnectionsByNetworkIsolationKeyStudy",
             "experiments": [
                 {
