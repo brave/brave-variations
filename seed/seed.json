@@ -62,14 +62,14 @@
             "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 100,
+                    "probability_weight": 0,
                     "feature_association": {
                         "enable_feature": ["BraveAdblockCookieListDefault"]
                     }
                 },
                 {
                     "name": "Disabled",
-                    "probability_weight": 0,
+                    "probability_weight": 100,
                     "feature_association": {
                         "disable_feature": ["BraveAdblockCookieListDefault"]
                     }
