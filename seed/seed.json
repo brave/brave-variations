@@ -293,7 +293,7 @@
               }
           ],
           "filter": {
-              "min_version": "98.1.37.50",
+              "min_version": "101.1.38.109",
               "channel": ["NIGHTLY", "BETA", "RELEASE"],
               "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
           }
