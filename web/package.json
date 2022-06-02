@@ -14,7 +14,7 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
-    "protobufjs": "^6.10.2",
+    "protobufjs": "^6.11.3",
     "vue": "^2.6.12"
   }
 }
