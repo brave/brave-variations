@@ -306,7 +306,7 @@
                   "probability_weight": 100,
                   "feature_association": {
                       "disable_feature": [
-                          "BravePartitionBlobStorage",
+                          "BravePartitionBlobStorage"
                       ]
                   }
               }
