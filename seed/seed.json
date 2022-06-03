@@ -355,6 +355,25 @@
           }
         },
         {
+          "name": "DisableBlobPartitioning",
+          "experiments": [
+              {
+                  "name": "Default",
+                  "probability_weight": 100,
+                  "feature_association": {
+                      "disable_feature": [
+                          "BravePartitionBlobStorage"
+                      ]
+                  }
+              }
+          ],
+          "filter": {
+              "min_version": "100.1.39.41",
+              "channel": ["NIGHTLY", "BETA", "RELEASE"],
+              "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+          }
+        },
+        {
             "name": "SpeedreaderReleaseStudy",
             "experiments": [
                 {
