@@ -369,6 +369,7 @@
           ],
           "filter": {
               "min_version": "100.1.39.41",
+              "max_version": "102.1.39.117",
               "channel": ["NIGHTLY", "BETA", "RELEASE"],
               "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
           }
