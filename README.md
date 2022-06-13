@@ -1,7 +1,7 @@
 # Brave Variations (Griffin)
 Griffin is Brave's version of Google's Finch - A backend for Chromium's variation service. This repository contains resources to compile, publish and inspect the so called *seed* file, which contains definitions for all variations.
 
-Learn more about what variations are and how to use them for (1) staged rollouts, (2) parameter updates and (3) experiments [here](#).
+See the [Wiki](https://github.com/brave/brave-browser/wiki/Brave-Variations-(Griffin)) to learn more about what variations are and how to use them for (1) staged rollouts, (2) parameter updates and (3) experiments.
 
 ## Overview
 A continuous integration server (CI) serializes and signs the updated seed file before publishing it to a CDN endpoint at https://variations.brave.com/seed. To browse the contents of the seed file a dashboard is hosted at https://griffin.brave.com. The repo is organized as follows:
