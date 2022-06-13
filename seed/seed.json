@@ -1029,26 +1029,6 @@
                 "platform": ["WINDOWS", "MAC", "LINUX"],
                 "channel": ["NIGHTLY", "BETA", "RELEASE"]
             }
-        },
-        {
-            "name": "EarlyBodyLoadCompat",
-            "experiments": [
-                {
-                    "name": "Disabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "disable_feature": ["EarlyBodyLoad"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-             ],
-            "filter": {
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
-                "channel": ["NIGHTLY"]
-            }
         }
     ]
 }
