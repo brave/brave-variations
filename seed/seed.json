@@ -1027,7 +1027,7 @@
              ],
             "filter": {
                 "platform": ["WINDOWS", "MAC", "LINUX"],
-                "channel": ["NIGHTLY", "BETA", "RELEASE"]
+                "channel": ["BETA", "RELEASE"]
             }
         }
     ]
