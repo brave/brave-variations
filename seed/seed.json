@@ -1083,7 +1083,7 @@
              ],
             "filter": {
                 "platform": ["WINDOWS", "MAC", "LINUX"],
-                "channel": ["NIGHTLY", "BETA"]
+                "channel": ["BETA"]
             }
         },
         {
