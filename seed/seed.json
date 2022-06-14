@@ -1071,16 +1071,18 @@
             "experiments": [
                 {
                     "name": "Disabled",
-                    "probability_weight": 100,
+                    "probability_weight": 50,
                     "feature_association": {
-                        "disable_feature": ["NavigationThreadingOptimizations"]
+                        "disable_feature": [
+                            "NavigationThreadingOptimizations"
+                        ]
                     }
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 0
+                    "probability_weight": 50
                 }
-             ],
+            ],
             "filter": {
                 "platform": ["WINDOWS", "MAC", "LINUX"],
                 "channel": ["BETA"]
@@ -1091,19 +1093,45 @@
             "experiments": [
                 {
                     "name": "Disabled",
+                    "probability_weight": 95,
+                    "feature_association": {
+                        "disable_feature": [
+                            "NavigationThreadingOptimizations"
+                        ]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 5
+                }
+            ],
+            "filter": {
+                "platform": ["WINDOWS", "MAC", "LINUX"],
+                "channel": ["RELEASE"],
+                "min_version": "102.1.39.0"
+            }
+        },
+        {
+            "name": "NavigationThreadingOptimizationsCompatOldVersions",
+            "experiments": [
+                {
+                    "name": "Disabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "disable_feature": ["NavigationThreadingOptimizations"]
+                        "disable_feature": [
+                            "NavigationThreadingOptimizations"
+                        ]
                     }
                 },
                 {
                     "name": "Default",
                     "probability_weight": 0
                 }
-             ],
+            ],
             "filter": {
                 "platform": ["WINDOWS", "MAC", "LINUX"],
-                "channel": ["RELEASE"]
+                "channel": ["RELEASE"],
+                "max_version": "102.1.39.0"
             }
         }
     ]
