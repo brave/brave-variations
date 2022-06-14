@@ -1011,24 +1011,66 @@
             }
         },
         {
-            "name": "NavigationThreadingOptimizationsCompat",
-            "experiments": [
-                {
-                    "name": "Disabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "disable_feature": ["NavigationThreadingOptimizations"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
+          "name": "NavigationThreadingOptimizationsCompat",
+          "experiments": [
+              {
+                  "name": "Disabled",
+                  "probability_weight": 50,
+                  "feature_association": {
+                      "disable_feature": ["NavigationThreadingOptimizations"]
+                  }
+              },
+              {
+                  "name": "Default",
+                  "probability_weight": 50
+              }
+           ],
+          "filter": {
+              "platform": ["WINDOWS", "MAC", "LINUX"],
+              "channel": ["BETA"]
+          }
+      },
+      {
+        "name": "NavigationThreadingOptimizationsCompat",
+        "experiments": [
+            {
+                "name": "Disabled",
+                "probability_weight": 95,
+                "feature_association": {
+                    "disable_feature": ["NavigationThreadingOptimizations"]
                 }
-             ],
-            "filter": {
-                "platform": ["WINDOWS", "MAC", "LINUX"],
-                "channel": ["BETA", "RELEASE"]
+            },
+            {
+                "name": "Default",
+                "probability_weight": 5
             }
+         ],
+        "filter": {
+            "platform": ["WINDOWS", "MAC", "LINUX"],
+            "channel": ["RELEASE"],
+            "min_version": "102.1.39.0"
         }
+      },
+      {
+          "name": "NavigationThreadingOptimizationsCompatOldVersions",
+          "experiments": [
+              {
+                  "name": "Disabled",
+                  "probability_weight": 100,
+                  "feature_association": {
+                      "disable_feature": ["NavigationThreadingOptimizations"]
+                  }
+              },
+              {
+                  "name": "Default",
+                  "probability_weight": 0
+              }
+           ],
+          "filter": {
+              "platform": ["WINDOWS", "MAC", "LINUX"],
+              "channel": ["RELEASE"],
+              "max_version": "102.1.39.0"
+          }
+      }
     ]
 }
