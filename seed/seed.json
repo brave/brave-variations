@@ -657,7 +657,75 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
+                "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
+            }
+        },
+        {
+            "name": "BraveAds.AdServingStudy",
+            "experiments": [
+                {
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=1",
+                    "probability_weight": 90,
+                    "parameters": [
+                        {
+                            "name": "default_ad_notifications_per_hour",
+                            "value": "10"
+                        },
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "12"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "60"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "1"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdServing"]
+                    }
+                },
+                {
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=2",
+                    "probability_weight": 10,
+                    "parameters": [
+                        {
+                            "name": "default_ad_notifications_per_hour",
+                            "value": "10"
+                        },
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "12"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "60"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["AdServing"]
+                    }
+                }
+            ],
+            "filter": {
+                "channel": ["RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
                 "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
             }
