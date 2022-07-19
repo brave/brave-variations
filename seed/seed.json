@@ -526,7 +526,7 @@
             }
         },
         {
-            "name": "BraveAds.AdServingStudy",
+            "name": "AdServingStudy",
             "experiments": [
                 {
                     "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=1",
