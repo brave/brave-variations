@@ -1239,6 +1239,35 @@
                 "channel": ["NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX"]
             }
+        },
+        {
+            "name": "BraveSearchPromotionOmniboxDesktopStudy",
+            "experiments": [
+                {
+                    "name": "Banner",
+                    "probability_weight": 50,
+                    "feature_association": {
+                        "enable_feature": ["BraveSearchOmniboxBanner"]
+                    }
+                },
+                {
+                    "name": "Button",
+                    "probability_weight": 50,
+                    "feature_association": {
+                        "enable_feature": ["BraveSearchOmniboxButton"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "104.1.44.0",
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX"],
+                "country": ["US", "CA", "DE", "FR", "GB"]
+            }
         }
     ]
 }
