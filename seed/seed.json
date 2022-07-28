@@ -58,34 +58,6 @@
             }
         },
         {
-            "name": "NativeCosmeticFilteringStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "enable_feature": ["BraveAdblockCosmeticFilteringNative"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["BraveAdblockCosmeticFilteringNative"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "min_version": "91.0.4472.114",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
-            }
-        },
-        {
             "name": "VulkanStudy",
             "experiments": [
                 {
