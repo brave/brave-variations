@@ -1208,7 +1208,7 @@
             ],
             "filter": {
                 "min_version": "103.1.43.9",
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX"]
             }
         }
