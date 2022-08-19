@@ -30,34 +30,6 @@
             }
         },
         {
-            "name": "CookieListDefaultStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "probability_weight": 100,
-                    "feature_association": {
-                        "enable_feature": ["BraveAdblockCookieListDefault"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_assoctiation": {
-                        "disable_feature": ["BraveAdblockCookieListDefault"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "min_version": "97.1.35.39",
-                "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
-            }
-        },
-        {
             "name": "VulkanStudy",
             "experiments": [
                 {
