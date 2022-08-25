@@ -136,7 +136,7 @@
                 }
             ],
             "filter": {
-                "channel": ["BETA", "RELEASE"],
+                "channel": ["RELEASE"],
                 "platform": ["ANDROID"]
             }
         },
@@ -177,7 +177,7 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["ANDROID"]
             }
         },
