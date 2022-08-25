@@ -1142,14 +1142,7 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["UseBraveTranslateGo"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 0,
-                    "feature_association": {
-                        "disable_feature": ["UseBraveTranslateGo"]
+                        "enable_feature": ["UseBraveTranslateGo", "Translate"]
                     }
                 },
                 {
@@ -1158,38 +1151,10 @@
                 }
             ],
             "filter": {
-                "min_version": "103.1.43.9",
+                "min_version": "104.1.43.54",
                 "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
-        },
-        {
-          "name": "BraveTranslateAndroidStudy",
-          "experiments": [
-              {
-                  "name": "Enabled",
-                  "probability_weight": 100,
-                  "feature_association": {
-                      "enable_feature": ["UseBraveTranslateGo", "Translate"]
-                  }
-              },
-              {
-                  "name": "Disabled",
-                  "probability_weight": 0,
-                  "feature_association": {
-                      "disable_feature": ["UseBraveTranslateGo", "Translate"]
-                  }
-              },
-              {
-                  "name": "Default",
-                  "probability_weight": 0
-              }
-          ],
-          "filter": {
-              "min_version": "104.1.43.74",
-              "channel": ["NIGHTLY"],
-              "platform": ["ANDROID"]
-          }
         },
         {
             "name": "BraveRewardsWebUiPanelStudy",
