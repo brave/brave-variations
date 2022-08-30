@@ -227,6 +227,7 @@
             ],
             "filter": {
                 "min_version": "90.1.25.57",
+                "max_version": "104.1.43.79",
                 "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
@@ -255,6 +256,7 @@
             ],
             "filter": {
                 "min_version": "90.1.25.57",
+                "max_version": "104.1.43.79",
                 "channel": ["RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
@@ -279,26 +281,7 @@
           ],
           "filter": {
               "min_version": "101.1.38.109",
-              "channel": ["NIGHTLY", "BETA", "RELEASE"],
-              "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
-          }
-        },
-        {
-          "name": "DisableBlobPartitioning",
-          "experiments": [
-              {
-                  "name": "Default",
-                  "probability_weight": 100,
-                  "feature_association": {
-                      "disable_feature": [
-                          "BravePartitionBlobStorage"
-                      ]
-                  }
-              }
-          ],
-          "filter": {
-              "min_version": "100.1.39.41",
-              "max_version": "102.1.39.117",
+              "max_version": "104.1.43.79",
               "channel": ["NIGHTLY", "BETA", "RELEASE"],
               "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
           }
@@ -907,6 +890,7 @@
             ],
             "filter": {
                 "min_version": "94.1.31.51",
+                "max_version": "104.1.43.79",
                 "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
@@ -957,6 +941,7 @@
             ],
             "filter": {
                 "min_version": "96.1.34.20",
+                "max_version": "104.1.43.79",
                 "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
@@ -986,6 +971,7 @@
             ],
             "filter": {
                 "min_version": "96.1.34.4",
+                "max_version": "104.1.43.79",
                 "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
