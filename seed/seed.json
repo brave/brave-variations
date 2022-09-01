@@ -1260,6 +1260,27 @@
                 "channel": ["NIGHTLY", "BETA"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
+      },
+      {
+        "name": "BraveTranslateReleaseStudy",
+        "experiments": [
+            {
+                "name": "Enabled",
+                "probability_weight": 25,
+                "feature_association": {
+                    "enable_feature": ["UseBraveTranslateGo", "Translate"]
+                }
+            },
+            {
+                "name": "Default",
+                "probability_weight": 75
+            }
+        ],
+        "filter": {
+            "min_version": "104.1.43.54",
+            "channel": ["RELEASE"],
+            "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+        }
       }
     ]
 }
