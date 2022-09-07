@@ -1138,30 +1138,9 @@
             ],
             "filter": {
                 "min_version": "104.1.43.54",
-                "channel": ["NIGHTLY", "BETA"],
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
-        },
-        {
-          "name": "BraveTranslateReleaseStudy",
-          "experiments": [
-              {
-                  "name": "Enabled",
-                  "probability_weight": 50,
-                  "feature_association": {
-                      "enable_feature": ["UseBraveTranslateGo", "Translate"]
-                  }
-              },
-              {
-                  "name": "Default",
-                  "probability_weight": 50
-              }
-          ],
-          "filter": {
-              "min_version": "104.1.43.54",
-              "channel": ["RELEASE"],
-              "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
-          }
         },
         {
             "name": "BraveRewardsWebUiPanelStudy",
