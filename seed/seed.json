@@ -1136,6 +1136,33 @@
           }
         },
         {
+            "name": "BraveTranslateWithLangUpdateStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "parameters": [
+                        {
+                            "name": "update-languages",
+                            "value": "true"
+                        }
+                    ],
+                    "feature_association": {
+                        "enable_feature": ["UseBraveTranslateGo", "Translate"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "104.1.43.54",
+                "channel": ["NIGHTLY"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
             "name": "BraveTranslateStudy",
             "experiments": [
                 {
@@ -1152,7 +1179,7 @@
             ],
             "filter": {
                 "min_version": "104.1.43.54",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
+                "channel": ["BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
