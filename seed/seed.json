@@ -118,7 +118,7 @@
             "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 10,
+                    "probability_weight": 50,
                     "parameters": [
                          {
                             "name": "BlockListByBoard",
@@ -139,7 +139,7 @@
                 },
                 {
                     "name": "Disabled",
-                    "probability_weight": 90,
+                    "probability_weight": 50,
                     "feature_association": {
                         "disable_feature": ["Vulkan"]
                     }
