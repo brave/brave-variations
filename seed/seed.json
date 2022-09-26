@@ -118,47 +118,6 @@
             "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 50,
-                    "parameters": [
-                         {
-                            "name": "BlockListByBoard",
-                            "value": "RM67*|RM68*|k68*|mt6*|oppo67*|oppo68*|QM215|rk30sdk|secret|maltose|rosemary|HLTE322E*|lisbon|lancelot|Infinix-X695|g2062upt_v1_gd_sh2_gq_eea_r|cannong|TECNO-CG8"
-                         },
-                         {
-                            "name": "disable_by_gl_renderer",
-                            "value": "*Mali-G72*|*Mali-G?? M*"
-                         },
-                         {
-                            "name": "enable_by_device_name",
-                            "value": "Adreno*6??"
-                         }
-                    ],
-                    "feature_association": {
-                        "enable_feature": ["Vulkan"]
-                    }
-                },
-                {
-                    "name": "Disabled",
-                    "probability_weight": 50,
-                    "feature_association": {
-                        "disable_feature": ["Vulkan"]
-                    }
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": ["RELEASE"],
-                "platform": ["ANDROID"]
-            }
-        },
-        {
-            "name": "VulkanStudy",
-            "experiments": [
-                {
-                    "name": "Enabled",
                     "probability_weight": 100,
                     "parameters": [
                          {
@@ -191,7 +150,7 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA"],
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["ANDROID"]
             }
         },
