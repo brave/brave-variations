@@ -1318,6 +1318,34 @@
                 "channel": ["NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
+        },
+        {
+            "name": "AllowCertainClientHintsStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 50,
+                    "feature_association": {
+                        "enable_feature": [ "AllowCertainClientHints" ]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 50,
+                    "feature_association": {
+                        "disable_feature": [ "AllowCertainClientHints" ]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "104.1.44.59",
+                "channel": [ "NIGHTLY" ],
+                "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID" ]
+            }
         }
     ]
 }
