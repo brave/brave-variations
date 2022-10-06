@@ -30,6 +30,34 @@
             }
         },
         {
+            "name": "CosmeticFilteringChildFramesStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": ["BraveAdblockCosmeticFilteringChildFrames"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": ["BraveAdblockCosmeticFilteringChildFrames"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "106.1.46.14",
+                "channel": ["NIGHTLY", "BETA", "RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
             "name": "VulkanStudy",
             "experiments": [
                 {
