@@ -130,7 +130,7 @@
                          },
                          {
                             "name": "enable_by_device_name",
-                            "value": "Adreno*6??"
+                            "value": "Adreno*630"
                          }
                     ],
                     "feature_association": {
