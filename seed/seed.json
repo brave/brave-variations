@@ -449,7 +449,7 @@
             ],
             "filter": {
                 "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
         {
