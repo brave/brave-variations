@@ -3,7 +3,6 @@
 import datetime
 import hashlib
 import json
-from pydoc import describe
 import proto.study_pb2 as study_pb2
 import sys
 import time
@@ -145,7 +144,6 @@ def makeFieldTrialTestingConfig(seed, version_string, channel_string):
     target_version = version.parse(version_string)
     target_channel = SUPPORTED_CHANNELS[channel_string]
     config = {}
-    exp_count = 0
     for study in seed.study:
         json_study = {}
         if study.filter.min_version and target_version < version.parse(study.filter.min_version):
@@ -160,7 +158,6 @@ def makeFieldTrialTestingConfig(seed, version_string, channel_string):
             continue
 
         if len(study.filter.platform) != 0:
-            platforms_json = []
             platform_names = {
                 study_pb2.Study.Platform.PLATFORM_WINDOWS: 'windows',
                 study_pb2.Study.Platform.PLATFORM_MAC: 'mac',
@@ -168,16 +165,15 @@ def makeFieldTrialTestingConfig(seed, version_string, channel_string):
                 study_pb2.Study.Platform.PLATFORM_IOS: 'ios',
                 study_pb2.Study.Platform.PLATFORM_ANDROID: 'android'
             }
-            for platform in study.filter.platform:
-                platforms_json.append(platform_names[platform])
-            json_study['platforms'] = platforms_json
+            json_study['platforms'] = \
+              list(map(lambda x: platform_names[x], study.filter.platform))
 
         experiments_json = {}
         best_experiment = max(
             study.experiment, key=lambda x: x.probability_weight)
 
-        exp_count += 1
-        experiments_json['name'] = 'e' + str(exp_count)
+        study_number = str(len(config) + 1)
+        experiments_json['name'] = 'e' + study_number
         experiments_json['full_name'] = best_experiment.name
 
         params_json = {}
@@ -186,24 +182,20 @@ def makeFieldTrialTestingConfig(seed, version_string, channel_string):
         if params_json != {}:
             experiments_json['params'] = params_json
 
-        enable_features_json = []
-        disable_features_json = []
+        enable_features = best_experiment.feature_association.enable_feature
+        if len(enable_features) != 0:
+            experiments_json['enable_features'] = \
+              list(map(lambda x: x, enable_features))
 
-        for enable_feature in best_experiment.feature_association.enable_feature:
-            enable_features_json.append(enable_feature)
-        if len(enable_features_json) != 0:
-            experiments_json['enable_features'] = enable_features_json
-
-        for disable_feature in best_experiment.feature_association.disable_feature:
-            disable_features_json.append(disable_feature)
-        if len(disable_features_json) != 0:
-            experiments_json['disable_features'] = disable_features_json
+        disable_features = best_experiment.feature_association.disable_feature
+        if len(disable_features) != 0:
+            experiments_json['disable_features'] = \
+              list(map(lambda x: x, disable_features))
 
         json_study['experiments'] = [experiments_json]
         json_study['full_name'] = study.name
 
-        study_name = 's' + str(len(config) + 1)
-        config[study_name] = [json_study]
+        config['s' + study_number] = [json_study]
     return config
 
 
