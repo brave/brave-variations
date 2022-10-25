@@ -24,6 +24,13 @@ SUPPORTED_CHANNELS = {
     'RELEASE': study_pb2.Study.Channel.STABLE
 }
 
+PLATFORM_NAMES = {
+  study_pb2.Study.Platform.PLATFORM_WINDOWS: 'windows',
+  study_pb2.Study.Platform.PLATFORM_MAC: 'mac',
+  study_pb2.Study.Platform.PLATFORM_LINUX: 'linux',
+  study_pb2.Study.Platform.PLATFORM_IOS: 'ios',
+  study_pb2.Study.Platform.PLATFORM_ANDROID: 'android'
+}
 
 def load(seed_json_path):
     with open(seed_json_path, "r") as file:
@@ -140,39 +147,46 @@ def make_variations_seed_message(seed_data):
     return seed
 
 
-def makeFieldTrialTestingConfig(seed, version_string, channel_string):
+def make_field_trial_testing_config(seed, version_string, channel_string):
+    """Generate the most probable testing config in chromium format
+
+    For a single study the experiment with maximum probability_weight will be
+    chosen (the first one in the list if there are many of them).
+
+    Filters that are processed here: min/max_version, channel.
+    Filters to be ignored: min_os_version, county.
+    Filters that will be processed by chromium code later: platforms
+
+    The format description:
+    https://chromium.googlesource.com/chromium/src/+/master/testing/variations/README.md
+    """
     target_version = version.parse(version_string)
     target_channel = SUPPORTED_CHANNELS[channel_string]
     config = {}
     for study in seed.study:
         json_study = {}
-        if study.filter.min_version and target_version < version.parse(study.filter.min_version):
+        if (study.filter.min_version and
+            target_version < version.parse(study.filter.min_version)):
             print('skip ' + study.name + ' because of min_version')
             continue
-        if study.filter.max_version and target_version > version.parse(study.filter.max_version):
+        if (study.filter.max_version and
+            target_version > version.parse(study.filter.max_version)):
             print('skip ' + study.name + ' because of max_version')
             continue
-        if len(study.filter.channel) != 0 and \
-                not target_channel in study.filter.channel:
+        if study.filter.channel and not target_channel in study.filter.channel:
             print('skip ' + study.name + ' because of channel')
             continue
 
-        if len(study.filter.platform) != 0:
-            platform_names = {
-                study_pb2.Study.Platform.PLATFORM_WINDOWS: 'windows',
-                study_pb2.Study.Platform.PLATFORM_MAC: 'mac',
-                study_pb2.Study.Platform.PLATFORM_LINUX: 'linux',
-                study_pb2.Study.Platform.PLATFORM_IOS: 'ios',
-                study_pb2.Study.Platform.PLATFORM_ANDROID: 'android'
-            }
+        if study.filter.platform:
             json_study['platforms'] = \
-              list(map(lambda x: platform_names[x], study.filter.platform))
+              [PLATFORM_NAMES[x] for x in study.filter.platform]
 
-        experiments_json = {}
+        # Find an experiment with max probability_weight:
         best_experiment = max(
             study.experiment, key=lambda x: x.probability_weight)
 
         study_number = str(len(config) + 1)
+        experiments_json = {}
         experiments_json['name'] = 'e' + study_number
         experiments_json['full_name'] = best_experiment.name
 
@@ -183,14 +197,12 @@ def makeFieldTrialTestingConfig(seed, version_string, channel_string):
             experiments_json['params'] = params_json
 
         enable_features = best_experiment.feature_association.enable_feature
-        if len(enable_features) != 0:
-            experiments_json['enable_features'] = \
-              list(map(lambda x: x, enable_features))
+        if enable_features:
+            experiments_json['enable_features'] = [x for x in enable_features]
 
         disable_features = best_experiment.feature_association.disable_feature
-        if len(disable_features) != 0:
-            experiments_json['disable_features'] = \
-              list(map(lambda x: x, disable_features))
+        if disable_features:
+            experiments_json['disable_features'] = [x for x in disable_features]
 
         json_study['experiments'] = [experiments_json]
         json_study['full_name'] = study.name
@@ -223,7 +235,7 @@ if __name__ == "__main__":
     if validate(seed_data):
         seed = make_variations_seed_message(seed_data)
         if args.fieldtrial_testing_config_path:
-            ft = makeFieldTrialTestingConfig(
+            ft = make_field_trial_testing_config(
                 seed, args.target_version, args.target_channel)
             with open(args.fieldtrial_testing_config_path,
                       "w", encoding="utf8") as json_file:
