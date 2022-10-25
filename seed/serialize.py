@@ -217,7 +217,6 @@ if __name__ == "__main__":
     parser.add_argument('seed_path', help='json seed file to process')
     parser.add_argument(
       '--fieldtrial-testing-config-path', type=str,
-      default='fieldtrial_testing_config.json',
       help='Generate the most probable config and save to the provided path'
            'See src/testing/variations/README.md for details')
     parser.add_argument(
