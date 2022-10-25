@@ -1224,6 +1224,7 @@
             ],
             "filter": {
                 "min_version": "104.1.43.54",
+                "max_version": "106.1.45.44",
                 "channel": ["NIGHTLY", "BETA", "RELEASE"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
