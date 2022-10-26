@@ -5,6 +5,7 @@ import hashlib
 import json
 import proto.study_pb2 as study_pb2
 import time
+import sys
 import proto.variations_seed_pb2 as variations_seed_pb2
 import argparse
 from packaging import version
@@ -29,12 +30,6 @@ PLATFORM_NAMES = {
     study_pb2.Study.Platform.PLATFORM_IOS: 'ios',
     study_pb2.Study.Platform.PLATFORM_ANDROID: 'android'
 }
-
-def load(seed_json_path):
-    with open(seed_json_path, "r") as file:
-        seed_data = json.load(file)
-
-    return seed_data
 
 
 def validate(seed):
@@ -210,9 +205,11 @@ def make_field_trial_testing_config(seed, version_string, channel_string):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('seed_path', help='json seed file to process')
     parser.add_argument(
-      '--fieldtrial-testing-config-path', type=str,
+      'seed_path', type=argparse.FileType('r'), nargs='?', default=sys.stdin,
+      help='json seed file to process (skip it to use stdin)')
+    parser.add_argument(
+      '--fieldtrial-testing-config-path', type=argparse.FileType('w'),
       help='Generate the most probable config and save to the provided path'
            'See src/testing/variations/README.md for details')
     parser.add_argument(
@@ -225,8 +222,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    print("Load ", args.seed_path)
-    seed_data = load(args.seed_path)
+    print("Load", args.seed_path.name)
+    seed_data = json.load(args.seed_path)
 
     print("Validate seed data")
     if validate(seed_data):
@@ -234,11 +231,10 @@ if __name__ == "__main__":
         if args.fieldtrial_testing_config_path:
             json_config = make_field_trial_testing_config(
                 seed_message, args.target_version, args.target_channel)
-            with open(args.fieldtrial_testing_config_path,
-                      "w", encoding="utf8") as json_file:
-                json.dump(json_config, json_file, indent=2)
+            json.dump(json_config, args.fieldtrial_testing_config_path,
+                      indent=2)
             print("Testing config saved to",
-                  args.fieldtrial_testing_config_path)
+                  args.fieldtrial_testing_config_path.name)
         else:
             # Serialize and save as seed file
             with open(SEED_BIN_PATH, "wb") as seed_file:
