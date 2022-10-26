@@ -1215,6 +1215,27 @@
             }
         },
         {
+          "name": "BraveScreenFingerprintingBlockerStudy",
+          "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 10,
+                    "feature_association": {
+                        "enable_feature": ["BraveBlockScreenFingerprinting"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 90
+                }
+            ],
+            "filter": {
+                "min_version": "105.1.45.115",
+                "channel": ["RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX"]
+            }
+        },
+        {
             "name": "BgPlaybackStudy",
             "experiments": [
                 {
