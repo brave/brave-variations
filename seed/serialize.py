@@ -1,10 +1,9 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
 
 import datetime
 import hashlib
 import json
 import proto.study_pb2 as study_pb2
-import sys
 import time
 import proto.variations_seed_pb2 as variations_seed_pb2
 import argparse
@@ -17,7 +16,6 @@ PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
 CHANNELS = set(["UNKNOWN", "NIGHTLY", "BETA", "RELEASE"])
 
 SUPPORTED_CHANNELS = {
-    'UNKNOWN': study_pb2.Study.Channel.UNKNOWN,
     'NIGHTLY': study_pb2.Study.Channel.CANARY,
     'DEV': study_pb2.Study.Channel.DEV,
     'BETA': study_pb2.Study.Channel.BETA,
@@ -25,11 +23,11 @@ SUPPORTED_CHANNELS = {
 }
 
 PLATFORM_NAMES = {
-  study_pb2.Study.Platform.PLATFORM_WINDOWS: 'windows',
-  study_pb2.Study.Platform.PLATFORM_MAC: 'mac',
-  study_pb2.Study.Platform.PLATFORM_LINUX: 'linux',
-  study_pb2.Study.Platform.PLATFORM_IOS: 'ios',
-  study_pb2.Study.Platform.PLATFORM_ANDROID: 'android'
+    study_pb2.Study.Platform.PLATFORM_WINDOWS: 'windows',
+    study_pb2.Study.Platform.PLATFORM_MAC: 'mac',
+    study_pb2.Study.Platform.PLATFORM_LINUX: 'linux',
+    study_pb2.Study.Platform.PLATFORM_IOS: 'ios',
+    study_pb2.Study.Platform.PLATFORM_ANDROID: 'android'
 }
 
 def load(seed_json_path):
@@ -74,9 +72,8 @@ def get_serial_number():
 
 def update_serial_number(serialnumber):
     # Update `serialnumber` file for CI to be set in ETAG header
-    with open(SERIALNUMBER_PATH, "w") as file:
-        file.write(serialnumber)
-        file.close()
+    with open(SERIALNUMBER_PATH, "w") as serial_number_file:
+        serial_number_file.write(serialnumber)
 
     print("Updated serial number with %s in %s" %
           (serialnumber, SERIALNUMBER_PATH))
@@ -193,7 +190,7 @@ def make_field_trial_testing_config(seed, version_string, channel_string):
         params_json = {}
         for param in best_experiment.param:
             params_json[param.name] = param.value
-        if params_json != {}:
+        if params_json:
             experiments_json['params'] = params_json
 
         enable_features = best_experiment.feature_association.enable_feature
@@ -212,7 +209,6 @@ def make_field_trial_testing_config(seed, version_string, channel_string):
 
 
 if __name__ == "__main__":
-    print("Load seed.json")
     parser = argparse.ArgumentParser()
     parser.add_argument('seed_path', help='json seed file to process')
     parser.add_argument(
@@ -228,23 +224,25 @@ if __name__ == "__main__":
       help='The browser channel (used to process filters)')
 
     args = parser.parse_args()
+
+    print("Load ", args.seed_path)
     seed_data = load(args.seed_path)
 
     print("Validate seed data")
     if validate(seed_data):
-        seed = make_variations_seed_message(seed_data)
+        seed_message = make_variations_seed_message(seed_data)
         if args.fieldtrial_testing_config_path:
-            ft = make_field_trial_testing_config(
-                seed, args.target_version, args.target_channel)
+            json_config = make_field_trial_testing_config(
+                seed_message, args.target_version, args.target_channel)
             with open(args.fieldtrial_testing_config_path,
                       "w", encoding="utf8") as json_file:
-                json.dump(ft, json_file, indent=2)
-            print("Config saved to ", args.fieldtrial_testing_config_path)
+                json.dump(json_config, json_file, indent=2)
+            print("Testing config saved to",
+                  args.fieldtrial_testing_config_path)
         else:
             # Serialize and save as seed file
-            with open(SEED_BIN_PATH, "wb") as file:
-                file.write(seed.SerializeToString())
-                file.close()
+            with open(SEED_BIN_PATH, "wb") as seed_file:
+                seed_file.write(seed_message.SerializeToString())
             print("Seed data serialized and saved to ", SEED_BIN_PATH)
 
     else:
