@@ -1,12 +1,14 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
 
 import datetime
 import hashlib
 import json
 import proto.study_pb2 as study_pb2
-import sys
 import time
+import sys
 import proto.variations_seed_pb2 as variations_seed_pb2
+import argparse
+from packaging import version
 
 SEED_BIN_PATH = "./seed.bin"
 SERIALNUMBER_PATH = "./serialnumber"
@@ -14,12 +16,20 @@ TOTAL_PROBA = 100
 PLATFORMS = set(["WINDOWS", "MAC", "LINUX", "IOS", "ANDROID"])
 CHANNELS = set(["UNKNOWN", "NIGHTLY", "BETA", "RELEASE"])
 
+SUPPORTED_CHANNELS = {
+    'NIGHTLY': study_pb2.Study.Channel.CANARY,
+    'DEV': study_pb2.Study.Channel.DEV,
+    'BETA': study_pb2.Study.Channel.BETA,
+    'RELEASE': study_pb2.Study.Channel.STABLE
+}
 
-def load(seed_json_path):
-    with open(seed_json_path, "r") as file:
-        seed_data = json.load(file)
-
-    return seed_data
+PLATFORM_NAMES = {
+    study_pb2.Study.Platform.PLATFORM_WINDOWS: 'windows',
+    study_pb2.Study.Platform.PLATFORM_MAC: 'mac',
+    study_pb2.Study.Platform.PLATFORM_LINUX: 'linux',
+    study_pb2.Study.Platform.PLATFORM_IOS: 'ios',
+    study_pb2.Study.Platform.PLATFORM_ANDROID: 'android'
+}
 
 
 def validate(seed):
@@ -57,14 +67,14 @@ def get_serial_number():
 
 def update_serial_number(serialnumber):
     # Update `serialnumber` file for CI to be set in ETAG header
-    with open(SERIALNUMBER_PATH, "w") as file:
-        file.write(serialnumber)
-        file.close()
+    with open(SERIALNUMBER_PATH, "w") as serial_number_file:
+        serial_number_file.write(serialnumber)
 
-    print("Updated serial number with %s in %s" % (serialnumber, SERIALNUMBER_PATH))
+    print("Updated serial number with %s in %s" %
+          (serialnumber, SERIALNUMBER_PATH))
 
 
-def serialize_and_save_variations_seed_message(seed_data, path):
+def make_variations_seed_message(seed_data):
     seed = variations_seed_pb2.VariationsSeed()
     seed.version = seed_data['version']
     serialnumber = get_serial_number()
@@ -98,14 +108,7 @@ def serialize_and_save_variations_seed_message(seed_data, path):
                         experiment.feature_association.disable_feature.append(feature)
 
         for channel in study_data['filter']['channel']:
-            supported_channels = {
-                'UNKNOWN': study_pb2.Study.Channel.UNKNOWN,
-                'NIGHTLY': study_pb2.Study.Channel.CANARY,
-                'DEV': study_pb2.Study.Channel.DEV,
-                'BETA': study_pb2.Study.Channel.BETA,
-                'RELEASE': study_pb2.Study.Channel.STABLE
-            }
-            study.filter.channel.append(supported_channels[channel])
+            study.filter.channel.append(SUPPORTED_CHANNELS[channel])
 
         for platform in study_data['filter']['platform']:
             supported_platforms = {
@@ -133,19 +136,110 @@ def serialize_and_save_variations_seed_message(seed_data, path):
         if 'max_os_version' in study_data['filter']:
             study.filter.max_os_version = study_data['filter']['max_os_version']
 
-    # Serialize and save
-    with open(path, "wb") as file:
-        file.write(seed.SerializeToString())
-        file.close()
+    return seed
+
+
+def make_field_trial_testing_config(seed, version_string, channel_string):
+    """Generate the most probable testing config in chromium format
+
+    For a single study the experiment with maximum probability_weight will be
+    chosen (the first one in the list if there are many of them).
+
+    Filters that are processed here: min/max_version, channel.
+    Filters to be ignored: min_os_version, county.
+    Filters that will be processed by chromium code later: platforms
+
+    The format description:
+    https://chromium.googlesource.com/chromium/src/+/master/testing/variations/README.md
+    """
+    target_version = version.parse(version_string)
+    target_channel = SUPPORTED_CHANNELS[channel_string]
+    config = {}
+    for study in seed.study:
+        json_study = {}
+        if (study.filter.min_version and
+            target_version < version.parse(study.filter.min_version)):
+            print('skip ' + study.name + ' because of min_version')
+            continue
+        if (study.filter.max_version and
+            target_version > version.parse(study.filter.max_version)):
+            print('skip ' + study.name + ' because of max_version')
+            continue
+        if study.filter.channel and not target_channel in study.filter.channel:
+            print('skip ' + study.name + ' because of channel')
+            continue
+
+        if study.filter.platform:
+            json_study['platforms'] = \
+              [PLATFORM_NAMES[x] for x in study.filter.platform]
+
+        # Find an experiment with max probability_weight:
+        best_experiment = max(
+            study.experiment, key=lambda x: x.probability_weight)
+
+        study_number = str(len(config) + 1)
+        experiments_json = {}
+        experiments_json['name'] = 'e' + study_number
+        experiments_json['full_name'] = best_experiment.name
+
+        params_json = {}
+        for param in best_experiment.param:
+            params_json[param.name] = param.value
+        if params_json:
+            experiments_json['params'] = params_json
+
+        enable_features = best_experiment.feature_association.enable_feature
+        if enable_features:
+            experiments_json['enable_features'] = [x for x in enable_features]
+
+        disable_features = best_experiment.feature_association.disable_feature
+        if disable_features:
+            experiments_json['disable_features'] = [x for x in disable_features]
+
+        json_study['experiments'] = [experiments_json]
+        json_study['full_name'] = study.name
+
+        config['s' + study_number] = [json_study]
+    return config
 
 
 if __name__ == "__main__":
-    print("Load seed.json")
-    seed_data = load(sys.argv[1])
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+      'seed_path', type=argparse.FileType('r'), nargs='?', default=sys.stdin,
+      help='json seed file to process (skip it to use stdin)')
+    parser.add_argument(
+      '--fieldtrial-testing-config-path', type=argparse.FileType('w'),
+      help='Generate the most probable config and save to the provided path'
+           'See src/testing/variations/README.md for details')
+    parser.add_argument(
+      '--target-version', type=str,
+      help='The browser version in format [chrome_major].[brave_version]'
+           '(used to process filters)')
+    parser.add_argument(
+      '--target-channel', type=str, choices=SUPPORTED_CHANNELS.keys(),
+      help='The browser channel (used to process filters)')
+
+    args = parser.parse_args()
+
+    print("Load", args.seed_path.name)
+    seed_data = json.load(args.seed_path)
 
     print("Validate seed data")
     if validate(seed_data):
-        serialize_and_save_variations_seed_message(seed_data, SEED_BIN_PATH)
-        print("Seed data serialized and saved to ", SEED_BIN_PATH)
+        seed_message = make_variations_seed_message(seed_data)
+        if args.fieldtrial_testing_config_path:
+            json_config = make_field_trial_testing_config(
+                seed_message, args.target_version, args.target_channel)
+            json.dump(json_config, args.fieldtrial_testing_config_path,
+                      indent=2)
+            print("Testing config saved to",
+                  args.fieldtrial_testing_config_path.name)
+        else:
+            # Serialize and save as seed file
+            with open(SEED_BIN_PATH, "wb") as seed_file:
+                seed_file.write(seed_message.SerializeToString())
+            print("Seed data serialized and saved to ", SEED_BIN_PATH)
+
     else:
         print("Seed data is invalid")
