@@ -1219,14 +1219,14 @@
           "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 10,
+                    "probability_weight": 25,
                     "feature_association": {
                         "enable_feature": ["BraveBlockScreenFingerprinting"]
                     }
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 90
+                    "probability_weight": 75
                 }
             ],
             "filter": {
