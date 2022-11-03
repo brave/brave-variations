@@ -1257,7 +1257,7 @@
             }
         },
         {
-            "name": "EnableCrashReportingOnAndroid",
+            "name": "MetricsAndCrashSampling",
             "experiments": [
                 {
                     "name": "Enabled",
