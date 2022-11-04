@@ -8,14 +8,18 @@
                     "name": "Enabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "enable_feature": ["BraveAdblockDefault1pBlocking"]
+                        "enable_feature": [
+                            "BraveAdblockDefault1pBlocking"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "disable_feature": ["BraveAdblockDefault1pBlocking"]
+                        "disable_feature": [
+                            "BraveAdblockDefault1pBlocking"
+                        ]
                     }
                 },
                 {
@@ -25,8 +29,17 @@
             ],
             "filter": {
                 "min_version": "92.1.30.57",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -36,14 +49,18 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveAdblockCosmeticFilteringChildFrames"]
+                        "enable_feature": [
+                            "BraveAdblockCosmeticFilteringChildFrames"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "disable_feature": ["BraveAdblockCosmeticFilteringChildFrames"]
+                        "disable_feature": [
+                            "BraveAdblockCosmeticFilteringChildFrames"
+                        ]
                     }
                 },
                 {
@@ -53,8 +70,17 @@
             ],
             "filter": {
                 "min_version": "106.1.46.14",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -64,28 +90,32 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "parameters": [
-                         {
+                        {
                             "name": "BlockListByBoard",
                             "value": "RM67*|RM68*|k68*|mt6*|oppo67*|oppo68*|QM215|rk30sdk|secret|maltose|rosemary|HLTE322E*|lisbon|lancelot|Infinix-X695|g2062upt_v1_gd_sh2_gq_eea_r|cannong|TECNO-CG8"
-                         },
-                         {
+                        },
+                        {
                             "name": "disable_by_gl_renderer",
                             "value": "*Mali-G72*|*Mali-G?? M*"
-                         },
-                         {
+                        },
+                        {
                             "name": "enable_by_device_name",
                             "value": "Adreno*630"
-                         }
+                        }
                     ],
                     "feature_association": {
-                        "enable_feature": ["Vulkan"]
+                        "enable_feature": [
+                            "Vulkan"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "disable_feature": ["Vulkan"]
+                        "disable_feature": [
+                            "Vulkan"
+                        ]
                     }
                 },
                 {
@@ -94,8 +124,14 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -105,14 +141,18 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["EphemeralStorage"]
+                        "enable_feature": [
+                            "EphemeralStorage"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "disable_feature": ["EphemeralStorage"]
+                        "disable_feature": [
+                            "EphemeralStorage"
+                        ]
                     }
                 },
                 {
@@ -122,8 +162,15 @@
             ],
             "filter": {
                 "min_version": "89.1.21.73",
-                "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -133,14 +180,18 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["EphemeralStorage"]
+                        "enable_feature": [
+                            "EphemeralStorage"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "disable_feature": ["EphemeralStorage"]
+                        "disable_feature": [
+                            "EphemeralStorage"
+                        ]
                     }
                 },
                 {
@@ -150,8 +201,16 @@
             ],
             "filter": {
                 "min_version": "89.1.21.73",
-                "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -199,9 +258,20 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
-                "country": ["US"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "country": [
+                    "US"
+                ]
             }
         },
         {
@@ -211,14 +281,18 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["PermissionLifetime"]
+                        "enable_feature": [
+                            "PermissionLifetime"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "disable_feature": ["PermissionLifetime"]
+                        "disable_feature": [
+                            "PermissionLifetime"
+                        ]
                     }
                 },
                 {
@@ -229,8 +303,16 @@
             "filter": {
                 "min_version": "90.1.25.57",
                 "max_version": "104.1.43.79",
-                "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -240,14 +322,18 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["PermissionLifetime"]
+                        "enable_feature": [
+                            "PermissionLifetime"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "disable_feature": ["PermissionLifetime"]
+                        "disable_feature": [
+                            "PermissionLifetime"
+                        ]
                     }
                 },
                 {
@@ -258,34 +344,50 @@
             "filter": {
                 "min_version": "90.1.25.57",
                 "max_version": "104.1.43.79",
-                "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
-          "name": "FirstPartyEphemeralDomainBlockStudy",
-          "experiments": [
-              {
-                  "name": "Enabled",
-                  "probability_weight": 100,
-                  "feature_association": {
-                      "enable_feature": [
-                          "BraveFirstPartyEphemeralStorage",
-                          "BraveDomainBlock1PES"
-                      ]
-                  }
-              },
-              {
-                  "name": "Default",
-                  "probability_weight": 0
-              }
-          ],
-          "filter": {
-              "min_version": "101.1.38.109",
-              "max_version": "104.1.43.79",
-              "channel": ["NIGHTLY", "BETA", "RELEASE"],
-              "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
-          }
+            "name": "FirstPartyEphemeralDomainBlockStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveFirstPartyEphemeralStorage",
+                            "BraveDomainBlock1PES"
+                        ]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "101.1.38.109",
+                "max_version": "104.1.43.79",
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            }
         },
         {
             "name": "SpeedreaderReleaseStudy",
@@ -294,14 +396,18 @@
                     "name": "Enabled",
                     "probability_weight": 40,
                     "feature_association": {
-                        "enable_feature": ["Speedreader"]
+                        "enable_feature": [
+                            "Speedreader"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 60,
                     "feature_association": {
-                        "disable_feature": ["Speedreader"]
+                        "disable_feature": [
+                            "Speedreader"
+                        ]
                     }
                 },
                 {
@@ -311,8 +417,14 @@
             ],
             "filter": {
                 "min_version": "92.1.28.100",
-                "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
             }
         },
         {
@@ -332,7 +444,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["FrequencyCapping"]
+                        "enable_feature": [
+                            "FrequencyCapping"
+                        ]
                     }
                 },
                 {
@@ -342,9 +456,28 @@
             ],
             "filter": {
                 "min_version": "91.1.26.60",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
-                "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "country": [
+                    "US",
+                    "AU",
+                    "CA",
+                    "FR",
+                    "DE",
+                    "IE",
+                    "JP",
+                    "NZ",
+                    "GB"
+                ]
             }
         },
         {
@@ -372,7 +505,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["UserActivity"]
+                        "enable_feature": [
+                            "UserActivity"
+                        ]
                     }
                 },
                 {
@@ -381,8 +516,17 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -414,7 +558,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdServing"]
+                        "enable_feature": [
+                            "AdServing"
+                        ]
                     }
                 },
                 {
@@ -443,13 +589,22 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdServing"]
+                        "enable_feature": [
+                            "AdServing"
+                        ]
                     }
                 }
             ],
             "filter": {
-                "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -481,7 +636,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdServing"]
+                        "enable_feature": [
+                            "AdServing"
+                        ]
                     }
                 },
                 {
@@ -510,7 +667,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdServing"]
+                        "enable_feature": [
+                            "AdServing"
+                        ]
                     }
                 },
                 {
@@ -543,7 +702,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdServing"]
+                        "enable_feature": [
+                            "AdServing"
+                        ]
                     }
                 },
                 {
@@ -576,7 +737,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdServing"]
+                        "enable_feature": [
+                            "AdServing"
+                        ]
                     }
                 },
                 {
@@ -609,14 +772,34 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdServing"]
+                        "enable_feature": [
+                            "AdServing"
+                        ]
                     }
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
-                "country": ["US", "AU", "CA", "FR", "DE", "IE", "JP", "NZ", "GB"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "country": [
+                    "US",
+                    "AU",
+                    "CA",
+                    "FR",
+                    "DE",
+                    "IE",
+                    "JP",
+                    "NZ",
+                    "GB"
+                ]
             }
         },
         {
@@ -632,7 +815,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"]
+                        "enable_feature": [
+                            "AdNotifications"
+                        ]
                     }
                 },
                 {
@@ -645,7 +830,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"]
+                        "enable_feature": [
+                            "AdNotifications"
+                        ]
                     }
                 },
                 {
@@ -658,7 +845,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdNotifications"]
+                        "enable_feature": [
+                            "AdNotifications"
+                        ]
                     }
                 },
                 {
@@ -667,8 +856,14 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
             }
         },
         {
@@ -684,7 +879,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["AdRewards"]
+                        "enable_feature": [
+                            "AdRewards"
+                        ]
                     }
                 },
                 {
@@ -693,8 +890,17 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -710,7 +916,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["Conversions"]
+                        "enable_feature": [
+                            "Conversions"
+                        ]
                     }
                 },
                 {
@@ -719,8 +927,17 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -730,14 +947,18 @@
                     "name": "Treatment",
                     "probability_weight": 10,
                     "feature_association": {
-                        "enable_feature": ["EpsilonGreedyBandit"],
-                        "disable_feature": ["TextClassification"]
+                        "enable_feature": [
+                            "EpsilonGreedyBandit"
+                        ],
+                        "disable_feature": [
+                            "TextClassification"
+                        ]
                     },
                     "parameters": [
-                      {
-                        "name": "epsilon_value",
-                        "value": "0.33"
-                      }
+                        {
+                            "name": "epsilon_value",
+                            "value": "0.33"
+                        }
                     ]
                 },
                 {
@@ -750,9 +971,20 @@
                 }
             ],
             "filter": {
-                "channel": ["RELEASE","BETA", "NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"],
-                "country": ["GB"]
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "country": [
+                    "GB"
+                ]
             }
         },
         {
@@ -762,14 +994,18 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["MacCoreLocationBackend"]
+                        "enable_feature": [
+                            "MacCoreLocationBackend"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "disable_feature": ["MacCoreLocationBackend"]
+                        "disable_feature": [
+                            "MacCoreLocationBackend"
+                        ]
                     }
                 },
                 {
@@ -779,8 +1015,14 @@
             ],
             "filter": {
                 "min_version": "91.1.26.74",
-                "channel": ["RELEASE", "BETA", "NIGHTLY"],
-                "platform": ["MAC"]
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "MAC"
+                ]
             }
         },
         {
@@ -790,14 +1032,18 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveDebounce"]
+                        "enable_feature": [
+                            "BraveDebounce"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 0,
                     "feature_association": {
-                        "disable_feature": ["BraveDebounce"]
+                        "disable_feature": [
+                            "BraveDebounce"
+                        ]
                     }
                 },
                 {
@@ -807,8 +1053,17 @@
             ],
             "filter": {
                 "min_version": "94.1.32.25",
-                "channel": ["RELEASE", "BETA", "NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -835,8 +1090,16 @@
             "filter": {
                 "min_version": "94.1.31.51",
                 "max_version": "104.1.43.79",
-                "channel": ["NIGHTLY", "BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -862,8 +1125,15 @@
             ],
             "filter": {
                 "min_version": "94.1.31.51",
-                "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -886,8 +1156,17 @@
             "filter": {
                 "min_version": "96.1.34.20",
                 "max_version": "104.1.43.79",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -916,8 +1195,17 @@
             "filter": {
                 "min_version": "96.1.34.4",
                 "max_version": "104.1.43.79",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -953,7 +1241,9 @@
                         }
                     ],
                     "feature_association": {
-                        "enable_feature": ["HangWatcher"]
+                        "enable_feature": [
+                            "HangWatcher"
+                        ]
                     }
                 },
                 {
@@ -962,8 +1252,14 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX"],
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ],
                 "min_version": "97.1.36.14"
             }
         },
@@ -974,7 +1270,9 @@
                     "name": "Disabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "disable_feature": ["BraveAdblockCnameUncloaking"]
+                        "disable_feature": [
+                            "BraveAdblockCnameUncloaking"
+                        ]
                     }
                 },
                 {
@@ -983,8 +1281,14 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -1005,37 +1309,52 @@
                 }
             ],
             "filter": {
-                "platform": ["WINDOWS", "MAC", "LINUX"],
-                "channel": ["RELEASE"],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ],
+                "channel": [
+                    "RELEASE"
+                ],
                 "max_version": "102.1.39.0"
             }
         },
         {
-          "name": "DisableReduceLanguage",
-          "experiments": [
-              {
-                  "name": "Default",
-                  "probability_weight": 0,
-                  "feature_association": {
-                      "disable_feature": [
-                          "BraveReduceLanguage"
-                      ]
-                  }
-              },
-              {
-                  "name": "Enabled",
-                  "probability_weight": 100,
-                  "feature_association": {
-                      "enable_feature": [
-                          "BraveReduceLanguage"
-                      ]
-                  }
-              }
-          ],
-          "filter": {
-              "channel": ["NIGHTLY", "BETA", "RELEASE"],
-              "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
-          }
+            "name": "DisableReduceLanguage",
+            "experiments": [
+                {
+                    "name": "Default",
+                    "probability_weight": 0,
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveReduceLanguage"
+                        ]
+                    }
+                },
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveReduceLanguage"
+                        ]
+                    }
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            }
         },
         {
             "name": "BraveTranslateStudy",
@@ -1044,7 +1363,10 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["UseBraveTranslateGo", "Translate"]
+                        "enable_feature": [
+                            "UseBraveTranslateGo",
+                            "Translate"
+                        ]
                     }
                 },
                 {
@@ -1055,8 +1377,17 @@
             "filter": {
                 "min_version": "104.1.43.54",
                 "max_version": "106.1.45.44",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -1066,7 +1397,9 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveRewardsWebUIPanel"]
+                        "enable_feature": [
+                            "BraveRewardsWebUIPanel"
+                        ]
                     }
                 },
                 {
@@ -1076,8 +1409,16 @@
             ],
             "filter": {
                 "min_version": "103.1.43.9",
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
             }
         },
         {
@@ -1087,7 +1428,9 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveSearchNTP"]
+                        "enable_feature": [
+                            "BraveSearchNTP"
+                        ]
                     }
                 },
                 {
@@ -1097,9 +1440,24 @@
             ],
             "filter": {
                 "min_version": "105.1.45.0",
-                "channel": ["NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX"],
-                "country": ["US", "CA", "DE", "FR", "GB", "AT", "ES", "MX"]
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ],
+                "country": [
+                    "US",
+                    "CA",
+                    "DE",
+                    "FR",
+                    "GB",
+                    "AT",
+                    "ES",
+                    "MX"
+                ]
             }
         },
         {
@@ -1109,7 +1467,9 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveAdblockCookieListOptIn"]
+                        "enable_feature": [
+                            "BraveAdblockCookieListOptIn"
+                        ]
                     }
                 },
                 {
@@ -1119,8 +1479,16 @@
             ],
             "filter": {
                 "min_version": "104.1.44.25",
-                "channel": ["BETA", "NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -1130,7 +1498,9 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveAdblockCookieListOptIn"]
+                        "enable_feature": [
+                            "BraveAdblockCookieListOptIn"
+                        ]
                     }
                 },
                 {
@@ -1140,8 +1510,15 @@
             ],
             "filter": {
                 "min_version": "104.1.44.25",
-                "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -1151,14 +1528,18 @@
                     "name": "Enabled",
                     "probability_weight": 50,
                     "feature_association": {
-                        "enable_feature": [ "AllowCertainClientHints" ]
+                        "enable_feature": [
+                            "AllowCertainClientHints"
+                        ]
                     }
                 },
                 {
                     "name": "Disabled",
                     "probability_weight": 50,
                     "feature_association": {
-                        "disable_feature": [ "AllowCertainClientHints" ]
+                        "disable_feature": [
+                            "AllowCertainClientHints"
+                        ]
                     }
                 },
                 {
@@ -1168,18 +1549,27 @@
             ],
             "filter": {
                 "min_version": "104.1.44.59",
-                "channel": [ "NIGHTLY" ],
-                "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID" ]
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
             }
         },
         {
-          "name": "BraveScreenFingerprintingBlockerStudy",
-          "experiments": [
+            "name": "BraveScreenFingerprintingBlockerStudy",
+            "experiments": [
                 {
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveBlockScreenFingerprinting"]
+                        "enable_feature": [
+                            "BraveBlockScreenFingerprinting"
+                        ]
                     }
                 },
                 {
@@ -1189,18 +1579,26 @@
             ],
             "filter": {
                 "min_version": "105.1.45.44",
-                "channel": ["NIGHTLY"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
             }
         },
         {
-          "name": "BraveScreenFingerprintingBlockerStudy",
-          "experiments": [
+            "name": "BraveScreenFingerprintingBlockerStudy",
+            "experiments": [
                 {
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveBlockScreenFingerprinting"]
+                        "enable_feature": [
+                            "BraveBlockScreenFingerprinting"
+                        ]
                     }
                 },
                 {
@@ -1210,18 +1608,26 @@
             ],
             "filter": {
                 "min_version": "105.1.45.78",
-                "channel": ["BETA"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
+                "channel": [
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
             }
         },
         {
-          "name": "BraveScreenFingerprintingBlockerStudy",
-          "experiments": [
+            "name": "BraveScreenFingerprintingBlockerStudy",
+            "experiments": [
                 {
                     "name": "Enabled",
                     "probability_weight": 25,
                     "feature_association": {
-                        "enable_feature": ["BraveBlockScreenFingerprinting"]
+                        "enable_feature": [
+                            "BraveBlockScreenFingerprinting"
+                        ]
                     }
                 },
                 {
@@ -1231,8 +1637,14 @@
             ],
             "filter": {
                 "min_version": "105.1.45.115",
-                "channel": ["RELEASE"],
-                "platform": ["WINDOWS", "MAC", "LINUX"]
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
             }
         },
         {
@@ -1242,7 +1654,9 @@
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
-                        "enable_feature": ["BraveBackgroundVideoPlayback"]
+                        "enable_feature": [
+                            "BraveBackgroundVideoPlayback"
+                        ]
                     }
                 },
                 {
@@ -1252,8 +1666,12 @@
             ],
             "filter": {
                 "min_version": "106.1.46.37",
-                "channel": ["NIGHTLY"],
-                "platform": ["ANDROID"]
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -1274,8 +1692,14 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
             }
         },
         {
@@ -1296,8 +1720,14 @@
                 }
             ],
             "filter": {
-                "channel": ["NIGHTLY", "BETA", "RELEASE"],
-                "platform": ["ANDROID"]
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
             }
         }
     ]
