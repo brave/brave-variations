@@ -1322,7 +1322,7 @@
             ],
             "filter": {
                 "min_version": "106.1.46.37",
-                "channel": ["NIGHTLY"],
+                "channel": ["NIGHTLY", "BETA"],
                 "platform": ["ANDROID"]
             }
         },
