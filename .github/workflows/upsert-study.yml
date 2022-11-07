@@ -96,13 +96,13 @@ jobs:
           # enable BraveAdblockCookieListOptIn on release channel at 25% [production] #414
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>\n- production <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_production_number }}|${{ steps.upsert.outputs.pr_production_number }}>",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>"
+                    "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>\n- production <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_production_number }}|${{ steps.upsert.outputs.pr_production_number }}>"
                   }
                 }
               ]
