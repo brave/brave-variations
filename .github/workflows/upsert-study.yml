@@ -76,8 +76,14 @@ jobs:
           }
 
           pr_number=0
+
           upsert_study main
           get_pr_number
-          git branch
           pr_main_number=${pr_number:?}
-          echo "PR NUM: " ${pr_main_number}
+
+          upsert_study production
+          get_pr_number
+          pr_production_number=${pr_number:?}
+
+          gh pr edit "${pr_main_number}" -b "`production`: ${pr_production_number}"
+          gh pr edit "${pr_production_number}" -b "`main`: ${pr_main_number}"
