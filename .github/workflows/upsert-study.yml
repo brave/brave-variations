@@ -66,10 +66,9 @@ jobs:
             git merge aka/gha-griffin-prs  # TODO Disable before merge!
             .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
             git add seed/seed.json
-            git commit -m "Added study ${{ inputs.name }}"
+            git commit -m "Upsert study ${{ inputs.name }}"
             git push -u origin "${branch_name}"
-            git branch # DEBUG
-            gh pr create --base "${1}" -d -f -t "Study ${{ inputs.name }}"
+            gh pr create --base "${1}" -f -t "Study ${{ inputs.name }}"
           }
 
           function get_pr_number {
