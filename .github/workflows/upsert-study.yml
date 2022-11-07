@@ -60,14 +60,15 @@ jobs:
 
           # base_branch=$(git branch --show-current)
           function upsert_study {
+            branch_name=pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
             git switch "${1}"
-            git switch -c pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
+            git switch -c "${branch_name}"
             git merge aka/gha-griffin-prs  # TODO Disable before merge!
             .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
             git add seed/seed.json
             git commit -m "Added study ${{ inputs.name }}"
-            git push -u origin
-            git branch
+            git push -u origin "${branch_name}"
+            git branch # DEBUG
             gh pr create --base "${1}" -d -f -t "Study ${{ inputs.name }}"
           }
 
