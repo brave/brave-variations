@@ -60,6 +60,10 @@ jobs:
           # base_branch=$(git branch --show-current)
           function upsert_study {
             git switch -c pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT} origin/"${1}"
+            git branch
+            echo current branch
+            git branch --show-current
+            exit 1
             git merge aka/gha-griffin-prs  # TODO Disable before merge!
             .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
             git add -u
@@ -75,5 +79,6 @@ jobs:
           pr_number=0
           upsert_study main
           get_pr_number
+          git branch
           pr_main_number=${pr_number:?}
           echo "PR NUM: " ${pr_main_number}
