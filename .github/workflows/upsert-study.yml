@@ -1,0 +1,67 @@
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Study name'
+        required: true
+        type: string
+      enable_feature:
+        description: 'Feature name to enable'
+        required: true
+        type: string
+      probability_enabled:
+        description: 'Percentage number to enable. ex: 25'
+        required: true
+        default: "25"
+        type: string
+      channel:
+        description: 'Channels to enable on, in comma separated value format'
+        required: true
+        default: "Release,Beta,Nightly"
+        type: string
+      platform:
+        description: 'Platforms to enable on, in comma separated value format'
+        required: true
+        default: "Windows,Mac,Linux,Android"
+        type: string
+      min_version:
+        description: 'Minimum version to enable on [Optional]'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  upsert-study:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: upsert-study
+        run: |
+          echo  The tags are ${{ inputs.tags }}
+          set -ex
+
+          # base_branch=$(git branch --show-current)
+          function upsert_study {
+            git switch -c pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT} "${1}"
+            git merge aka/gha-griffin-prs  # TODO Disable before merge!
+            .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
+            git add -u
+            git commit -m "Added study ${{ inputs.name }}"
+            git push -u
+            # gh pr create --base ${base_branch} -d -f -t "Study CosmeticFilteringChildFramesStudy"
+          }
+
+          function get_pr_number {
+            # pr_number=$(gh pr view --json number --jq '.number')
+            pr_number=123
+          }
+
+          pr_number=0
+          upsert_study main
+          get_pr_number
+          pr_main_number=${pr_number:?}
+          echo "PR NUM: " ${pr_main_number}
