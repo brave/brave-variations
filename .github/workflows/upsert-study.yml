@@ -46,7 +46,6 @@ jobs:
 
       - name: upsert-study
         run: |
-          echo  The tags are ${{ inputs.tags }}
           set -ex
 
           # base_branch=$(git branch --show-current)
