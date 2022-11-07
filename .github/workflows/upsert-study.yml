@@ -49,6 +49,7 @@ jobs:
           python-version: "3.11"
 
       - name: upsert-study
+        id: upsert
         run: |
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
@@ -101,7 +102,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ env.pr_main_number }}|${{ env.pr_main_number }}>"
+                    "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>"
                   }
                 }
               ]
