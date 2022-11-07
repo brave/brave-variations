@@ -66,7 +66,7 @@ jobs:
             .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
             git add seed/seed.json
             git commit -m "Added study ${{ inputs.name }}"
-            git push -u
+            git push -u origin
             git branch
             gh pr create --base "${1}" -d -f -t "Study ${{ inputs.name }}"
           }
