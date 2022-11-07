@@ -53,7 +53,6 @@ jobs:
 
       - name: upsert-study
         run: |
-          set -ex
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
           git config push.default simple
@@ -85,5 +84,5 @@ jobs:
           get_pr_number
           pr_production_number=${pr_number:?}
 
-          gh pr edit "${pr_main_number}" -b "`production`: ${pr_production_number}"
-          gh pr edit "${pr_production_number}" -b "`main`: ${pr_main_number}"
+          gh pr edit "${pr_main_number}" -b "\`production\`: ${pr_production_number}"
+          gh pr edit "${pr_production_number}" -b "\`main\`: ${pr_main_number}"
