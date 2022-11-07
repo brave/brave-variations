@@ -99,7 +99,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ github.actor }} is http://google.com requesting that we set the ${{ inputs.enable_feature }} feature on release to ${{ inputs.probability_enabled }}% on platforms ${{ inputs.platform }} channel ${{ inputs.channel }} via the ${{ inputs.name }} Griffin study using the following PR(s):"
+                    "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms ${{ inputs.platform }} via the ${{ inputs.name }} Griffin study using the following PR(s):"
                   }
                 }
               ]
