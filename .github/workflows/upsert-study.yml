@@ -61,13 +61,12 @@ jobs:
             .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
             git add -u
             git commit -m "Added study ${{ inputs.name }}"
-            git push -u
-            # gh pr create --base ${base_branch} -d -f -t "Study CosmeticFilteringChildFramesStudy"
+            git push origin HEAD
+            gh pr create --base origin/"${1}" -d -f -t "Study ${{ inputs.name }}"
           }
 
           function get_pr_number {
-            # pr_number=$(gh pr view --json number --jq '.number')
-            pr_number=123
+            pr_number=$(gh pr view --json number --jq '.number')
           }
 
           pr_number=0
