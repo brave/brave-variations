@@ -46,38 +46,29 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "BraveAdblockCosmeticFilteringChildFrames"
+                            "CliFeature"
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "feature_association": {
-                        "disable_feature": [
-                            "BraveAdblockCosmeticFilteringChildFrames"
-                        ]
-                    },
-                    "name": "Disabled",
-                    "probability_weight": 0
+                    "probability_weight": 33
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 0
+                    "probability_weight": 67
                 }
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
+                    "Release",
+                    "Beta",
+                    "Nightly"
                 ],
-                "min_version": "106.1.46.14",
+                "min_version": "100.200",
                 "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
+                    "Windows",
+                    "Mac",
+                    "Linux",
+                    "Android"
                 ]
             },
             "name": "CosmeticFilteringChildFramesStudy"
