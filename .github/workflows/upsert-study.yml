@@ -88,7 +88,9 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1
         with:
-          # For posting a rich message using Block Kit
+          # Anton requesting that we bump the BraveAdblockCookieListOptIn feature on release from 10% to 25% on both Desktop & Android via the BraveAdblockCookieListOptInStudy Griffin study using the following PR(s):
+          # enable BraveAdblockCookieListOptIn on release channel at 25% [main] #413
+          # enable BraveAdblockCookieListOptIn on release channel at 25% [production] #414
           payload: |
             {
               "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
@@ -97,7 +99,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "MY GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    "text": "${{ github.actor }} is http://google.com requesting that we set the ${{ inputs.enable_feature }} feature on release to ${{ inputs.probability_enabled }}% on platforms ${{ inputs.platform }} channel ${{ inputs.channel }} via the ${{ inputs.name }} Griffin study using the following PR(s):"
                   }
                 }
               ]
