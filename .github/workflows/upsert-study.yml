@@ -65,7 +65,7 @@ jobs:
             git add -u
             git commit -m "Added study ${{ inputs.name }}"
             git push origin HEAD
-            gh pr create --base origin/"${1}" -d -f -t "Study ${{ inputs.name }}"
+            gh pr create --base "${1}" -d -f -t "Study ${{ inputs.name }}"
           }
 
           function get_pr_number {
