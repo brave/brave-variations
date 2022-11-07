@@ -5,30 +5,30 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Study name'
+        description: "Study name"
         required: true
         type: string
       enable_feature:
-        description: 'Feature name to enable'
+        description: "Feature name to enable"
         required: true
         type: string
       probability_enabled:
-        description: 'Percentage number to enable. ex: 25'
+        description: "Percentage number to enable. ex: 25"
         required: true
         default: "25"
         type: string
       channel:
-        description: 'Channels to enable on, in comma separated value format'
+        description: "Channels to enable on, in comma separated value format"
         required: true
         default: "Release,Beta,Nightly"
         type: string
       platform:
-        description: 'Platforms to enable on, in comma separated value format'
+        description: "Platforms to enable on, in comma separated value format"
         required: true
         default: "Windows,Mac,Linux,Android"
         type: string
       min_version:
-        description: 'Minimum version to enable on [Optional]'
+        description: "Minimum version to enable on [Optional]"
         required: false
         type: string
 
@@ -42,7 +42,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: '0'
+          fetch-depth: "0"
 
       - name: upsert-study
         run: |
