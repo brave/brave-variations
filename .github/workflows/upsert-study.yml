@@ -44,6 +44,10 @@ jobs:
         with:
           fetch-depth: "0"
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
       - name: upsert-study
         run: |
           set -ex
