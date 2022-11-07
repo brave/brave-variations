@@ -56,19 +56,18 @@ jobs:
           set -ex
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
+          git config push.default simple
 
           # base_branch=$(git branch --show-current)
           function upsert_study {
-            git switch -c pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT} origin/"${1}"
-            git branch
-            echo current branch
-            git branch --show-current
-            exit 1
+            git switch "${1}"
+            git switch -c pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
             git merge aka/gha-griffin-prs  # TODO Disable before merge!
             .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
-            git add -u
+            git add seed/seed.json
             git commit -m "Added study ${{ inputs.name }}"
-            git push origin HEAD
+            git push -u
+            git branch
             gh pr create --base "${1}" -d -f -t "Study ${{ inputs.name }}"
           }
 
