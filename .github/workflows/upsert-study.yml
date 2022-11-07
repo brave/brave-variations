@@ -1,7 +1,4 @@
 on:
-  # push:
-  #   branches:
-  #     - "aka/gha-griffin-prs"
   workflow_dispatch:
     inputs:
       name:
