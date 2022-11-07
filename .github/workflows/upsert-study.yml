@@ -63,7 +63,7 @@ jobs:
             branch_name=pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
             git switch "${1}"
             git switch -c "${branch_name}"
-            git checkout aka/gha-griffin-prs seed/seed.json  # TODO Disable before merge!
+            git checkout aka/gha-griffin-prs seed/seed.json .github/ci/griffin-study-utils.py  # TODO Disable before merge!
             .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
             git add seed/seed.json
             git commit -m "Upsert study ${{ inputs.name }}"
