@@ -20,12 +20,12 @@ on:
       channel:
         description: "Channels to enable on, in comma separated value format"
         required: true
-        default: "Release,Beta,Nightly"
+        default: "RELEASE,BETA,NIGHTLY"
         type: string
       platform:
         description: "Platforms to enable on, in comma separated value format"
         required: true
-        default: "Windows,Mac,Linux,Android"
+        default: "WINDOWS,MAC,LINUX,ANDROID"
         type: string
       min_version:
         description: "Minimum version to enable on [Optional]"
