@@ -84,6 +84,9 @@ jobs:
 
           # gh pr edit "${pr_main_number}" -b "\`production\`: #${pr_production_number}"
           # gh pr edit "${pr_production_number}" -b "\`main\`: #${pr_main_number}"
+          # echo "pr_main_number=${pr_main_number}" >> $GITHUB_OUTPUT
+          # echo "pr_production_number=${pr_production_number}" >> $GITHUB_OUTPUT
+          # DEBUG ONLY
           echo "pr_main_number=447" >> $GITHUB_OUTPUT
           echo "pr_production_number=448" >> $GITHUB_OUTPUT
 
@@ -91,9 +94,6 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1
         with:
-          # Anton requesting that we bump the BraveAdblockCookieListOptIn feature on release from 10% to 25% on both Desktop & Android via the BraveAdblockCookieListOptInStudy Griffin study using the following PR(s):
-          # enable BraveAdblockCookieListOptIn on release channel at 25% [main] #413
-          # enable BraveAdblockCookieListOptIn on release channel at 25% [production] #414
           payload: |
             {
               "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>\n- production <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_production_number }}|${{ steps.upsert.outputs.pr_production_number }}>",
