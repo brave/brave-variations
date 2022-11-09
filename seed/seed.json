@@ -1158,7 +1158,7 @@
                     "name": "Disabled",
                     "probability_weight": 75,
                     "feature_association": {
-                        "enable_feature": ["AllowCertainClientHints"]
+                        "disable_feature": ["AllowCertainClientHints"]
                     }
                 },
                 {
