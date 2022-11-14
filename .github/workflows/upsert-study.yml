@@ -98,6 +98,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1
         with:
+          channel-id: 'C01LKMP6X36'
           payload: |
             {
               "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>\n- production <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_production_number }}|${{ steps.upsert.outputs.pr_production_number }}>",
@@ -112,5 +113,4 @@ jobs:
               ]
             }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
