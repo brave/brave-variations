@@ -1,0 +1,112 @@
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Study name"
+        required: true
+        type: string
+      enable_feature:
+        description: "Feature name to enable"
+        required: true
+        type: string
+      probability_enabled:
+        description: "Percentage number to enable (ex: 25)"
+        required: true
+        default: "25"
+        type: string
+      channel:
+        description: "Channels to enable on (in comma separated value format)"
+        required: true
+        default: "RELEASE,BETA,NIGHTLY"
+        type: string
+      platform:
+        description: "Platforms to enable on (in comma separated value format)"
+        required: true
+        default: "WINDOWS,MAC,LINUX,ANDROID"
+        type: string
+      min_version:
+        description: "Minimum version to enable on (optional)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  upsert-study:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: upsert-study
+        id: upsert
+        run: |
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
+          git config push.default simple
+
+          python3 -c "i='${{ inputs.channel }}'.split(','); valid=['RELEASE', 'BETA', 'NIGHTLY']; o=[x in valid for x in i]; import sys; sys.exit('Invalid channel specified') if not all(o) else sys.exit(0)"
+          python3 -c "i='${{ inputs.platform }}'.split(','); valid=['WINDOWS', 'MAC', 'LINUX', 'ANDROID']; o=[x in valid for x in i]; import sys; sys.exit('Invalid platform specified') if not all(o) else sys.exit(0)"
+          echo Validation completed successfully
+
+          function upsert_study {
+            branch_name=pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
+            git switch "${1}"
+            git switch -c "${branch_name}"
+            git checkout aka/gha-griffin-prs seed/seed.json .github/ci/griffin-study-utils.py  # TODO Disable before merge!
+            .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
+            git add seed/seed.json
+            git commit -m "Upsert study ${{ inputs.name }}"
+            git push -u origin "${branch_name}"
+            gh pr create --base "${1}" -f -t "Study ${{ inputs.name }}"
+          }
+
+          function get_pr_number {
+            pr_number=$(gh pr view --json number --jq '.number')
+          }
+
+          pr_number=0
+
+          upsert_study main
+          get_pr_number
+          pr_main_number=${pr_number:?}
+
+          upsert_study production
+          get_pr_number
+          pr_production_number=${pr_number:?}
+
+          gh pr edit "${pr_main_number}" -b "\`production\`: #${pr_production_number}"
+          gh pr edit "${pr_production_number}" -b "\`main\`: #${pr_main_number}"
+          echo "pr_main_number=${pr_main_number}" >> $GITHUB_OUTPUT
+          echo "pr_production_number=${pr_production_number}" >> $GITHUB_OUTPUT
+
+      - name: Report to slack
+        id: slack
+        uses: slackapi/slack-github-action@v1
+        with:
+          channel-id: 'C01LKMP6X36'
+          payload: |
+            {
+              "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>\n- production <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_production_number }}|${{ steps.upsert.outputs.pr_production_number }}>",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR(s):\n- main <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>\n- production <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_production_number }}|${{ steps.upsert.outputs.pr_production_number }}>"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
