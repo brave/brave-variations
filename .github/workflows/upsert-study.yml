@@ -55,10 +55,10 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config push.default simple
 
-          set -x
-          python3 -c "i='${{ inputs.channel }}'.split(','); valid=['RELEASE', 'BETA', 'NIGHTLY']; o=[x in valid for x in i]; import sys; sys.exit('Invalid input') if not all(o) else sys.exit(0)"
-          echo DONE
-          exit 1
+          python3 -c "i='${{ inputs.channel }}'.split(','); valid=['RELEASE', 'BETA', 'NIGHTLY']; o=[x in valid for x in i]; import sys; sys.exit('Invalid channel specified') if not all(o) else sys.exit(0)"
+          python3 -c "i='${{ inputs.platform }}'.split(','); valid=['WINDOWS', 'MAC', 'LINUX', 'ANDROID']; o=[x in valid for x in i]; import sys; sys.exit('Invalid platform specified') if not all(o) else sys.exit(0)"
+          echo Validation completed successfully
+
           # base_branch=$(git branch --show-current)
           function upsert_study {
             branch_name=pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
