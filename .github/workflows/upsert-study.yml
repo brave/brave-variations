@@ -59,7 +59,6 @@ jobs:
           python3 -c "i='${{ inputs.platform }}'.split(','); valid=['WINDOWS', 'MAC', 'LINUX', 'ANDROID']; o=[x in valid for x in i]; import sys; sys.exit('Invalid platform specified') if not all(o) else sys.exit(0)"
           echo Validation completed successfully
 
-          # base_branch=$(git branch --show-current)
           function upsert_study {
             branch_name=pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
             git switch "${1}"
@@ -78,21 +77,18 @@ jobs:
 
           pr_number=0
 
-          # upsert_study main
-          # get_pr_number
-          # pr_main_number=${pr_number:?}
+          upsert_study main
+          get_pr_number
+          pr_main_number=${pr_number:?}
 
-          # upsert_study production
-          # get_pr_number
-          # pr_production_number=${pr_number:?}
+          upsert_study production
+          get_pr_number
+          pr_production_number=${pr_number:?}
 
-          # gh pr edit "${pr_main_number}" -b "\`production\`: #${pr_production_number}"
-          # gh pr edit "${pr_production_number}" -b "\`main\`: #${pr_main_number}"
-          # echo "pr_main_number=${pr_main_number}" >> $GITHUB_OUTPUT
-          # echo "pr_production_number=${pr_production_number}" >> $GITHUB_OUTPUT
-          # DEBUG ONLY
-          echo "pr_main_number=447" >> $GITHUB_OUTPUT
-          echo "pr_production_number=448" >> $GITHUB_OUTPUT
+          gh pr edit "${pr_main_number}" -b "\`production\`: #${pr_production_number}"
+          gh pr edit "${pr_production_number}" -b "\`main\`: #${pr_main_number}"
+          echo "pr_main_number=${pr_main_number}" >> $GITHUB_OUTPUT
+          echo "pr_production_number=${pr_production_number}" >> $GITHUB_OUTPUT
 
       - name: Report to slack
         id: slack
