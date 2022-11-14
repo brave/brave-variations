@@ -1149,6 +1149,34 @@
             "experiments": [
                 {
                     "name": "Enabled",
+                    "probability_weight": 25,
+                    "feature_association": {
+                        "enable_feature": ["AllowCertainClientHints"]
+                    }
+                },
+                {
+                    "name": "Disabled",
+                    "probability_weight": 75,
+                    "feature_association": {
+                        "disable_feature": ["AllowCertainClientHints"]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "104.1.44.59",
+                "channel": ["RELEASE"],
+                "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
+            }
+        },
+        {
+            "name": "AllowCertainClientHintsStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
                         "enable_feature": ["AllowCertainClientHints"]
@@ -1161,7 +1189,7 @@
             ],
             "filter": {
                 "min_version": "104.1.44.59",
-                "channel": ["NIGHTLY"],
+                "channel": ["BETA", "NIGHTLY"],
                 "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
             }
         },
@@ -1212,14 +1240,14 @@
           "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 25,
+                    "probability_weight": 50,
                     "feature_association": {
                         "enable_feature": ["BraveBlockScreenFingerprinting"]
                     }
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 75
+                    "probability_weight": 50
                 }
             ],
             "filter": {
