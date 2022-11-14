@@ -1,3 +1,4 @@
+name: Upsert study
 on:
   workflow_dispatch:
     inputs:
