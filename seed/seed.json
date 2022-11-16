@@ -1779,7 +1779,7 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
+                    "NIGHTLY"
                 ],
                 "platform": [
                     "ANDROID"
