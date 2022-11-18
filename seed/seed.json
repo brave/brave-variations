@@ -53,24 +53,14 @@
                     "probability_weight": 100
                 },
                 {
-                    "feature_association": {
-                        "disable_feature": [
-                            "BraveAdblockCosmeticFilteringChildFrames"
-                        ]
-                    },
-                    "name": "Disabled",
-                    "probability_weight": 0
-                },
-                {
                     "name": "Default",
                     "probability_weight": 0
                 }
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
                     "BETA",
-                    "RELEASE"
+                    "NIGHTLY"
                 ],
                 "min_version": "106.1.46.14",
                 "platform": [
