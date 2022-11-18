@@ -1820,6 +1820,37 @@
                 ]
             },
             "name": "PostFREFixMetricsAndCrashSampling"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveAdblockCosmeticFilteringChildFrames"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "min_version": "106.1.46.14",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "CosmeticFilteringChildFramesStudy"
         }
     ],
     "version": "1"
