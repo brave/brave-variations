@@ -39,9 +39,9 @@ def _get_variations_revision(date: str, branch: str) -> str:
 
 
 def _get_seed_data(seed_git_path: str, variations_revision: str):
-  seed_string = subprocess.check_output(
-      ['git', 'show', f'{variations_revision}:{seed_git_path}'])
-  return json.loads(seed_string)
+    seed_string = subprocess.check_output(
+        ['git', 'show', f'{variations_revision}:{seed_git_path}'])
+    return json.loads(seed_string)
 
 
 def make_field_trial_testing_config(seed, version_string, channel_string):
@@ -133,8 +133,7 @@ def main():
     seed_message = serialize.make_variations_seed_message(seed_data)
     json_config = make_field_trial_testing_config(
         seed_message, args.target_version, args.target_channel)
-    json.dump(json_config, args.output,
-        indent=2)
+    json.dump(json_config, args.output, indent=2)
     print("Testing config saved to", args.output.name)
     return 0
 
