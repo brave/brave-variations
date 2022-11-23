@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# Copyright (c) 2022 The Brave Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# you can obtain one at http://mozilla.org/MPL/2.0/.
 """Generate the most probable testing config in chromium format
 
 For a single study the experiment with maximum probability_weight will be
@@ -11,6 +15,7 @@ Filters that will be processed by chromium code later: platforms
 The format description:
 https://chromium.googlesource.com/chromium/src/+/master/testing/variations/README.md
 """
+
 import serialize
 import json
 import proto.study_pb2 as study_pb2
