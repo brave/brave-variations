@@ -1589,11 +1589,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 100
+                    "probability_weight": 0
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 0
+                    "probability_weight": 100
                 }
             ],
             "filter": {
@@ -1618,11 +1618,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 100
+                    "probability_weight": 0
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 0
+                    "probability_weight": 100
                 }
             ],
             "filter": {
@@ -1647,11 +1647,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 50
+                    "probability_weight": 0
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 50
+                    "probability_weight": 100
                 }
             ],
             "filter": {
