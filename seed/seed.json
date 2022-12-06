@@ -1383,6 +1383,37 @@
             "experiments": [
                 {
                     "feature_association": {
+                        "disable_feature": [
+                            "BraveEnableAutoTranslate"
+                        ]
+                    },
+                    "name": "AutoTranslateDisabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "min_version": "107.1.47.31",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveAutoTranslateStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
                         "enable_feature": [
                             "BraveRewardsWebUIPanel"
                         ]
