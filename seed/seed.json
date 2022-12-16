@@ -611,11 +611,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -642,11 +642,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -689,11 +689,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -720,11 +720,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -751,11 +751,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -786,11 +786,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -821,11 +821,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
