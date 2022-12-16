@@ -1560,18 +1560,18 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 0
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 100
+                    "probability_weight": 0
                 }
             ],
             "filter": {
                 "channel": [
                     "NIGHTLY"
                 ],
-                "min_version": "105.1.45.44",
+                "min_version": "108.1.48.19",
                 "platform": [
                     "WINDOWS",
                     "MAC",
