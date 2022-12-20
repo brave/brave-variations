@@ -1569,7 +1569,7 @@
             ],
             "filter": {
                 "channel": [
-                    "STABLE",
+                    "RELEASE",
                     "BETA"
                 ],
                 "min_version": "108.1.46.138",
