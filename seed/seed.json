@@ -1555,6 +1555,37 @@
             "experiments": [
                 {
                     "feature_association": {
+                        "disable_feature": [
+                            "BraveEnableAutoTranslate"
+                        ]
+                    },
+                    "name": "AutoTranslateDisabled",
+                    "probability_weight": 25
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 75
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA"
+                ],
+                "min_version": "108.1.46.138",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveAutoTranslateReleaseStudy"
+      },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
                         "enable_feature": [
                             "BraveBlockScreenFingerprinting"
                         ]
