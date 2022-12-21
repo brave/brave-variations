@@ -599,7 +599,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=1",
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=1",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -611,11 +611,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -630,7 +630,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=2",
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -642,11 +642,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -677,7 +677,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=1",
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=1",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -689,11 +689,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -708,7 +708,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=2",
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -720,11 +720,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -739,7 +739,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=2/AdPredictorWeights=16.0,8.0,16.0,8.0,0.0,0.0,0.0",
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2/AdPredictorWeights=16.0,8.0,16.0,8.0,0.0,0.0,0.0",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -751,11 +751,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -774,7 +774,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=2/AdPredictorWeights=0.0,0.0,0.0,0.0,16.0,16.0,0.0",
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2/AdPredictorWeights=0.0,0.0,0.0,0.0,16.0,16.0,0.0",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -786,11 +786,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
@@ -809,7 +809,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=12/MaximumInlineContentAdsPerDay=60/AdServingVersion=2/AdPredictorWeights=32.0,16.0,16.0,8.0,4.0,2.0,1.0",
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2/AdPredictorWeights=32.0,16.0,16.0,8.0,4.0,2.0,1.0",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -821,11 +821,11 @@
                         },
                         {
                             "name": "maximum_inline_content_ads_per_hour",
-                            "value": "12"
+                            "value": "6"
                         },
                         {
                             "name": "maximum_inline_content_ads_per_day",
-                            "value": "60"
+                            "value": "20"
                         },
                         {
                             "name": "ad_serving_version",
