@@ -1419,11 +1419,11 @@
                       ]
                   },
                   "name": "AutoTranslateDisabled",
-                  "probability_weight": 25
+                  "probability_weight": 50
               },
               {
                   "name": "Default",
-                  "probability_weight": 75
+                  "probability_weight": 50
               }
           ],
           "filter": {
