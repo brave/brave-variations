@@ -1833,7 +1833,7 @@
                 "channel": [
                     "NIGHTLY",
                     "BETA",
-                    "RELEASE"
+                    "BAD_CHANNEL"
                 ],
                 "platform": [
                     "ANDROID"
