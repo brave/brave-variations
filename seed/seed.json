@@ -1398,7 +1398,8 @@
             "filter": {
                 "channel": [
                     "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "RELEASE"
                 ],
                 "min_version": "107.1.47.31",
                 "platform": [
@@ -1410,37 +1411,6 @@
             },
             "name": "BraveAutoTranslateStudy"
         },
-        {
-          "experiments": [
-              {
-                  "feature_association": {
-                      "disable_feature": [
-                          "BraveEnableAutoTranslate"
-                      ]
-                  },
-                  "name": "AutoTranslateDisabled",
-                  "probability_weight": 50
-              },
-              {
-                  "name": "Default",
-                  "probability_weight": 50
-              }
-          ],
-          "filter": {
-              "channel": [
-                  "RELEASE",
-                  "BETA"
-              ],
-              "min_version": "108.1.46.138",
-              "platform": [
-                  "WINDOWS",
-                  "MAC",
-                  "LINUX",
-                  "ANDROID"
-              ]
-          },
-          "name": "BraveAutoTranslateReleaseStudy"
-      },
         {
             "experiments": [
                 {
