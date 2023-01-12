@@ -1633,7 +1633,6 @@
                     "RELEASE"
                 ],
                 "min_version": "107.1.47.31",
-
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2025,6 +2024,37 @@
                 ]
             },
             "name": "CrossPlatformVPNStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveAdblockMobileNotificationsListDefault"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveAdblockMobileNotificationsListDefault"
         }
     ],
     "version": "1"
