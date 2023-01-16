@@ -461,59 +461,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "FrequencyCapping"
-                        ]
-                    },
-                    "name": "ExcludeAdIfWithinTimeWindow=0h",
-                    "parameters": [
-                        {
-                            "name": "exclude_ad_if_dismissed_within_time_window",
-                            "value": "0h"
-                        },
-                        {
-                            "name": "exclude_ad_if_transferred_within_time_window",
-                            "value": "0h"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "country": [
-                    "US",
-                    "AU",
-                    "CA",
-                    "FR",
-                    "DE",
-                    "IE",
-                    "JP",
-                    "NZ",
-                    "GB"
-                ],
-                "min_version": "91.1.26.60",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAds.FrequencyCappingStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "UserActivity"
                         ]
                     },
