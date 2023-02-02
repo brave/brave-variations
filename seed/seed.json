@@ -461,55 +461,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "UserActivity"
-                        ]
-                    },
-                    "name": "Triggers=NTPSI/TimeWindow=15m/Threshold=0.0/IdleTimeThreshold=5s",
-                    "parameters": [
-                        {
-                            "name": "triggers",
-                            "value": "0D0B14110D0B14110D0B14110D0B1411=-1.0;0D0B1411070707=-1.0;07070707=-1.0"
-                        },
-                        {
-                            "name": "time_window",
-                            "value": "15m"
-                        },
-                        {
-                            "name": "threshold",
-                            "value": "0.0"
-                        },
-                        {
-                            "name": "idle_time_threshold",
-                            "value": "5s"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAds.UserActivityStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "AdServing"
                         ]
                     },
