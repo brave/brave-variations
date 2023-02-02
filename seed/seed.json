@@ -333,7 +333,7 @@
                     "NIGHTLY",
                     "BETA"
                 ],
-                "max_version": "104.1.43.79",
+                "max_version": "110.1.49.83",
                 "min_version": "90.1.25.57",
                 "platform": [
                     "WINDOWS",
@@ -373,7 +373,7 @@
                 "channel": [
                     "RELEASE"
                 ],
-                "max_version": "104.1.43.79",
+                "max_version": "110.1.49.83",
                 "min_version": "90.1.25.57",
                 "platform": [
                     "WINDOWS",
@@ -407,7 +407,7 @@
                     "BETA",
                     "RELEASE"
                 ],
-                "max_version": "104.1.43.79",
+                "max_version": "110.1.49.83",
                 "min_version": "101.1.38.109",
                 "platform": [
                     "WINDOWS",
@@ -1120,7 +1120,7 @@
                     "NIGHTLY",
                     "BETA"
                 ],
-                "max_version": "104.1.43.79",
+                "max_version": "110.1.49.83",
                 "min_version": "94.1.31.51",
                 "platform": [
                     "WINDOWS",
@@ -1155,6 +1155,7 @@
                 "channel": [
                     "RELEASE"
                 ],
+                "max_version": "110.1.49.83",
                 "min_version": "94.1.31.51",
                 "platform": [
                     "WINDOWS",
@@ -1187,7 +1188,7 @@
                     "BETA",
                     "RELEASE"
                 ],
-                "max_version": "104.1.43.79",
+                "max_version": "110.1.49.83",
                 "min_version": "96.1.34.20",
                 "platform": [
                     "WINDOWS",
@@ -1226,7 +1227,7 @@
                     "BETA",
                     "RELEASE"
                 ],
-                "max_version": "104.1.43.79",
+                "max_version": "110.1.49.83",
                 "min_version": "96.1.34.4",
                 "platform": [
                     "WINDOWS",
