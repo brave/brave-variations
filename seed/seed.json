@@ -936,43 +936,6 @@
             "experiments": [
                 {
                     "feature_association": {
-                        "enable_feature": [
-                            "Conversions"
-                        ]
-                    },
-                    "name": "NewDefaultPattern",
-                    "parameters": [
-                        {
-                            "name": "conversions_default_conversion_id_pattern",
-                            "value": "<meta.*name=\"ad-conversion-id\".*content=\"([-a-zA-Z0-9]*)\".*>"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "ConversionsParametersStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
                         "disable_feature": [
                             "TextClassification"
                         ],
