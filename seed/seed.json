@@ -1807,6 +1807,35 @@
                 ]
             },
             "name": "BraveAdblockMobileNotificationsListDefault"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "HttpsByDefault"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "110.1.50.67",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveHttpsByDefaultRolloutStudy"
         }
     ],
     "version": "1"
