@@ -1817,18 +1817,18 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 50
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 50
+                    "probability_weight": 0
                 }
             ],
             "filter": {
                 "channel": [
                     "NIGHTLY"
                 ],
-                "min_version": "110.1.50.32",
+                "min_version": "110.1.50.67",
                 "platform": [
                     "WINDOWS",
                     "MAC",
