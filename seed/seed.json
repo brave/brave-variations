@@ -586,8 +586,7 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX",
-                    "ANDROID"
+                    "LINUX"
                 ]
             },
             "name": "UserActivityStudy"
