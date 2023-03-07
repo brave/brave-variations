@@ -45,6 +45,44 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveGoogleSignInPermission"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveGoogleSignInPermission"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 0
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "111.1.51.5",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveGoogleSignInPermissionStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveAdblockDefault1pBlocking"
                         ]
                     },
