@@ -50,7 +50,7 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 0
+                    "probability_weight": 100
                 },
                 {
                     "feature_association": {
@@ -59,7 +59,7 @@
                         ]
                     },
                     "name": "Disabled",
-                    "probability_weight": 100
+                    "probability_weight": 0
                 },
                 {
                     "name": "Default",
@@ -68,15 +68,13 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
-                    "BETA"
+                    "NIGHTLY"
                 ],
-                "min_version": "109.1.49.21",
+                "min_version": "111.1.51.5",
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX",
-                    "ANDROID"
+                    "LINUX"
                 ]
             },
             "name": "BraveGoogleSignInPermissionStudy"
