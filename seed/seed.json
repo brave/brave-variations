@@ -2007,32 +2007,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "BraveVPNLinkSubscriptionAndroidUI"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY"
-                ],
-                "platform": [
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveVPNLinkSubscriptionAndroidUIStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "HttpsByDefault"
                         ]
                     },
