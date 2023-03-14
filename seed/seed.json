@@ -1840,7 +1840,7 @@
                     "parameters": [
                         {
                             "name": "target_major_version",
-                            "value": "51"
+                            "value": "1.51"
                         }
                     ],
                     "probability_weight": 100
