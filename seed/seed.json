@@ -1515,45 +1515,6 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 50
-                },
-                {
-                    "feature_association": {
-                        "disable_feature": [
-                            "AllowCertainClientHints"
-                        ]
-                    },
-                    "name": "Disabled",
-                    "probability_weight": 50
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE"
-                ],
-                "min_version": "104.1.44.59",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "AllowCertainClientHintsStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AllowCertainClientHints"
-                        ]
-                    },
-                    "name": "Enabled",
                     "probability_weight": 100
                 },
                 {
@@ -1563,6 +1524,7 @@
             ],
             "filter": {
                 "channel": [
+                    "RELEASE",
                     "BETA",
                     "NIGHTLY"
                 ],
