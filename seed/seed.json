@@ -74,7 +74,8 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX"
+                    "LINUX",
+                    "ANDROID"
                 ]
             },
             "name": "BraveGoogleSignInPermissionStudy"
