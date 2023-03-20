@@ -1536,7 +1536,7 @@
                 "channel": [
                     "BETA"
                 ],
-                "min_version": "108.1.47.129",
+                "min_version": "111.1.50.93",
                 "platform": [
                     "WINDOWS",
                     "MAC",
