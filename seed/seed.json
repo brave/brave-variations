@@ -2018,6 +2018,7 @@
                     "BETA",
                     "RELEASE"
                 ],
+                "min_version": "110.1.49.120",
                 "platform": [
                     "WINDOWS",
                     "MAC",
