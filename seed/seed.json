@@ -1704,7 +1704,8 @@
             "filter": {
                 "channel": [
                     "BETA",
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "RELEASE"
                 ],
                 "platform": [
                     "WINDOWS",
