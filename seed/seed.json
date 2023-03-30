@@ -1957,6 +1957,33 @@
         {
             "experiments": [
                 {
+                    "feature_association": {
+                        "enable_feature": [
+                            "HttpsByDefault"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "111.1.51.44",
+                "platform": [
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveHttpsByDefaultRolloutStudy"
+        },
+        {
+            "experiments": [
+                {
                     "name": "Enabled",
                     "probability_weight": 100,
                     "feature_association": {
