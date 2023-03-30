@@ -123,46 +123,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "BraveDeAMP"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "feature_association": {
-                        "disable_feature": [
-                            "BraveDeAMP"
-                        ]
-                    },
-                    "name": "Disabled",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA"
-                ],
-                "min_version": "100.1.39.5",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "DeAMPStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "Vulkan"
                         ]
                     },
@@ -1633,7 +1593,6 @@
                     "RELEASE"
                 ],
                 "min_version": "107.1.47.31",
-
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -1681,18 +1640,18 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 0
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 100
+                    "probability_weight": 0
                 }
             ],
             "filter": {
                 "channel": [
                     "BETA"
                 ],
-                "min_version": "105.1.45.78",
+                "min_version": "111.1.50.93",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2026,7 +1985,7 @@
             "experiments": [
                 {
                     "name": "Enabled",
-                    "probability_weight": 50,
+                    "probability_weight": 100,
                     "feature_association": {
                         "enable_feature": [
                             "BraveVPN",
@@ -2036,7 +1995,7 @@
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 50
+                    "probability_weight": 0
                 }
             ],
             "filter": {
@@ -2045,6 +2004,7 @@
                     "BETA",
                     "RELEASE"
                 ],
+                "min_version": "110.1.49.120",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2052,6 +2012,62 @@
                 ]
             },
             "name": "CrossPlatformVPNStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveAdblockMobileNotificationsListDefault"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveAdblockMobileNotificationsListDefault"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveCleanupSessionCookiesOnSessionRestore"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "min_version": "111.1.50.0",
+                "platform": [
+                    "MAC"
+                ]
+            },
+            "name": "BraveCleanupSessionCookiesOnSessionRestore"
         }
     ],
     "version": "1"
