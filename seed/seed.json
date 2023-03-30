@@ -638,85 +638,6 @@
                     "ANDROID"
                 ]
             },
-            "name": "AdServingStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AdServing"
-                        ]
-                    },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=1",
-                    "parameters": [
-                        {
-                            "name": "default_ad_notifications_per_hour",
-                            "value": "10"
-                        },
-                        {
-                            "name": "maximum_ad_notifications_per_day",
-                            "value": "100"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_hour",
-                            "value": "6"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_day",
-                            "value": "20"
-                        },
-                        {
-                            "name": "ad_serving_version",
-                            "value": "1"
-                        }
-                    ],
-                    "probability_weight": 50
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AdServing"
-                        ]
-                    },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
-                    "parameters": [
-                        {
-                            "name": "default_ad_notifications_per_hour",
-                            "value": "10"
-                        },
-                        {
-                            "name": "maximum_ad_notifications_per_day",
-                            "value": "100"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_hour",
-                            "value": "6"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_day",
-                            "value": "20"
-                        },
-                        {
-                            "name": "ad_serving_version",
-                            "value": "2"
-                        }
-                    ],
-                    "probability_weight": 50
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE"
-                ],
-				"min_version": "109.1.48.61",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
             "name": "BraveAds.AdServingStudy"
         },
         {
@@ -727,37 +648,6 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=1",
-                    "parameters": [
-                        {
-                            "name": "default_ad_notifications_per_hour",
-                            "value": "10"
-                        },
-                        {
-                            "name": "maximum_ad_notifications_per_day",
-                            "value": "100"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_hour",
-                            "value": "6"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_day",
-                            "value": "20"
-                        },
-                        {
-                            "name": "ad_serving_version",
-                            "value": "1"
-                        }
-                    ],
-                    "probability_weight": 20
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AdServing"
-                        ]
-                    },
                     "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
                     "parameters": [
                         {
@@ -781,129 +671,14 @@
                             "value": "2"
                         }
                     ],
-                    "probability_weight": 20
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AdServing"
-                        ]
-                    },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2/AdPredictorWeights=16.0,8.0,16.0,8.0,0.0,0.0,0.0",
-                    "parameters": [
-                        {
-                            "name": "default_ad_notifications_per_hour",
-                            "value": "10"
-                        },
-                        {
-                            "name": "maximum_ad_notifications_per_day",
-                            "value": "100"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_hour",
-                            "value": "6"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_day",
-                            "value": "20"
-                        },
-                        {
-                            "name": "ad_serving_version",
-                            "value": "2"
-                        },
-                        {
-                            "name": "ad_predictor_weights",
-                            "value": "16.0, 8.0, 16.0, 8.0, 0.0, 0.0, 0.0"
-                        }
-                    ],
-                    "probability_weight": 20
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AdServing"
-                        ]
-                    },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2/AdPredictorWeights=0.0,0.0,0.0,0.0,16.0,16.0,0.0",
-                    "parameters": [
-                        {
-                            "name": "default_ad_notifications_per_hour",
-                            "value": "10"
-                        },
-                        {
-                            "name": "maximum_ad_notifications_per_day",
-                            "value": "100"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_hour",
-                            "value": "6"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_day",
-                            "value": "20"
-                        },
-                        {
-                            "name": "ad_serving_version",
-                            "value": "2"
-                        },
-                        {
-                            "name": "ad_predictor_weights",
-                            "value": "0.0, 0.0, 0.0, 0.0, 16.0, 16.0, 0.0"
-                        }
-                    ],
-                    "probability_weight": 20
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AdServing"
-                        ]
-                    },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2/AdPredictorWeights=32.0,16.0,16.0,8.0,4.0,2.0,1.0",
-                    "parameters": [
-                        {
-                            "name": "default_ad_notifications_per_hour",
-                            "value": "10"
-                        },
-                        {
-                            "name": "maximum_ad_notifications_per_day",
-                            "value": "100"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_hour",
-                            "value": "6"
-                        },
-                        {
-                            "name": "maximum_inline_content_ads_per_day",
-                            "value": "20"
-                        },
-                        {
-                            "name": "ad_serving_version",
-                            "value": "2"
-                        },
-                        {
-                            "name": "ad_predictor_weights",
-                            "value": "32.0, 16.0, 16.0, 8.0, 4.0, 2.0, 1.0"
-                        }
-                    ],
-                    "probability_weight": 20
+                    "probability_weight": 100
                 }
             ],
             "filter": {
                 "channel": [
+                    "RELEASE",
                     "NIGHTLY",
                     "BETA"
-                ],
-                "country": [
-                    "US",
-                    "AU",
-                    "CA",
-                    "FR",
-                    "DE",
-                    "IE",
-                    "JP",
-                    "NZ",
-                    "GB"
                 ],
 				"min_version": "109.1.48.61",
                 "platform": [
