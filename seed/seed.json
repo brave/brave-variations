@@ -600,7 +600,115 @@
                     "MAC",
                     "LINUX",
                     "ANDROID"
-                ]
+                ],
+                "end_date" : 1681171199
+            },
+            "name": "BraveAds.AdServingStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "AdServing"
+                        ]
+                    },
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/MaximumNewTabPageAdsPerDay=0/AdServingVersion=2",
+                    "parameters": [
+                        {
+                            "name": "default_ad_notifications_per_hour",
+                            "value": "10"
+                        },
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "6"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "20"
+                        },
+                        {
+                            "name": "maximum_new_tab_page_ads_per_day",
+                            "value": "0"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        }
+                    ],
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "NIGHTLY",
+                    "BETA"
+                ],
+				"min_version": "109.1.48.61",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date" : 1681171200,
+                "end_date" : 1681257599
+            },
+            "name": "BraveAds.AdServingStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "AdServing"
+                        ]
+                    },
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
+                    "parameters": [
+                        {
+                            "name": "default_ad_notifications_per_hour",
+                            "value": "10"
+                        },
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "6"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "20"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        }
+                    ],
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "NIGHTLY",
+                    "BETA"
+                ],
+				"min_version": "109.1.48.61",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date" : 1681257600
             },
             "name": "BraveAds.AdServingStudy"
         },
