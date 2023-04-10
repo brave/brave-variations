@@ -23,6 +23,7 @@ import subprocess
 import sys
 import proto.variations_seed_pb2 as variations_seed_pb2
 import argparse
+import dateutil.parser
 from packaging import version
 
 
@@ -49,12 +50,19 @@ def _get_seed_data(seed_git_path: str, variations_revision: str):
     return json.loads(seed_string)
 
 
-def make_field_trial_testing_config(seed, version_string, channel_string):
+def make_field_trial_testing_config(seed, version_string, channel_string,
+                                    target_date):
     target_version = version.parse(version_string)
     target_channel = serialize.SUPPORTED_CHANNELS[channel_string]
     config = {}
     for study in seed.study:
         json_study = {}
+        if (study.filter.start_date and study.filter.start_date > target_date):
+            print('skip ' + study.name + ' because of start_date')
+            continue
+        if (study.filter.end_date and study.filter.end_date < target_date):
+            print('skip ' + study.name + ' because of end_date')
+            continue
         if (study.filter.min_version and
             target_version < version.parse(study.filter.min_version)):
             print('skip ' + study.name + ' because of min_version')
@@ -136,8 +144,9 @@ def main():
         print("Seed data is invalid")
         return -1
     seed_message = serialize.make_variations_seed_message(seed_data)
+    target_unix_time = dateutil.parser.parse(args.target_date).timestamp()
     json_config = make_field_trial_testing_config(
-        seed_message, args.target_version, args.target_channel)
+        seed_message, args.target_version, args.target_channel, target_unix_time)
     json.dump(json_config, args.output, indent=2)
     print("Testing config saved to", args.output.name)
     return 0
