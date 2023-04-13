@@ -1888,6 +1888,34 @@
                 ]
             },
             "name": "SpeedreaderAndroidStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ModuleFileNamePatch"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 50
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "min_version": "112.1.52.15",
+                "platform": [
+                    "WINDOWS"
+                ]
+            },
+            "name": "ModuleFileNamePatchStudy"
         }
     ],
     "version": "1"
