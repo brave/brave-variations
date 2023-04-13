@@ -1878,6 +1878,46 @@
         {
             "experiments": [
                 {
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "target_major_version",
+                            "value": "1.52"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "country": [
+                    "US",
+                    "GB",
+                    "DE",
+                    "FR",
+                    "ES",
+                    "JP",
+                    "KR",
+                    "PT",
+                    "CN"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "WhatsNewStudy"
+        },
+        {
+            "experiments": [
+                {
                     "feature_association": {
                         "enable_feature": [
                             "Speedreader"
