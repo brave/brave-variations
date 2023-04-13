@@ -542,8 +542,8 @@
             "filter": {
                 "channel": [
                     "RELEASE",
-                    "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "NIGHTLY"
                 ],
 				"max_version": "109.1.48.60",
                 "platform": [
@@ -592,8 +592,8 @@
             "filter": {
                 "channel": [
                     "RELEASE",
-                    "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "NIGHTLY"
                 ],
 				"min_version": "109.1.48.61",
                 "platform": [
@@ -602,7 +602,7 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "end_date" : 1681189199
+                "end_date" : 1681880399
             },
             "name": "BraveAds.AdServingStudy"
         },
@@ -647,8 +647,8 @@
             "filter": {
                 "channel": [
                     "RELEASE",
-                    "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "NIGHTLY"
                 ],
 				"min_version": "109.1.48.61",
                 "platform": [
@@ -657,8 +657,8 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date" : 1681189200,
-                "end_date" : 1681275599
+                "start_date" : 1681880400,
+                "end_date" : 1681966799
             },
             "name": "BraveAds.AdServingStudy"
         },
@@ -699,8 +699,8 @@
             "filter": {
                 "channel": [
                     "RELEASE",
-                    "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "NIGHTLY"
                 ],
 				"min_version": "109.1.48.61",
                 "platform": [
@@ -709,7 +709,7 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date" : 1681275600
+                "start_date" : 1681966800
             },
             "name": "BraveAds.AdServingStudy"
         },
