@@ -541,7 +541,7 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "end_date" : 1681880399
+                "end_date" : 1681793999
             },
             "name": "BraveAds.AdServingStudy"
         },
@@ -596,8 +596,8 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date" : 1681880400,
-                "end_date" : 1681966799
+                "start_date" : 1681794000,
+                "end_date" : 1681880399
             },
             "name": "BraveAds.AdServingStudy"
         },
@@ -648,7 +648,7 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date" : 1681966800
+                "start_date" : 1681880400
             },
             "name": "BraveAds.AdServingStudy"
         },
