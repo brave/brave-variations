@@ -129,6 +129,12 @@ def make_variations_seed_message(seed_data):
         if 'max_os_version' in study_data['filter']:
             study.filter.max_os_version = study_data['filter']['max_os_version']
 
+        if 'start_date' in study_data['filter']:
+            study.filter.start_date = study_data['filter']['start_date']
+
+        if 'end_date' in study_data['filter']:
+            study.filter.end_date = study_data['filter']['end_date']
+
     return seed
 
 
