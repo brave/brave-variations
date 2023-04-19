@@ -74,6 +74,12 @@ def make_variations_seed_message(seed_data):
     serialnumber = get_serial_number()
     seed.serial_number = serialnumber
 
+    supported_optional_bool = {
+        'OPTIONAL_BOOL_MISSING': study_pb2.Study.OptionalBool.OPTIONAL_BOOL_MISSING,
+        'OPTIONAL_BOOL_TRUE': study_pb2.Study.OptionalBool.OPTIONAL_BOOL_TRUE,
+        'OPTIONAL_BOOL_FALSE': study_pb2.Study.OptionalBool.OPTIONAL_BOOL_FALSE
+    }
+
     for study_data in seed_data['studies']:
         study = seed.study.add()
         study.name = study_data['name']
@@ -100,22 +106,11 @@ def make_variations_seed_message(seed_data):
                     for feature in experiment_data['feature_association']['disable_feature']:
                         experiment.feature_association.disable_feature.append(feature)
 
-        for channel in study_data['filter']['channel']:
-            study.filter.channel.append(SUPPORTED_CHANNELS[channel])
+        if 'start_date' in study_data['filter']:
+            study.filter.start_date = study_data['filter']['start_date']
 
-        for platform in study_data['filter']['platform']:
-            supported_platforms = {
-                'WINDOWS': study_pb2.Study.Platform.PLATFORM_WINDOWS,
-                'MAC': study_pb2.Study.Platform.PLATFORM_MAC,
-                'LINUX': study_pb2.Study.Platform.PLATFORM_LINUX,
-                'IOS': study_pb2.Study.Platform.PLATFORM_IOS,
-                'ANDROID': study_pb2.Study.Platform.PLATFORM_ANDROID
-            }
-            study.filter.platform.append(supported_platforms[platform])
-
-        if 'country' in study_data['filter']:
-            for country in study_data['filter']['country']:
-                study.filter.country.append(country)
+        if 'end_date' in study_data['filter']:
+            study.filter.end_date = study_data['filter']['end_date']
 
         if 'min_version' in study_data['filter']:
             study.filter.min_version = study_data['filter']['min_version']
@@ -129,11 +124,75 @@ def make_variations_seed_message(seed_data):
         if 'max_os_version' in study_data['filter']:
             study.filter.max_os_version = study_data['filter']['max_os_version']
 
-        if 'start_date' in study_data['filter']:
-            study.filter.start_date = study_data['filter']['start_date']
+        for channel in study_data['filter']['channel']:
+            study.filter.channel.append(SUPPORTED_CHANNELS[channel])
 
-        if 'end_date' in study_data['filter']:
-            study.filter.end_date = study_data['filter']['end_date']
+        for platform in study_data['filter']['platform']:
+            supported_platforms = {
+                'WINDOWS': study_pb2.Study.Platform.PLATFORM_WINDOWS,
+                'MAC': study_pb2.Study.Platform.PLATFORM_MAC,
+                'LINUX': study_pb2.Study.Platform.PLATFORM_LINUX,
+                'IOS': study_pb2.Study.Platform.PLATFORM_IOS,
+                'ANDROID': study_pb2.Study.Platform.PLATFORM_ANDROID
+            }
+            study.filter.platform.append(supported_platforms[platform])
+
+        if 'locale' in study_data['filter']:
+            for locale in study_data['filter']['locale']:
+                study.filter.locale.append(locale)
+
+        if 'exclude_locale' in study_data['filter']:
+            for exclude_locale in study_data['filter']['exclude_locale']:
+                study.filter.exclude_locale.append(exclude_locale)
+
+        if 'exclude_locale' in study_data['filter']:
+            for form_factor in study_data['filter']['form_factor']:
+                supported_form_factors = {
+                    'DESKTOP': study_pb2.Study.FormFactor.DESKTOP,
+                    'PHONE': study_pb2.Study.FormFactor.PHONE,
+                    'TABLET': study_pb2.Study.FormFactor.TABLET
+                }
+                study.filter.form_factor.append(supported_form_factors[form_factor])
+
+        if 'exclude_form_factor' in study_data['filter']:
+            for exclude_form_factor in study_data['filter']['exclude_form_factor']:
+                supported_form_factors = {
+                    'DESKTOP': study_pb2.Study.FormFactor.DESKTOP,
+                    'PHONE': study_pb2.Study.FormFactor.PHONE,
+                    'TABLET': study_pb2.Study.FormFactor.TABLET,
+                    'KIOSK': study_pb2.Study.FormFactor.KIOSK
+                }
+                study.filter.exclude_form_factor.append(supported_form_factors[exclude_form_factor])
+
+        if 'hardware_class' in study_data['filter']:
+            for hardware_class in study_data['filter']['hardware_class']:
+                study.filter.hardware_class.append(hardware_class)
+
+        if 'exclude_hardware_class' in study_data['filter']:
+            for exclude_hardware_class in study_data['filter']['exclude_hardware_class']:
+                study.filter.exclude_hardware_class.append(exclude_hardware_class)
+
+        if 'country' in study_data['filter']:
+            for country in study_data['filter']['country']:
+                study.filter.country.append(country)
+
+        if 'exclude_country' in study_data['filter']:
+            for exclude_country in study_data['filter']['exclude_country']:
+                study.filter.exclude_country.append(exclude_country)
+
+        if 'is_low_end_device' in study_data['filter']:
+            study.filter.is_low_end_device = supported_optional_bool[study_data['filter']['is_low_end_device']];
+
+        if 'is_enterprise' in study_data['filter']:
+            study.filter.is_enterprise = supported_optional_bool[study_data['filter']['is_enterprise']];
+
+        if 'policy_restriction' in study_data['filter']:
+            supported_policy_restrictions = {
+                'NONE': study_pb2.Study.PolicyRestriction.NONE,
+                'CRITICAL': study_pb2.Study.PolicyRestriction.CRITICAL,
+                'CRITICAL_ONLY': study_pb2.Study.PolicyRestriction.CRITICAL_ONLY
+            }
+            study.filter.policy_restriction = supported_form_factors[study_data['filter']['policy_restriction']];
 
     return seed
 
