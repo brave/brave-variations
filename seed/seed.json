@@ -1834,7 +1834,7 @@
                     "name": "Enabled",
                     "parameters": [
                         {
-                            "name": "target_major_version",
+                            "name": "target_major_version_nightly",
                             "value": "1.52"
                         }
                     ],
