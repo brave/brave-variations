@@ -1836,7 +1836,12 @@
                         {
                             "name": "target_major_version_nightly",
                             "value": "1.52"
+                        },
+                        {
+                            "name": "target_major_version_beta",
+                            "value": "1.51"
                         }
+
                     ],
                     "probability_weight": 100
                 },
@@ -1847,7 +1852,8 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA"
                 ],
                 "country": [
                     "US",
