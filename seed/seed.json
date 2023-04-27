@@ -474,7 +474,7 @@
                             "name": "maximum_search_result_ads_per_day",
                             "value": "0"
                         }
-                    ],    
+                    ],
                     "probability_weight": 100
                 }
             ],
@@ -1853,7 +1853,8 @@
             "filter": {
                 "channel": [
                     "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "RELEASE"
                 ],
                 "country": [
                     "US",
