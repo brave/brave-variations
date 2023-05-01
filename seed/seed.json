@@ -1342,67 +1342,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "BraveAdblockCookieListOptIn"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "BETA",
-                    "NIGHTLY"
-                ],
-                "min_version": "104.1.44.25",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAdblockCookieListOptInStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "BraveAdblockCookieListOptIn"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE"
-                ],
-                "min_version": "104.1.44.25",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAdblockCookieListOptInReleaseStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "AllowCertainClientHints"
                         ]
                     },
