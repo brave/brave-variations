@@ -2055,6 +2055,35 @@
         {
             "experiments": [
                 {
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "target_major_version_stable",
+                            "value": "1.51"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "WhatsNewStudy"
+        },
+        {
+            "experiments": [
+                {
                     "feature_association": {
                         "enable_feature": [
                             "ModuleFileNamePatch"
