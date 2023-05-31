@@ -523,7 +523,7 @@
                     "BETA",
                     "NIGHTLY"
                 ],
-				"max_version": "109.1.48.60",
+                "max_version": "109.1.48.60",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -573,14 +573,14 @@
                     "BETA",
                     "NIGHTLY"
                 ],
-				"min_version": "109.1.48.61",
+                "end_date": 1681793999,
+                "min_version": "109.1.48.61",
                 "platform": [
                     "WINDOWS",
                     "MAC",
                     "LINUX",
                     "ANDROID"
-                ],
-                "end_date" : 1681793999
+                ]
             },
             "name": "BraveAds.AdServingStudy"
         },
@@ -628,15 +628,15 @@
                     "BETA",
                     "NIGHTLY"
                 ],
-				"min_version": "109.1.48.61",
+                "end_date": 1681880399,
+                "min_version": "109.1.48.61",
                 "platform": [
                     "WINDOWS",
                     "MAC",
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date" : 1681794000,
-                "end_date" : 1681880399
+                "start_date": 1681794000
             },
             "name": "BraveAds.AdServingStudy"
         },
@@ -680,14 +680,14 @@
                     "BETA",
                     "NIGHTLY"
                 ],
-				"min_version": "109.1.48.61",
+                "min_version": "109.1.48.61",
                 "platform": [
                     "WINDOWS",
                     "MAC",
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date" : 1681880400
+                "start_date": 1681880400
             },
             "name": "BraveAds.AdServingStudy"
         },
@@ -1747,14 +1747,14 @@
         {
             "experiments": [
                 {
-                    "name": "Enabled",
-                    "probability_weight": 100,
                     "feature_association": {
                         "enable_feature": [
                             "BraveVPN",
                             "BraveVPNLinkSubscriptionAndroidUI"
                         ]
-                    }
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
