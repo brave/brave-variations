@@ -22,7 +22,6 @@ def _create_study(
     platform: list[str],
     min_version: str,
 ) -> dict:
-
     study = {
         "name": name,
         "experiments": [
@@ -73,8 +72,9 @@ def _upsert_study(
     _save_studies(rawstudies)
 
 
-def upsert_study(greeting, name):
-    print(greeting, name)
+def fmt():
+    studies = _load_studies()
+    _save_studies(studies)
 
 
 if __name__ == "__main__":
@@ -105,3 +105,7 @@ if __name__ == "__main__":
                 platform=platform.split(","),
                 min_version=min_version,
             )
+        case "fmt":
+            fmt()
+        case _:
+            raise ValueError("Unrecognized function")
