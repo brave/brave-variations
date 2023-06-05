@@ -1886,11 +1886,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 40
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 60
+                    "probability_weight": 0
                 }
             ],
             "filter": {
@@ -1943,11 +1943,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 40
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 60
+                    "probability_weight": 0
                 }
             ],
             "filter": {
