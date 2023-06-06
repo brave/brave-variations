@@ -1933,6 +1933,34 @@
                 ]
             },
             "name": "ModuleFileNamePatchStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveRequestOTRTab"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 50
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveRequestOTRTabRolloutStudy"
         }
     ],
     "version": "1"
