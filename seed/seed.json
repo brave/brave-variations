@@ -1886,11 +1886,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 15
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 85
+                    "probability_weight": 0
                 }
             ],
             "filter": {
@@ -1943,11 +1943,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 15
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 85
+                    "probability_weight": 0
                 }
             ],
             "filter": {
@@ -2084,7 +2084,7 @@
                     "parameters": [
                         {
                             "name": "target_major_version_stable",
-                            "value": "1.51"
+                            "value": "1.52"
                         }
                     ],
                     "probability_weight": 100
@@ -2133,6 +2133,44 @@
                 ]
             },
             "name": "ModuleFileNamePatchStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveForgetFirstPartyStorage"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveForgetFirstPartyStorage"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 0
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "112.1.51.57",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveForgetFirstPartyStorage"
         },
         {
             "experiments": [
