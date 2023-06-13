@@ -26,3 +26,8 @@ jobs:
 
       - name: Serialize seed
         run: python seed/serialize.py seed/seed.json
+
+      - name: fmt seed
+        run: |
+          python3 ./.github/ci/griffin-study-utils.py fmt
+          git diff --no-ext-diff --exit-code seed/seed.json
