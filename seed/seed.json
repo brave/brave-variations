@@ -45,6 +45,35 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveCommands"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "DefaultBraveCommandsStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveGoogleSignInPermission"
                         ]
                     },
@@ -291,67 +320,6 @@
         {
             "experiments": [
                 {
-                    "name": "GroupA",
-                    "probability_weight": 50
-                },
-                {
-                    "name": "GroupB",
-                    "probability_weight": 50
-                },
-                {
-                    "name": "GroupC",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupD",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupE",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupF",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupG",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupH",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupI",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupJ",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "country": [
-                    "US"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "AdvertiserSplitTestStudy"
-        },
-        {
-            "experiments": [
-                {
                     "feature_association": {
                         "enable_feature": [
                             "PermissionLifetime"
@@ -527,59 +495,6 @@
                 ]
             },
             "name": "SpeedreaderReleaseStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "FrequencyCapping"
-                        ]
-                    },
-                    "name": "ExcludeAdIfWithinTimeWindow=0h",
-                    "parameters": [
-                        {
-                            "name": "exclude_ad_if_dismissed_within_time_window",
-                            "value": "0h"
-                        },
-                        {
-                            "name": "exclude_ad_if_transferred_within_time_window",
-                            "value": "0h"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "country": [
-                    "US",
-                    "AU",
-                    "CA",
-                    "FR",
-                    "DE",
-                    "IE",
-                    "JP",
-                    "NZ",
-                    "GB"
-                ],
-                "min_version": "91.1.26.60",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAds.FrequencyCappingStudy"
         },
         {
             "experiments": [
@@ -901,80 +816,6 @@
                 ]
             },
             "name": "BraveAds.AdNotificationsStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AdRewards"
-                        ]
-                    },
-                    "name": "NextPaymentDay",
-                    "parameters": [
-                        {
-                            "name": "next_payment_day",
-                            "value": "7"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "AdRewardsStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "Conversions"
-                        ]
-                    },
-                    "name": "NewDefaultPattern",
-                    "parameters": [
-                        {
-                            "name": "conversions_default_conversion_id_pattern",
-                            "value": "<meta.*name=\"ad-conversion-id\".*content=\"([-a-zA-Z0-9]*)\".*>"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "ConversionsStudy"
         },
         {
             "experiments": [
