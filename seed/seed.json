@@ -1895,6 +1895,44 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveForgetFirstPartyStorage"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveForgetFirstPartyStorage"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 0
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "BETA"
+                ],
+                "min_version": "114.1.53.83",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveForgetFirstPartyStorage"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "Speedreader"
                         ]
                     },
