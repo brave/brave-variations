@@ -1998,36 +1998,6 @@
                 ]
             },
             "name": "CookieListDefaultStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "InnerHTMLParserFastpath"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 50
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 50
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE",
-                    "BETA"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "InnerHTMLParserFastpath"
         }
     ],
     "version": "1"
