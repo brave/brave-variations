@@ -45,6 +45,35 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveCommands"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "DefaultBraveCommandsStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveGoogleSignInPermission"
                         ]
                     },
@@ -69,6 +98,45 @@
                 "channel": [
                     "NIGHTLY",
                     "BETA"
+                ],
+                "min_version": "111.1.51.5",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveGoogleSignInPermissionStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveGoogleSignInPermission"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 25
+                },
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveGoogleSignInPermission"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 75
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
                 ],
                 "min_version": "111.1.51.5",
                 "platform": [
@@ -248,67 +316,6 @@
                 ]
             },
             "name": "EphemeralStorageStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "name": "GroupA",
-                    "probability_weight": 50
-                },
-                {
-                    "name": "GroupB",
-                    "probability_weight": 50
-                },
-                {
-                    "name": "GroupC",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupD",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupE",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupF",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupG",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupH",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupI",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "GroupJ",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "country": [
-                    "US"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "AdvertiserSplitTestStudy"
         },
         {
             "experiments": [
@@ -494,59 +501,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "FrequencyCapping"
-                        ]
-                    },
-                    "name": "ExcludeAdIfWithinTimeWindow=0h",
-                    "parameters": [
-                        {
-                            "name": "exclude_ad_if_dismissed_within_time_window",
-                            "value": "0h"
-                        },
-                        {
-                            "name": "exclude_ad_if_transferred_within_time_window",
-                            "value": "0h"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "country": [
-                    "US",
-                    "AU",
-                    "CA",
-                    "FR",
-                    "DE",
-                    "IE",
-                    "JP",
-                    "NZ",
-                    "GB"
-                ],
-                "min_version": "91.1.26.60",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAds.FrequencyCappingStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "UserActivity"
                         ]
                     },
@@ -621,17 +575,17 @@
                             "name": "maximum_search_result_ads_per_day",
                             "value": "0"
                         }
-                    ],    
+                    ],
                     "probability_weight": 100
                 }
             ],
             "filter": {
                 "channel": [
                     "RELEASE",
-                    "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "NIGHTLY"
                 ],
-				"max_version": "109.1.48.60",
+                "max_version": "109.1.48.60",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -678,16 +632,124 @@
             "filter": {
                 "channel": [
                     "RELEASE",
-                    "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "NIGHTLY"
                 ],
-				"min_version": "109.1.48.61",
+                "end_date": 1683262799,
+                "min_version": "109.1.48.61",
                 "platform": [
                     "WINDOWS",
                     "MAC",
                     "LINUX",
                     "ANDROID"
                 ]
+            },
+            "name": "BraveAds.AdServingStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "AdServing"
+                        ]
+                    },
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/MaximumNewTabPageAdsPerDay=0/AdServingVersion=2",
+                    "parameters": [
+                        {
+                            "name": "default_ad_notifications_per_hour",
+                            "value": "10"
+                        },
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "6"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "20"
+                        },
+                        {
+                            "name": "maximum_new_tab_page_ads_per_day",
+                            "value": "0"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        }
+                    ],
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "end_date": 1683349199,
+                "min_version": "109.1.48.61",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date": 1683262800
+            },
+            "name": "BraveAds.AdServingStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "AdServing"
+                        ]
+                    },
+                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
+                    "parameters": [
+                        {
+                            "name": "default_ad_notifications_per_hour",
+                            "value": "10"
+                        },
+                        {
+                            "name": "maximum_ad_notifications_per_day",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_hour",
+                            "value": "6"
+                        },
+                        {
+                            "name": "maximum_inline_content_ads_per_day",
+                            "value": "20"
+                        },
+                        {
+                            "name": "ad_serving_version",
+                            "value": "2"
+                        }
+                    ],
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "min_version": "109.1.48.61",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date": 1683349200
             },
             "name": "BraveAds.AdServingStudy"
         },
@@ -754,80 +816,6 @@
                 ]
             },
             "name": "BraveAds.AdNotificationsStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "AdRewards"
-                        ]
-                    },
-                    "name": "NextPaymentDay",
-                    "parameters": [
-                        {
-                            "name": "next_payment_day",
-                            "value": "7"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "AdRewardsStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "Conversions"
-                        ]
-                    },
-                    "name": "NewDefaultPattern",
-                    "parameters": [
-                        {
-                            "name": "conversions_default_conversion_id_pattern",
-                            "value": "<meta.*name=\"ad-conversion-id\".*content=\"([-a-zA-Z0-9]*)\".*>"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "ConversionsStudy"
         },
         {
             "experiments": [
@@ -1445,11 +1433,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 10
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 90
+                    "probability_weight": 0
                 }
             ],
             "filter": {
@@ -1464,67 +1452,6 @@
                 ]
             },
             "name": "BraveScreenFingerprintingBlockerStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "BraveAdblockCookieListOptIn"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "BETA",
-                    "NIGHTLY"
-                ],
-                "min_version": "104.1.44.25",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAdblockCookieListOptInStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "BraveAdblockCookieListOptIn"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE"
-                ],
-                "min_version": "104.1.44.25",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAdblockCookieListOptInReleaseStudy"
         },
         {
             "experiments": [
@@ -1595,18 +1522,18 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 20
+                    "probability_weight": 50
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 80
+                    "probability_weight": 50
                 }
             ],
             "filter": {
                 "channel": [
                     "RELEASE"
                 ],
-                "min_version": "110.0.5481.177",
+                "min_version": "110.1.48.164",
                 "platform": [
                     "ANDROID"
                 ]
@@ -1739,11 +1666,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 15
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 85
+                    "probability_weight": 0
                 }
             ],
             "filter": {
@@ -1790,14 +1717,41 @@
         {
             "experiments": [
                 {
+                    "feature_association": {
+                        "enable_feature": [
+                            "HttpsByDefault"
+                        ]
+                    },
                     "name": "Enabled",
-                    "probability_weight": 100,
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "min_version": "111.1.51.44",
+                "platform": [
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveHttpsByDefaultRolloutStudy"
+        },
+        {
+            "experiments": [
+                {
                     "feature_association": {
                         "enable_feature": [
                             "BraveVPN",
                             "BraveVPNLinkSubscriptionAndroidUI"
                         ]
-                    }
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
@@ -1880,6 +1834,44 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveForgetFirstPartyStorage"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveForgetFirstPartyStorage"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 0
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "BETA"
+                ],
+                "min_version": "114.1.53.83",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveForgetFirstPartyStorage"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "Speedreader"
                         ]
                     },
@@ -1906,23 +1898,14 @@
         {
             "experiments": [
                 {
-                    "feature_association": {
-                        "enable_feature": [
-                            "ResetProgressMarkerOnCommitFailures"
-                        ]
-                    },
                     "name": "Enabled",
-                    "probability_weight": 0
-                },
-                {
-                    "feature_association": {
-                        "disable_feature": [
-                            "ResetProgressMarkerOnCommitFailures"
-                        ]
-                    },
-                    "name": "Disabled",
+                    "parameters": [
+                        {
+                            "name": "target_major_version_stable",
+                            "value": "1.52"
+                        }
+                    ],
                     "probability_weight": 100
-
                 },
                 {
                     "name": "Default",
@@ -1931,18 +1914,15 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
-                    "BETA",
                     "RELEASE"
                 ],
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX",
-                    "ANDROID"
+                    "LINUX"
                 ]
             },
-            "name": "SyncResetProgressTokenStudy"
+            "name": "WhatsNewStudy"
         },
         {
             "experiments": [
@@ -1971,6 +1951,133 @@
                 ]
             },
             "name": "ModuleFileNamePatchStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveForgetFirstPartyStorage"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveForgetFirstPartyStorage"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 0
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "112.1.51.57",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveForgetFirstPartyStorage"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveRequestOTRTab"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 50
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveRequestOTRTabRolloutStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveAdblockCookieListDefault"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "CookieListDefaultStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "InnerHTMLParserFastpath"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 50
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "InnerHTMLParserFastpathStudy"
         }
     ],
     "version": "1"
