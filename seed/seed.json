@@ -2019,35 +2019,7 @@
             "filter": {
                 "channel": [
                     "NIGHTLY",
-                    "BETA"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "InnerHTMLParserFastpathStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "InnerHTMLParserFastpath"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 10
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 90
-                }
-            ],
-            "filter": {
-                "channel": [
+                    "BETA",
                     "RELEASE"
                 ],
                 "platform": [
@@ -2057,7 +2029,7 @@
                     "ANDROID"
                 ]
             },
-            "name": "InnerHTMLParserFastpathStudyRelease"
+            "name": "InnerHTMLParserFastpathStudy"
         },
         {
             "experiments": [
