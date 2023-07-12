@@ -2170,6 +2170,38 @@
                 ]
             },
             "name": "BraveLocalhostAccessPermissionStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveSearchAdStudy"
         }
     ],
     "version": "1"
