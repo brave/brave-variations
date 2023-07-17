@@ -1975,6 +1975,34 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveRequestOTRTab"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 15
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 85
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveRequestOTRTabRolloutStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveAdblockCookieListDefault"
                         ]
                     },
