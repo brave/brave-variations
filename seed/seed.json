@@ -1406,17 +1406,7 @@
                     "BETA",
                     "RELEASE"
                 ],
-                "country": [
-                    "US",
-                    "CA",
-                    "DE",
-                    "FR",
-                    "GB",
-                    "AT",
-                    "ES",
-                    "MX"
-                ],
-                "min_version": "105.1.58.42",
+                "min_version": "105.1.50.42",
                 "platform": [
                     "WINDOWS",
                     "MAC",
