@@ -1342,6 +1342,94 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_A",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_A"
+                        }
+                    ],
+                    "probability_weight": 25
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_B",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_B"
+                        }
+                    ],
+                    "probability_weight": 25
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_C",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_C"
+                        }
+                    ],
+                    "probability_weight": 25
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_D",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_D"
+                        }
+                    ],
+                    "probability_weight": 25
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "country": [
+                    "US",
+                    "CA",
+                    "DE",
+                    "FR",
+                    "GB",
+                    "AT",
+                    "ES",
+                    "MX"
+                ],
+                "min_version": "105.1.58.42",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveSearchPromotionBannerStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "AllowCertainClientHints"
                         ]
                     },
