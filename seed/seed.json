@@ -2255,8 +2255,7 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX",
-                    "ANDROID"
+                    "LINUX"
                 ]
             },
             "name": "BraveSearchAdStudy"
