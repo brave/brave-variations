@@ -2073,6 +2073,7 @@
                     "BETA",
                     "RELEASE"
                 ],
+                "max_version": "114.1.52.999",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2117,6 +2118,35 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveP3AConstellation"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 34
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 66
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveP3AConstellationReleaseRollout"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveLocalhostAccessPermission"
                         ]
                     },
@@ -2141,6 +2171,67 @@
                 ]
             },
             "name": "BraveLocalhostAccessPermissionStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveSearchAdStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveSearchAdStudy"
         }
     ],
     "version": "1"
