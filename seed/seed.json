@@ -1985,7 +1985,8 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX"
+                    "LINUX",
+                    "ANDROID"
                 ]
             },
             "name": "BraveForgetFirstPartyStorage"
