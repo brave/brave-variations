@@ -2331,7 +2331,136 @@
                 ]
             },
             "name": "BraveAds.CustomNotificationAdsWindowsStudy"
-        }
+        },
+		{
+            "experiments": [
+            	{
+					"feature_association": {
+						"enable_feature": [
+							"EligibleAds"
+						]
+					},
+					"name": "Enabled",
+					"parameters": [
+						{
+							"name": "ad_predictor_weights",
+							"value": "1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0"
+						}
+					],
+					"probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+			],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "country": [
+                    "CA",
+                    "GB"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date": 1691971200,
+                "end_date": 1692230399
+            },
+            "name": "BraveAdPredictorWeightsStudyA"
+        },
+		{
+            "experiments": [
+            	{
+					"feature_association": {
+						"enable_feature": [
+							"EligibleAds"
+						]
+					},
+					"name": "Enabled",
+					"parameters": [
+						{
+							"name": "ad_predictor_weights",
+							"value": "1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0"
+						}
+					],
+					"probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+			],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "country": [
+                    "CA",
+                    "GB"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date": 1692230400,
+                "end_date": 1692489599
+            },
+            "name": "BraveAdPredictorWeightsStudyB"
+        },
+		{
+            "experiments": [
+            	{
+					"feature_association": {
+						"enable_feature": [
+							"EligibleAds"
+						]
+					},
+					"name": "Enabled",
+					"parameters": [
+						{
+							"name": "ad_predictor_weights",
+							"value": "5.0, 5.0, 1.0, 1.0, 0.0, 0.0, 0.0"
+						}
+					],
+					"probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+			],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "country": [
+                    "CA",
+                    "GB"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date": 1692489600,
+                "end_date": 1692748799
+            },
+            "name": "BraveAdPredictorWeightsStudyC"
+		}
     ],
     "version": "1"
 }
