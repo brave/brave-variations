@@ -1914,7 +1914,7 @@
                 "channel": [
                     "RELEASE"
                 ],
-                "min_version": "114.1.53.83",
+                "min_version": "116.1.57.0",
                 "platform": [
                     "WINDOWS",
                     "MAC",
