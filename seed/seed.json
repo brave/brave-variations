@@ -2361,8 +2361,8 @@
                     "RELEASE"
                 ],
                 "country": [
-                    "CA",
-                    "GB"
+                    "CO",
+                    "IN"
                 ],
                 "platform": [
                     "WINDOWS",
@@ -2370,8 +2370,8 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1691971200,
-                "end_date": 1692230399
+                "start_date": 1692144000,
+                "end_date": 1692403199
             },
             "name": "BraveAdPredictorWeightsStudyA"
         },
@@ -2404,8 +2404,8 @@
                     "RELEASE"
                 ],
                 "country": [
-                    "CA",
-                    "GB"
+                    "CO",
+                    "IN"
                 ],
                 "platform": [
                     "WINDOWS",
@@ -2413,8 +2413,8 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1692230400,
-                "end_date": 1692489599
+                "start_date": 1692403200,
+                "end_date": 1692662399
             },
             "name": "BraveAdPredictorWeightsStudyB"
         },
@@ -2447,8 +2447,8 @@
                     "RELEASE"
                 ],
                 "country": [
-                    "CA",
-                    "GB"
+                    "CO",
+                    "IN"
                 ],
                 "platform": [
                     "WINDOWS",
@@ -2456,8 +2456,8 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1692489600,
-                "end_date": 1692748799
+                "start_date": 1692662400,
+                "end_date": 1691193599
             },
             "name": "BraveAdPredictorWeightsStudyC"
 		}
