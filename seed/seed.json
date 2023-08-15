@@ -2370,8 +2370,8 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1692144000,
-                "end_date": 1692403199
+                "start_date": 1692489600,
+                "end_date": 1692748799
             },
             "name": "BraveAdPredictorWeightsStudyA"
         },
@@ -2413,8 +2413,8 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1692403200,
-                "end_date": 1692662399
+                "start_date": 1692748800,
+                "end_date": 1693007999
             },
             "name": "BraveAdPredictorWeightsStudyB"
         },
@@ -2456,8 +2456,8 @@
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1692662400,
-                "end_date": 1691193599
+                "start_date": 1693008000,
+                "end_date": 1693353599
             },
             "name": "BraveAdPredictorWeightsStudyC"
 		}
