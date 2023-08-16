@@ -1823,7 +1823,8 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX"
+                    "LINUX",
+                    "ANDROID"
                 ]
             },
             "name": "BraveForgetFirstPartyStorage"
@@ -1946,7 +1947,8 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX"
+                    "LINUX",
+                    "ANDROID"
                 ]
             },
             "name": "BraveForgetFirstPartyStorage"
@@ -2082,11 +2084,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 5
+                    "probability_weight": 67
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 95
+                    "probability_weight": 33
                 }
             ],
             "filter": {
@@ -2160,6 +2162,35 @@
                     "WINDOWS",
                     "MAC",
                     "LINUX"
+                ]
+            },
+            "name": "BraveSearchAdStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "ANDROID"
                 ]
             },
             "name": "BraveSearchAdStudy"
