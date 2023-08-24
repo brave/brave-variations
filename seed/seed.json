@@ -2257,6 +2257,88 @@
                 ]
             },
             "name": "BraveAIChatEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "CustomNotificationAds"
+                        ]
+                    },
+                    "name": "normalized_display_coordinate_x/1/normalized_display_coordinate_y/0/inset_x/0/inset_y/220",
+                    "parameters": [
+                        {
+                            "name": "normalized_display_coordinate_x",
+                            "value": "1"
+                        },
+                        {
+                            "name": "normalized_display_coordinate_y",
+                            "value": "0"
+                        },
+                        {
+                            "name": "inset_x",
+                            "value": "0"
+                        },
+                        {
+                            "name": "inset_y",
+                            "value": "220"
+                        }
+                    ],
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "115.1.58.35",
+                "platform": [
+                    "MAC"
+                ]
+            },
+            "name": "BraveAds.CustomNotificationAdsMacStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "CustomNotificationAds"
+                        ]
+                    },
+                    "name": "normalized_display_coordinate_x/1/normalized_display_coordinate_y/0/inset_x/0/inset_y/72",
+                    "parameters": [
+                        {
+                            "name": "normalized_display_coordinate_x",
+                            "value": "1"
+                        },
+                        {
+                            "name": "normalized_display_coordinate_y",
+                            "value": "0"
+                        },
+                        {
+                            "name": "inset_x",
+                            "value": "0"
+                        },
+                        {
+                            "name": "inset_y",
+                            "value": "72"
+                        }
+                    ],
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "115.1.58.35",
+                "platform": [
+                    "WINDOWS"
+                ]
+            },
+            "name": "BraveAds.CustomNotificationAdsWindowsStudy"
         }
     ],
     "version": "1"
