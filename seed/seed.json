@@ -1838,7 +1838,7 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 10
+                    "probability_weight": 50
                 },
                 {
                     "feature_association": {
@@ -1847,7 +1847,7 @@
                         ]
                     },
                     "name": "Disabled",
-                    "probability_weight": 90
+                    "probability_weight": 50
                 },
                 {
                     "name": "Default",
