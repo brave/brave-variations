@@ -3,21 +3,8 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "CommonJS",
-    // chrome 80 supports 100% es2019
     "target": "es2019",
     "allowJs": true,
-    // convert jsx to react components
-    // "jsx": "react",
-    // "lib": [
-    //   "es6",
-    //   "dom",
-    //   "DOM.Iterable",
-    //   "es7",
-    //   "es2017",
-    //   "es2018",
-    //   "es2019",
-    //   "esnext"
-    // ],
     "moduleResolution": "node",
     "baseUrl": ".",
     "typeRoots": [
@@ -27,11 +14,6 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "strictNullChecks": true,
-    // "suppressImplicitAnyIndexErrors": true,
-    //"noUnusedLocals": true,
-
   },
-  "include": [
-    "./**/*"
-  ]
+  "include": [],
 }

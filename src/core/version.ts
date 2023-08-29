@@ -1,4 +1,4 @@
-type VersionComponent = number | '*'
+type VersionComponent = number | '*';
 export interface VersionPattern {
   v: [VersionComponent, VersionComponent, VersionComponent, VersionComponent];
 }
@@ -19,10 +19,10 @@ export function matchesMaxVersion(ver: Version, max: VersionPattern): boolean {
 
 export function parseVersionPattern(s: string): VersionPattern {
   const v = s.split('.', 4);
-  const res: VersionPattern = { v: ['*', '*', '*', '*'] }
+  const res: VersionPattern = { v: ['*', '*', '*', '*'] };
   for (let i = 0; i < 4; i++)
     if (v[i] !== undefined && v[i] !== '*')
-      res.v[i] = parseInt(v[i])
+      res.v[i] = parseInt(v[i]);
 
   return res;
 }
