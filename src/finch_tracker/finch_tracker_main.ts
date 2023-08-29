@@ -1,11 +1,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Command } from 'commander';
-import { variations as proto } from './generated/proto_bundle';
-import { type ProcessingOptions, downloadUrl, getSeedPath, getStudyPath } from './utils';
-import { ProcessedStudy, StudyPriority } from './study_classifier';
-import { makeSummary, summaryToText } from './summary';
-import { studyToJSON } from './serializers';
+import { variations as proto } from '../core/generated/proto_bundle';
+import {
+  type ProcessingOptions, downloadUrl,
+  getSeedPath, getStudyPath
+} from '../core/utils';
+import { ProcessedStudy, StudyPriority } from '../core/study_classifier';
+import { makeSummary, summaryToText } from '../core/summary';
+import { studyToJSON } from '../core/serializers';
 import { execSync } from 'child_process';
 
 
@@ -15,7 +18,8 @@ async function fetchChromeSeedData(): Promise<Buffer> {
 }
 
 
-function serializeStudiesToDirectory(seedData: Buffer, directory: string, options: ProcessingOptions): void {
+function serializeStudiesToDirectory(seedData: Buffer,
+  directory: string, options: ProcessingOptions): void {
   const seed = proto.VariationsSeed.decode(seedData);
   const exps = new Map<string, unknown[]>();
   let cnt = 0;
@@ -66,7 +70,9 @@ function commitAllChanges(directory: string): void {
   execSync(`git commit -m "Update seed ${utcDate}"`, { cwd: directory });
 }
 
-function storeDataToDirectory(seedData: Buffer, directory: string, options: ProcessingOptions): void {
+function storeDataToDirectory(seedData: Buffer,
+  directory: string,
+  options: ProcessingOptions): void {
   const studyDirectory = getStudyPath(directory);
   fs.rmSync(studyDirectory, { recursive: true, force: true });
   serializeStudiesToDirectory(seedData, studyDirectory, options);
@@ -95,11 +101,14 @@ async function main(): Promise<void> {
   const updateData = true;
   const commitData = true;
 
-  const seedData = seedFile !== undefined ? fs.readFileSync(seedFile) : await fetchChromeSeedData();
+  const seedData = seedFile !== undefined ?
+    fs.readFileSync(seedFile) :
+    await fetchChromeSeedData();
   const seed = proto.VariationsSeed.decode(seedData);
 
   if (createSummary) {
-    const previousSeedData = fs.readFileSync(previousSeedFile ?? getSeedPath(storageDir));
+    const previousSeedData =
+      fs.readFileSync(previousSeedFile ?? getSeedPath(storageDir));
 
     const previousSeed = proto.VariationsSeed.decode(previousSeedData);
     const summary = makeSummary(previousSeed, seed, options);
