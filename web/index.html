@@ -6,13 +6,14 @@
     <title>Brave Variations</title>
   </head>
 
-  <body class="bg-light">  
+  <body class="bg-light">
     <div class="container" id="app">
       <section class="navbar navbar-light bg-light">
         <h1>Brave Variations</h1>
         <nav class="nav nav-pills">
-          <a href="#" class="nav-item nav-link btn-sm" :class="[isProduction ? 'active' : '']" v-on:click="isProduction=true">Production</a>
-          <a href="#" class="nav-item nav-link btn-sm" :class="[isProduction ? '' : 'active']" v-on:click="isProduction=false">Staging</a>
+          <a href="#" class="nav-item nav-link btn-sm" :class="[currentSeedType == SeedType.PRODUCTION ? 'active' : '']" v-on:click="currentSeedType=SeedType.PRODUCTION">Production</a>
+          <a href="#" class="nav-item nav-link btn-sm" :class="[currentSeedType == SeedType.STAGING ? 'active' : '']" v-on:click="currentSeedType=SeedType.STAGING">Staging</a>
+          <a href="#" class="nav-item nav-link btn-sm" :class="[currentSeedType == SeedType.UPSTREAM ? 'active' : '']" v-on:click="currentSeedType=SeedType.UPSTREAM" v-if="true">Upstream</a>
         </nav>
       </section>
 
@@ -20,18 +21,12 @@
         <div class="d-flex justify-content-center loading" v-if="loading">
           <div class="spinner-border" role="status"></div>
         </div>
-        <div class="row">          
-          <div class="col-sm-12">
-            <study-item v-if="isProduction"
-              v-for="item in productionStudies"
+        <div class="row">
+          <div class="col-sm-12" v-for="seedType in Object.values(SeedType)">
+            <study-item v-if="currentSeedType===seedType"
+              v-for="item in studies.get(seedType)"
               v-bind:study="item"
               v-bind:key="item.id"
-            ></study-item>
-
-            <study-item v-if="!isProduction"
-              v-for="study in stagingStudies"
-              v-bind:study="study"
-              v-bind:key="study.name"
             ></study-item>
           </div>
         </div>
