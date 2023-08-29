@@ -3,8 +3,8 @@ require('../css/bootstrap.min.css');
 require('../css/style.css');
 
 // JS
-var protobuf = require('protobufjs');
 var Vue = require('vue')
+const proto_bundle = require('../static/generated/proto_bundle');
 
 Vue.component('study-item', {
   props: ['study'],
@@ -47,55 +47,55 @@ Vue.component('study-item', {
     </div>`
 })
 
+const SeedType = Object.freeze({
+  PRODUCTION:   Symbol("Production"),
+  STAGING:  Symbol("Staging"),
+  UPSTREAM: Symbol("Upstream")
+});
+Vue.prototype.SeedType = SeedType
+
 var app = new Vue({
   el: '#app',
   data: {
     loading: true,
-    stagingStudies: [],
-    productionStudies: [],
-    isProduction: true
+    currentSeedType: SeedType.PRODUCTION,
+    studies: new Map(Object.values(SeedType).map((key) => [key, []])),
+    isSeedLoaded: {}
   },
   async created() {
-    let variationsStagingUrl = "https://variations.bravesoftware.com/seed"
-    let variationsProductionUrl = "https://variations.brave.com/seed"
+    let variationsStagingUrl = "http://127.0.0.1:8000/staging_seed"
+    let variationsProductionUrl = "http://127.0.0.1:8000/production_seed"
+    let chromeUrl = "http://127.0.0.1:8000/chrome_seed"
 
-    await loadSeed(variationsProductionUrl, /* isProduction */ true)
-    await loadSeed(variationsStagingUrl, /* isProduction */ false)
+    await loadSeed(variationsProductionUrl, SeedType.PRODUCTION)
+    await loadSeed(variationsStagingUrl, SeedType.STAGING)
+
+    await loadSeed(chromeUrl, SeedType.UPSTREAM)
 
     this.loading = false
   },
   methods: {
-    addStagingStudy: function(study) {
-      this.stagingStudies.push(study)
+    addStudy: function(currentSeedType, study) {
+      this.studies.get(currentSeedType).push(study)
     },
-    addProductionStudy: function(study) {
-      this.productionStudies.push(study)
-    }
   }
 })
 
-async function loadSeed(url, isProduction) {
+async function loadSeed(url, type) {
   let xhr = new XMLHttpRequest();
   xhr.open("GET", url, true /* async */);
   xhr.responseType = "arraybuffer";
-  xhr.onload = (evt) => onLoadSeed(xhr.response, isProduction);
+  xhr.onload = (evt) => onLoadSeed(xhr.response, type);
   xhr.send(null);
 }
 
-function onLoadSeed(seedProtobufBytes, isProduction) {
+function onLoadSeed(seedProtobufBytes, type) {
   let seedBytes = new Uint8Array(seedProtobufBytes);
-  protobuf.load("../proto/variations_seed.proto", function (err, root) {
-    if (err) { throw err; }
-    let variationSeedType = root.lookupType("variations.VariationsSeed");
-    let seed = variationSeedType.decode(seedBytes);
+  let variationSeedType = proto_bundle.variations.VariationsSeed;
+  let seed = variationSeedType.decode(seedBytes);
 
-    seed['study'].forEach(study => {
-      if (isProduction) {
-        app.addProductionStudy(processStudy(study))
-      } else {
-        app.addStagingStudy(processStudy(study))
-      }
-    });
+  seed['study'].forEach(study => {
+    app.addStudy(type, processStudy(study))
   });
 }
 
@@ -115,7 +115,7 @@ function processStudy(study) {
   study.filter.channel.forEach(channel_ix => {
     processedChannel.push(getChannel(channel_ix))
   })
-  
+
   if (!processedChannel.length) {
     processedChannel.push("All")
   }
