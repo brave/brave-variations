@@ -126,7 +126,7 @@ export class StudyPriorityDetails {
       const weight = e.probability_weight;
       this.totalWeight += weight;
       // TODO: add maching Control_ ?
-      if (e.name.match(/Default/) != null && !areFeaturesInDefaultStates(e)) {
+      if (e.name.match(/Default/) === null && !areFeaturesInDefaultStates(e)) {
         this.totalNonDefaultGroupsWeight += weight
         if (weight > this.maxNonDefaultWeight) {
           this.maxNonDefaultWeight = weight;
@@ -179,7 +179,7 @@ function getAffectedFeatures(study: proto.IStudy) : Set<string> {
 
 function areFeaturesInDefaultStates(e: proto.Study.IExperiment) : boolean {
   const enableFeature = e.feature_association?.enable_feature ?? undefined;
-  const disableFeature = e.feature_association?.disable_feature?? undefined;
+  const disableFeature = e.feature_association?.disable_feature ?? undefined;
   if (enableFeature !== undefined && enableFeature.length > 0) return false;
   if (disableFeature !== undefined && disableFeature.length > 0) return false;
   return true;

@@ -36,6 +36,9 @@ function serializeStudiesToDirectory(seedData: Buffer, directory: string, option
     if (processed.getPriority() >= StudyPriority.STABLE_ALL)
       addStudy(path.join('stable-100%', name), study);
 
+    if (processed.getPriority() >= StudyPriority.STABLE_ALL_EMERGENCY)
+      addStudy(path.join('stable-emergency-kill-switch', name), study);
+
     if (processed.getPriority() >= StudyPriority.STABLE_MIN)
       addStudy(path.join('stable', name), study);
 
@@ -90,7 +93,7 @@ async function main(): Promise<void> {
 
   const createSummary = true;
   const updateData = true;
-  const commitData = false;
+  const commitData = true;
 
   const seedData = seedFile !== undefined ? fs.readFileSync(seedFile) : await fetchChromeSeedData();
   const seed = proto.VariationsSeed.decode(seedData);
