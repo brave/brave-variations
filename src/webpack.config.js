@@ -10,6 +10,10 @@ module.exports = {
     resolve: {
       alias: {
         vue: 'vue/dist/vue.esm.browser.min.js'
+      },
+      extensions: [".ts", ".js"],
+      extensionAlias: {
+        ".js": [".js", ".ts"],
       }
     },
     module: {
@@ -33,7 +37,11 @@ module.exports = {
         },
         {
           test: /.(ts)$/,
-          use: ['ts-loader'],
+          // use: ['ts-loader'],
+          loader: require.resolve('ts-loader'),
+          options: {
+            configFile: 'web/tsconfig.json',
+          }
         }
       ],
     },

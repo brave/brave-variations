@@ -32,8 +32,10 @@ export function makeSummary(oldSeed: proto.VariationsSeed,
   options: ProcessingOptions):
   SummaryItem[] {
   const summary: SummaryItem[] = [];
-  const oldMap = processStudyList(oldSeed.study, StudyPriority.STABLE_MIN, options);
-  const newMap = processStudyList(newSeed.study, StudyPriority.STABLE_MIN, options);
+  const oldMap =
+      processStudyList(oldSeed.study, StudyPriority.STABLE_MIN, options);
+  const newMap =
+      processStudyList(newSeed.study, StudyPriority.STABLE_MIN, options);
 
   const visitedKeys = new Set<string>();
 
