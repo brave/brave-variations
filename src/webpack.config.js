@@ -6,7 +6,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 module.exports = {
-  entry: './web/src/app.ts',
+  entry: './web/build/web/src/app.js',
   mode: 'production',
   output: {
     path: path.join(__dirname, 'web', 'static'),
@@ -15,10 +15,7 @@ module.exports = {
   resolve: {
     alias: {
       vue: 'vue/dist/vue.esm.browser.min.js',
-    },
-    extensions: ['.ts', '.js'],
-    extensionAlias: {
-      '.js': ['.js', '.ts'],
+        css: path.resolve(__dirname, "web/css/")
     },
   },
   module: {
@@ -34,13 +31,6 @@ module.exports = {
       {
         test: /.(svg|jpg|jpeg|png)$/,
         use: ['file-loader'],
-      },
-      {
-        test: /.(ts)$/,
-        loader: require.resolve('ts-loader'),
-        options: {
-          configFile: 'web/tsconfig.json',
-        },
       },
     ],
   },

@@ -13,8 +13,8 @@ import {
 } from '../../core/core_utils';
 
 // CSS
-require('../css/bootstrap.min.css');
-require('../css/style.css');
+require('css/bootstrap.min.css');
+require('css/style.css');
 
 // JS
 Vue.component('study-item', {
