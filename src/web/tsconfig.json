@@ -1,9 +1,13 @@
 {
   "extends": "../tsconfig",
-  "include": [
-    "./**/*"
+  "types": [
+    "browser",
   ],
   "compilerOptions": {
-    "sourceMap": true,
-  }
+    "outDir": "build",
+  },
+  "include": [
+    "./**/*",
+    "../proto/generated/"
+  ],
 }
