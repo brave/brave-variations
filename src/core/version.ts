@@ -21,8 +21,7 @@ export function parseVersionPattern(s: string): VersionPattern {
   const v = s.split('.', 4);
   const res: VersionPattern = { v: ['*', '*', '*', '*'] };
   for (let i = 0; i < 4; i++)
-    if (v[i] !== undefined && v[i] !== '*')
-      res.v[i] = parseInt(v[i]);
+    if (v[i] !== undefined && v[i] !== '*') res.v[i] = parseInt(v[i]);
 
   return res;
 }
