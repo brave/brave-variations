@@ -1,5 +1,5 @@
 module.exports = {
-  blocklistedFeatures:[
+  blocklistedFeatures: [
     'AutofillUseApi',
     'Ukm',
     'UkmSamplingRate',
@@ -7,7 +7,5 @@ module.exports = {
     'VariationsGoogleGroupFiltering',
     'ExpiredHistogramLogic',
   ],
-  blocklistedStudies: [
-    'UKM',
-  ]
-}
+  blocklistedStudies: ['UKM'],
+};

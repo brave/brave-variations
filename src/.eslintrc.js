@@ -1,5 +1,7 @@
 module.exports = {
-  'extends': ['standard-with-typescript', 'prettier'],
+  extends: ['standard-with-typescript', 'prettier'],
+  plugins: ['prettier'],
+
   root: true,
   parserOptions: {
     project: './tsconfig-lint.json',
@@ -12,14 +14,12 @@ module.exports = {
     'finch_tracker/build/*',
   ],
   rules: {
-    'max-len': [
+    'prettier/prettier': [
       'error',
       {
-        'code': 80,
-        'tabWidth': 2,
-        'ignoreUrls': true,
-        'ignoreTemplateLiterals': true
-      }
-    ]
-  }
+        singleQuote: true,
+        printWidth: 80,
+      },
+    ],
+  },
 };

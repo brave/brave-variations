@@ -1,7 +1,7 @@
 import { variations as proto } from '../proto/generated/proto_bundle';
 
 function secondToUTCString(unixTimeSeconds: number): string {
-  return (new Date(unixTimeSeconds * 1000)).toUTCString();
+  return new Date(unixTimeSeconds * 1000).toUTCString();
 }
 
 export function serializePlatforms(platforms?: string[]): string | undefined {

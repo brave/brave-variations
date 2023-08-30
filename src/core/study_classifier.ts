@@ -36,8 +36,9 @@ export class ProcessedStudy {
   }
 
   stripEmptyFilterGroups(): void {
-    this.study.experiment =
-      this.study.experiment?.filter((e) => e.probability_weight > 0);
+    this.study.experiment = this.study.experiment?.filter(
+      (e) => e.probability_weight > 0,
+    );
   }
 
   moveLargestGroupToTop(): void {
@@ -68,7 +69,7 @@ export function priorityToDescription(p: StudyPriority): string {
   switch (p) {
     case StudyPriority.NON_INTERESTING:
     case StudyPriority.BLOCKLISTED:
-      return 'don\'t care';
+      return "don't care";
     case StudyPriority.STABLE_MIN:
       return 'targets a part of the stable audience';
     case StudyPriority.STABLE_50:
@@ -86,7 +87,7 @@ const kSupportedPlatforms = [
   proto.Study.Platform.PLATFORM_ANDROID,
   proto.Study.Platform.PLATFORM_LINUX,
   proto.Study.Platform.PLATFORM_MAC,
-  proto.Study.Platform.PLATFORM_WINDOWS
+  proto.Study.Platform.PLATFORM_WINDOWS,
 ];
 
 export class StudyPriorityDetails {
@@ -110,22 +111,24 @@ export class StudyPriorityDetails {
     }
     this.isEmergency = study.name.match(/KillSwitch/) !== null;
 
-    this.isOutdated = maxVersion != null &&
-      !matchesMaxVersion({ v: [options.minMajorVersion, 0, 0, 0] },
-        parseVersionPattern(maxVersion));
+    this.isOutdated =
+      maxVersion != null &&
+      !matchesMaxVersion(
+        { v: [options.minMajorVersion, 0, 0, 0] },
+        parseVersionPattern(maxVersion),
+      );
 
     this.isBlocklisted = isStudyNameBlocklisted(study.name);
 
     for (const e of experiment) {
       const enableFeatures = e.feature_association?.enable_feature;
-      const disabledFeatures =
-        e.feature_association?.disable_feature;
+      const disabledFeatures = e.feature_association?.disable_feature;
       this.isBlocklisted ||=
         enableFeatures != null &&
-        enableFeatures.some(n => isFeatureBlocklisted(n));
+        enableFeatures.some((n) => isFeatureBlocklisted(n));
       this.isBlocklisted ||=
         disabledFeatures != null &&
-        disabledFeatures.some(n => isFeatureBlocklisted(n));
+        disabledFeatures.some((n) => isFeatureBlocklisted(n));
     }
     const filteredPlatforms = filterPlatforms(filter);
     if (filteredPlatforms === undefined || filteredPlatforms.length === 0) {
@@ -155,16 +158,16 @@ export class StudyPriorityDetails {
   }
 
   getOverallPriority(): StudyPriority {
-    if (this.isBlocklisted)
-      return StudyPriority.BLOCKLISTED;
+    if (this.isBlocklisted) return StudyPriority.BLOCKLISTED;
     if (this.hasNoSupportedPlatform || this.isOutdated)
       return StudyPriority.NON_INTERESTING;
     if (this.channelTarget !== StudyChannelTarget.STABLE) {
       return StudyPriority.NON_INTERESTING;
     }
     if (this.maxNonDefaultWeight > this.totalWeight / 2) {
-      return this.isEmergency ?
-        StudyPriority.STABLE_ALL_EMERGENCY : StudyPriority.STABLE_ALL;
+      return this.isEmergency
+        ? StudyPriority.STABLE_ALL_EMERGENCY
+        : StudyPriority.STABLE_ALL;
     }
 
     if (this.totalNonDefaultGroupsWeight === 0)
@@ -183,8 +186,8 @@ function getAffectedFeatures(study: proto.IStudy): Set<string> {
     return features;
   }
   for (const exp of experiment) {
-    exp.feature_association?.enable_feature?.forEach(f => features.add(f));
-    exp.feature_association?.disable_feature?.forEach(f => features.add(f));
+    exp.feature_association?.enable_feature?.forEach((f) => features.add(f));
+    exp.feature_association?.disable_feature?.forEach((f) => features.add(f));
   }
   return features;
 }
@@ -197,16 +200,19 @@ function areFeaturesInDefaultStates(e: proto.Study.IExperiment): boolean {
   return true;
 }
 
-function filterPlatforms(f: proto.Study.IFilter | undefined | null):
-  proto.Study.Platform[] | undefined {
+function filterPlatforms(
+  f: proto.Study.IFilter | undefined | null,
+): proto.Study.Platform[] | undefined {
   const platform = f?.platform;
   if (platform === undefined || platform == null) return undefined;
-  return platform.filter(p => kSupportedPlatforms.includes(p));
+  return platform.filter((p) => kSupportedPlatforms.includes(p));
 }
 
-export function processStudyList(list: proto.IStudy[],
+export function processStudyList(
+  list: proto.IStudy[],
   minPriority: StudyPriority,
-  options: ProcessingOptions): Map<string, ProcessedStudy[]> {
+  options: ProcessingOptions,
+): Map<string, ProcessedStudy[]> {
   const result = new Map<string, ProcessedStudy[]>();
   for (const study of list) {
     const name = study.name;
@@ -216,10 +222,8 @@ export function processStudyList(list: proto.IStudy[],
     }
 
     const list = result.get(name);
-    if (list !== undefined)
-      list.push(processedStudy);
-    else
-      result.set(name, [processedStudy]);
+    if (list !== undefined) list.push(processedStudy);
+    else result.set(name, [processedStudy]);
   }
   return result;
 }

@@ -13,7 +13,7 @@
         <nav class="nav nav-pills">
           <a href="#" class="nav-item nav-link btn-sm" :class="[currentSeedType == SeedType.PRODUCTION ? 'active' : '']" v-on:click="currentSeedType=SeedType.PRODUCTION">Production</a>
           <a href="#" class="nav-item nav-link btn-sm" :class="[currentSeedType == SeedType.STAGING ? 'active' : '']" v-on:click="currentSeedType=SeedType.STAGING">Staging</a>
-          <a href="#" class="nav-item nav-link btn-sm" :class="[currentSeedType == SeedType.UPSTREAM ? 'active' : '']" v-on:click="currentSeedType=SeedType.UPSTREAM" v-if="true">Upstream</a>
+          <a href="#" class="nav-item nav-link btn-sm" :class="[currentSeedType == SeedType.UPSTREAM ? 'active' : '']" v-on:click="currentSeedType=SeedType.UPSTREAM" v-if="hasUpstream">Upstream</a>
         </nav>
       </section>
 

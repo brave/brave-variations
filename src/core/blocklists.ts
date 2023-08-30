@@ -1,4 +1,4 @@
-import * as config from '../blocklist.config'
+import * as config from '../blocklist.config';
 
 class Blocklist {
   private readonly regexps: RegExp[] = [];
