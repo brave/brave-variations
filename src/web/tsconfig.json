@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig",
+  "include": [
+    "./**/*"
+  ],
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": false, // TODO
+  }
+}
