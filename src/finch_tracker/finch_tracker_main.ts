@@ -38,18 +38,21 @@ function serializeStudiesToDirectory(
   for (const study of seed.study) {
     const name = study.name;
     const processed = new ProcessedStudy(study, options);
-    addStudy(path.join('by-name', name), study);
-    if (processed.getPriority() >= StudyPriority.STABLE_ALL)
-      addStudy(path.join('stable-100%', name), study);
+    addStudy(path.join('all-by-name', name), study);
+    let extraGroup: string | undefined;
+    if (processed.getPriority() === StudyPriority.STABLE_ALL_EMERGENCY) {
+      extraGroup = 'stable-emergency-kill-switch';
+    } else if (processed.getPriority() === StudyPriority.STABLE_ALL) {
+      extraGroup = 'stable-100%';
+    } else if (processed.getPriority() === StudyPriority.STABLE_50) {
+      extraGroup = 'stable-50%';
+    } else if (processed.getPriority() === StudyPriority.STABLE_MIN) {
+      extraGroup = 'stable-min';
+    } else if (processed.getPriority() === StudyPriority.BLOCKLISTED) {
+      extraGroup = 'blocklisted';
+    }
 
-    if (processed.getPriority() >= StudyPriority.STABLE_ALL_EMERGENCY)
-      addStudy(path.join('stable-emergency-kill-switch', name), study);
-
-    if (processed.getPriority() >= StudyPriority.STABLE_MIN)
-      addStudy(path.join('stable', name), study);
-
-    if (processed.getPriority() === StudyPriority.BLOCKLISTED)
-      addStudy(path.join('blocklisted', name), study);
+    if (extraGroup !== undefined) addStudy(path.join(extraGroup, name), study);
   }
 
   console.log(`${cnt} studies processed`);
