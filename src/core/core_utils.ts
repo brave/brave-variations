@@ -2,7 +2,7 @@ import { variations as proto } from '../proto/generated/proto_bundle';
 
 export interface ProcessingOptions {
   minMajorVersion: number;
-  useBraveChannelNames: boolean;
+  isBraveSeed: boolean;
 }
 
 export function getChromiumFeatureUrl(feature: string): string {

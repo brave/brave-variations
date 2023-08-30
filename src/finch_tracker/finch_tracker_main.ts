@@ -96,7 +96,7 @@ async function main(): Promise<void> {
   const previousSeedFile = program.args[2];
   const options: ProcessingOptions = {
     minMajorVersion: program.opts().chromeMajor,
-    useBraveChannelNames: false,
+    isBraveSeed: false,
   };
 
   const createSummary = true;
