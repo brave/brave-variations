@@ -143,8 +143,10 @@ export class StudyPriorityDetails {
     for (const e of experiment) {
       const weight = e.probability_weight;
       this.totalWeight += weight;
-      // TODO: add maching Control_ ?
-      if (e.name.match(/Default/) === null && !areFeaturesInDefaultStates(e)) {
+      if (
+        e.name.match(/Default|Control_/) === null &&
+        !areFeaturesInDefaultStates(e)
+      ) {
         this.totalNonDefaultGroupsWeight += weight;
         if (weight > this.maxNonDefaultWeight) {
           this.maxNonDefaultWeight = weight;
