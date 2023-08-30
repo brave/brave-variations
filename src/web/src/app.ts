@@ -1,8 +1,12 @@
-import Vue from 'vue'
-import {variations as proto} from '../../proto/generated/proto_bundle';
-import { ProcessedStudy, StudyPriority} from '../../core/study_classifier'
-import { getChannelName, getPlatfromName,
-         getChromiumFeatureUrl} from '../../core/core_utils';
+import Vue from 'vue';
+import { variations as proto } from '../../proto/generated/proto_bundle';
+import { ProcessedStudy, StudyPriority } from '../../core/study_classifier';
+import {
+  getChannelName,
+  getPlatfromName,
+  getChromiumFeatureUrl,
+  type ProcessingOptions,
+} from '../../core/core_utils';
 
 // CSS
 require('../css/bootstrap.min.css');
@@ -11,8 +15,7 @@ require('../css/style.css');
 // JS
 Vue.component('study-item', {
   props: ['study'],
-  template:
-    `<div class="card mb-3">
+  template: `<div class="card mb-3">
       <div class="card-header">{{ study.name() }}</div>
       <div class="card-body">
         <ul class="list-group list-group-flush">
@@ -51,16 +54,16 @@ Vue.component('study-item', {
           <li v-for="platform in study.platforms()">{{ platform }}</li>
         </ul>
       </div>
-    </div>`
-})
+    </div>`,
+});
 
-enum SeedType{
+enum SeedType {
   PRODUCTION,
   STAGING,
   UPSTREAM,
 }
 
-Vue.prototype.SeedType = SeedType
+Vue.prototype.SeedType = SeedType; // TODO
 interface FeatureModel {
   name: string;
   link: string;
@@ -68,49 +71,61 @@ interface FeatureModel {
 
 class ExperimentModel {
   private readonly experiment: proto.Study.IExperiment;
-  constructor(experiment: proto.Study.IExperiment) {
+  private readonly processedStudy: ProcessedStudy;
+
+  constructor(
+    experiment: proto.Study.IExperiment,
+    processedStudy: ProcessedStudy,
+  ) {
     this.experiment = experiment;
+    this.processedStudy = processedStudy;
   }
 
-  getFeatures(features?: string[]|null) : FeatureModel[] {
+  getFeatures(features?: string[] | null): FeatureModel[] {
     if (features == null) {
-      return []
+      return [];
     }
     return features.map((f) => {
-      return {name: f, link: getChromiumFeatureUrl(f)};
+      return { name: f, link: getChromiumFeatureUrl(f) };
     });
   }
 
-  enabledFeatures() : FeatureModel[] {
-    return this.getFeatures(this.experiment.feature_association?.enable_feature)
+  enabledFeatures(): FeatureModel[] {
+    return this.getFeatures(
+      this.experiment.feature_association?.enable_feature,
+    );
   }
 
-  disabledFeatures() : FeatureModel[] {
+  disabledFeatures(): FeatureModel[] {
     return this.getFeatures(
-      this.experiment.feature_association?.disable_feature)
+      this.experiment.feature_association?.disable_feature,
+    );
   }
 
   parameters(): string[] {
-    const param = this.experiment.param
-    if (param == null)
-      return [];
-    return param.map((p) => p.name + ': '+ p.value)
+    const param = this.experiment.param;
+    if (param == null) return [];
+    return param.map((p) => p.name + ': ' + p.value);
   }
 
-  name() : string {
+  name(): string {
     return this.experiment.name;
   }
 
-  weight() : number {
-    return this.experiment.probability_weight; // TODO: normalize
+  weight(): number {
+    const totalWeight = this.processedStudy.priorityDetails.totalWeight;
+    if (totalWeight === 0) return 0;
+    return this.experiment.probability_weight / totalWeight;
   }
 }
 
 class StudyModel {
-  processedStudy: ProcessedStudy;
-  constructor(study: proto.IStudy) {
-    // TODO:
-    this.processedStudy = new ProcessedStudy(study, {minMajorVersion: 116})
+  private readonly processedStudy: ProcessedStudy;
+  private readonly options: ProcessingOptions;
+
+  constructor(study: proto.IStudy, options: ProcessingOptions) {
+    this.processedStudy = new ProcessedStudy(study, options);
+    this.options = options;
   }
 
   raw(): proto.IStudy {
@@ -121,36 +136,44 @@ class StudyModel {
     return this.processedStudy.getPriority();
   }
 
-  name() : string {
+  name(): string {
     return this.raw().name;
   }
 
-  mapToStringList<T>(list: T[] | undefined | null,
-              fn: (t: T) => string) : string[] {
-    if (list == null || list.length === 0) return []
+  mapToStringList<T>(
+    list: T[] | undefined | null,
+    fn: (t: T) => string,
+  ): string[] {
+    if (list == null || list.length === 0) return [];
     return list.map(fn);
   }
 
-  experiments() : ExperimentModel[] {
-   const study = this.raw();
-    if (study.experiment == null) return []
-    return study.experiment.map((e) => new ExperimentModel(e));
+  experiments(): ExperimentModel[] {
+    const study = this.raw();
+    if (study.experiment == null) return [];
+    return study.experiment.map(
+      (e) => new ExperimentModel(e, this.processedStudy),
+    );
   }
 
   platforms(): string[] {
-    return this.mapToStringList(
-      this.raw().filter?.platform, (p) => getPlatfromName(p));
+    return this.mapToStringList(this.raw().filter?.platform, (p) =>
+      getPlatfromName(p),
+    );
   }
 
   channels(): string[] {
     return this.mapToStringList(
       // TODO
-      this.raw().filter?.channel, (c) => getChannelName(c, true));
+      this.raw().filter?.channel,
+      (c) => getChannelName(c, this.options.useBraveChannelNames),
+    );
   }
 
   countries(): string[] {
-    return this.mapToStringList(
-      this.raw().filter?.country, (c) => c.toString());
+    return this.mapToStringList(this.raw().filter?.country, (c) =>
+      c.toString(),
+    );
   }
 }
 
@@ -160,41 +183,44 @@ const app = new Vue({
     loading: true,
     currentSeedType: SeedType.PRODUCTION,
     studies: new Map<SeedType, StudyModel>(),
-    isSeedLoaded: false, // TODO
+    hasUpstream: false,
   },
   async created() {
-    const variationsStagingUrl = "http://127.0.0.1:8000/staging_seed"
-    const variationsProductionUrl = "http://127.0.0.1:8000/production_seed"
-    const chromeUrl = "http://127.0.0.1:8000/chrome_seed"
+    const variationsStagingUrl = 'http://127.0.0.1:8000/staging_seed';
+    const variationsProductionUrl = 'http://127.0.0.1:8000/production_seed';
+    const chromeUrl = 'http://127.0.0.1:8000/chrome_seed';
 
-    await loadSeed(variationsProductionUrl, SeedType.PRODUCTION)
-    await loadSeed(variationsStagingUrl, SeedType.STAGING)
+    await loadSeed(variationsProductionUrl, SeedType.PRODUCTION);
+    await loadSeed(variationsStagingUrl, SeedType.STAGING);
 
-    await loadSeed(chromeUrl, SeedType.UPSTREAM)
+    if (await loadSeed(chromeUrl, SeedType.UPSTREAM)) this.hasUpstream = true;
 
-    this.loading = false
+    this.loading = false;
   },
   methods: {
-    addStudy: function(type: SeedType, study: StudyModel) {
-      if (this.studies.has(type) === false)
-        this.studies.set(type, [])
+    addStudy: function (type: SeedType, study: StudyModel) {
+      if (this.studies.has(type) === false) this.studies.set(type, []);
       if (type === SeedType.UPSTREAM) {
         const minPriority = StudyPriority.STABLE_MIN;
-        if (study.priority() <= minPriority)
-          return;
+        if (study.priority() <= minPriority) return;
       }
-      this.studies.get(type).push(study)
+      this.studies.get(type).push(study);
     },
-  }
-})
+  },
+});
 
-async function loadSeed(url: string, type : SeedType): Promise<void> {
-  await new Promise<void>((resolve, reject) =>{
+async function loadSeed(url: string, type: SeedType): Promise<boolean> {
+  return await new Promise<boolean>((resolve) => {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true /* async */);
-    xhr.responseType = "arraybuffer";
-    xhr.onload = (evt) => { onLoadSeed(xhr.response, type); resolve()};
-    xhr.onerror = (e) => { reject(e); };
+    xhr.open('GET', url, true /* async */);
+    xhr.responseType = 'arraybuffer';
+    xhr.onload = (evt) => {
+      onLoadSeed(xhr.response, type);
+      resolve(true);
+    };
+    xhr.onerror = (e) => {
+      resolve(false);
+    };
     xhr.send(null);
   });
 }
@@ -203,7 +229,13 @@ function onLoadSeed(seedProtobufBytes: any, type: SeedType): void {
   const seedBytes = new Uint8Array(seedProtobufBytes);
   const seed = proto.VariationsSeed.decode(seedBytes);
 
-  seed.study.forEach(study => {
-    app.addStudy(type, new StudyModel(study))
+  const isUpstream = type === SeedType.UPSTREAM;
+  // TODO: get minMajorVersion
+  const options: ProcessingOptions = {
+    useBraveChannelNames: !isUpstream,
+    minMajorVersion: 116,
+  };
+  seed.study.forEach((study) => {
+    app.addStudy(type, new StudyModel(study, options));
   });
 }
