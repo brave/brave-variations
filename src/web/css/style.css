@@ -50,13 +50,13 @@ ul.study-meta {
   margin: 0 0;
 }
 
-a.enabled-feature {
+.enabled-feature {
   color: rgb(51, 88, 43);
   padding: 0;
   margin: 0 0;
 }
 
-a.disabled-feature {
+.disabled-feature {
   color: rgb(108, 55, 50);
   padding: 0;
   margin: 0 0;

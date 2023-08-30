@@ -24,14 +24,16 @@ Vue.component('study-item', {
             <ul class="study-meta" v-if="experiment.enabledFeatures().length > 0">
               <span>Enabled Features:</span>
               <li v-for="feature in experiment.enabledFeatures()">
-                <a class="enabled-feature" v-bind:href="feature.link">{{ feature.name }}</a>
+                <a v-if="feature.link" class="enabled-feature" v-bind:href="feature.link">{{ feature.name }}</a>
+                <font v-if="!feature.link" class="enabled-feature">{{ feature.name }}</font>
               </li>
             </ul>
             <ul class="study-meta" v-if="experiment.disabledFeatures().length > 0">
               <span>Disabled Features:</span>
               <li v-for="feature in experiment.disabledFeatures()">
-                <a class="disabled-feature" v-bind:href="feature.link">{{ feature.name }}</a>
-              </li>
+                <a v-if="feature.link" class="disabled-feature" v-bind:href="feature.link">{{ feature.name }}</a>
+                <font v-if="!feature.link" class="disabled-feature">{{ feature.name }}</font>
+            </li>
             </ul>
             <ul class="study-meta" v-if="experiment.parameters().length > 0">
               <span>Parameters:</span>
@@ -71,14 +73,11 @@ interface FeatureModel {
 
 class ExperimentModel {
   private readonly experiment: proto.Study.IExperiment;
-  private readonly processedStudy: ProcessedStudy;
+  private readonly studyModel: StudyModel;
 
-  constructor(
-    experiment: proto.Study.IExperiment,
-    processedStudy: ProcessedStudy,
-  ) {
+  constructor(experiment: proto.Study.IExperiment, studyModel: StudyModel) {
     this.experiment = experiment;
-    this.processedStudy = processedStudy;
+    this.studyModel = studyModel;
   }
 
   getFeatures(features?: string[] | null): FeatureModel[] {
@@ -86,7 +85,8 @@ class ExperimentModel {
       return [];
     }
     return features.map((f) => {
-      return { name: f, link: getChromiumFeatureUrl(f) };
+      const isBraveSeed = this.studyModel.options.isBraveSeed;
+      return { name: f, link: isBraveSeed ? '' : getChromiumFeatureUrl(f) };
     });
   }
 
@@ -113,15 +113,16 @@ class ExperimentModel {
   }
 
   weight(): number {
-    const totalWeight = this.processedStudy.priorityDetails.totalWeight;
+    const totalWeight =
+      this.studyModel.processedStudy.priorityDetails.totalWeight;
     if (totalWeight === 0) return 0;
-    return this.experiment.probability_weight / totalWeight;
+    return (this.experiment.probability_weight / totalWeight) * 100;
   }
 }
 
 class StudyModel {
-  private readonly processedStudy: ProcessedStudy;
-  private readonly options: ProcessingOptions;
+  readonly processedStudy: ProcessedStudy;
+  readonly options: ProcessingOptions;
 
   constructor(study: proto.IStudy, options: ProcessingOptions) {
     this.processedStudy = new ProcessedStudy(study, options);
@@ -151,9 +152,7 @@ class StudyModel {
   experiments(): ExperimentModel[] {
     const study = this.raw();
     if (study.experiment == null) return [];
-    return study.experiment.map(
-      (e) => new ExperimentModel(e, this.processedStudy),
-    );
+    return study.experiment.map((e) => new ExperimentModel(e, this));
   }
 
   platforms(): string[] {
@@ -166,7 +165,7 @@ class StudyModel {
     return this.mapToStringList(
       // TODO
       this.raw().filter?.channel,
-      (c) => getChannelName(c, this.options.useBraveChannelNames),
+      (c) => getChannelName(c, this.options.isBraveSeed),
     );
   }
 
@@ -232,7 +231,7 @@ function onLoadSeed(seedProtobufBytes: any, type: SeedType): void {
   const isUpstream = type === SeedType.UPSTREAM;
   // TODO: get minMajorVersion
   const options: ProcessingOptions = {
-    useBraveChannelNames: !isUpstream,
+    isBraveSeed: !isUpstream,
     minMajorVersion: 116,
   };
   seed.study.forEach((study) => {
