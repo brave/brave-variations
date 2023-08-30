@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import {variations as proto} from '../../proto/generated/proto_bundle';
 import { ProcessedStudy, StudyPriority} from '../../core/study_classifier'
-import { getChannelName, getPlatfromName, getChromiumFeatureUrl} from '../../core/core_utils';
+import { getChannelName, getPlatfromName,
+         getChromiumFeatureUrl} from '../../core/core_utils';
 
 // CSS
 require('../css/bootstrap.min.css');
