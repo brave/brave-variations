@@ -1,6 +1,6 @@
 import { isFeatureBlocklisted, isStudyNameBlocklisted } from './blocklists';
-import { variations as proto } from './generated/proto_bundle';
-import { type ProcessingOptions } from './utils';
+import { variations as proto } from '../proto/generated/proto_bundle';
+import { type ProcessingOptions } from './core_utils';
 import { matchesMaxVersion, parseVersionPattern } from './version';
 
 export enum StudyChannelTarget {
@@ -43,8 +43,8 @@ export class ProcessedStudy {
   moveLargestGroupToTop(): void {
     const details = this.priorityDetails;
     if (details.maxNonDefaultWeight <= details.totalWeight / 2) return;
-    const experiment = this.study.experiment ?? undefined;
-    if (experiment === undefined) return;
+    const experiment = this.study.experiment;
+    if (experiment == null) return;
     const maxExp = experiment.splice(details.maxNonDefaultIndex, 1);
     this.study.experiment = maxExp.concat(experiment);
     details.maxNonDefaultIndex = 0;
@@ -52,9 +52,13 @@ export class ProcessedStudy {
 
   postProcessStudy(): void {
     this.stripEmptyFilterGroups();
+    this.study.filter?.channel?.sort();
+    this.study.filter?.platform?.sort();
+    this.study.filter?.country?.sort();
+    this.study.filter?.locale?.sort();
     this.moveLargestGroupToTop();
-    const filter = this.study.filter ?? undefined;
-    if (filter !== undefined) {
+    const filter = this.study.filter;
+    if (filter != null) {
       filter.platform = filterPlatforms(filter);
     }
   }
@@ -98,29 +102,29 @@ export class StudyPriorityDetails {
   channelTarget = StudyChannelTarget.DEV_OR_CANARY;
 
   constructor(study: proto.IStudy, options: ProcessingOptions) {
-    const filter = study.filter ?? undefined;
-    const experiment = study.experiment ?? undefined;
-    const maxVersion = filter?.max_version ?? undefined;
-    if (experiment === undefined || filter === undefined) {
+    const filter = study.filter;
+    const experiment = study.experiment;
+    const maxVersion = filter?.max_version;
+    if (experiment == null || filter == null) {
       return; // TODO
     }
     this.isEmergency = study.name.match(/KillSwitch/) !== null;
 
-    this.isOutdated = maxVersion !== undefined &&
+    this.isOutdated = maxVersion != null &&
       !matchesMaxVersion({ v: [options.minMajorVersion, 0, 0, 0] },
         parseVersionPattern(maxVersion));
 
     this.isBlocklisted = isStudyNameBlocklisted(study.name);
 
     for (const e of experiment) {
-      const enableFeatures = e.feature_association?.enable_feature ?? undefined;
+      const enableFeatures = e.feature_association?.enable_feature;
       const disabledFeatures =
-        e.feature_association?.disable_feature ?? undefined;
+        e.feature_association?.disable_feature;
       this.isBlocklisted ||=
-        enableFeatures !== undefined &&
+        enableFeatures != null &&
         enableFeatures.some(n => isFeatureBlocklisted(n));
       this.isBlocklisted ||=
-        disabledFeatures !== undefined &&
+        disabledFeatures != null &&
         disabledFeatures.some(n => isFeatureBlocklisted(n));
     }
     const filteredPlatforms = filterPlatforms(filter);
@@ -143,10 +147,10 @@ export class StudyPriorityDetails {
       index++;
     }
 
-    const channel = study.filter?.channel ?? undefined;
-    if (channel !== undefined && channel.includes(proto.Study.Channel.BETA))
+    const channel = study.filter?.channel;
+    if (channel != null && channel.includes(proto.Study.Channel.BETA))
       this.channelTarget = StudyChannelTarget.BETA;
-    if (channel !== undefined && channel.includes(proto.Study.Channel.STABLE))
+    if (channel != null && channel.includes(proto.Study.Channel.STABLE))
       this.channelTarget = StudyChannelTarget.STABLE;
   }
 
@@ -174,8 +178,8 @@ export class StudyPriorityDetails {
 
 function getAffectedFeatures(study: proto.IStudy): Set<string> {
   const features = new Set<string>();
-  const experiment = study.experiment ?? undefined;
-  if (experiment === undefined) {
+  const experiment = study.experiment;
+  if (experiment == null) {
     return features;
   }
   for (const exp of experiment) {
@@ -186,10 +190,10 @@ function getAffectedFeatures(study: proto.IStudy): Set<string> {
 }
 
 function areFeaturesInDefaultStates(e: proto.Study.IExperiment): boolean {
-  const enableFeature = e.feature_association?.enable_feature ?? undefined;
-  const disableFeature = e.feature_association?.disable_feature ?? undefined;
-  if (enableFeature !== undefined && enableFeature.length > 0) return false;
-  if (disableFeature !== undefined && disableFeature.length > 0) return false;
+  const enableFeature = e.feature_association?.enable_feature;
+  const disableFeature = e.feature_association?.disable_feature;
+  if (enableFeature != null && enableFeature.length > 0) return false;
+  if (disableFeature != null && disableFeature.length > 0) return false;
   return true;
 }
 

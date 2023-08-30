@@ -1,3 +1,4 @@
 node_modules/
-core/generated/
+proto/generated/
+finch_tracker/build/
 !**/.gitkeep

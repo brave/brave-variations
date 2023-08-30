@@ -6,10 +6,10 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   ignorePatterns: [
-    'core/generated/*',
+    'proto/generated/*',
     'node_modules/*',
-    'core/generated/*',
     'web/static/*',
+    'finch_tracker/build/*',
   ],
   rules: {
     'max-len': [

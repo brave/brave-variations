@@ -1,15 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Command } from 'commander';
-import { variations as proto } from '../core/generated/proto_bundle';
+import { variations as proto } from '../proto/generated/proto_bundle';
 import {
-  type ProcessingOptions, downloadUrl,
+  downloadUrl,
   getSeedPath, getStudyPath
-} from '../core/utils';
+} from './node_utils';
 import { ProcessedStudy, StudyPriority } from '../core/study_classifier';
 import { makeSummary, summaryToText } from '../core/summary';
 import { studyToJSON } from '../core/serializers';
 import { execSync } from 'child_process';
+import { type ProcessingOptions } from 'core/core_utils';
 
 
 async function fetchChromeSeedData(): Promise<Buffer> {

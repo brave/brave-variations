@@ -1,4 +1,4 @@
-import { variations as proto } from './generated/proto_bundle';
+import { variations as proto } from '../proto/generated/proto_bundle';
 
 function secondToUTCString(unixTimeSeconds: number): string {
   return (new Date(unixTimeSeconds * 1000)).toUTCString();

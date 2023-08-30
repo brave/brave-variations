@@ -1,5 +1,8 @@
 import Vue from 'vue'
-import {variations as proto} from '../../core/generated/proto_bundle';
+import {variations as proto} from '../../proto/generated/proto_bundle';
+import { ProcessedStudy, StudyPriority} from '../../core/study_classifier'
+import { getChannelName, getPlatfromName, getChromiumFeatureUrl} from '../../core/core_utils';
+
 // CSS
 require('../css/bootstrap.min.css');
 require('../css/style.css');
@@ -9,22 +12,26 @@ Vue.component('study-item', {
   props: ['study'],
   template:
     `<div class="card mb-3">
-      <div class="card-header">{{ study.name }}</div>
+      <div class="card-header">{{ study.name() }}</div>
       <div class="card-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item" v-for="experiment in study.experiment">
-            {{ experiment.name }} ({{ experiment.probabilityWeight }}%)
-            <ul class="study-meta">
+          <li class="list-group-item" v-for="experiment in study.experiments()">
+            {{ experiment.name() }} ({{ experiment.weight() }}%)
+            <ul class="study-meta" v-if="experiment.enabledFeatures().length > 0">
               <span>Enabled Features:</span>
-              <li v-for="feature in experiment.processedEnabledFeatures">{{ feature }}</li>
+              <li v-for="feature in experiment.enabledFeatures()">
+                <a class="enabled-feature" v-bind:href="feature.link">{{ feature.name }}</a>
+              </li>
             </ul>
-            <ul class="study-meta">
+            <ul class="study-meta" v-if="experiment.disabledFeatures().length > 0">
               <span>Disabled Features:</span>
-              <li v-for="feature in experiment.processedDisabledFeatures">{{ feature }}</li>
+              <li v-for="feature in experiment.disabledFeatures()">
+                <a class="disabled-feature" v-bind:href="feature.link">{{ feature.name }}</a>
+              </li>
             </ul>
-            <ul class="study-meta">
+            <ul class="study-meta" v-if="experiment.parameters().length > 0">
               <span>Parameters:</span>
-              <li v-for="parameter in experiment.processedParameters">{{ parameter }}</li>
+              <li v-for="parameter in experiment.parameters()">{{ parameter }}</li>
             </ul>
           </li>
         </ul>
@@ -32,25 +39,20 @@ Vue.component('study-item', {
       <div class="card-footer">
         <ul class="study-meta">
           <span>Channels:</span>
-          <li v-for="channel in study.filter.processedChannels">{{ channel }}</li>
+          <li v-for="channel in study.channels()">{{ channel }}</li>
         </ul>
-        <ul class="study-meta">
+        <ul class="study-meta" v-if="study.countries().length > 0">
           <span>Countries:</span>
-          <li v-for="country in study.filter.processedCountries">{{ country }}</li>
+          <li v-for="country in study.countries()">{{ country }}</li>
         </ul>
         <ul class="study-meta">
           <span>Platforms:</span>
-          <li v-for="platform in study.filter.processedPlatforms">{{ platform }}</li>
+          <li v-for="platform in study.platforms()">{{ platform }}</li>
         </ul>
       </div>
     </div>`
 })
 
-// const SeedType = Object.freeze({
-//   PRODUCTION:   Symbol("Production"),
-//   STAGING:  Symbol("Staging"),
-//   UPSTREAM: Symbol("Upstream")
-// });
 enum SeedType{
   PRODUCTION,
   STAGING,
@@ -58,14 +60,106 @@ enum SeedType{
 }
 
 Vue.prototype.SeedType = SeedType
+interface FeatureModel {
+  name: string;
+  link: string;
+}
+
+class ExperimentModel {
+  private readonly experiment: proto.Study.IExperiment;
+  constructor(experiment: proto.Study.IExperiment) {
+    this.experiment = experiment;
+  }
+
+  getFeatures(features?: string[]|null) : FeatureModel[] {
+    if (features == null) {
+      return []
+    }
+    return features.map((f) => {
+      return {name: f, link: getChromiumFeatureUrl(f)};
+    });
+  }
+
+  enabledFeatures() : FeatureModel[] {
+    return this.getFeatures(this.experiment.feature_association?.enable_feature)
+  }
+
+  disabledFeatures() : FeatureModel[] {
+    return this.getFeatures(
+      this.experiment.feature_association?.disable_feature)
+  }
+
+  parameters(): string[] {
+    const param = this.experiment.param
+    if (param == null)
+      return [];
+    return param.map((p) => p.name + ': '+ p.value)
+  }
+
+  name() : string {
+    return this.experiment.name;
+  }
+
+  weight() : number {
+    return this.experiment.probability_weight; // TODO: normalize
+  }
+}
+
+class StudyModel {
+  processedStudy: ProcessedStudy;
+  constructor(study: proto.IStudy) {
+    // TODO:
+    this.processedStudy = new ProcessedStudy(study, {minMajorVersion: 116})
+  }
+
+  raw(): proto.IStudy {
+    return this.processedStudy.study;
+  }
+
+  priority(): StudyPriority {
+    return this.processedStudy.getPriority();
+  }
+
+  name() : string {
+    return this.raw().name;
+  }
+
+  mapToStringList<T>(list: T[] | undefined | null,
+              fn: (t: T) => string) : string[] {
+    if (list == null || list.length === 0) return []
+    return list.map(fn);
+  }
+
+  experiments() : ExperimentModel[] {
+   const study = this.raw();
+    if (study.experiment == null) return []
+    return study.experiment.map((e) => new ExperimentModel(e));
+  }
+
+  platforms(): string[] {
+    return this.mapToStringList(
+      this.raw().filter?.platform, (p) => getPlatfromName(p));
+  }
+
+  channels(): string[] {
+    return this.mapToStringList(
+      // TODO
+      this.raw().filter?.channel, (c) => getChannelName(c, true));
+  }
+
+  countries(): string[] {
+    return this.mapToStringList(
+      this.raw().filter?.country, (c) => c.toString());
+  }
+}
 
 const app = new Vue({
   el: '#app',
   data: {
     loading: true,
     currentSeedType: SeedType.PRODUCTION,
-    studies: new Map(Object.values(SeedType).map((key) => [key, []])),
-    isSeedLoaded: {}
+    studies: new Map<SeedType, StudyModel>(),
+    isSeedLoaded: false, // TODO
   },
   async created() {
     const variationsStagingUrl = "http://127.0.0.1:8000/staging_seed"
@@ -80,8 +174,15 @@ const app = new Vue({
     this.loading = false
   },
   methods: {
-    addStudy: function(currentSeedType: SeedType, study: proto.IStudy) {
-      this.studies.get(currentSeedType).push(study)
+    addStudy: function(type: SeedType, study: StudyModel) {
+      if (this.studies.has(type) === false)
+        this.studies.set(type, [])
+      if (type === SeedType.UPSTREAM) {
+        const minPriority = StudyPriority.STABLE_MIN;
+        if (study.priority() <= minPriority)
+          return;
+      }
+      this.studies.get(type).push(study)
     },
   }
 })
@@ -102,105 +203,6 @@ function onLoadSeed(seedProtobufBytes: any, type: SeedType): void {
   const seed = proto.VariationsSeed.decode(seedBytes);
 
   seed.study.forEach(study => {
-    app.addStudy(type, processStudy(study))
+    app.addStudy(type, new StudyModel(study))
   });
-}
-
-function getChannel(ix) {
-  const channels = { Unknown: -1, Nightly: 0, Dev: 1, Beta: 2, Release: 3 }
-  return Object.keys(channels).find(key => channels[key] === ix)
-}
-
-function getPlatform(ix) {
-  const platforms = { Windows: 0, Mac: 1, Linux: 2, Android: 4, iOS: 5 }
-  return Object.keys(platforms).find(key => platforms[key] === ix)
-}
-
-function processStudy(study) {
-  // Channels
-  const processedChannel: string[] = [];
-  study.filter.channel.forEach(channel_ix => {
-    const channel = getChannel(channel_ix)
-    if (channel !== undefined)
-    processedChannel.push(channel)
-  })
-
-  if (processedChannel.length === 0) {
-    processedChannel.push("All")
-  }
-
-  study.filter.processedChannels = processedChannel
-
-  // Countries
-  const processedCountry: string[] = [];
-  study.filter.country.forEach(country_ix => {
-    processedCountry.push(country_ix.toUpperCase())
-  })
-
-  if (processedCountry.length === 0) {
-    processedCountry.push("All")
-  }
-
-  study.filter.processedCountries = processedCountry
-
-  // Platforms
-  const processedPlatforms: string[] = []
-  study.filter.platform.forEach(platform_ix => {
-    const platform = getPlatform(platform_ix);
-    if (platform !== undefined)
-      processedPlatforms.push(platform)
-  })
-
-  if (processedPlatforms.length === 0) {
-    processedPlatforms.push("All")
-  }
-
-  study.filter.processedPlatforms = processedPlatforms
-
-  // Experiments
-  for (let i = 0; i < study.experiment.length; i++) {
-    // Features
-    const experiment = study.experiment[i]
-
-    const processedEnabledFeatures: string[] = []
-    const processedDisabledFeatures: string[] = []
-
-    if (experiment.featureAssociation) {
-      experiment.featureAssociation.enableFeature.forEach(feature => {
-        processedEnabledFeatures.push(feature)
-      })
-
-      experiment.featureAssociation.disableFeature.forEach(feature => {
-        processedDisabledFeatures.push(feature)
-      })
-    }
-
-    if (processedEnabledFeatures.length === 0) {
-      processedEnabledFeatures.push("None")
-    }
-
-    study.experiment[i].processedEnabledFeatures = processedEnabledFeatures
-
-    if (processedDisabledFeatures.length === 0) {
-      processedDisabledFeatures.push("None")
-    }
-
-    study.experiment[i].processedDisabledFeatures = processedDisabledFeatures
-
-    // Parameters
-    const processedParameters: string[] = []
-    if (experiment.param) {
-      experiment.param.forEach(parameter => {
-        processedParameters.push(parameter.name + ": " + parameter.value)
-      })
-    }
-
-    if (processedParameters.length === 0) {
-      processedParameters.push("None")
-    }
-
-    study.experiment[i].processedParameters = processedParameters
-  }
-
-  return study
 }
