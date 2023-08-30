@@ -5,10 +5,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.ts",
-    "tracker": "ts-node finch_tracker/finch_tracker_main.ts /Users/mikhail/work/finch-data-private",
-    "build_tracker": "tsc -p finch_tracker/tsconfig.json",
-    "build_proto": "pbjs -t static-module --keep-case ./core/proto/variations_seed.proto ./core/proto/study.proto > core/generated/proto_bundle.js && pbts -o core/generated/proto_bundle.d.ts core/generated/proto_bundle.js",
-    "build_webpack": "webpack"
+    "tracker": "node finch_tracker/build/finch_tracker/finch_tracker_main.js",
+    "build:proto": "pbjs -t static-module --keep-case ./proto/variations_seed.proto ./proto/study.proto -o proto/generated/proto_bundle.js && pbts -o proto/generated/proto_bundle.d.ts proto/generated/proto_bundle.js",
+    "build:tracker": "tsc -p finch_tracker/tsconfig.json",
+    "build:web": "webpack",
+    "build": "npm run build:proto && npm run build:web && npm run build:tracker"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
@@ -24,6 +25,7 @@
     "protobufjs-cli": "^1.1.2",
     "ts-loader": "^9.4.4",
     "typescript": "^5.2.2",
+    "style-loader": "^3.3.3",
     "webpack": "^5.76.0",
     "webpack-cli": "^4.5.0"
   },
@@ -31,8 +33,6 @@
   "moduleResolution": "node",
   "dependencies": {
     "commander": "^11.0.0",
-    "style-loader": "^3.3.3",
-    "ts-node": "^10.9.1",
     "vue": "^2.6.12"
   }
 }

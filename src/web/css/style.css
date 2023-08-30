@@ -50,6 +50,18 @@ ul.study-meta {
   margin: 0 0;
 }
 
+a.enabled-feature {
+  color: rgb(51, 88, 43);
+  padding: 0;
+  margin: 0 0;
+}
+
+a.disabled-feature {
+  color: rgb(108, 55, 50);
+  padding: 0;
+  margin: 0 0;
+}
+
 ul.study-meta li {
   display: inline;
 }

@@ -7,7 +7,7 @@
   ],
   "exclude": [
     "node_modules/*",
-    "core/generated/*",
+    "proto/generated/*",
     "web/static/*"
   ]
 }

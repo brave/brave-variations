@@ -3,9 +3,11 @@
   "compilerOptions": {
     "types": [
       "node"
-    ]
+    ],
+    "outDir": "build",
   },
   "include": [
-    "./**/*"
+    "./**/*",
+    "../proto/generated/"
   ]
 }

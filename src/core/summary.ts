@@ -1,9 +1,9 @@
-import { type variations as proto } from './generated/proto_bundle';
+import { type variations as proto } from '../proto/generated/proto_bundle';
 import {
   type ProcessedStudy, StudyPriority,
   processStudyList, priorityToDescription
 } from './study_classifier';
-import { type ProcessingOptions } from './utils';
+import { type ProcessingOptions } from './core_utils';
 
 
 class SummaryItem {
