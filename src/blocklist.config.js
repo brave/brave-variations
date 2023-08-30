@@ -10,6 +10,13 @@ module.exports = {
     'HappinessTrackingSurveysForDesktopWhatsNew',
     'VariationsGoogleGroupFiltering',
     'ExpiredHistogramLogic',
+    'UMANonUniformityLogNormal',
+    'PostFREFixMetricsReporting',
+    'UMAPseudoMetricsEffect',
   ],
-  blocklistedStudies: ['UKM'],
+  blocklistedStudies: [
+    'UKM',
+    'MetricsAndCrashSampling',
+    'MetricsClearLogsOnClonedInstall',
+  ],
 };
