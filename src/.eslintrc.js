@@ -7,7 +7,9 @@ module.exports = {
   },
   ignorePatterns: [
     'core/generated/*',
-    '.eslintrc.js',
+    'node_modules/*',
+    'core/generated/*',
+    'web/static/*',
   ],
   rules: {
     'max-len': [

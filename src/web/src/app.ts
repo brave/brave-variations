@@ -1,11 +1,10 @@
+import Vue from 'vue'
+import {variations as proto} from '../../core/generated/proto_bundle';
 // CSS
 require('../css/bootstrap.min.css');
 require('../css/style.css');
 
 // JS
-var Vue = require('vue')
-const proto_bundle = require('../static/generated/proto_bundle');
-
 Vue.component('study-item', {
   props: ['study'],
   template:
@@ -47,14 +46,20 @@ Vue.component('study-item', {
     </div>`
 })
 
-const SeedType = Object.freeze({
-  PRODUCTION:   Symbol("Production"),
-  STAGING:  Symbol("Staging"),
-  UPSTREAM: Symbol("Upstream")
-});
+// const SeedType = Object.freeze({
+//   PRODUCTION:   Symbol("Production"),
+//   STAGING:  Symbol("Staging"),
+//   UPSTREAM: Symbol("Upstream")
+// });
+enum SeedType{
+  PRODUCTION,
+  STAGING,
+  UPSTREAM,
+}
+
 Vue.prototype.SeedType = SeedType
 
-var app = new Vue({
+const app = new Vue({
   el: '#app',
   data: {
     loading: true,
@@ -63,9 +68,9 @@ var app = new Vue({
     isSeedLoaded: {}
   },
   async created() {
-    let variationsStagingUrl = "http://127.0.0.1:8000/staging_seed"
-    let variationsProductionUrl = "http://127.0.0.1:8000/production_seed"
-    let chromeUrl = "http://127.0.0.1:8000/chrome_seed"
+    const variationsStagingUrl = "http://127.0.0.1:8000/staging_seed"
+    const variationsProductionUrl = "http://127.0.0.1:8000/production_seed"
+    const chromeUrl = "http://127.0.0.1:8000/chrome_seed"
 
     await loadSeed(variationsProductionUrl, SeedType.PRODUCTION)
     await loadSeed(variationsStagingUrl, SeedType.STAGING)
@@ -75,72 +80,78 @@ var app = new Vue({
     this.loading = false
   },
   methods: {
-    addStudy: function(currentSeedType, study) {
+    addStudy: function(currentSeedType: SeedType, study: proto.IStudy) {
       this.studies.get(currentSeedType).push(study)
     },
   }
 })
 
-async function loadSeed(url, type) {
-  let xhr = new XMLHttpRequest();
-  xhr.open("GET", url, true /* async */);
-  xhr.responseType = "arraybuffer";
-  xhr.onload = (evt) => onLoadSeed(xhr.response, type);
-  xhr.send(null);
+async function loadSeed(url: string, type : SeedType): Promise<void> {
+  await new Promise<void>((resolve, reject) =>{
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true /* async */);
+    xhr.responseType = "arraybuffer";
+    xhr.onload = (evt) => { onLoadSeed(xhr.response, type); resolve()};
+    xhr.onerror = (e) => { reject(e); };
+    xhr.send(null);
+  });
 }
 
-function onLoadSeed(seedProtobufBytes, type) {
-  let seedBytes = new Uint8Array(seedProtobufBytes);
-  let variationSeedType = proto_bundle.variations.VariationsSeed;
-  let seed = variationSeedType.decode(seedBytes);
+function onLoadSeed(seedProtobufBytes: any, type: SeedType): void {
+  const seedBytes = new Uint8Array(seedProtobufBytes);
+  const seed = proto.VariationsSeed.decode(seedBytes);
 
-  seed['study'].forEach(study => {
+  seed.study.forEach(study => {
     app.addStudy(type, processStudy(study))
   });
 }
 
 function getChannel(ix) {
-  let channels = { Unknown: -1, Nightly: 0, Dev: 1, Beta: 2, Release: 3 }
+  const channels = { Unknown: -1, Nightly: 0, Dev: 1, Beta: 2, Release: 3 }
   return Object.keys(channels).find(key => channels[key] === ix)
 }
 
 function getPlatform(ix) {
-  let platforms = { Windows: 0, Mac: 1, Linux: 2, Android: 4, iOS: 5 }
+  const platforms = { Windows: 0, Mac: 1, Linux: 2, Android: 4, iOS: 5 }
   return Object.keys(platforms).find(key => platforms[key] === ix)
 }
 
 function processStudy(study) {
   // Channels
-  processedChannel = [];
+  const processedChannel: string[] = [];
   study.filter.channel.forEach(channel_ix => {
-    processedChannel.push(getChannel(channel_ix))
+    const channel = getChannel(channel_ix)
+    if (channel !== undefined)
+    processedChannel.push(channel)
   })
 
-  if (!processedChannel.length) {
+  if (processedChannel.length === 0) {
     processedChannel.push("All")
   }
 
   study.filter.processedChannels = processedChannel
 
   // Countries
-  processedCountry = [];
+  const processedCountry: string[] = [];
   study.filter.country.forEach(country_ix => {
     processedCountry.push(country_ix.toUpperCase())
   })
 
-  if (!processedCountry.length) {
+  if (processedCountry.length === 0) {
     processedCountry.push("All")
   }
 
   study.filter.processedCountries = processedCountry
 
   // Platforms
-  processedPlatforms = []
+  const processedPlatforms: string[] = []
   study.filter.platform.forEach(platform_ix => {
-    processedPlatforms.push(getPlatform(platform_ix))
+    const platform = getPlatform(platform_ix);
+    if (platform !== undefined)
+      processedPlatforms.push(platform)
   })
 
-  if (!processedPlatforms.length) {
+  if (processedPlatforms.length === 0) {
     processedPlatforms.push("All")
   }
 
@@ -149,10 +160,10 @@ function processStudy(study) {
   // Experiments
   for (let i = 0; i < study.experiment.length; i++) {
     // Features
-    let experiment = study.experiment[i]
+    const experiment = study.experiment[i]
 
-    processedEnabledFeatures = []
-    processedDisabledFeatures = []
+    const processedEnabledFeatures: string[] = []
+    const processedDisabledFeatures: string[] = []
 
     if (experiment.featureAssociation) {
       experiment.featureAssociation.enableFeature.forEach(feature => {
@@ -164,27 +175,27 @@ function processStudy(study) {
       })
     }
 
-    if (!processedEnabledFeatures.length) {
+    if (processedEnabledFeatures.length === 0) {
       processedEnabledFeatures.push("None")
     }
 
     study.experiment[i].processedEnabledFeatures = processedEnabledFeatures
 
-    if (!processedDisabledFeatures.length) {
+    if (processedDisabledFeatures.length === 0) {
       processedDisabledFeatures.push("None")
     }
 
     study.experiment[i].processedDisabledFeatures = processedDisabledFeatures
 
     // Parameters
-    processedParameters = []
+    const processedParameters: string[] = []
     if (experiment.param) {
       experiment.param.forEach(parameter => {
         processedParameters.push(parameter.name + ": " + parameter.value)
       })
     }
 
-    if (!processedParameters.length) {
+    if (processedParameters.length === 0) {
       processedParameters.push("None")
     }
 

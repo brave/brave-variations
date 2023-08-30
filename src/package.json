@@ -6,24 +6,33 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.ts",
     "tracker": "ts-node finch_tracker/finch_tracker_main.ts /Users/mikhail/work/finch-data-private",
-    "proto": "pbjs -t static-module --keep-case ./core/proto/variations_seed.proto ./core/proto/study.proto > core/generated/proto_bundle.js && pbts -o core/generated/proto_bundle.d.ts core/generated/proto_bundle.js"
+    "build_tracker": "tsc -p finch_tracker/tsconfig.json",
+    "build_proto": "pbjs -t static-module --keep-case ./core/proto/variations_seed.proto ./core/proto/study.proto > core/generated/proto_bundle.js && pbts -o core/generated/proto_bundle.d.ts core/generated/proto_bundle.js",
+    "build_webpack": "webpack"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
+    "css-loader": "^5.1.3",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard-with-typescript": "^39.0.0",
+    "file-loader": "^6.2.0",
     "prettier": "^3.0.2",
     "protobufjs": "^7.2.4",
     "protobufjs-cli": "^1.1.2",
-    "typescript": "^5.2.2"
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.2.2",
+    "webpack": "^5.76.0",
+    "webpack-cli": "^4.5.0"
   },
   "type": "commonjs",
   "moduleResolution": "node",
   "dependencies": {
     "commander": "^11.0.0",
-    "ts-node": "^10.9.1"
+    "style-loader": "^3.3.3",
+    "ts-node": "^10.9.1",
+    "vue": "^2.6.12"
   }
 }

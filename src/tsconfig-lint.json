@@ -2,9 +2,12 @@
   "extends": "./tsconfig",
   "include": [
     "./**/*.ts",
+    "webpack.config.js",
+    ".eslintrc.js",
   ],
   "exclude": [
-    "node_modules",
+    "node_modules/*",
     "core/generated/*",
+    "web/static/*"
   ]
 }

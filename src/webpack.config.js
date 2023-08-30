@@ -1,13 +1,14 @@
+const path = require('path')
 module.exports = {
-    entry: './js/app.js',
-    mode: 'development',
+    entry: './web/src/app.ts',
+    mode: 'production',
     output: {
-      path: `${__dirname}/static`,
+      path: path.join(__dirname, 'web', 'static'),
       filename: 'bundle.js',
     },
     resolve: {
       alias: {
-        vue: 'vue/dist/vue.min.js'
+        vue: 'vue/dist/vue.esm.browser.min.js'
       }
     },
     module: {
@@ -28,6 +29,10 @@ module.exports = {
         {
           test: /.(svg|jpg|jpeg|png)$/,
           use: ['file-loader'],
+        },
+        {
+          test: /.(ts)$/,
+          use: ['ts-loader'],
         }
       ],
     },
