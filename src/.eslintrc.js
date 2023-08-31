@@ -15,6 +15,7 @@ module.exports = {
     'proto/generated/*',
     'node_modules/*',
     'web/static/*',
+    'web/build/*',
     'finch_tracker/build/*',
   ],
   rules: {
