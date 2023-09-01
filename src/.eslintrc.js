@@ -8,11 +8,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  extends: [
-    'standard-with-typescript',
-    'prettier',
-    'plugin:react/recommended',
-  ],
+  extends: ['standard-with-typescript', 'prettier', 'plugin:react/recommended'],
   plugins: ['prettier', 'licenses', 'react'],
   root: true,
   parserOptions: {
