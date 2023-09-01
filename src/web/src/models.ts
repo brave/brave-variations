@@ -15,7 +15,10 @@ import {
   type ProcessingOptions,
 } from '../../core/core_utils';
 
-export interface FeatureModel {
+export class StudyFilter {
+  minPriority: StudyPriority;
+}
+export class FeatureModel {
   name: string;
   link: string;
 }
@@ -88,6 +91,10 @@ export class StudyModel {
 
   name(): string {
     return this.raw().name;
+  }
+
+  matchesFilter(f: StudyFilter): boolean {
+    return this.priority() >= f.minPriority;
   }
 
   mapToStringList<T>(

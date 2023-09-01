@@ -6,7 +6,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 module.exports = {
-  entry: './web/build/web/src/app.js',
+  entry: './web/build/web/src/index.js',
   mode: 'production',
   output: {
     path: path.join(__dirname, 'web', 'static'),

@@ -11,7 +11,7 @@ import { ProcessedStudy, StudyPriority } from '../core/study_classifier';
 import { makeSummary, summaryToText } from '../core/summary';
 import { studyToJSON } from '../core/serializers';
 import { execSync } from 'child_process';
-import { type ProcessingOptions } from 'core/core_utils';
+import { type ProcessingOptions } from '../core/core_utils';
 
 async function fetchChromeSeedData(): Promise<Buffer> {
   const kChromeSeedUrl =
