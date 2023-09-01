@@ -85,7 +85,6 @@ export function makeSummary(
         )})`;
       } else {
         item.short_description = 'Audience down';
-        // console.log(oldPriority)
         item.description =
           'A known exp now ' +
           priorityToDescription(newPriority) +

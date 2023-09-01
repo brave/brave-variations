@@ -3,9 +3,17 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 module.exports = {
-  extends: ['standard-with-typescript', 'prettier'],
-  plugins: ['prettier', 'licenses'],
-
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  extends: [
+    'standard-with-typescript',
+    'prettier',
+    'plugin:react/recommended',
+  ],
+  plugins: ['prettier', 'licenses', 'react'],
   root: true,
   parserOptions: {
     project: './tsconfig-lint.json',
