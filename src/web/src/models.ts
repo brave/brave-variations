@@ -119,7 +119,6 @@ export class StudyModel {
 
   channels(): string[] {
     return this.mapToStringList(
-      // TODO
       this.raw().filter?.channel,
       (c) => getChannelName(c, this.options.isBraveSeed),
     );

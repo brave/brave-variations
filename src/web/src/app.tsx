@@ -120,7 +120,7 @@ export function StudyItem(props: { study: StudyModel }): JSX.Element {
   const contryList =
     props.study.countries().length > 0 ? (
       <ul className="study-meta">
-        <span>Countries:</span>
+        <span>Countries: </span>
         {props.study.countries().map((c) => (
           <li key={c}>{c}</li>
         ))}
@@ -141,14 +141,14 @@ export function StudyItem(props: { study: StudyModel }): JSX.Element {
       </div>
       <div className="card-footer">
         <ul className="study-meta">
-          <span>Channels:</span>
+          <span>Channels: </span>
           {props.study.channels().map((c) => (
             <li key={c}>{c}</li>
           ))}
         </ul>
         {contryList}
         <ul className="study-meta">
-          <span>Platforms:</span>
+          <span>Platforms: </span>
           {props.study.platforms().map((p) => (
             <li key={p}>{p}</li>
           ))}
