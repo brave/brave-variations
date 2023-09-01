@@ -104,14 +104,14 @@ export function makeSummary(
 
   for (const key of oldMap.keys()) checkKey(key);
 
+  summary.sort((a, b) => b.priority - a.priority);
   return summary;
 }
 
 export function summaryToText(summary: SummaryItem[]): string {
-  summary.sort((a, b) => b.priority - a.priority);
   let output = '';
+  // TODO: make the output in a proper format.
   for (const e of summary) {
-    // TODO
     const f = Array.from(e.affectedFeatures).join(',');
     output += `${e.priority} [${e.short_description}]\t ${e.studyName} ${f} ${e.description}\n`;
   }

@@ -7,6 +7,13 @@ import { variations as proto } from '../proto/generated/proto_bundle';
 import { type ProcessingOptions } from './core_utils';
 import { matchesMaxVersion, parseVersionPattern } from './version';
 
+const kSupportedPlatforms = [
+  proto.Study.Platform.PLATFORM_ANDROID,
+  proto.Study.Platform.PLATFORM_LINUX,
+  proto.Study.Platform.PLATFORM_MAC,
+  proto.Study.Platform.PLATFORM_WINDOWS,
+];
+
 export enum StudyChannelTarget {
   DEV_OR_CANARY,
   BETA,
@@ -32,7 +39,6 @@ export class ProcessedStudy {
     this.priorityDetails = new StudyPriorityDetails(study, options);
     this.affectedFeatures = getAffectedFeatures(study);
     this.postProcessStudy();
-    // TODO
   }
 
   getPriority(): StudyPriority {
@@ -86,14 +92,6 @@ export function priorityToDescription(p: StudyPriority): string {
   return '';
 }
 
-// TODO: move
-const kSupportedPlatforms = [
-  proto.Study.Platform.PLATFORM_ANDROID,
-  proto.Study.Platform.PLATFORM_LINUX,
-  proto.Study.Platform.PLATFORM_MAC,
-  proto.Study.Platform.PLATFORM_WINDOWS,
-];
-
 export class StudyPriorityDetails {
   isOutdated = false;
   isBlocklisted = false;
@@ -111,7 +109,8 @@ export class StudyPriorityDetails {
     const experiment = study.experiment;
     const maxVersion = filter?.max_version;
     if (experiment == null || filter == null) {
-      return; // TODO
+      console.error('Bad study', JSON.stringify(study));
+      return;
     }
     this.isEmergency = study.name.match(/KillSwitch/) !== null;
 
@@ -144,7 +143,7 @@ export class StudyPriorityDetails {
       const weight = e.probability_weight;
       this.totalWeight += weight;
       if (
-        e.name.match(/Default|Control_/) === null &&
+        e.name.match(/Default|Control_/) == null &&
         !areFeaturesInDefaultStates(e)
       ) {
         this.totalNonDefaultGroupsWeight += weight;
@@ -210,7 +209,7 @@ function filterPlatforms(
   f: proto.Study.IFilter | undefined | null,
 ): proto.Study.Platform[] | undefined {
   const platform = f?.platform;
-  if (platform === undefined || platform == null) return undefined;
+  if (platform == null) return undefined;
   return platform.filter((p) => kSupportedPlatforms.includes(p));
 }
 

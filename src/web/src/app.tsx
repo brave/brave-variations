@@ -8,6 +8,10 @@ import { type ProcessingOptions } from '../../core/core_utils';
 import { type ExperimentModel, type FeatureModel, StudyModel } from './models';
 import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
+
+const variationsProductionUrl = 'https://variations.brave.com/seed';
+const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
+
 enum SeedType {
   PRODUCTION,
   STAGING,
@@ -212,9 +216,6 @@ export function App(): JSX.Element {
         return newState;
       });
     };
-    const variationsProductionUrl = 'http://127.0.0.1:8000/production_seed';
-    const variationsStagingUrl = 'http://127.0.0.1:8000/staging_seed';
-
     load(variationsProductionUrl, SeedType.PRODUCTION).catch(console.error);
     load(variationsStagingUrl, SeedType.STAGING).catch(console.error);
   }, []);
