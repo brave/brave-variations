@@ -8,7 +8,7 @@ import {
   StudyPriority,
   processStudyList,
   priorityToDescription,
-} from './study_classifier';
+} from './study_processor';
 import { type ProcessingOptions } from './core_utils';
 
 class SummaryItem {

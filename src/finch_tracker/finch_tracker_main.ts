@@ -7,7 +7,7 @@ import * as path from 'path';
 import { Command } from 'commander';
 import { variations as proto } from '../proto/generated/proto_bundle';
 import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
-import { ProcessedStudy, StudyPriority } from '../core/study_classifier';
+import { ProcessedStudy, StudyPriority } from '../core/study_processor';
 import { makeSummary, summaryToText } from '../core/summary';
 import { studyToJSON } from '../core/serializers';
 import { execSync } from 'child_process';
