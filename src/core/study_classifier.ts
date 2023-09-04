@@ -96,7 +96,8 @@ export function priorityToDescription(p: StudyPriority): string {
 }
 
 export class StudyPriorityDetails {
-  isOutdated = false;
+  endedByEndDate = false;
+  endedByMaxVersion = false;
   isBlocklisted = false;
   isEmergency = false;
   hasNoSupportedPlatform = false;
@@ -117,12 +118,29 @@ export class StudyPriorityDetails {
     }
     this.isEmergency = study.name.match(/KillSwitch/) !== null;
 
-    this.isOutdated =
+    this.endedByMaxVersion =
       maxVersion != null &&
       !matchesMaxVersion(
         { v: [options.minMajorVersion, 0, 0, 0] },
         parseVersionPattern(maxVersion),
       );
+
+    if (filter.end_date != null) {
+      let endDateSeconds = 0;
+      if (typeof filter.end_date === 'number') {
+        endDateSeconds = filter.end_date;
+      } else {
+        // Long
+        endDateSeconds = filter.end_date.toNumber();
+      }
+
+      if (
+        endDateSeconds !== 0 &&
+        new Date(endDateSeconds * 1000) < new Date()
+      ) {
+        this.endedByEndDate = true;
+      }
+    }
 
     this.isBlocklisted = isStudyNameBlocklisted(study.name);
 
@@ -167,7 +185,7 @@ export class StudyPriorityDetails {
 
   getOverallPriority(): StudyPriority {
     if (this.isBlocklisted) return StudyPriority.BLOCKLISTED;
-    if (this.hasNoSupportedPlatform || this.isOutdated)
+    if (this.hasNoSupportedPlatform || this.isOutdated())
       return StudyPriority.NON_INTERESTING;
     if (this.channelTarget !== StudyChannelTarget.STABLE) {
       return StudyPriority.NON_INTERESTING;
@@ -184,6 +202,10 @@ export class StudyPriorityDetails {
     if (this.totalNonDefaultGroupsWeight >= this.totalWeight / 2)
       return StudyPriority.STABLE_50;
     return StudyPriority.STABLE_MIN;
+  }
+
+  isOutdated(): boolean {
+    return this.endedByEndDate || this.endedByMaxVersion;
   }
 }
 

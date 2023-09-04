@@ -4,8 +4,11 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { variations as proto } from '../../proto/generated/proto_bundle';
-import { kGetUsedChromiumVersion, type ProcessingOptions } from '../../core/core_utils';
-import { type ExperimentModel, type FeatureModel, StudyModel } from './models';
+import {
+  kGetUsedChromiumVersion,
+  type ProcessingOptions,
+} from '../../core/core_utils';
+import { type ExperimentModel, type FeatureModel, StudyModel, StudyFilter } from './models';
 import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
 
@@ -39,8 +42,6 @@ async function processSeed(
     const chromeVersionData = await loadFile(kGetUsedChromiumVersion, 'text');
     currentMajorVersion = chromeVersionData.split('.')[0] ?? 0;
   }
-  console.log('currentMajorVersion', currentMajorVersion);
-
   const options: ProcessingOptions = {
     isBraveSeed,
     minMajorVersion: currentMajorVersion,
@@ -110,7 +111,7 @@ export function FeatureList(props: {
   );
 }
 
-export function ExperimentItem(props: { exp: ExperimentModel }): JSX.Element {
+export function ExperimentItem(props: { exp: ExperimentModel; }): JSX.Element {
   const paramsList = props.exp.parameters().map((p) => <li key={p}>{p}</li>);
   const paramsDiv =
     paramsList.length > 0 ? (
@@ -139,7 +140,10 @@ export function ExperimentItem(props: { exp: ExperimentModel }): JSX.Element {
   );
 }
 
-export function StudyItem(props: { study: StudyModel }): JSX.Element {
+export function StudyItem(props: {
+  study: StudyModel;
+  filter: StudyFilter;
+}): JSX.Element {
   const contryList =
     props.study.countries().length > 0 ? (
       <ul className="study-meta">
@@ -157,7 +161,7 @@ export function StudyItem(props: { study: StudyModel }): JSX.Element {
       <div className="card-header">{props.study.name()}</div>
       <div className="card-body">
         <ul className="list-group list-group-flush">
-          {props.study.experiments().map((e) => (
+          {props.study.experiments(props.filter).map((e) => (
             <ExperimentItem key={e.name()} exp={e} />
           ))}
         </ul>
@@ -188,7 +192,7 @@ function getCurrentSeedType(searchParams: URLSearchParams): SeedType {
   );
 }
 
-export function NavItem(props: { type: SeedType }): JSX.Element {
+export function NavItem(props: { type: SeedType; }): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentSeed = getCurrentSeedType(searchParams);
   const className =
@@ -206,15 +210,64 @@ export function NavItem(props: { type: SeedType }): JSX.Element {
 export function CurrentStudyList(props: {
   studies: Map<SeedType, StudyModel[]>;
 }): JSX.Element {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const setParam = (param: string, value: string): void => {
+    setSearchParams((prev) => {
+      prev.set(param, value);
+      return prev;
+    });
+  };
+  const showEmptyGroups = searchParams.get('showEmptyGroups') === 'true';
+  const toggleShowEmptyGroups = (): void => {
+    setParam('showEmptyGroups', showEmptyGroups ? 'false' : 'true');
+  };
+
+  const showOutdated = searchParams.get('showOutdated') === 'true';
+  const toggleShowOutdated = (): void => {
+    setParam('showOutdated', showOutdated ? 'false' : 'true');
+  };
+
   const currentSeed = getCurrentSeedType(searchParams);
+  const filter = new StudyFilter();
+  filter.matchOutdated = showOutdated;
+  filter.showEmptyGroups = showEmptyGroups;
   const studyList = props.studies
     .get(currentSeed)
-    ?.map((study, i) => <StudyItem key={study.name() + i} study={study} />);
+    ?.map((study, i) =>
+      study.matchesFilter(filter) ? (
+        <StudyItem key={study.name() + i} study={study} filter={filter} />
+      ) : (
+        <></>
+      ),
+    );
 
   return (
     <div className="row">
-      <div className="col-sm-12">{studyList}</div>
+      <div className="col-sm-12">
+        <div className="card mb-3">
+          <div className="card-header filter-list">
+            <div className="filter">
+              <input
+                type="checkbox"
+                id="showEmptyGroups"
+                checked={showEmptyGroups}
+                onChange={toggleShowEmptyGroups}
+              />
+              <label htmlFor="showEmptyGroups">Show empty groups</label>
+            </div>
+            <div className="filter">
+              <input
+                type="checkbox"
+                id="showOutdated"
+                checked={showOutdated}
+                onChange={toggleShowOutdated}
+              />
+              <label htmlFor="showOutdated">Show outdated studies</label>
+            </div>
+          </div>
+        </div>
+        {studyList}
+      </div>
     </div>
   );
 }
