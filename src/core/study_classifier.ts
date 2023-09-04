@@ -62,16 +62,19 @@ export class ProcessedStudy {
   }
 
   postProcessStudy(): void {
-    this.stripEmptyFilterGroups();
     this.study.filter?.channel?.sort();
     this.study.filter?.platform?.sort();
     this.study.filter?.country?.sort();
     this.study.filter?.locale?.sort();
-    this.moveLargestGroupToTop();
     const filter = this.study.filter;
     if (filter != null) {
       filter.platform = filterPlatforms(filter);
     }
+  }
+
+  postProcessBeforeSerialization(): void {
+    this.moveLargestGroupToTop();
+    this.stripEmptyFilterGroups();
   }
 }
 

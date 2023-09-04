@@ -38,6 +38,7 @@ function serializeStudiesToDirectory(
   for (const study of seed.study) {
     const name = study.name;
     const processed = new ProcessedStudy(study, options);
+    processed.postProcessBeforeSerialization();
     addStudy(path.join('all-by-name', name), study);
     let extraGroup: string | undefined;
     if (processed.getPriority() === StudyPriority.STABLE_ALL_EMERGENCY) {
