@@ -38,22 +38,31 @@ function processSeed(seedProtobufBytes: any, type: SeedType): StudyModel[] {
   return seed.study.map((study) => new StudyModel(study, options));
 }
 
-async function loadSeed(
+async function loadFile(
   url: string,
-  type: SeedType,
-): Promise<StudyModel[] | undefined> {
-  return await new Promise<StudyModel[] | undefined>((resolve) => {
+  responseType: 'arraybuffer' | 'json',
+): Promise<any | undefined> {
+  return await new Promise<any | undefined>((resolve) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true /* async */);
-    xhr.responseType = 'arraybuffer';
+    xhr.responseType = responseType;
     xhr.onload = () => {
-      resolve(processSeed(xhr.response, type));
+      resolve(xhr.response);
     };
-    xhr.onerror = (e) => {
+    xhr.onerror = () => {
       resolve(undefined);
     };
     xhr.send(null);
   });
+}
+
+async function loadSeed(
+  url: string,
+  type: SeedType,
+): Promise<StudyModel[] | undefined> {
+  const data = await loadFile(url, 'arraybuffer');
+  if (data === undefined) return undefined;
+  return processSeed(data, type);
 }
 
 export function FeatureItem(props: {
