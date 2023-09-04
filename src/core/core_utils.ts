@@ -9,6 +9,9 @@ export interface ProcessingOptions {
   isBraveSeed: boolean;
 }
 
+export const kGetUsedChromiumVersion =
+  'https://versions.brave.com/latest/release-windows-x64-chromium.version';
+
 export function getChromiumFeatureUrl(feature: string): string {
   return `https://source.chromium.org/search?q="BASE_DECLARE_FEATURE(k${feature})"&sq=&ss=chromium%2Fchromium%2Fsrc`;
 }
