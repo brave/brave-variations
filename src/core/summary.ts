@@ -22,7 +22,7 @@ class SummaryItem {
 function getOverallPriority(studies: ProcessedStudy[]): StudyPriority {
   let priority = StudyPriority.NON_INTERESTING;
   for (const study of studies) {
-    const p = study.priorityDetails.getOverallPriority();
+    const p = study.filterDetails.getPriority();
     if (p > priority) priority = p;
   }
 

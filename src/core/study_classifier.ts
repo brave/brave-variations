@@ -29,20 +29,32 @@ export enum StudyPriority {
   STABLE_ALL_EMERGENCY,
 }
 
+export class StudyFilter {
+  minPriority = StudyPriority.NON_INTERESTING;
+  includeOutdated = false;
+  showEmptyGroups = false;
+}
+
 export class ProcessedStudy {
   study: proto.IStudy;
-  priorityDetails: StudyPriorityDetails;
+  filterDetails: FilterDetails;
   affectedFeatures: Set<string>;
 
   constructor(study: proto.IStudy, options: ProcessingOptions) {
     this.study = study;
-    this.priorityDetails = new StudyPriorityDetails(study, options);
+    this.filterDetails = new FilterDetails(study, options);
     this.affectedFeatures = getAffectedFeatures(study);
     this.postProcessStudy();
   }
 
   getPriority(): StudyPriority {
-    return this.priorityDetails.getOverallPriority();
+    return this.filterDetails.getPriority();
+  }
+
+  matchesFilter(f: StudyFilter): boolean {
+    if (this.getPriority() < f.minPriority) return false;
+    if (this.filterDetails.isOutdated() && !f.includeOutdated) return false;
+    return true;
   }
 
   stripEmptyFilterGroups(): void {
@@ -52,7 +64,7 @@ export class ProcessedStudy {
   }
 
   moveLargestGroupToTop(): void {
-    const details = this.priorityDetails;
+    const details = this.filterDetails;
     if (details.maxNonDefaultWeight <= details.totalWeight / 2) return;
     const experiment = this.study.experiment;
     if (experiment == null) return;
@@ -95,7 +107,7 @@ export function priorityToDescription(p: StudyPriority): string {
   return '';
 }
 
-export class StudyPriorityDetails {
+export class FilterDetails {
   endedByEndDate = false;
   endedByMaxVersion = false;
   isBlocklisted = false;
@@ -183,10 +195,9 @@ export class StudyPriorityDetails {
       this.channelTarget = StudyChannelTarget.STABLE;
   }
 
-  getOverallPriority(): StudyPriority {
+  getPriority(): StudyPriority {
     if (this.isBlocklisted) return StudyPriority.BLOCKLISTED;
-    if (this.hasNoSupportedPlatform || this.isOutdated())
-      return StudyPriority.NON_INTERESTING;
+    if (this.hasNoSupportedPlatform) return StudyPriority.NON_INTERESTING;
     if (this.channelTarget !== StudyChannelTarget.STABLE) {
       return StudyPriority.NON_INTERESTING;
     }

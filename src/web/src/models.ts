@@ -4,19 +4,17 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { type variations as proto } from '../../proto/generated/proto_bundle';
-import { ProcessedStudy, StudyPriority } from '../../core/study_classifier';
+import {
+  ProcessedStudy,
+  type StudyFilter,
+  type StudyPriority,
+} from '../../core/study_classifier';
 import {
   getChannelName,
   getPlatfromName,
   getChromiumFeatureUrl,
   type ProcessingOptions,
 } from '../../core/core_utils';
-
-export class StudyFilter {
-  minPriority = StudyPriority.NON_INTERESTING;
-  matchOutdated = false;
-  showEmptyGroups = false;
-}
 
 export class FeatureModel {
   name: string;
@@ -66,7 +64,7 @@ export class ExperimentModel {
 
   weight(): number {
     const totalWeight =
-      this.studyModel.processedStudy.priorityDetails.totalWeight;
+      this.studyModel.processedStudy.filterDetails.totalWeight;
     if (totalWeight === 0) return 0;
     return (this.experiment.probability_weight / totalWeight) * 100;
   }
@@ -81,8 +79,8 @@ export class StudyModel {
     this.options = options;
   }
 
-  raw(): proto.IStudy {
-    return this.processedStudy.study;
+  filter(): proto.Study.IFilter | undefined {
+    return this.processedStudy.study.filter ?? undefined;
   }
 
   priority(): StudyPriority {
@@ -90,26 +88,11 @@ export class StudyModel {
   }
 
   name(): string {
-    return this.raw().name;
-  }
-
-  matchesFilter(f: StudyFilter): boolean {
-    if (this.priority() < f.minPriority) return false;
-    const priorityDetails = this.processedStudy.priorityDetails;
-    if (priorityDetails.isOutdated() && !f.matchOutdated) return false;
-    return true;
-  }
-
-  mapToStringList<T>(
-    list: T[] | undefined | null,
-    fn: (t: T) => string,
-  ): string[] {
-    if (list == null || list.length === 0) return [];
-    return list.map(fn);
+    return this.processedStudy.study.name;
   }
 
   experiments(f: StudyFilter): ExperimentModel[] {
-    const study = this.raw();
+    const study = this.processedStudy.study;
     if (study.experiment == null) return [];
     const models: ExperimentModel[] = [];
     for (const e of study.experiment) {
@@ -121,21 +104,28 @@ export class StudyModel {
     return models;
   }
 
-  platforms(): string[] {
-    return this.mapToStringList(this.raw().filter?.platform, (p) =>
-      getPlatfromName(p),
-    );
+  platforms(): string[] | undefined {
+    return this.filter()?.platform?.map((p) => getPlatfromName(p));
   }
 
-  channels(): string[] {
-    return this.mapToStringList(this.raw().filter?.channel, (c) =>
+  channels(): string[] | undefined {
+    return this.filter()?.channel?.map((c) =>
       getChannelName(c, this.options.isBraveSeed),
     );
   }
+}
 
-  countries(): string[] {
-    return this.mapToStringList(this.raw().filter?.country, (c) =>
-      c.toString(),
+export class StudyListModel {
+  processedStudies: StudyModel[];
+  constructor(studies: proto.IStudy[], options: ProcessingOptions) {
+    this.processedStudies = studies.map(
+      (study) => new StudyModel(study, options),
+    );
+  }
+
+  studies(f: StudyFilter): StudyModel[] {
+    return this.processedStudies.filter((s) =>
+      s.processedStudy.matchesFilter(f),
     );
   }
 }
