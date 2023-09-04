@@ -16,7 +16,7 @@ import {
 } from './models';
 import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
-import { StudyFilter } from '../../core/study_classifier';
+import { StudyFilter } from '../../core/study_processor';
 
 const variationsProductionUrl = 'https://variations.brave.com/seed';
 const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';

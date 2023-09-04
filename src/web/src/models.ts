@@ -8,7 +8,7 @@ import {
   ProcessedStudy,
   type StudyFilter,
   type StudyPriority,
-} from '../../core/study_classifier';
+} from '../../core/study_processor';
 import {
   getChannelName,
   getPlatfromName,
