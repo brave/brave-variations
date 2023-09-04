@@ -4,7 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { variations as proto } from '../../proto/generated/proto_bundle';
-import { type ProcessingOptions } from '../../core/core_utils';
+import { kGetUsedChromiumVersion, type ProcessingOptions } from '../../core/core_utils';
 import { type ExperimentModel, type FeatureModel, StudyModel } from './models';
 import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
@@ -26,21 +26,31 @@ function stringToSeedType(value: string): SeedType | undefined {
   return undefined;
 }
 
-function processSeed(seedProtobufBytes: any, type: SeedType): StudyModel[] {
+async function processSeed(
+  seedProtobufBytes: any,
+  type: SeedType,
+): Promise<StudyModel[] | undefined> {
   const seedBytes = new Uint8Array(seedProtobufBytes);
   const seed = proto.VariationsSeed.decode(seedBytes);
 
-  // TODO: get minMajorVersion when support UPSTREAM
+  const isBraveSeed = type !== SeedType.UPSTREAM;
+  let currentMajorVersion = 0;
+  if (!isBraveSeed) {
+    const chromeVersionData = await loadFile(kGetUsedChromiumVersion, 'text');
+    currentMajorVersion = chromeVersionData.split('.')[0] ?? 0;
+  }
+  console.log('currentMajorVersion', currentMajorVersion);
+
   const options: ProcessingOptions = {
-    isBraveSeed: type !== SeedType.UPSTREAM,
-    minMajorVersion: 116,
+    isBraveSeed,
+    minMajorVersion: currentMajorVersion,
   };
   return seed.study.map((study) => new StudyModel(study, options));
 }
 
 async function loadFile(
   url: string,
-  responseType: 'arraybuffer' | 'json',
+  responseType: 'arraybuffer' | 'text',
 ): Promise<any | undefined> {
   return await new Promise<any | undefined>((resolve) => {
     const xhr = new XMLHttpRequest();
@@ -62,7 +72,7 @@ async function loadSeed(
 ): Promise<StudyModel[] | undefined> {
   const data = await loadFile(url, 'arraybuffer');
   if (data === undefined) return undefined;
-  return processSeed(data, type);
+  return await processSeed(data, type);
 }
 
 export function FeatureItem(props: {
