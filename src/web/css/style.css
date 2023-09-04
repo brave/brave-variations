@@ -1,7 +1,3 @@
-.loading {
-  margin: 50px 0;
-}
-
 .container {
   max-width: 970px;
 }
@@ -48,6 +44,14 @@ ul.study-meta {
   color: grey;
   padding: 0;
   margin: 0 0;
+}
+
+.filter-list {
+  display: flex;
+}
+
+.filter {
+  margin-right: 15px;
 }
 
 .enabled-feature {

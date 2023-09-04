@@ -4,10 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { type variations as proto } from '../../proto/generated/proto_bundle';
-import {
-  ProcessedStudy,
-  type StudyPriority,
-} from '../../core/study_classifier';
+import { ProcessedStudy, StudyPriority } from '../../core/study_classifier';
 import {
   getChannelName,
   getPlatfromName,
@@ -16,8 +13,11 @@ import {
 } from '../../core/core_utils';
 
 export class StudyFilter {
-  minPriority: StudyPriority;
+  minPriority = StudyPriority.NON_INTERESTING;
+  matchOutdated = false;
+  showEmptyGroups = false;
 }
+
 export class FeatureModel {
   name: string;
   link: string;
@@ -94,7 +94,10 @@ export class StudyModel {
   }
 
   matchesFilter(f: StudyFilter): boolean {
-    return this.priority() >= f.minPriority;
+    if (this.priority() < f.minPriority) return false;
+    const priorityDetails = this.processedStudy.priorityDetails;
+    if (priorityDetails.isOutdated() && !f.matchOutdated) return false;
+    return true;
   }
 
   mapToStringList<T>(
@@ -105,10 +108,17 @@ export class StudyModel {
     return list.map(fn);
   }
 
-  experiments(): ExperimentModel[] {
+  experiments(f: StudyFilter): ExperimentModel[] {
     const study = this.raw();
     if (study.experiment == null) return [];
-    return study.experiment.map((e) => new ExperimentModel(e, this));
+    const models: ExperimentModel[] = [];
+    for (const e of study.experiment) {
+      if (e.probability_weight > 0 || f === undefined || f.showEmptyGroups) {
+        const model = new ExperimentModel(e, this);
+        models.push(model);
+      }
+    }
+    return models;
   }
 
   platforms(): string[] {
