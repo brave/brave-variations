@@ -41,16 +41,19 @@ function serializeStudiesToDirectory(
     processed.postProcessBeforeSerialization();
     addStudy(path.join('all-by-name', name), study);
     let extraGroup: string | undefined;
-    if (processed.getPriority() === StudyPriority.STABLE_ALL_EMERGENCY) {
-      extraGroup = 'stable-emergency-kill-switch';
-    } else if (processed.getPriority() === StudyPriority.STABLE_ALL) {
-      extraGroup = 'stable-100%';
-    } else if (processed.getPriority() === StudyPriority.STABLE_50) {
-      extraGroup = 'stable-50%';
-    } else if (processed.getPriority() === StudyPriority.STABLE_MIN) {
-      extraGroup = 'stable-min';
-    } else if (processed.getPriority() === StudyPriority.BLOCKLISTED) {
-      extraGroup = 'blocklisted';
+    if (!processed.filterDetails.isOutdated()) {
+      const priority = processed.getPriority();
+      if (priority === StudyPriority.STABLE_ALL_EMERGENCY) {
+        extraGroup = 'stable-emergency-kill-switch';
+      } else if (priority === StudyPriority.STABLE_ALL) {
+        extraGroup = 'stable-100%';
+      } else if (priority === StudyPriority.STABLE_50) {
+        extraGroup = 'stable-50%';
+      } else if (priority === StudyPriority.STABLE_MIN) {
+        extraGroup = 'stable-min';
+      } else if (priority === StudyPriority.BLOCKLISTED) {
+        extraGroup = 'blocklisted';
+      }
     }
 
     if (extraGroup !== undefined) addStudy(path.join(extraGroup, name), study);
