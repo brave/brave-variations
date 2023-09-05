@@ -4,14 +4,17 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import * as fs from 'fs';
 import * as path from 'path';
-import { Command } from 'commander';
+import { Command } from '@commander-js/extra-typings';
 import { variations as proto } from '../proto/generated/proto_bundle';
 import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
 import { ProcessedStudy, StudyPriority } from '../core/study_processor';
 import { makeSummary, summaryToText } from '../core/summary';
 import { studyToJSON } from '../core/serializers';
 import { execSync } from 'child_process';
-import { type ProcessingOptions } from '../core/core_utils';
+import {
+  kGetUsedChromiumVersion,
+  type ProcessingOptions,
+} from '../core/core_utils';
 
 async function fetchChromeSeedData(): Promise<Buffer> {
   const kChromeSeedUrl =
@@ -93,26 +96,64 @@ function storeDataToDirectory(
 }
 
 async function main(): Promise<void> {
-  const program = new Command();
-  program.description('Chrome finch parser');
-  program.version('0.0.1');
-  program.argument('<finch_storage>', '');
-  program.argument('[current_seed_file]', '');
-  program.argument('[previous_seed_file]', '');
-  program.option('-m, --chrome-major <value>', '');
-  program.parse();
+  const program = new Command()
+    .description('Chrome finch tracker')
+    .version('0.0.1')
+    .argument('<finch_storage>', 'A path to a repository to store Finch data')
+    .argument(
+      '[current_seed_file]',
+      'Explicitly set the current seed file.' +
+        'By default the file is downloaded from the backend.',
+    )
+    .argument(
+      '[previous_seed_file]',
+      'Explicitly set the previous seed file.' +
+        '<finch_storage>/seed.bin is used by default.',
+    )
+    .option(
+      '-m, --chrome-major <number>',
+      'Override the current stable major chrome version.' +
+        'By default the version is taken from the backend' +
+        '(see kGetUsedChromiumVersion)',
+      parseInt,
+    )
+    .option('--no-update', "Don't make any disk changes")
+    .option('--no-commit', "Just update <finch_storage>, don't create a commit")
+    .option('-o --output <file>', 'A file to create a summary')
+    .parse();
 
   const storageDir = program.args[0];
   const seedFile = program.args[1];
   const previousSeedFile = program.args[2];
+  let minMajorVersion = program.opts().chromeMajor;
+
+  if (minMajorVersion === undefined) {
+    const chromiumVersionData = await downloadUrl(kGetUsedChromiumVersion);
+    const chromiumVersionString = chromiumVersionData?.toString().split('.')[0];
+    if (chromiumVersionString === undefined) {
+      program.error(
+        'Failed to get the Chromium version via ' + kGetUsedChromiumVersion,
+      );
+      return;
+    }
+    console.log('Got Chromium version', chromiumVersionString);
+    minMajorVersion = parseInt(chromiumVersionString);
+  }
+
   const options: ProcessingOptions = {
-    minMajorVersion: program.opts().chromeMajor,
+    minMajorVersion,
     isBraveSeed: false,
   };
 
-  const createSummary = true;
-  const updateData = true;
-  const commitData = true;
+  const outputFile = program.opts().output;
+  const createSummary = outputFile !== undefined;
+  const updateData = program.opts().update;
+  const commitData = program.opts().commit && updateData;
+
+  if (!createSummary && !updateData) {
+    program.error('Nothing to do.');
+    return;
+  }
 
   const seedData =
     seedFile !== undefined
@@ -127,7 +168,7 @@ async function main(): Promise<void> {
 
     const previousSeed = proto.VariationsSeed.decode(previousSeedData);
     const summary = makeSummary(previousSeed, seed, options);
-    console.log(summaryToText(summary));
+    fs.writeFileSync(outputFile, summaryToText(summary));
   }
 
   if (updateData) {

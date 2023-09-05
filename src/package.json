@@ -36,6 +36,7 @@
   "type": "commonjs",
   "moduleResolution": "node",
   "dependencies": {
+    "@commander-js/extra-typings": "^11.0.0",
     "@types/react-dom": "^18.2.7",
     "commander": "^11.0.0",
     "eslint-plugin-licenses": "^1.0.2",
