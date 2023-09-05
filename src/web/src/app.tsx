@@ -4,10 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { variations as proto } from '../../proto/generated/proto_bundle';
-import {
-  kGetUsedChromiumVersion,
-  type ProcessingOptions,
-} from '../../core/core_utils';
+import * as core_utils from '../../core/core_utils';
 import {
   type ExperimentModel,
   type FeatureModel,
@@ -17,9 +14,6 @@ import {
 import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
 import { StudyFilter } from '../../core/study_processor';
-
-const variationsProductionUrl = 'https://variations.brave.com/seed';
-const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
 
 enum SeedType {
   PRODUCTION,
@@ -45,10 +39,13 @@ async function processSeed(
   const isBraveSeed = type !== SeedType.UPSTREAM;
   let currentMajorVersion = 0;
   if (!isBraveSeed) {
-    const chromeVersionData = await loadFile(kGetUsedChromiumVersion, 'text');
+    const chromeVersionData = await loadFile(
+      core_utils.kGetUsedChromiumVersion,
+      'text',
+    );
     currentMajorVersion = chromeVersionData.split('.')[0] ?? 0;
   }
-  const options: ProcessingOptions = {
+  const options: core_utils.ProcessingOptions = {
     isBraveSeed,
     minMajorVersion: currentMajorVersion,
   };
@@ -322,8 +319,12 @@ export function App(): JSX.Element {
         return newState;
       });
     };
-    load(variationsProductionUrl, SeedType.PRODUCTION).catch(console.error);
-    load(variationsStagingUrl, SeedType.STAGING).catch(console.error);
+    load(core_utils.variationsProductionUrl, SeedType.PRODUCTION).catch(
+      console.error,
+    );
+    load(core_utils.variationsStagingUrl, SeedType.STAGING).catch(
+      console.error,
+    );
   }, []);
 
   const hasUpstream = state.studies.get(SeedType.UPSTREAM) !== undefined;
