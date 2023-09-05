@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-    - 'web/**'
+    - 'web/src/**'
   workflow_dispatch:
 
 jobs:
@@ -21,8 +21,8 @@ jobs:
           AWS_REGION: us-west-2
           CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
-          cd ./web
+          cd ./src/web
           npm install
           npm run build
-          aws s3 sync . s3://brave-production-griffin-origin/ --delete --exclude '*' --include 'index.html' --include 'static/*' --include 'proto/*'
+          aws s3 sync . s3://brave-production-griffin-origin/ --delete --exclude '*' --include 'index.html' --include 'static/*'
           aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
