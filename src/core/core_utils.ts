@@ -9,6 +9,9 @@ export interface ProcessingOptions {
   isBraveSeed: boolean;
 }
 
+export const variationsProductionUrl = 'https://variations.brave.com/seed';
+export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
+
 export const kGetUsedChromiumVersion =
   'https://versions.brave.com/latest/release-windows-x64-chromium.version';
 
