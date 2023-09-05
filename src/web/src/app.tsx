@@ -317,8 +317,7 @@ export function App(): JSX.Element {
     const load = async (url: string, type: SeedType): Promise<void> => {
       const studyList = await loadSeed(url, type);
       setState((prevState) => {
-        const newState = new AppState();
-        newState.studies = prevState.studies;
+        const newState: AppState = { ...prevState };
         if (studyList !== undefined) newState.studies.set(type, studyList);
         return newState;
       });
