@@ -2200,7 +2200,8 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX"
+                    "LINUX",
+                    "ANDROID"
                 ]
             },
             "name": "BraveSearchAdStudy"
@@ -2210,26 +2211,27 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "ShouldLaunchBraveAdsAsInProcessService",
                             "ShouldAlwaysRunBraveAdsService",
                             "ShouldSupportSearchResultAds",
                             "ShouldAlwaysTriggerBraveSearchResultAdEvents"
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 100
+                    "probability_weight": 5
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 0
+                    "probability_weight": 95
                 }
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "RELEASE"
                 ],
                 "platform": [
-                    "ANDROID"
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
                 ]
             },
             "name": "BraveSearchAdStudy"
