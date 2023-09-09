@@ -1360,6 +1360,34 @@
             "experiments": [
                 {
                     "feature_association": {
+                        "disable_feature": [
+                            "ClampPlatformVersionClientHint"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "min_version": "114.1.52.78",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "ClampPlatformVersionClientHint"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
                         "enable_feature": [
                             "BraveBlockScreenFingerprinting"
                         ]
