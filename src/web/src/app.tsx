@@ -260,6 +260,8 @@ export function CurrentStudyList(props: {
   };
 
   const filter = new StudyFilter();
+  filter.nameFilter = searchParams.get('name') ?? undefined;
+  filter.search = searchParams.get('search') ?? undefined;
 
   filter.showEmptyGroups = searchParams.get('showEmptyGroups') === 'true';
   const toggleShowEmptyGroups = (): void => {
