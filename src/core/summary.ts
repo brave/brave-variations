@@ -271,7 +271,7 @@ export function summaryToJson(
         );
       }
       const space = '        ';
-      block.add(`\\n${space}}priority: ${e.oldPriority}→${e.newPriority}`);
+      block.add(`\\n${space}priority: ${e.oldPriority}→${e.newPriority}`);
       block.add(
         `, audience: ${(e.oldAudience * 100).toFixed(0)}%` +
           `→${(e.newAudience * 100).toFixed(0)}%`,
