@@ -19,6 +19,18 @@ export function getChromiumFeatureUrl(feature: string): string {
   return `https://source.chromium.org/search?q="BASE_DECLARE_FEATURE(k${feature})"&sq=&ss=chromium%2Fchromium%2Fsrc`;
 }
 
+export function getGitHubStorageUrl(): string {
+  return 'https://github.com/atuchin-m/finch-data-private';
+}
+
+export function getGitHubStudyConfigUrl(study: string): string {
+  return `${getGitHubStorageUrl()}/blob/main/study/all-by-name/${study}`;
+}
+
+export function getGriffinUiUrl(study: string): string {
+  return `https://griffin.brave.com/?seed=UPSTREAM&name=${study}`;
+}
+
 export function getChannelNameFromString(
   protoChannel: string,
   isBraveSpecific: boolean,

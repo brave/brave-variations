@@ -14,7 +14,6 @@ module.exports = {
   },
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.esm.browser.min.js',
       css: path.resolve(__dirname, 'web/css/'),
     },
   },
