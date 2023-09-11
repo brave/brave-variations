@@ -73,6 +73,7 @@ jobs:
           channel-id: 'C05S3ESHHUY'
           payload: |
             {
+              "text": "New finch changes detected",
               "blocks": [
                 ${{ steps.tracker.outputs.message }}
               ]
