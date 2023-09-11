@@ -7,8 +7,12 @@ import * as path from 'path';
 import { Command } from '@commander-js/extra-typings';
 import { variations as proto } from '../proto/generated/proto_bundle';
 import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
-import { ProcessedStudy, StudyPriority } from '../core/study_processor';
-import { makeSummary, summaryToText } from '../core/summary';
+import {
+  ProcessedStudy,
+  StudyPriority,
+  priorityToText,
+} from '../core/study_processor';
+import { makeSummary, summaryToJson } from '../core/summary';
 import { studyToJSON } from '../core/serializers';
 import { execSync } from 'child_process';
 import {
@@ -43,23 +47,11 @@ function serializeStudiesToDirectory(
     const processed = new ProcessedStudy(study, options);
     processed.postProcessBeforeSerialization();
     addStudy(path.join('all-by-name', name), study);
-    let extraGroup: string | undefined;
     if (!processed.filterDetails.isOutdated()) {
       const priority = processed.getPriority();
-      if (priority === StudyPriority.STABLE_ALL_EMERGENCY) {
-        extraGroup = 'stable-emergency-kill-switch';
-      } else if (priority === StudyPriority.STABLE_ALL) {
-        extraGroup = 'stable-100%';
-      } else if (priority === StudyPriority.STABLE_50) {
-        extraGroup = 'stable-50%';
-      } else if (priority === StudyPriority.STABLE_MIN) {
-        extraGroup = 'stable-min';
-      } else if (priority === StudyPriority.BLOCKLISTED) {
-        extraGroup = 'blocklisted';
-      }
+      if (priority > StudyPriority.NON_INTERESTING)
+        addStudy(path.join(priorityToText(priority), name), study);
     }
-
-    if (extraGroup !== undefined) addStudy(path.join(extraGroup, name), study);
   }
 
   console.log(`${cnt} studies processed`);
@@ -71,15 +63,16 @@ function serializeStudiesToDirectory(
   }
 }
 
-function commitAllChanges(directory: string): void {
+function commitAllChanges(directory: string): string | undefined {
   const utcDate = new Date().toUTCString();
   const diff = execSync('git status --porcelain', { cwd: directory });
   if (diff.length <= 2) {
     console.log('Nothing to commit');
-    return;
+    return undefined;
   }
   execSync('git add -A', { cwd: directory });
   execSync(`git commit -m "Update seed ${utcDate}"`, { cwd: directory });
+  return execSync('git rev-parse HEAD', { cwd: directory }).toString().trim();
 }
 
 function storeDataToDirectory(
@@ -160,20 +153,33 @@ async function main(): Promise<void> {
       ? fs.readFileSync(seedFile)
       : await fetchChromeSeedData();
   const seed = proto.VariationsSeed.decode(seedData);
+  let previousSeedData: Buffer | undefined;
+  let newGitSha1: string | undefined;
 
   if (createSummary) {
-    const previousSeedData = fs.readFileSync(
+    previousSeedData = fs.readFileSync(
       previousSeedFile ?? getSeedPath(storageDir),
     );
-
-    const previousSeed = proto.VariationsSeed.decode(previousSeedData);
-    const summary = makeSummary(previousSeed, seed, options);
-    fs.writeFileSync(outputFile, summaryToText(summary));
   }
 
   if (updateData) {
     storeDataToDirectory(seedData, storageDir, options);
-    if (commitData) commitAllChanges(storageDir);
+    if (commitData) {
+      newGitSha1 = commitAllChanges(storageDir);
+      console.log('New commit sha1', newGitSha1);
+    }
+  }
+
+  if (createSummary && previousSeedData !== undefined) {
+    const previousSeed = proto.VariationsSeed.decode(previousSeedData);
+    const summary = makeSummary(
+      previousSeed,
+      seed,
+      options,
+      StudyPriority.STABLE_MIN,
+    );
+    const summaryJSON = summaryToJson(summary, newGitSha1);
+    fs.writeFileSync(outputFile, summaryJSON);
   }
 }
 

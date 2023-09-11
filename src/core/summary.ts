@@ -7,16 +7,59 @@ import {
   type ProcessedStudy,
   StudyPriority,
   processStudyList,
-  priorityToDescription,
+  priorityToText,
 } from './study_processor';
 import { type ProcessingOptions } from './core_utils';
+import { createHash } from 'node:crypto';
+import * as config from '../config';
 
+enum ItemAction {
+  New,
+  Up,
+  Down,
+  RemovedOrOutdated,
+  Change,
+}
 class SummaryItem {
-  priority: StudyPriority;
   studyName: string;
-  short_description: string;
+  action: ItemAction;
   affectedFeatures = new Set<string>();
   description: string;
+
+  oldPriority: StudyPriority;
+  newPriority: StudyPriority;
+
+  oldAudience: number;
+  newAudience: number;
+
+  getChangePriority(): StudyPriority {
+    return Math.max(this.oldPriority, this.newPriority);
+  }
+
+  isNewKillSwitch(): boolean {
+    return (
+      this.newPriority === StudyPriority.STABLE_ALL_EMERGENCY &&
+      this.action !== ItemAction.RemovedOrOutdated
+    );
+  }
+
+  actionToText(): string {
+    if (this.isNewKillSwitch()) return ':zap:';
+
+    switch (this.action) {
+      case ItemAction.New:
+        return ':new:';
+      case ItemAction.Up:
+        return ':arrow_up:';
+      case ItemAction.Down:
+        return ':arrow_down:';
+      case ItemAction.RemovedOrOutdated:
+        return ':negative_squared_cross_mark:';
+      case ItemAction.Change:
+        return ':twisted_rightwards_arrows:';
+    }
+    return '';
+  }
 }
 
 function getOverallPriority(studies: ProcessedStudy[]): StudyPriority {
@@ -29,22 +72,34 @@ function getOverallPriority(studies: ProcessedStudy[]): StudyPriority {
   return priority;
 }
 
+function getOverallAudience(
+  studies: ProcessedStudy[],
+  priority: StudyPriority,
+): number {
+  let maxAudience = 0;
+  for (const study of studies) {
+    const p = study.filterDetails.getPriority();
+    if (p === priority && study.filterDetails.totalWeight !== 0) {
+      maxAudience = Math.max(
+        maxAudience,
+        study.filterDetails.totalNonDefaultGroupsWeight /
+          study.filterDetails.totalWeight,
+      );
+    }
+  }
+
+  return maxAudience;
+}
+
 export function makeSummary(
   oldSeed: proto.VariationsSeed,
   newSeed: proto.VariationsSeed,
   options: ProcessingOptions,
-): SummaryItem[] {
-  const summary: SummaryItem[] = [];
-  const oldMap = processStudyList(
-    oldSeed.study,
-    StudyPriority.STABLE_MIN,
-    options,
-  );
-  const newMap = processStudyList(
-    newSeed.study,
-    StudyPriority.STABLE_MIN,
-    options,
-  );
+  minPriority: StudyPriority,
+): Map<StudyPriority, SummaryItem[]> {
+  const summary = new Map<StudyPriority, SummaryItem[]>();
+  const oldMap = processStudyList(oldSeed.study, minPriority, options);
+  const newMap = processStudyList(newSeed.study, minPriority, options);
 
   const visitedKeys = new Set<string>();
 
@@ -56,64 +111,196 @@ export function makeSummary(
     const newStudy: ProcessedStudy[] = newMap.get(key) ?? [];
     const isChanged = JSON.stringify(oldStudy) !== JSON.stringify(newStudy);
 
-    const oldPriority = getOverallPriority(oldStudy);
-    const newPriority = getOverallPriority(newStudy);
-    const priority = Math.max(oldPriority, newPriority);
-
     const item = new SummaryItem();
-    item.priority = priority;
+    item.oldPriority = getOverallPriority(oldStudy);
+    item.newPriority = getOverallPriority(newStudy);
+    item.oldAudience = getOverallAudience(
+      oldStudy,
+      Math.max(item.oldPriority, minPriority),
+    );
+    item.newAudience = getOverallAudience(
+      newStudy,
+      Math.max(item.newPriority, minPriority),
+    );
+
+    const changePriority = item.getChangePriority();
+    if (changePriority < minPriority) return;
+
     item.studyName = key;
     for (const study of oldStudy.concat(newStudy))
       study.affectedFeatures.forEach((v) => item.affectedFeatures.add(v));
 
-    if (newPriority > oldPriority) {
-      if (oldPriority < StudyPriority.STABLE_MIN) {
-        item.short_description = 'New';
-        item.description = 'A new exp ' + priorityToDescription(priority);
+    if (item.newPriority > item.oldPriority) {
+      if (item.oldPriority < minPriority) {
+        item.action = ItemAction.New;
       } else {
-        item.short_description = 'Audience up';
-        item.description =
-          'A known exp now ' +
-          priorityToDescription(newPriority) +
-          `(was: ${priorityToDescription(oldPriority)})`;
+        item.action = ItemAction.Up;
       }
-    } else if (newPriority < oldPriority) {
-      if (newPriority < StudyPriority.STABLE_MIN) {
-        item.short_description = 'Removed';
-        item.description = `A known exp have been removed (was: ${priorityToDescription(
-          oldPriority,
-        )})`;
+    } else if (item.newPriority < item.oldPriority) {
+      if (item.newPriority < minPriority) {
+        item.action = ItemAction.RemovedOrOutdated;
       } else {
-        item.short_description = 'Audience down';
-        item.description =
-          'A known exp now ' +
-          priorityToDescription(newPriority) +
-          `(was: ${priorityToDescription(oldPriority)})`;
+        item.action = ItemAction.Down;
       }
     } else {
       if (isChanged) {
-        item.short_description = 'Change';
-        item.description = 'The exp has been changed, the audience is similar';
+        item.action = ItemAction.Change;
       } else {
         return;
       }
     }
-    summary.push(item);
+    let itemList = summary.get(changePriority);
+    if (itemList === undefined) {
+      itemList = [];
+      summary.set(changePriority, itemList);
+    }
+    itemList.push(item);
   };
   for (const key of newMap.keys()) checkKey(key);
-
   for (const key of oldMap.keys()) checkKey(key);
 
-  summary.sort((a, b) => b.priority - a.priority);
   return summary;
 }
 
-export function summaryToText(summary: SummaryItem[]): string {
+function affectedFeaturesToText(features: Set<string>): string {
   let output = '';
-  // TODO: make the output in a proper format.
-  for (const e of summary) {
-    const f = Array.from(e.affectedFeatures).join(',');
-    output += `${e.priority} [${e.short_description}]\t ${e.studyName} ${f} ${e.description}\n`;
+  let count = 0;
+  const kMaxLength = 40;
+  for (const f of features) {
+    if (count >= 3 || output.length > kMaxLength) break;
+    if (output !== '') output += ', ';
+    output += '`' + f + '`';
+    count++;
+  }
+  const delta = features.size - count;
+  if (delta > 0) {
+    output += ', ..' + delta.toFixed() + ' others';
   }
   return output;
+}
+
+function getStorageUrl(): string {
+  return 'https://github.com/atuchin-m/finch-data-private';
+}
+
+function sha256(content: string): string {
+  return createHash('sha256').update(content).digest('hex');
+}
+
+function getGitHubStudyUrl(study: string): string {
+  return `${getStorageUrl()}/blob/main/study/all-by-name/${study}`;
+}
+
+function getWebUiUrl(study: string): string {
+  return `https://griffin.brave.com/?seed=UPSTREAM&name=${study}`;
+}
+
+function getGitHubDiffUrl(
+  study: string,
+  oldPriority: StudyPriority,
+  commit: string,
+): string {
+  const path = `study/all-by-name/${study}`;
+  const pathHash = sha256(path);
+  return `${getStorageUrl()}/commit/${commit}#diff-${pathHash}`;
+}
+
+class TextBlock {
+  private content = '';
+
+  constructor(content: string) {
+    this.content = content;
+  }
+
+  addLink(link: string, title: string): void {
+    this.content += ` <${link}|${title}>`;
+  }
+
+  add(text: string): void {
+    this.content += text;
+  }
+
+  toString(): string {
+    return `{"type":"section","text":{"type":"mrkdwn","text":"${this.content}"}}`;
+  }
+}
+
+class MrkdwnMessage {
+  private context = '';
+  addBlock(block: TextBlock): void {
+    if (this.context !== '') this.context += ',\n';
+    this.context += block.toString();
+  }
+
+  addHeader(text: string): void {
+    this.context =
+      `{"type":"header","text":{"type":"plain_text","text":"${text}"}},\n` +
+      this.context;
+  }
+
+  addDivider(): void {
+    if (this.context !== '') this.context += ',\n';
+    this.context += '{"type": "divider"}';
+  }
+
+  toString(): string {
+    return this.context;
+  }
+}
+
+export function summaryToJson(
+  summary: Map<StudyPriority, SummaryItem[]>,
+  newGitSha1?: string,
+): string {
+  const output = new MrkdwnMessage();
+  let hasNewKillSwitches = false;
+
+  // From the highest to the lowest priority:
+  const priorityList = Object.values(StudyPriority)
+    .filter((v): v is StudyPriority => {
+      return typeof v !== 'string';
+    })
+    .reverse();
+
+  for (const priority of priorityList) {
+    const itemList = summary.get(priority);
+    if (itemList === undefined || itemList.length === 0) continue;
+
+    output.addBlock(
+      new TextBlock(`*Priority ${priority} [${priorityToText(priority)}]*`),
+    );
+    for (const e of itemList) {
+      hasNewKillSwitches ||= e.isNewKillSwitch();
+      const f = affectedFeaturesToText(e.affectedFeatures);
+      const block = new TextBlock(e.actionToText());
+      block.addLink(getWebUiUrl(e.studyName), e.studyName);
+      block.addLink(getGitHubStudyUrl(e.studyName), 'Config');
+      if (newGitSha1 !== undefined) {
+        block.addLink(
+          getGitHubDiffUrl(e.studyName, e.oldPriority, newGitSha1),
+          'Diff',
+        );
+      }
+      block.add(`\\n        priority: ${e.oldPriority}→${e.newPriority}`);
+      block.add(
+        `, audience: ${(e.oldAudience * 100).toFixed(0)}%` +
+          `→${(e.newAudience * 100).toFixed(0)}%`,
+      );
+      block.add(`\\n        features:${f}`);
+      output.addBlock(block);
+    }
+    output.addDivider();
+  }
+  if (output.toString() === '') return '';
+
+  output.addHeader('New finch changes detected');
+
+  if (hasNewKillSwitches) {
+    output.addBlock(
+      new TextBlock(
+        'cc ' + config.killSwitchNotificationIds.map((i) => `<@${i}>`).join(),
+      ),
+    );
+  }
+  return output.toString();
 }
