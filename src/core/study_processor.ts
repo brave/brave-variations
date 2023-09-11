@@ -33,6 +33,8 @@ export class StudyFilter {
   minPriority = StudyPriority.NON_INTERESTING;
   includeOutdated = false;
   showEmptyGroups = false;
+  nameFilter?: string; // search only in studyName
+  search?: string; // search in study/exp/feature names
 }
 
 export class ProcessedStudy {
@@ -52,6 +54,20 @@ export class ProcessedStudy {
   }
 
   matchesFilter(f: StudyFilter): boolean {
+    if (f.nameFilter !== undefined) {
+      if (this.study.name.search(f.nameFilter) === -1) return false;
+    }
+
+    if (f.search !== undefined) {
+      let found = false;
+      found ||= this.study.name.search(f.search) !== -1;
+      for (const e of this.study.experiment ?? [])
+        found ||= e.name.search(f.search) !== -1;
+      for (const feature of this.affectedFeatures)
+        found ||= feature.search(f.search) !== -1;
+      if (!found) return false;
+    }
+
     if (this.getPriority() < f.minPriority) return false;
     if (this.filterDetails.isOutdated() && !f.includeOutdated) return false;
     return true;
