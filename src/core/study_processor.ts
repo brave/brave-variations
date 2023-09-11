@@ -90,19 +90,20 @@ export class ProcessedStudy {
   }
 }
 
-export function priorityToDescription(p: StudyPriority): string {
+export function priorityToText(p: StudyPriority): string {
   switch (p) {
     case StudyPriority.NON_INTERESTING:
+      return 'non-interesting';
     case StudyPriority.BLOCKLISTED:
-      return "don't care";
+      return 'blocklisted';
     case StudyPriority.STABLE_MIN:
-      return 'targets a part of the stable audience';
+      return 'stable-min';
     case StudyPriority.STABLE_50:
-      return 'targets most of the audience';
+      return 'stable-50%';
     case StudyPriority.STABLE_ALL:
-      return 'targets to the all audience';
+      return 'stable-100%';
     case StudyPriority.STABLE_ALL_EMERGENCY:
-      return 'makes EMERGENCY changes for the all audience';
+      return 'stable-emergency-kill-switch';
   }
   return '';
 }
