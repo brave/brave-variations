@@ -4,7 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import { variations as proto } from '../proto/generated/proto_bundle';
 
-export interface ProcessingOptions {
+export class ProcessingOptions {
   minMajorVersion: number;
   isBraveSeed: boolean;
 }

@@ -3,11 +3,11 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 type VersionComponent = number | '*';
-export interface VersionPattern {
+export class VersionPattern {
   v: [VersionComponent, VersionComponent, VersionComponent, VersionComponent];
 }
 
-export interface Version {
+export class Version {
   v: [number, number, number, number];
 }
 
