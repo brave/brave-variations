@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Brave Variations",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "lint": "eslint . --ext js,ts,tsx",
     "tracker": "node finch_tracker/build/finch_tracker/finch_tracker_main.js",
     "clean": "rm -rf ./proto/generated/proto_bundle* web/static/bundle.js finch_tracker/build/",

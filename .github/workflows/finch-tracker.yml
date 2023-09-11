@@ -1,0 +1,81 @@
+name: Finch Tracker
+
+on:
+  workflow_dispatch:
+   schedule:
+     - cron: "0 */12 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  finch-tracker:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./brave-variations/src
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: brave-variations
+          fetch-depth: "0"
+
+      - uses: actions/checkout@v4
+        with:
+          # TODO: add the correct repo
+          repository: atuchin-m/finch-data-private
+          path: finch-data-private
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: "0"
+
+      - name: npm-install
+        run: npm install
+
+      - name: build-proto
+        run: npm run build:proto
+
+      - name: build-tracker
+        run: npm run build:tracker
+
+      - name: git-config
+        working-directory: ./finch-data-private
+        run: |
+          git config user.email "finch-bot+devops@brave.com"
+          git config user.name "Finch bot"
+
+      - name: finch-tracker
+        id: tracker
+        run: |
+          npm run tracker -- $GITHUB_WORKSPACE/finch-data-private -o ../message.json
+          message=`cat ../message.json`
+
+          # Pass a file content as the step output
+          # https://github.com/github/docs/issues/21529
+          echo "message<<EOF" >> $GITHUB_OUTPUT
+          echo "$message" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: git-push
+        working-directory: ./finch-data-private
+        run: |
+          git config push.default simple
+          git push origin main
+
+
+      - name: send-slack
+        uses: slackapi/slack-github-action@v1
+        if: ${{steps.tracker.outputs.message != ''}}
+        with:
+          #TODO: replace with #finch-updates ID
+          channel-id: 'C05S3ESHHUY'
+          payload: |
+            {
+              "blocks": [
+                ${{ steps.tracker.outputs.message }}
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
