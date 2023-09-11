@@ -9,16 +9,16 @@ import {
   processStudyList,
   priorityToText,
 } from './study_processor';
-import { type ProcessingOptions } from './core_utils';
 import { createHash } from 'node:crypto';
+import * as utils from './core_utils';
 import * as config from '../config';
 
 enum ItemAction {
   New,
   Up,
+  Change,
   Down,
   RemovedOrOutdated,
-  Change,
 }
 class SummaryItem {
   studyName: string;
@@ -51,12 +51,12 @@ class SummaryItem {
         return ':new:';
       case ItemAction.Up:
         return ':arrow_up:';
+      case ItemAction.Change:
+        return ':twisted_rightwards_arrows:';
       case ItemAction.Down:
         return ':arrow_down:';
       case ItemAction.RemovedOrOutdated:
         return ':negative_squared_cross_mark:';
-      case ItemAction.Change:
-        return ':twisted_rightwards_arrows:';
     }
     return '';
   }
@@ -94,7 +94,7 @@ function getOverallAudience(
 export function makeSummary(
   oldSeed: proto.VariationsSeed,
   newSeed: proto.VariationsSeed,
-  options: ProcessingOptions,
+  options: utils.ProcessingOptions,
   minPriority: StudyPriority,
 ): Map<StudyPriority, SummaryItem[]> {
   const summary = new Map<StudyPriority, SummaryItem[]>();
@@ -179,20 +179,8 @@ function affectedFeaturesToText(features: Set<string>): string {
   return output;
 }
 
-function getStorageUrl(): string {
-  return 'https://github.com/atuchin-m/finch-data-private';
-}
-
 function sha256(content: string): string {
   return createHash('sha256').update(content).digest('hex');
-}
-
-function getGitHubStudyUrl(study: string): string {
-  return `${getStorageUrl()}/blob/main/study/all-by-name/${study}`;
-}
-
-function getWebUiUrl(study: string): string {
-  return `https://griffin.brave.com/?seed=UPSTREAM&name=${study}`;
 }
 
 function getGitHubDiffUrl(
@@ -202,7 +190,7 @@ function getGitHubDiffUrl(
 ): string {
   const path = `study/all-by-name/${study}`;
   const pathHash = sha256(path);
-  return `${getStorageUrl()}/commit/${commit}#diff-${pathHash}`;
+  return `${utils.getGitHubStorageUrl()}/commit/${commit}#diff-${pathHash}`;
 }
 
 class TextBlock {
@@ -269,24 +257,26 @@ export function summaryToJson(
     output.addBlock(
       new TextBlock(`*Priority ${priority} [${priorityToText(priority)}]*`),
     );
+    itemList.sort((a, b) => a.action - b.action);
     for (const e of itemList) {
       hasNewKillSwitches ||= e.isNewKillSwitch();
       const f = affectedFeaturesToText(e.affectedFeatures);
       const block = new TextBlock(e.actionToText());
-      block.addLink(getWebUiUrl(e.studyName), e.studyName);
-      block.addLink(getGitHubStudyUrl(e.studyName), 'Config');
+      block.addLink(utils.getGriffinUiUrl(e.studyName), e.studyName);
+      block.addLink(utils.getGitHubStudyConfigUrl(e.studyName), 'Config');
       if (newGitSha1 !== undefined) {
         block.addLink(
           getGitHubDiffUrl(e.studyName, e.oldPriority, newGitSha1),
           'Diff',
         );
       }
-      block.add(`\\n        priority: ${e.oldPriority}→${e.newPriority}`);
+      const space = '        ';
+      block.add(`\\n${space}}priority: ${e.oldPriority}→${e.newPriority}`);
       block.add(
         `, audience: ${(e.oldAudience * 100).toFixed(0)}%` +
           `→${(e.newAudience * 100).toFixed(0)}%`,
       );
-      block.add(`\\n        features:${f}`);
+      block.add(`\\n${space}features:${f}`);
       output.addBlock(block);
     }
     output.addDivider();
