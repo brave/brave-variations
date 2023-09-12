@@ -216,6 +216,7 @@ export function NavItem(props: { type: SeedType }): JSX.Element {
   const handleClick = (): void => {
     setSearchParams((prev) => {
       prev.set('seed', SeedType[props.type]);
+      prev.delete('search');
       return prev;
     });
   };
@@ -258,7 +259,6 @@ export function CurrentStudyList(props: {
   const currentSeed = getCurrentSeedType(searchParams);
 
   const filter = new StudyFilter();
-  filter.study = searchParams.get('study') ?? undefined;
   filter.search = searchParams.get('search') ?? undefined;
   filter.minPriority =
     currentSeed === SeedType.UPSTREAM
