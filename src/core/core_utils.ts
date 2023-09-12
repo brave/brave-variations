@@ -15,8 +15,15 @@ export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
 export const kGetUsedChromiumVersion =
   'https://versions.brave.com/latest/release-windows-x64-chromium.version';
 
-export function getChromiumFeatureUrl(feature: string): string {
-  return `https://source.chromium.org/search?q="BASE_DECLARE_FEATURE(k${feature})"&sq=&ss=chromium%2Fchromium%2Fsrc`;
+export function getFeatureSearchUrl(feature: string): string {
+  return (
+    'https://sourcegraph.com/search?q=context:global+repo:%28github%5C.com/' +
+    'brave/brave-core%24%7C%5Egithub%5C.com/chromium/chromium%24%29+/' +
+    'BASE_FEATURE%5C%28%5Cs*%5Cw*%2C%5Cs*%22' +
+    feature +
+    '%22/+file:.*%28.cc%7C.h%7C.mm%7C.java%29%28.patch%29*&' +
+    'patternType=standard&sm=1&groupBy=repo'
+  );
 }
 
 export function getGitHubStorageUrl(): string {
