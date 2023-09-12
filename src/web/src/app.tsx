@@ -10,24 +10,13 @@ import {
   type FeatureModel,
   type StudyModel,
   StudyListModel,
+  SeedType,
+  stringToSeedType,
 } from './models';
 import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
 import { StudyFilter } from '../../core/study_processor';
 
-enum SeedType {
-  PRODUCTION,
-  STAGING,
-  UPSTREAM,
-}
-
-function stringToSeedType(value: string): SeedType | undefined {
-  const index = Object.values(SeedType).indexOf(value);
-  if (index >= 0) {
-    return index as SeedType;
-  }
-  return undefined;
-}
 
 async function processSeed(
   seedProtobufBytes: any,
@@ -46,10 +35,9 @@ async function processSeed(
     currentMajorVersion = chromeVersionData.split('.')[0] ?? 0;
   }
   const options: core_utils.ProcessingOptions = {
-    isBraveSeed,
     minMajorVersion: currentMajorVersion,
   };
-  return new StudyListModel(seed.study, options);
+  return new StudyListModel(seed.study, options, type);
 }
 
 async function loadFile(

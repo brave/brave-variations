@@ -6,7 +6,6 @@ import { variations as proto } from '../proto/generated/proto_bundle';
 
 export class ProcessingOptions {
   minMajorVersion: number;
-  isBraveSeed: boolean;
 }
 
 export const variationsProductionUrl = 'https://variations.brave.com/seed';
