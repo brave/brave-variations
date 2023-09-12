@@ -16,6 +16,8 @@ export class ProcessingOptions {
 
 export const variationsProductionUrl = 'https://variations.brave.com/seed';
 export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
+export const variationsUpstreamUrl =
+  'http://griffin-internal.brave.com/upstream/seed.bin';
 
 export const kGetUsedChromiumVersion =
   'https://versions.brave.com/latest/release-windows-x64-chromium.version';
