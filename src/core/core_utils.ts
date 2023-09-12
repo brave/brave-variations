@@ -14,10 +14,8 @@ export class ProcessingOptions {
   minMajorVersion: number;
 }
 
-export const variationsProductionUrl = 'chrome_seed';
-export const variationsStagingUrl = 'staging_seed';
-// export const variationsProductionUrl = 'https://variations.brave.com/seed';
-// export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
+export const variationsProductionUrl = 'https://variations.brave.com/seed';
+export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
 
 export const kGetUsedChromiumVersion =
   'https://versions.brave.com/latest/release-windows-x64-chromium.version';
@@ -25,7 +23,7 @@ export const kGetUsedChromiumVersion =
 export function getFeatureSearchUrl(feature: string): string {
   return (
     'https://sourcegraph.com/search?q=context:global+repo:%28%5Egithub%5C.com' +
-    'brave/brave-core%24%7C%5Egithub%5C.com/chromium/chromium%24%29+/' +
+    '/brave/brave-core%24%7C%5Egithub%5C.com/chromium/chromium%24%29+/' +
     '%28BASE_FEATURE%7CBASE_DECLARE_FEATURE%29%5C%28%5Cs*%5Cw*%2C%3F%5Cs*k%3F' +
     feature +
     '/+file:.*%28.cc%7C.h%7C.mm%7C.java%29%28.patch%29*&' +

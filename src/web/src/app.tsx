@@ -17,6 +17,8 @@ import * as React from 'react';
 import { StudyFilter } from '../../core/study_processor';
 import { SeedType } from '../../core/core_utils';
 
+let gCurrentMajorVersion = 0;
+
 async function processSeed(
   seedProtobufBytes: any,
   type: SeedType,
@@ -24,17 +26,16 @@ async function processSeed(
   const seedBytes = new Uint8Array(seedProtobufBytes);
   const seed = proto.VariationsSeed.decode(seedBytes);
 
-  const isBraveSeed = type !== SeedType.UPSTREAM;
-  let currentMajorVersion = 0;
-  if (!isBraveSeed) {
+  if (gCurrentMajorVersion === 0) {
     const chromeVersionData = await loadFile(
       core_utils.kGetUsedChromiumVersion,
       'text',
     );
-    currentMajorVersion = chromeVersionData.split('.')[0] ?? 0;
+    if (chromeVersionData !== undefined)
+      gCurrentMajorVersion = chromeVersionData.split('.')[0] ?? 0;
   }
   const options: core_utils.ProcessingOptions = {
-    minMajorVersion: currentMajorVersion,
+    minMajorVersion: gCurrentMajorVersion,
   };
   return new StudyListModel(seed.study, options, type);
 }
