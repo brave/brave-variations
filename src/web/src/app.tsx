@@ -14,7 +14,7 @@ import {
 } from './models';
 import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
-import { StudyFilter } from '../../core/study_processor';
+import { StudyFilter, StudyPriority } from '../../core/study_processor';
 import { SeedType } from '../../core/core_utils';
 
 let gCurrentMajorVersion = 0;
@@ -255,11 +255,23 @@ export function CurrentStudyList(props: {
       return prev;
     });
   };
+  const currentSeed = getCurrentSeedType(searchParams);
 
   const filter = new StudyFilter();
   filter.study = searchParams.get('study') ?? undefined;
   filter.search = searchParams.get('search') ?? undefined;
-
+  filter.minPriority =
+    currentSeed === SeedType.UPSTREAM
+      ? StudyPriority.STABLE_MIN
+      : StudyPriority.NON_INTERESTING;
+  try {
+    const priorityString = searchParams.get('minPriority');
+    if (priorityString != null) {
+      filter.minPriority = parseInt(priorityString);
+    }
+  } catch {
+    /* empty */
+  }
   filter.showEmptyGroups = searchParams.get('showEmptyGroups') === 'true';
   const toggleShowEmptyGroups = (): void => {
     setParam('showEmptyGroups', filter.showEmptyGroups ? 'false' : 'true');
@@ -270,7 +282,6 @@ export function CurrentStudyList(props: {
     setParam('includeOutdated', filter.includeOutdated ? 'false' : 'true');
   };
 
-  const currentSeed = getCurrentSeedType(searchParams);
   const studyList = props.studies
     .get(currentSeed)
     ?.studies(filter)
