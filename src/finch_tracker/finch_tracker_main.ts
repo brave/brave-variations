@@ -47,7 +47,7 @@ function serializeStudiesToDirectory(
     const processed = new ProcessedStudy(study, options);
     processed.postProcessBeforeSerialization();
     addStudy(path.join('all-by-name', name), study);
-    if (!processed.filterDetails.isOutdated()) {
+    if (!processed.studyDetails.isOutdated()) {
       const priority = processed.getPriority();
       if (priority > StudyPriority.NON_INTERESTING)
         addStudy(path.join(priorityToText(priority), name), study);
