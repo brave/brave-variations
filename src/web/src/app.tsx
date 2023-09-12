@@ -10,12 +10,12 @@ import {
   type FeatureModel,
   type StudyModel,
   StudyListModel,
-  SeedType,
   stringToSeedType,
 } from './models';
 import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
 import { StudyFilter } from '../../core/study_processor';
+import { SeedType } from '../../core/core_utils';
 
 async function processSeed(
   seedProtobufBytes: any,
@@ -70,14 +70,16 @@ export function FeatureItem(props: {
   feature: FeatureModel;
   style: string;
 }): JSX.Element {
-  if (props.feature.link !== '') {
-    return (
-      <a className={props.style} href={props.feature.link}>
-        {props.feature.name}
-      </a>
-    );
-  }
-  return <a className={props.style}>{props.feature.name}</a>;
+  return (
+    <a
+      className={props.style}
+      target="blank"
+      rel="noreferrer"
+      href={props.feature.link}
+    >
+      {props.feature.name}
+    </a>
+  );
 }
 
 export function FeatureList(props: {
@@ -112,8 +114,11 @@ export function ExperimentItem(props: { exp: ExperimentModel }): JSX.Element {
     ) : (
       <></>
     );
+  const classes =
+    'list-group-item ' +
+    (props.exp.isMajorGroup() ? 'major-exp-item' : 'exp-item');
   return (
-    <li className="list-group-item">
+    <li className={classes}>
       {props.exp.name()} ({props.exp.weight()}%)
       <FeatureList
         title="Enabled features"
@@ -165,7 +170,11 @@ export function StudyItem(props: {
   const filter = props.study.filter();
   return (
     <div className="card mb-3">
-      <div className="card-header">{props.study.name()}</div>
+      <div className="card-header">
+        <a target="_blank" href={props.study.getConfigUrl()} rel="noreferrer">
+          {props.study.name()}
+        </a>
+      </div>
       <div className="card-body">
         <ul className="list-group list-group-flush">
           {props.study.experiments(props.filter).map((e) => (

@@ -28,6 +28,10 @@ section.navbar {
   margin: 15px 0;
 }
 
+.card-body {
+  padding: 0em 1em;
+}
+
 .card h5 {
   font-size: 0.8em;
   font-weight: normal;
@@ -37,6 +41,14 @@ section.navbar {
 
 .list-group-item {
   padding: 5px 0;
+}
+
+.exp-item {
+  color: rgb(80, 80, 80);
+}
+
+.major-exp-item {
+  color: black;
 }
 
 ul.study-meta {

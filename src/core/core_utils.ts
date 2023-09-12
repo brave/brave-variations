@@ -4,23 +4,31 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import { variations as proto } from '../proto/generated/proto_bundle';
 
+export enum SeedType {
+  PRODUCTION,
+  STAGING,
+  UPSTREAM,
+}
+
 export class ProcessingOptions {
   minMajorVersion: number;
 }
 
-export const variationsProductionUrl = 'https://variations.brave.com/seed';
-export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
+export const variationsProductionUrl = 'chrome_seed';
+export const variationsStagingUrl = 'staging_seed';
+// export const variationsProductionUrl = 'https://variations.brave.com/seed';
+// export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
 
 export const kGetUsedChromiumVersion =
   'https://versions.brave.com/latest/release-windows-x64-chromium.version';
 
 export function getFeatureSearchUrl(feature: string): string {
   return (
-    'https://sourcegraph.com/search?q=context:global+repo:%28github%5C.com/' +
+    'https://sourcegraph.com/search?q=context:global+repo:%28%5Egithub%5C.com' +
     'brave/brave-core%24%7C%5Egithub%5C.com/chromium/chromium%24%29+/' +
-    'BASE_FEATURE%5C%28%5Cs*%5Cw*%2C%5Cs*%22' +
+    '%28BASE_FEATURE%7CBASE_DECLARE_FEATURE%29%5C%28%5Cs*%5Cw*%2C%3F%5Cs*k%3F' +
     feature +
-    '%22/+file:.*%28.cc%7C.h%7C.mm%7C.java%29%28.patch%29*&' +
+    '/+file:.*%28.cc%7C.h%7C.mm%7C.java%29%28.patch%29*&' +
     'patternType=standard&sm=1&groupBy=repo'
   );
 }
@@ -29,8 +37,18 @@ export function getGitHubStorageUrl(): string {
   return 'https://github.com/atuchin-m/finch-data-private';
 }
 
-export function getGitHubStudyConfigUrl(study: string): string {
-  return `${getGitHubStorageUrl()}/blob/main/study/all-by-name/${study}`;
+export function getGitHubStudyConfigUrl(
+  study: string,
+  seedType: SeedType,
+): string {
+  if (seedType === SeedType.UPSTREAM)
+    return `${getGitHubStorageUrl()}/blob/main/study/all-by-name/${study}`;
+  const branch = seedType === SeedType.PRODUCTION ? 'production' : 'main';
+  return (
+    `https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/` +
+    `brave/brave-variations%24%40${branch}+%22name%22:+%22${study}` +
+    `%22++file:seed/seed.json&patternType=standard&sm=1&groupBy=repo`
+  );
 }
 
 export function getGriffinUiUrl(study: string): string {

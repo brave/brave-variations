@@ -14,13 +14,9 @@ import {
   getPlatfromName,
   getFeatureSearchUrl,
   type ProcessingOptions,
+  getGitHubStudyConfigUrl,
+  SeedType,
 } from '../../core/core_utils';
-
-export enum SeedType {
-  PRODUCTION,
-  STAGING,
-  UPSTREAM,
-}
 
 export function stringToSeedType(value: string): SeedType | undefined {
   const index = Object.values(SeedType).indexOf(value);
@@ -83,6 +79,10 @@ export class ExperimentModel {
     if (totalWeight === 0) return 0;
     return (this.experiment.probability_weight / totalWeight) * 100;
   }
+
+  isMajorGroup(): boolean {
+    return this.weight() > 50;
+  }
 }
 
 export class StudyModel {
@@ -132,6 +132,10 @@ export class StudyModel {
   channels(): string[] | undefined {
     const isBraveSeed = this.seedType !== SeedType.UPSTREAM;
     return this.filter()?.channel?.map((c) => getChannelName(c, isBraveSeed));
+  }
+
+  getConfigUrl(): string {
+    return getGitHubStudyConfigUrl(this.name(), this.seedType);
   }
 }
 
