@@ -193,7 +193,8 @@ export class StudyDetails {
       const weight = e.probability_weight;
       this.totalWeight += weight;
       if (
-        e.name.match(/Default|Control_/) == null &&
+        !e.name.startsWith('Default') &&
+        !e.name.startsWith('Control_') &&
         !areFeaturesInDefaultStates(e)
       ) {
         this.totalNonDefaultGroupsWeight += weight;
