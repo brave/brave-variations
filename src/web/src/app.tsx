@@ -17,7 +17,6 @@ import { useSearchParams } from 'react-router-dom';
 import * as React from 'react';
 import { StudyFilter } from '../../core/study_processor';
 
-
 async function processSeed(
   seedProtobufBytes: any,
   type: SeedType,

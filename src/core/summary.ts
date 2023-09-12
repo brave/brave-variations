@@ -65,7 +65,7 @@ class SummaryItem {
 function getOverallPriority(studies: ProcessedStudy[]): StudyPriority {
   let priority = StudyPriority.NON_INTERESTING;
   for (const study of studies) {
-    const p = study.filterDetails.getPriority();
+    const p = study.studyDetails.getPriority();
     if (p > priority) priority = p;
   }
 
@@ -78,12 +78,12 @@ function getOverallAudience(
 ): number {
   let maxAudience = 0;
   for (const study of studies) {
-    const p = study.filterDetails.getPriority();
-    if (p === priority && study.filterDetails.totalWeight !== 0) {
+    const p = study.studyDetails.getPriority();
+    if (p === priority && study.studyDetails.totalWeight !== 0) {
       maxAudience = Math.max(
         maxAudience,
-        study.filterDetails.totalNonDefaultGroupsWeight /
-          study.filterDetails.totalWeight,
+        study.studyDetails.totalNonDefaultGroupsWeight /
+          study.studyDetails.totalWeight,
       );
     }
   }

@@ -39,18 +39,18 @@ export class StudyFilter {
 
 export class ProcessedStudy {
   study: proto.IStudy;
-  filterDetails: FilterDetails;
+  studyDetails: StudyDetails;
   affectedFeatures: Set<string>;
 
   constructor(study: proto.IStudy, options: ProcessingOptions) {
     this.study = study;
-    this.filterDetails = new FilterDetails(study, options);
+    this.studyDetails = new StudyDetails(study, options);
     this.affectedFeatures = getAffectedFeatures(study);
     this.postProcessStudy();
   }
 
   getPriority(): StudyPriority {
-    return this.filterDetails.getPriority();
+    return this.studyDetails.getPriority();
   }
 
   matchesFilter(f: StudyFilter): boolean {
@@ -69,7 +69,7 @@ export class ProcessedStudy {
     }
 
     if (this.getPriority() < f.minPriority) return false;
-    if (this.filterDetails.isOutdated() && !f.includeOutdated) return false;
+    if (this.studyDetails.isOutdated() && !f.includeOutdated) return false;
     return true;
   }
 
@@ -80,7 +80,7 @@ export class ProcessedStudy {
   }
 
   moveLargestGroupToTop(): void {
-    const details = this.filterDetails;
+    const details = this.studyDetails;
     if (details.maxNonDefaultWeight <= details.totalWeight / 2) return;
     const experiment = this.study.experiment;
     if (experiment == null) return;
@@ -124,7 +124,7 @@ export function priorityToText(p: StudyPriority): string {
   return '';
 }
 
-export class FilterDetails {
+export class StudyDetails {
   endedByEndDate = false;
   endedByMaxVersion = false;
   isBlocklisted = false;

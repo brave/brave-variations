@@ -79,8 +79,7 @@ export class ExperimentModel {
   }
 
   weight(): number {
-    const totalWeight =
-      this.studyModel.processedStudy.filterDetails.totalWeight;
+    const totalWeight = this.studyModel.processedStudy.studyDetails.totalWeight;
     if (totalWeight === 0) return 0;
     return (this.experiment.probability_weight / totalWeight) * 100;
   }
