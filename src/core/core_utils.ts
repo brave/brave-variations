@@ -34,7 +34,7 @@ export function getGitHubStudyConfigUrl(study: string): string {
 }
 
 export function getGriffinUiUrl(study: string): string {
-  return `https://griffin.brave.com/?seed=UPSTREAM&name=${study}`;
+  return `https://griffin.brave.com/?seed=UPSTREAM&study=${study}`;
 }
 
 export function getChannelNameFromString(

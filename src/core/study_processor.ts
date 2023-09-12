@@ -33,7 +33,7 @@ export class StudyFilter {
   minPriority = StudyPriority.NON_INTERESTING;
   includeOutdated = false;
   showEmptyGroups = false;
-  nameFilter?: string; // search only in studyName
+  study?: string; // include studies with particular name
   search?: string; // search in study/exp/feature names
 }
 
@@ -54,8 +54,8 @@ export class ProcessedStudy {
   }
 
   matchesFilter(f: StudyFilter): boolean {
-    if (f.nameFilter !== undefined) {
-      if (this.study.name.search(f.nameFilter) === -1) return false;
+    if (f.study !== undefined && this.study.name !== f.study) {
+      return false;
     }
 
     if (f.search !== undefined) {
