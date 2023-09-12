@@ -324,6 +324,7 @@ export function App(): JSX.Element {
     load(core_utils.variationsStagingUrl, SeedType.STAGING).catch(
       console.error,
     );
+    load(core_utils.variationsUpstreamUrl, SeedType.UPSTREAM).catch((e) => {});
   }, []);
 
   const hasUpstream = state.studies.get(SeedType.UPSTREAM) !== undefined;
