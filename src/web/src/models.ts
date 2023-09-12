@@ -16,6 +16,20 @@ import {
   type ProcessingOptions,
 } from '../../core/core_utils';
 
+export enum SeedType {
+  PRODUCTION,
+  STAGING,
+  UPSTREAM,
+}
+
+export function stringToSeedType(value: string): SeedType | undefined {
+  const index = Object.values(SeedType).indexOf(value);
+  if (index >= 0) {
+    return index as SeedType;
+  }
+  return undefined;
+}
+
 export class FeatureModel {
   name: string;
   link: string;
@@ -75,10 +89,16 @@ export class ExperimentModel {
 export class StudyModel {
   readonly processedStudy: ProcessedStudy;
   readonly options: ProcessingOptions;
+  readonly seedType: SeedType;
 
-  constructor(study: proto.IStudy, options: ProcessingOptions) {
+  constructor(
+    study: proto.IStudy,
+    options: ProcessingOptions,
+    seedType: SeedType,
+  ) {
     this.processedStudy = new ProcessedStudy(study, options);
     this.options = options;
+    this.seedType = seedType;
   }
 
   filter(): proto.Study.IFilter | undefined {
@@ -111,17 +131,20 @@ export class StudyModel {
   }
 
   channels(): string[] | undefined {
-    return this.filter()?.channel?.map((c) =>
-      getChannelName(c, this.options.isBraveSeed),
-    );
+    const isBraveSeed = this.seedType !== SeedType.UPSTREAM;
+    return this.filter()?.channel?.map((c) => getChannelName(c, isBraveSeed));
   }
 }
 
 export class StudyListModel {
-  processedStudies: StudyModel[];
-  constructor(studies: proto.IStudy[], options: ProcessingOptions) {
+  processedStudies: StudyModel[] = [];
+  constructor(
+    studies: proto.IStudy[],
+    options: ProcessingOptions,
+    type: SeedType,
+  ) {
     this.processedStudies = studies.map(
-      (study) => new StudyModel(study, options),
+      (study) => new StudyModel(study, options, type),
     );
   }
 
