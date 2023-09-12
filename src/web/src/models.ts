@@ -12,7 +12,7 @@ import {
 import {
   getChannelName,
   getPlatfromName,
-  getChromiumFeatureUrl,
+  getFeatureSearchUrl,
   type ProcessingOptions,
 } from '../../core/core_utils';
 
@@ -35,8 +35,10 @@ export class ExperimentModel {
       return [];
     }
     return features.map((f) => {
-      const isBraveSeed = this.studyModel.options.isBraveSeed;
-      return { name: f, link: isBraveSeed ? '' : getChromiumFeatureUrl(f) };
+      return {
+        name: f,
+        link: getFeatureSearchUrl(f),
+      };
     });
   }
 

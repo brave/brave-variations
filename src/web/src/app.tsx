@@ -119,7 +119,7 @@ export function ExperimentItem(props: { exp: ExperimentModel }): JSX.Element {
   const paramsDiv =
     paramsList.length > 0 ? (
       <ul className="study-meta">
-        <span>Parameters:</span>
+        <span>Parameters: </span>
         {paramsList}
       </ul>
     ) : (
