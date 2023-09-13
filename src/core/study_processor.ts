@@ -7,7 +7,7 @@ import { variations as proto } from '../proto/generated/proto_bundle';
 import { type ProcessingOptions } from './core_utils';
 import { matchesMaxVersion, parseVersionPattern } from './version';
 
-const kSupportedPlatforms = [
+const kSupportedPlatforms: readonly proto.Study.Platform[] = [
   proto.Study.Platform.PLATFORM_ANDROID,
   proto.Study.Platform.PLATFORM_LINUX,
   proto.Study.Platform.PLATFORM_MAC,
@@ -145,7 +145,7 @@ export class StudyDetails {
     this.endedByMaxVersion =
       maxVersion != null &&
       !matchesMaxVersion(
-        { v: [options.minMajorVersion, 0, 0, 0] },
+        [options.minMajorVersion, 0, 0, 0],
         parseVersionPattern(maxVersion),
       );
 
