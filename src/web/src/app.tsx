@@ -69,11 +69,11 @@ async function loadSeed(
 
 export function FeatureItem(props: {
   feature: FeatureModel;
-  style: string;
+  className: string;
 }): JSX.Element {
   return (
     <a
-      className={props.style}
+      className={props.className}
       target="blank"
       rel="noreferrer"
       href={props.feature.link}
@@ -85,7 +85,7 @@ export function FeatureItem(props: {
 
 export function FeatureList(props: {
   title: string;
-  style: string;
+  className: string;
   features: FeatureModel[];
 }): JSX.Element {
   if (props.features.length === 0) {
@@ -93,7 +93,7 @@ export function FeatureList(props: {
   }
   const features = props.features.map((f) => (
     <li key={f.name}>
-      <FeatureItem feature={f} style={props.style} />
+      <FeatureItem feature={f} className={props.className} />
     </li>
   ));
   return (
@@ -123,12 +123,12 @@ export function ExperimentItem(props: { exp: ExperimentModel }): JSX.Element {
       {props.exp.name()} ({props.exp.weight()}%)
       <FeatureList
         title="Enabled features"
-        style="enabled-feature"
+        className="enabled-feature"
         features={props.exp.enabledFeatures()}
       />
       <FeatureList
         title="Disabled features"
-        style="disabled-feature"
+        className="disabled-feature"
         features={props.exp.disabledFeatures()}
       />
       {paramsDiv}
