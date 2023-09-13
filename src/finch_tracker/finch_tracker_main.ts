@@ -178,7 +178,11 @@ async function main(): Promise<void> {
       StudyPriority.STABLE_MIN,
     );
     const summaryJSON = summaryToJson(summary, newGitSha1);
-    fs.writeFileSync(outputFile, summaryJSON);
+    if (summaryJSON !== undefined) {
+      fs.writeFileSync(outputFile, summaryJSON);
+    } else {
+      console.log('empty summary.');
+    }
   }
 }
 
