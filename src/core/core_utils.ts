@@ -34,7 +34,7 @@ export function getFeatureSearchUrl(feature: string): string {
 }
 
 export function getGitHubStorageUrl(): string {
-  return 'https://github.com/atuchin-m/finch-data-private';
+  return 'https://github.com/brave/finch-data-private';
 }
 
 export function getGitHubStudyConfigUrl(
