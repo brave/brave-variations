@@ -295,5 +295,10 @@ export function summaryToJson(
       ),
     );
   }
-  return output.toString();
+  return `{
+    "text": "New finch changes detected",
+    "blocks": [
+      ${output.toString()}
+    ]
+  }`;
 }
