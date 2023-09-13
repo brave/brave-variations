@@ -239,7 +239,7 @@ class MrkdwnMessage {
 export function summaryToJson(
   summary: Map<StudyPriority, SummaryItem[]>,
   newGitSha1?: string,
-): string {
+): string | undefined {
   const output = new MrkdwnMessage();
   let hasNewKillSwitches = false;
 
@@ -284,7 +284,7 @@ export function summaryToJson(
     }
     output.addDivider();
   }
-  if (output.toString() === '') return '';
+  if (output.toString() === '') return undefined;
 
   output.addHeader('New finch changes detected');
 
