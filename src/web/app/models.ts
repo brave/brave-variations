@@ -112,7 +112,7 @@ export class StudyModel {
     return this.processedStudy.study.name;
   }
 
-  experiments(f: StudyFilter): ExperimentModel[] {
+  filterExperiments(f: StudyFilter): ExperimentModel[] {
     const study = this.processedStudy.study;
     if (study.experiment == null) return [];
     const models: ExperimentModel[] = [];
@@ -151,7 +151,7 @@ export class StudyListModel {
     );
   }
 
-  studies(f: StudyFilter): StudyModel[] {
+  filterStudies(f: StudyFilter): StudyModel[] {
     return this.processedStudies.filter((s) =>
       s.processedStudy.matchesFilter(f),
     );

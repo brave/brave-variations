@@ -7,7 +7,7 @@ import { variations as proto } from '../proto/generated/proto_bundle';
 import { type ProcessingOptions } from './core_utils';
 import { matchesMaxVersion, parseVersionPattern } from './version';
 
-const kSupportedPlatforms: readonly proto.Study.Platform[] = [
+const SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] = [
   proto.Study.Platform.PLATFORM_ANDROID,
   proto.Study.Platform.PLATFORM_LINUX,
   proto.Study.Platform.PLATFORM_MAC,
@@ -259,7 +259,7 @@ function filterPlatforms(
 ): proto.Study.Platform[] | undefined {
   const platform = f?.platform;
   if (platform == null) return undefined;
-  return platform.filter((p) => kSupportedPlatforms.includes(p));
+  return platform.filter((p) => SUPPORTED_PLATFORMS.includes(p));
 }
 
 export function processStudyList(

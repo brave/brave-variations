@@ -167,7 +167,7 @@ export function IncludeExcludeList(props: {
 export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   const filter = props.study.filter();
   const experiments = React.useMemo(
-    () => props.study.experiments(props.filter),
+    () => props.study.filterExperiments(props.filter),
     [props.study, props.filter],
   );
   return (
@@ -285,7 +285,7 @@ export function CurrentStudyList(props: {
   };
 
   const studies = React.useMemo(
-    () => props.studies.get(currentSeed)?.studies(filter),
+    () => props.studies.get(currentSeed)?.filterStudies(filter),
     [props.studies, currentSeed, filter],
   );
 
