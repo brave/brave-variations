@@ -24,6 +24,6 @@ jobs:
           cd ./src
           npm install
           npm run build
-          cd ./web
-          aws s3 sync . s3://brave-production-griffin-origin/ --delete --exclude '*' --include 'index.html' --include 'static/*'
+          cd ./web/public
+          aws s3 sync . s3://brave-production-griffin-origin/ --delete --exclude '*' --include 'index.html' --include 'bundle/*'
           aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
