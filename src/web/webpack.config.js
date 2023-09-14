@@ -11,7 +11,7 @@ function isDevMode(argv) {
 }
 
 module.exports = (env, argv) => ({
-  entry: './web/src/index.tsx',
+  entry: './web/app/index.tsx',
   output: {
     path: path.join(__dirname, 'public', 'bundle'),
     filename: 'app.js',
