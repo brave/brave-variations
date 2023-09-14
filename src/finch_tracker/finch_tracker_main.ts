@@ -190,4 +190,10 @@ async function main(): Promise<void> {
   }
 }
 
-void main();
+main()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error('Error running command:');
+    console.error(err);
+    process.exit(1);
+  });
