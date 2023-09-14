@@ -77,7 +77,7 @@ export function storeDataToDirectory(
   const map = serializeStudies(seedData, options);
 
   for (const [name, json] of Object.entries(map)) {
-    const fileName = `${directory}/${name}`;
+    const fileName = `${studyDirectory}/${name}`;
     const dirname = path.dirname(fileName);
     fs.mkdirSync(dirname, { recursive: true });
     fs.writeFileSync(fileName, JSON.stringify(json, null, 2) + '\n');
