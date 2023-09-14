@@ -26,4 +26,8 @@ module.exports = {
     'U02DG0ATML3', // @matuchin
     'UE87NRK2A', // @iefremov
   ],
+  processingErrorNotificationIds: [
+    'U02DG0ATML3', // @matuchin
+    'UE87NRK2A', // @iefremov
+  ],
 };

@@ -34,6 +34,8 @@ class SummaryItem {
   oldAudience: number;
   newAudience: number;
 
+  hasBadStudies: boolean;
+
   getChangePriority(): StudyPriority {
     return Math.max(this.oldPriority, this.newPriority);
   }
@@ -124,6 +126,9 @@ export function makeSummary(
       newStudy,
       Math.max(item.newPriority, minPriority),
     );
+
+    item.hasBadStudies =
+      newStudy.find((v) => v.studyDetails.isBadStudyFormat) !== undefined;
 
     const changePriority = item.getChangePriority();
     if (changePriority < minPriority) return;
@@ -244,6 +249,7 @@ export function summaryToJson(
 ): string | undefined {
   const output = new MrkdwnMessage();
   let hasNewKillSwitches = false;
+  let hasBadStudies = false;
 
   // From the highest to the lowest priority:
   const priorityList = Object.values(StudyPriority)
@@ -262,6 +268,7 @@ export function summaryToJson(
     itemList.sort((a, b) => a.action - b.action);
     for (const e of itemList) {
       hasNewKillSwitches ||= e.isNewKillSwitch();
+      hasBadStudies ||= e.hasBadStudies;
       const f = affectedFeaturesToText(e.affectedFeatures);
       const block = new TextBlock(e.actionToText());
       block.addLink(url_utils.getGriffinUiUrl(e.studyName), e.studyName);
@@ -294,6 +301,14 @@ export function summaryToJson(
     output.addBlock(
       new TextBlock(
         'cc ' + config.killSwitchNotificationIds.map((i) => `<@${i}>`).join(),
+      ),
+    );
+  }
+  if (hasBadStudies) {
+    output.addBlock(
+      new TextBlock(
+        ':x: Processing ERRORS detected.\\n cc ' +
+          config.processingErrorNotificationIds.map((i) => `<@${i}>`).join(),
       ),
     );
   }

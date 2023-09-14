@@ -120,13 +120,15 @@ export function priorityToText(p: StudyPriority): string {
 }
 
 export class StudyDetails {
-  endedByEndDate = false;
-  endedByMaxVersion = false;
-  isBlocklisted = false;
-  isEmergency = false;
-  hasNoSupportedPlatform = false;
-  totalWeight = 0;
+  endedByEndDate = false; // now() < end_date
+  endedByMaxVersion = false; // max_version < current_stable
+  isBlocklisted = false; // matches to config.js blocklists
+  isEmergency = false; // matches a kill switch signature
+  hasNoSupportedPlatform = false; // doesn't have any brave-supported platform
+  isBadStudyFormat = false; // a bad protobuf item
+  isArchived = false; // max_version <= 100.*
 
+  totalWeight = 0;
   totalNonDefaultGroupsWeight = 0;
   maxNonDefaultWeight = 0;
   maxNonDefaultIndex = -1;
@@ -137,17 +139,22 @@ export class StudyDetails {
     const experiment = study.experiment;
     const maxVersion = filter?.max_version;
     if (experiment == null || filter == null) {
-      console.error('Bad study', JSON.stringify(study));
+      this.isBadStudyFormat = true;
+      console.error('Bad study ' + JSON.stringify(study));
       return;
     }
     this.isEmergency = study.name.match(/KillSwitch/) !== null;
 
-    this.endedByMaxVersion =
-      maxVersion != null &&
-      !matchesMaxVersion(
+    if (maxVersion != null) {
+      const parsed = parseVersionPattern(maxVersion);
+      if (typeof parsed[0] === 'number' && parsed[0] <= 100) {
+        this.isArchived = true;
+      }
+      this.endedByMaxVersion = !matchesMaxVersion(
         [options.minMajorVersion, 0, 0, 0],
-        parseVersionPattern(maxVersion),
+        parsed,
       );
+    }
 
     if (filter.end_date != null) {
       let endDateSeconds = 0;

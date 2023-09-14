@@ -46,9 +46,16 @@ async function loadSeedFromUrl(url: string, type: SeedType) {
   const options: ProcessingOptions = {
     minMajorVersion: await getCurrentMajorVersion,
   };
-  const studies = seed.study.map((study, index) => {
+  const studies: StudyModel[] = [];
+  seed.study.forEach((study, index) => {
+    const processed = new ProcessedStudy(study, options);
+    const studyDetails = processed.studyDetails;
+    if (studyDetails.isArchived || studyDetails.isBadStudyFormat) {
+      return;
+    }
+
     const uniqueId = type * 1000000 + index;
-    return new StudyModel(new ProcessedStudy(study, options), type, uniqueId);
+    studies.push(new StudyModel(processed, type, uniqueId));
   });
   return new StudyListModel(studies);
 }
