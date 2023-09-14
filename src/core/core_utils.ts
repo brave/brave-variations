@@ -14,13 +14,11 @@ export class ProcessingOptions {
   minMajorVersion: number;
 }
 
-export const variationsProductionUrl = 'https://variations.brave.com/seed';
-export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
-export const variationsUpstreamUrl =
-  'http://griffin-internal.brave.com/upstream/seed.bin';
+export const variationsProductionUrl = 'production_seed';
+export const variationsStagingUrl = 'staging_seed';
+export const variationsUpstreamUrl = 'chrome_seed';
 
-export const kGetUsedChromiumVersion =
-  'https://versions.brave.com/latest/release-windows-x64-chromium.version';
+export const kGetUsedChromiumVersion = 'chromium.version.txt';
 
 export function getFeatureSearchUrl(feature: string): string {
   return (
