@@ -232,13 +232,14 @@ export function FilterCheckbox(props: {
 }) {
   return (
     <div className="filter">
-      <input
-        type="checkbox"
-        id={props.htmlName}
-        checked={props.checked}
-        onChange={props.toggle}
-      />
-      <label htmlFor={props.htmlName}>{props.title}</label>
+      <label>
+        <input
+          type="checkbox"
+          checked={props.checked}
+          onChange={props.toggle}
+        />
+        {props.title}
+      </label>
     </div>
   );
 }
