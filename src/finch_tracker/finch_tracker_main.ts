@@ -72,7 +72,12 @@ function commitAllChanges(directory: string): string | undefined {
   }
   execSync('git add -A', { cwd: directory });
   execSync(`git commit -m "Update seed ${utcDate}"`, { cwd: directory });
-  return execSync('git rev-parse HEAD', { cwd: directory }).toString().trim();
+  const sha1 = execSync('git rev-parse HEAD', { cwd: directory })
+    .toString()
+    .trim();
+  console.log('Changes committed, new commit hash', sha1);
+
+  return sha1;
 }
 
 function storeDataToDirectory(
@@ -165,7 +170,6 @@ async function main(): Promise<void> {
     storeDataToDirectory(seedData, storageDir, options);
     if (commitData) {
       newGitSha1 = commitAllChanges(storageDir);
-      console.log('New commit sha1', newGitSha1);
     }
   }
 
