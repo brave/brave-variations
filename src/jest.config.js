@@ -4,7 +4,7 @@ module.exports = {
   verbose: true,
   testPathIgnorePatterns: [
     '/node_modules/',
+    '/finch_tracker/build/',
   ],
   testEnvironment: 'node',
-  collectCoverage: true,
 };
