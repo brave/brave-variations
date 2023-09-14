@@ -89,15 +89,18 @@ export class StudyModel {
   readonly processedStudy: ProcessedStudy;
   readonly options: ProcessingOptions;
   readonly seedType: SeedType;
+  readonly id: number;
 
   constructor(
     study: proto.IStudy,
     options: ProcessingOptions,
     seedType: SeedType,
+    id: number,
   ) {
     this.processedStudy = new ProcessedStudy(study, options);
     this.options = options;
     this.seedType = seedType;
+    this.id = id;
   }
 
   filter(): proto.Study.IFilter | undefined {
@@ -140,15 +143,16 @@ export class StudyModel {
 }
 
 export class StudyListModel {
-  processedStudies: StudyModel[] = [];
+  readonly processedStudies: StudyModel[];
   constructor(
     studies: proto.IStudy[],
     options: ProcessingOptions,
     type: SeedType,
   ) {
-    this.processedStudies = studies.map(
-      (study) => new StudyModel(study, options, type),
-    );
+    this.processedStudies = studies.map((study, index) => {
+      const uniqueId = type * 1000000 + index;
+      return new StudyModel(study, options, type, uniqueId);
+    });
   }
 
   filterStudies(f: StudyFilter): StudyModel[] {

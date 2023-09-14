@@ -290,7 +290,7 @@ export function CurrentStudyList(props: {
   );
 
   const studyList = studies?.map((study, i) => (
-    <StudyItem key={study.name() + i} study={study} filter={filter} />
+    <StudyItem key={study.id} study={study} filter={filter} />
   ));
 
   return (
