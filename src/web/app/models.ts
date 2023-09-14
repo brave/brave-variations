@@ -18,14 +18,6 @@ import {
   SeedType,
 } from '../../core/core_utils';
 
-export function stringToSeedType(value: string): SeedType | undefined {
-  const index = Object.values(SeedType).indexOf(value);
-  if (index >= 0) {
-    return index as SeedType;
-  }
-  return undefined;
-}
-
 export class FeatureModel {
   name: string;
   link: string;

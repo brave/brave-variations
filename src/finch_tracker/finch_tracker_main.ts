@@ -16,7 +16,7 @@ import { makeSummary, summaryToJson } from '../core/summary';
 import { studyToJSON } from '../core/serializers';
 import { execSync } from 'child_process';
 import {
-  kGetUsedChromiumVersion,
+  getUsedChromiumVersionUrl,
   type ProcessingOptions,
 } from '../core/core_utils';
 
@@ -112,7 +112,7 @@ async function main(): Promise<void> {
       '-m, --chrome-major <number>',
       'Override the current stable major chrome version.' +
         'By default the version is taken from the backend' +
-        '(see kGetUsedChromiumVersion)',
+        '(see getUsedChromiumVersionUrl)',
       parseInt,
     )
     .option('--no-update', "Don't make any disk changes")
@@ -126,11 +126,11 @@ async function main(): Promise<void> {
   let minMajorVersion = program.opts().chromeMajor;
 
   if (minMajorVersion === undefined) {
-    const chromiumVersionData = await downloadUrl(kGetUsedChromiumVersion);
+    const chromiumVersionData = await downloadUrl(getUsedChromiumVersionUrl);
     const chromiumVersionString = chromiumVersionData?.toString().split('.')[0];
     if (chromiumVersionString === undefined) {
       program.error(
-        'Failed to get the Chromium version via ' + kGetUsedChromiumVersion,
+        'Failed to get the Chromium version via ' + getUsedChromiumVersionUrl,
       );
       return;
     }

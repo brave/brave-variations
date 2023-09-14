@@ -3,69 +3,19 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import { variations as proto } from '../../proto/generated/proto_bundle';
-import * as core_utils from '../../core/core_utils';
+import * as React from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import {
   type ExperimentModel,
   type FeatureModel,
   type StudyModel,
-  StudyListModel,
-  stringToSeedType,
+  type StudyListModel,
 } from './models';
-import { useSearchParams } from 'react-router-dom';
-import * as React from 'react';
-import { StudyFilter, StudyPriority } from '../../core/study_processor';
+import { type StudyFilter } from '../../core/study_processor';
 import { SeedType } from '../../core/core_utils';
-
-let gCurrentMajorVersion = 0;
-
-async function processSeed(
-  seedProtobufBytes: any,
-  type: SeedType,
-): Promise<StudyListModel | undefined> {
-  const seedBytes = new Uint8Array(seedProtobufBytes);
-  const seed = proto.VariationsSeed.decode(seedBytes);
-
-  if (gCurrentMajorVersion === 0) {
-    const chromeVersionData = await loadFile(
-      core_utils.kGetUsedChromiumVersion,
-      'text',
-    );
-    if (chromeVersionData !== undefined)
-      gCurrentMajorVersion = chromeVersionData.split('.')[0] ?? 0;
-  }
-  const options: core_utils.ProcessingOptions = {
-    minMajorVersion: gCurrentMajorVersion,
-  };
-  return new StudyListModel(seed.study, options, type);
-}
-
-async function loadFile(
-  url: string,
-  responseType: 'arraybuffer' | 'text',
-): Promise<any | undefined> {
-  return await new Promise<any | undefined>((resolve) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true /* async */);
-    xhr.responseType = responseType;
-    xhr.onload = () => {
-      resolve(xhr.response);
-    };
-    xhr.onerror = () => {
-      resolve(undefined);
-    };
-    xhr.send(null);
-  });
-}
-
-async function loadSeed(
-  url: string,
-  type: SeedType,
-): Promise<StudyListModel | undefined> {
-  const data = await loadFile(url, 'arraybuffer');
-  if (data === undefined) return undefined;
-  return await processSeed(data, type);
-}
+import { loadSeedDataAsync } from './seed';
+import { SearchParamManager } from './search_param_manager';
 
 export function FeatureItem(props: {
   feature: FeatureModel;
@@ -106,15 +56,6 @@ export function FeatureList(props: {
 
 export function ExperimentItem(props: { exp: ExperimentModel }) {
   const paramsList = props.exp.parameters().map((p) => <li key={p}>{p}</li>);
-  const paramsDiv =
-    paramsList.length > 0 ? (
-      <ul className="study-meta">
-        <span>Parameters: </span>
-        {paramsList}
-      </ul>
-    ) : (
-      <></>
-    );
   const classes =
     'list-group-item ' +
     (props.exp.isMajorGroup() ? 'major-exp-item' : 'exp-item');
@@ -131,7 +72,12 @@ export function ExperimentItem(props: { exp: ExperimentModel }) {
         className="disabled-feature"
         features={props.exp.disabledFeatures()}
       />
-      {paramsDiv}
+      {paramsList.length > 0 && (
+        <ul className="study-meta">
+          <span>Parameters: </span>
+          {paramsList}
+        </ul>
+      )}
     </li>
   );
 }
@@ -202,27 +148,16 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   );
 }
 
-function getCurrentSeedType(searchParams: URLSearchParams): SeedType {
-  return (
-    stringToSeedType(searchParams.get('seed') ?? 'PRODUCTION') ??
-    SeedType.PRODUCTION
-  );
-}
-
 export function NavItem(props: { type: SeedType }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentSeed = getCurrentSeedType(searchParams);
+  const paramManager = new SearchParamManager(useSearchParams());
   const className =
-    (props.type === currentSeed ? 'active ' : '') + 'nav-item nav-link btn-sm';
-  const handleClick = () => {
-    setSearchParams((prev) => {
-      prev.set('seed', SeedType[props.type]);
-      prev.delete('search');
-      return prev;
-    });
-  };
+    (props.type === paramManager.currentSeed ? 'active ' : '') +
+    'nav-item nav-link btn-sm';
   return (
-    <a onClick={handleClick} className={className}>
+    <a
+      onClick={paramManager.setSeedType.bind(paramManager, props.type)}
+      className={className}
+    >
       {SeedType[props.type]}
     </a>
   );
@@ -251,46 +186,17 @@ export function FilterCheckbox(props: {
 export function CurrentStudyList(props: {
   studies: Map<SeedType, StudyListModel>;
 }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const setParam = (param: string, value: string) => {
-    setSearchParams((prev) => {
-      prev.set(param, value);
-      return prev;
-    });
-  };
-  const currentSeed = getCurrentSeedType(searchParams);
-
-  const filter = new StudyFilter();
-  filter.search = searchParams.get('search') ?? undefined;
-  filter.minPriority =
-    currentSeed === SeedType.UPSTREAM
-      ? StudyPriority.STABLE_MIN
-      : StudyPriority.NON_INTERESTING;
-  try {
-    const priorityString = searchParams.get('minPriority');
-    if (priorityString != null) {
-      filter.minPriority = parseInt(priorityString);
-    }
-  } catch {
-    /* empty */
-  }
-  filter.showEmptyGroups = searchParams.get('showEmptyGroups') === 'true';
-  const toggleShowEmptyGroups = () => {
-    setParam('showEmptyGroups', filter.showEmptyGroups ? 'false' : 'true');
-  };
-
-  filter.includeOutdated = searchParams.get('includeOutdated') === 'true';
-  const toggleIncludeOutdated = () => {
-    setParam('includeOutdated', filter.includeOutdated ? 'false' : 'true');
-  };
-
+  const paramManager = new SearchParamManager(useSearchParams());
   const studies = React.useMemo(
-    () => props.studies.get(currentSeed)?.filterStudies(filter),
-    [props.studies, currentSeed, filter],
+    () =>
+      props.studies
+        .get(paramManager.currentSeed)
+        ?.filterStudies(paramManager.filter),
+    [props.studies, paramManager.currentSeed, paramManager.filter],
   );
 
   const studyList = studies?.map((study, i) => (
-    <StudyItem key={study.id} study={study} filter={filter} />
+    <StudyItem key={study.id} study={study} filter={paramManager.filter} />
   ));
 
   return (
@@ -301,14 +207,14 @@ export function CurrentStudyList(props: {
             <FilterCheckbox
               title="Show empty groups"
               htmlName="showEmptyGroups"
-              checked={filter.showEmptyGroups}
-              toggle={toggleShowEmptyGroups}
+              checked={paramManager.filter.showEmptyGroups}
+              toggle={paramManager.toggleShowEmptyGroups.bind(paramManager)}
             />
             <FilterCheckbox
               title="Show outdated studies"
               htmlName="includeOutdated"
-              checked={filter.includeOutdated}
-              toggle={toggleIncludeOutdated}
+              checked={paramManager.filter.includeOutdated}
+              toggle={paramManager.toggleIncludeOutdated.bind(paramManager)}
             />
           </div>
         </div>
@@ -324,22 +230,15 @@ class AppState {
 
 export function App() {
   const [state, setState] = React.useState(new AppState());
+  const updateState = (type: SeedType, studyList: StudyListModel) => {
+    setState((prevState) => {
+      const newState: AppState = { ...prevState };
+      newState.studies.set(type, studyList);
+      return newState;
+    });
+  };
   React.useEffect(() => {
-    const load = async (url: string, type: SeedType): Promise<void> => {
-      const studyList = await loadSeed(url, type);
-      setState((prevState) => {
-        const newState: AppState = { ...prevState };
-        if (studyList !== undefined) newState.studies.set(type, studyList);
-        return newState;
-      });
-    };
-    load(core_utils.variationsProductionUrl, SeedType.PRODUCTION).catch(
-      console.error,
-    );
-    load(core_utils.variationsStagingUrl, SeedType.STAGING).catch(
-      console.error,
-    );
-    load(core_utils.variationsUpstreamUrl, SeedType.UPSTREAM).catch((e) => {});
+    loadSeedDataAsync(updateState);
   }, []);
 
   const hasUpstream = state.studies.get(SeedType.UPSTREAM) !== undefined;

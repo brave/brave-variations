@@ -19,7 +19,7 @@ export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
 export const variationsUpstreamUrl =
   'https://griffin.brave.com/finch-data-private/seed.bin';
 
-export const kGetUsedChromiumVersion =
+export const getUsedChromiumVersionUrl =
   'https://versions.brave.com/latest/release-windows-x64-chromium.version';
 
 export function getFeatureSearchUrl(feature: string): string {
