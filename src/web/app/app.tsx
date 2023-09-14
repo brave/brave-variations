@@ -284,12 +284,14 @@ export function CurrentStudyList(props: {
     setParam('includeOutdated', filter.includeOutdated ? 'false' : 'true');
   };
 
-  const studyList = props.studies
-    .get(currentSeed)
-    ?.studies(filter)
-    .map((study, i) => (
-      <StudyItem key={study.name() + i} study={study} filter={filter} />
-    ));
+  const studies = React.useMemo(
+    () => props.studies.get(currentSeed)?.studies(filter),
+    [props.studies, currentSeed, filter],
+  );
+
+  const studyList = studies?.map((study, i) => (
+    <StudyItem key={study.name() + i} study={study} filter={filter} />
+  ));
 
   return (
     <div className="row">
