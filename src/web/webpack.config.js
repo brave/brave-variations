@@ -5,16 +5,28 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
-module.exports = {
-  entry: './web/build/web/src/index.js',
-  mode: 'production',
+
+function isDevMode(argv) {
+  return process.env.NODE_ENV === 'development' || argv.mode === 'development'
+}
+
+module.exports = (env, argv) => ({
+  entry: './web/src/index.tsx',
   output: {
-    path: path.join(__dirname, 'web', 'static'),
-    filename: 'bundle.js',
+    path: path.join(__dirname, 'public', 'bundle'),
+    filename: 'app.js',
+  },
+  devServer: {
+    devMiddleware: {
+      index: false,
+      publicPath: '/bundle',
+    },
+    static: path.resolve(__dirname, 'public'),
   },
   resolve: {
+    extensions: [".tsx", ".ts", ".js", ".css"],
     alias: {
-      css: path.resolve(__dirname, 'web/css/'),
+      css: path.resolve(__dirname, 'css'),
     },
   },
   module: {
@@ -34,6 +46,18 @@ module.exports = {
           name: '[name].[ext]',
         },
       },
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: require.resolve('ts-loader'),
+            options: {
+              transpileOnly: isDevMode(argv),
+            },
+          },
+        ],
+        exclude: /node_modules/,
+      },
     ],
   },
-};
+});
