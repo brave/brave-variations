@@ -166,6 +166,10 @@ export function IncludeExcludeList(props: {
 
 export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   const filter = props.study.filter();
+  const experiments = React.useMemo(
+    () => props.study.experiments(props.filter),
+    [props.study, props.filter],
+  );
   return (
     <div className="card mb-3">
       <div className="card-header">
@@ -175,7 +179,7 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
       </div>
       <div className="card-body">
         <ul className="list-group list-group-flush">
-          {props.study.experiments(props.filter).map((e) => (
+          {experiments.map((e) => (
             <ExperimentItem key={e.name()} exp={e} />
           ))}
         </ul>
