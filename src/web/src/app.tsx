@@ -337,11 +337,7 @@ export function App() {
   }, []);
 
   const hasUpstream = state.studies.get(SeedType.UPSTREAM) !== undefined;
-  const upstreamTab = hasUpstream ? (
-    <NavItem type={SeedType.UPSTREAM} />
-  ) : (
-    <></>
-  );
+
   return (
     <div className="container" id="app">
       <section className="navbar navbar-light bg-light">
@@ -349,7 +345,7 @@ export function App() {
         <nav className="nav nav-pills">
           <NavItem type={SeedType.PRODUCTION} />
           <NavItem type={SeedType.STAGING} />
-          {upstreamTab}
+          {hasUpstream && <NavItem type={SeedType.UPSTREAM} />}
         </nav>
       </section>
       <main>
