@@ -4,9 +4,9 @@
   "description": "Brave Variations",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "lint": "eslint . --ext js,ts,tsx",
+    "lint": "eslint . --ext ts,tsx",
     "tracker": "node finch_tracker/build/finch_tracker/finch_tracker_main.js",
-    "clean": "rm -rf ./proto/generated/proto_bundle* web/static/bundle.js finch_tracker/build/",
+    "clean": "rm -rf ./proto/generated/proto_bundle* web/public/bundle/ finch_tracker/build/",
     "build:proto": "pbjs -t static-module --keep-case ./proto/variations_seed.proto ./proto/study.proto -o proto/generated/proto_bundle.js && pbts -o proto/generated/proto_bundle.d.ts proto/generated/proto_bundle.js",
     "build:tracker": "tsc -p finch_tracker/tsconfig.json",
     "build:web": "webpack -c web/webpack.config.js --mode=production",

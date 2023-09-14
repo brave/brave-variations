@@ -7,7 +7,7 @@
 const path = require('path');
 
 function isDevMode(argv) {
-  return process.env.NODE_ENV === 'development' || argv.mode === 'development'
+  return process.env.NODE_ENV === 'development' || argv.mode === 'development';
 }
 
 module.exports = (env, argv) => ({
@@ -24,7 +24,7 @@ module.exports = (env, argv) => ({
     static: path.resolve(__dirname, 'public'),
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".css"],
+    extensions: ['.tsx', '.ts', '.js', '.css'],
     alias: {
       css: path.resolve(__dirname, 'css'),
     },
