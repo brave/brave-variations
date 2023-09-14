@@ -16,13 +16,6 @@ import {
   commitAllChanges,
 } from './tracker_lib';
 
-// import { Command } from '@commander-js/extra-typings';
-// import { ProcessingOptions } from 'core/base_types';
-// import { StudyPriority } from 'core/study_processor';
-// import { makeSummary, summaryToJson } from 'core/summary';
-// import { variations } from 'proto/generated/proto_bundle';
-// import { downloadUrl, getSeedPath } from './node_utils';
-
 async function main(): Promise<void> {
   const program = new Command()
     .description('Chrome finch tracker')

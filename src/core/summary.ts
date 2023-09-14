@@ -16,7 +16,7 @@ import { SeedType, type ProcessingOptions } from './base_types';
 import * as url_utils from './url_utils';
 import * as config from '../config';
 
-enum ItemAction {
+export enum ItemAction {
   New,
   Up,
   Change,
@@ -27,7 +27,6 @@ class SummaryItem {
   studyName: string;
   action: ItemAction;
   affectedFeatures = new Set<string>();
-  description: string;
 
   oldPriority: StudyPriority;
   newPriority: StudyPriority;
