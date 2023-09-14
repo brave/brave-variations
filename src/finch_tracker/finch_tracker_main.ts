@@ -34,7 +34,7 @@ function serializeStudiesToDirectory(
   const seed = proto.VariationsSeed.decode(seedData);
   const exps = new Map<string, unknown[]>();
   let cnt = 0;
-  const addStudy = (path: string, study: proto.IStudy): void => {
+  const addStudy = (path: string, study: proto.IStudy) => {
     const json = studyToJSON(study);
     const list = exps.get(path);
     if (list !== undefined) list.push(json);

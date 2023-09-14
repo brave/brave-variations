@@ -103,7 +103,7 @@ export function makeSummary(
 
   const visitedKeys = new Set<string>();
 
-  const checkKey = (key: string): void => {
+  const checkKey = (key: string) => {
     if (visitedKeys.has(key)) return;
     visitedKeys.add(key);
 

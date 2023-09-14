@@ -9,8 +9,8 @@ export async function downloadUrl(url: string): Promise<Buffer> {
   return await new Promise<Buffer>((resolve, reject) => {
     const data: any = [];
     https
-      .get(url, (res: any) => {
-        res.on('data', (chunk: any) => data.push(chunk));
+      .get(url, (res) => {
+        res.on('data', (chunk) => data.push(chunk));
         res.on('end', () => {
           resolve(Buffer.concat(data));
         });

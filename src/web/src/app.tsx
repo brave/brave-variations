@@ -70,7 +70,7 @@ async function loadSeed(
 export function FeatureItem(props: {
   feature: FeatureModel;
   className: string;
-}): JSX.Element {
+}) {
   return (
     <a
       className={props.className}
@@ -87,7 +87,7 @@ export function FeatureList(props: {
   title: string;
   className: string;
   features: FeatureModel[];
-}): JSX.Element {
+}) {
   if (props.features.length === 0) {
     return <></>;
   }
@@ -104,7 +104,7 @@ export function FeatureList(props: {
   );
 }
 
-export function ExperimentItem(props: { exp: ExperimentModel }): JSX.Element {
+export function ExperimentItem(props: { exp: ExperimentModel }) {
   const paramsList = props.exp.parameters().map((p) => <li key={p}>{p}</li>);
   const paramsDiv =
     paramsList.length > 0 ? (
@@ -139,7 +139,7 @@ export function ExperimentItem(props: { exp: ExperimentModel }): JSX.Element {
 export function PropertyList(props: {
   caption: string;
   list: string[] | null | undefined;
-}): JSX.Element {
+}) {
   if (props.list == null || props.list.length === 0) return <></>;
   return (
     <ul className="study-meta">
@@ -155,7 +155,7 @@ export function IncludeExcludeList(props: {
   caption: string;
   include: string[] | null | undefined;
   exclude: string[] | null | undefined;
-}): JSX.Element {
+}) {
   return (
     <>
       <PropertyList caption={props.caption} list={props.include} />
@@ -164,10 +164,7 @@ export function IncludeExcludeList(props: {
   );
 }
 
-export function StudyItem(props: {
-  study: StudyModel;
-  filter: StudyFilter;
-}): JSX.Element {
+export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   const filter = props.study.filter();
   return (
     <div className="card mb-3">
@@ -208,12 +205,12 @@ function getCurrentSeedType(searchParams: URLSearchParams): SeedType {
   );
 }
 
-export function NavItem(props: { type: SeedType }): JSX.Element {
+export function NavItem(props: { type: SeedType }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentSeed = getCurrentSeedType(searchParams);
   const className =
     (props.type === currentSeed ? 'active ' : '') + 'nav-item nav-link btn-sm';
-  const handleClick = (): void => {
+  const handleClick = () => {
     setSearchParams((prev) => {
       prev.set('seed', SeedType[props.type]);
       prev.delete('search');
@@ -232,7 +229,7 @@ export function FilterCheckbox(props: {
   htmlName: string;
   checked: boolean;
   toggle: () => void;
-}): JSX.Element {
+}) {
   return (
     <div className="filter">
       <input
@@ -248,9 +245,9 @@ export function FilterCheckbox(props: {
 
 export function CurrentStudyList(props: {
   studies: Map<SeedType, StudyListModel>;
-}): JSX.Element {
+}) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const setParam = (param: string, value: string): void => {
+  const setParam = (param: string, value: string) => {
     setSearchParams((prev) => {
       prev.set(param, value);
       return prev;
@@ -273,12 +270,12 @@ export function CurrentStudyList(props: {
     /* empty */
   }
   filter.showEmptyGroups = searchParams.get('showEmptyGroups') === 'true';
-  const toggleShowEmptyGroups = (): void => {
+  const toggleShowEmptyGroups = () => {
     setParam('showEmptyGroups', filter.showEmptyGroups ? 'false' : 'true');
   };
 
   filter.includeOutdated = searchParams.get('includeOutdated') === 'true';
-  const toggleIncludeOutdated = (): void => {
+  const toggleIncludeOutdated = () => {
     setParam('includeOutdated', filter.includeOutdated ? 'false' : 'true');
   };
 
@@ -318,7 +315,7 @@ class AppState {
   studies = new Map<SeedType, StudyListModel>();
 }
 
-export function App(): JSX.Element {
+export function App() {
   const [state, setState] = React.useState(new AppState());
   React.useEffect(() => {
     const load = async (url: string, type: SeedType): Promise<void> => {

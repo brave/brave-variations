@@ -27,6 +27,7 @@ module.exports = {
         printWidth: 80,
       },
     ],
+    '@typescript-eslint/explicit-function-return-type': 'off',
     'licenses/header': [
       2,
       {
