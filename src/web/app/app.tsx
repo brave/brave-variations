@@ -13,8 +13,8 @@ import {
   type StudyListModel,
 } from './models';
 import { type StudyFilter } from '../../core/study_processor';
-import { SeedType } from '../../core/core_utils';
-import { loadSeedDataAsync } from './seed';
+import { SeedType } from '../../core/base_types';
+import { loadSeedDataAsync } from './seed_loader';
 import { SearchParamManager } from './search_param_manager';
 
 export function FeatureItem(props: {

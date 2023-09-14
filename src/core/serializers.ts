@@ -4,13 +4,45 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import { variations as proto } from '../proto/generated/proto_bundle';
 
+export function getPlatformNameFromString(protoPlatfrom: string): string {
+  const PREFIX = 'PLATFORM_';
+  if (protoPlatfrom.startsWith(PREFIX))
+    return protoPlatfrom.substring(PREFIX.length);
+  return protoPlatfrom;
+}
+
+export function getPlatfromName(protoPlatfrom: proto.Study.Platform): string {
+  return getPlatformNameFromString(proto.Study.Platform[protoPlatfrom]);
+}
+
+export function getChannelNameFromString(
+  protoChannel: string,
+  isBraveSpecific: boolean,
+): string {
+  if (isBraveSpecific) {
+    if (protoChannel === 'STABLE') return 'RELEASE';
+    if (protoChannel === 'CANARY') return 'NIGHTLY';
+  }
+  return protoChannel;
+}
+
+export function getChannelName(
+  protoChannel: proto.Study.Channel,
+  isBraveSpecific: boolean,
+): string {
+  return getChannelNameFromString(
+    proto.Study.Channel[protoChannel],
+    isBraveSpecific,
+  );
+}
+
 function secondToUTCString(unixTimeSeconds: number): string {
   return new Date(unixTimeSeconds * 1000).toUTCString();
 }
 
 export function serializePlatforms(platforms?: string[]): string | undefined {
   if (platforms === undefined) return undefined;
-  return platforms.map((v) => v.substring(9)).join(', ');
+  return platforms.map((v) => getPlatformNameFromString(v)).join(', ');
 }
 
 export function serializeChannels(channels?: string[]): string | undefined {

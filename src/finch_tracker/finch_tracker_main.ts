@@ -5,6 +5,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Command } from '@commander-js/extra-typings';
+import { execSync } from 'child_process';
+
 import { variations as proto } from '../proto/generated/proto_bundle';
 import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
 import {
@@ -14,11 +16,8 @@ import {
 } from '../core/study_processor';
 import { makeSummary, summaryToJson } from '../core/summary';
 import { studyToJSON } from '../core/serializers';
-import { execSync } from 'child_process';
-import {
-  getUsedChromiumVersionUrl,
-  type ProcessingOptions,
-} from '../core/core_utils';
+import { type ProcessingOptions } from '../core/base_types';
+import * as url_utils from '../core/url_utils';
 
 async function fetchChromeSeedData(): Promise<Buffer> {
   const kChromeSeedUrl =
@@ -126,11 +125,14 @@ async function main(): Promise<void> {
   let minMajorVersion = program.opts().chromeMajor;
 
   if (minMajorVersion === undefined) {
-    const chromiumVersionData = await downloadUrl(getUsedChromiumVersionUrl);
+    const chromiumVersionData = await downloadUrl(
+      url_utils.getUsedChromiumVersionUrl,
+    );
     const chromiumVersionString = chromiumVersionData?.toString().split('.')[0];
     if (chromiumVersionString === undefined) {
       program.error(
-        'Failed to get the Chromium version via ' + getUsedChromiumVersionUrl,
+        'Failed to get the Chromium version from ' +
+          url_utils.getUsedChromiumVersionUrl,
       );
       return;
     }

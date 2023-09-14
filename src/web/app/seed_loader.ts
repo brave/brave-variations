@@ -4,9 +4,11 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { variations as proto } from '../../proto/generated/proto_bundle';
-import { SeedType } from '../../core/core_utils';
-import { StudyListModel } from './models';
-import * as core_utils from '../../core/core_utils';
+import { SeedType, type ProcessingOptions } from '../../core/base_types';
+import { StudyListModel, StudyModel } from './models';
+import { ProcessedStudy } from '../../core/study_processor';
+
+import * as url_utils from '../../core/url_utils';
 
 async function loadFile(
   url: string,
@@ -27,7 +29,7 @@ async function loadFile(
 }
 
 const getCurrentMajorVersion = new Promise<number>((resolve) => {
-  loadFile(core_utils.getUsedChromiumVersionUrl, 'text')
+  loadFile(url_utils.getUsedChromiumVersionUrl, 'text')
     .then((chromeVersionData) => {
       if (chromeVersionData !== undefined)
         resolve(chromeVersionData.split('.')[0] ?? 0);
@@ -41,22 +43,26 @@ async function loadSeedFromUrl(url: string, type: SeedType) {
   const seedBytes = new Uint8Array(data);
   const seed = proto.VariationsSeed.decode(seedBytes);
 
-  const options: core_utils.ProcessingOptions = {
+  const options: ProcessingOptions = {
     minMajorVersion: await getCurrentMajorVersion,
   };
-  return new StudyListModel(seed.study, options, type);
+  const studies = seed.study.map((study, index) => {
+    const uniqueId = type * 1000000 + index;
+    return new StudyModel(new ProcessedStudy(study, options), type, uniqueId);
+  });
+  return new StudyListModel(studies);
 }
 
 export function loadSeedDataAsync(
   cb: (type: SeedType, studyList: StudyListModel) => void,
 ) {
-  loadSeedFromUrl(core_utils.variationsProductionUrl, SeedType.PRODUCTION)
+  loadSeedFromUrl(url_utils.variationsProductionUrl, SeedType.PRODUCTION)
     .then(cb.bind(SeedType.PRODUCTION))
     .catch(console.error);
-  loadSeedFromUrl(core_utils.variationsStagingUrl, SeedType.STAGING)
+  loadSeedFromUrl(url_utils.variationsStagingUrl, SeedType.STAGING)
     .then(cb.bind(SeedType.STAGING))
     .catch(console.error);
-  loadSeedFromUrl(core_utils.variationsUpstreamUrl, SeedType.UPSTREAM)
+  loadSeedFromUrl(url_utils.variationsUpstreamUrl, SeedType.UPSTREAM)
     .then(cb.bind(SeedType.UPSTREAM))
     .catch(() => {
       /* ignore an error */

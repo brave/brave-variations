@@ -2,17 +2,8 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
-import { variations as proto } from '../proto/generated/proto_bundle';
 
-export enum SeedType {
-  PRODUCTION,
-  STAGING,
-  UPSTREAM,
-}
-
-export class ProcessingOptions {
-  minMajorVersion: number;
-}
+import { SeedType } from './base_types';
 
 export const variationsProductionUrl = 'https://variations.brave.com/seed';
 export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
@@ -53,36 +44,4 @@ export function getGitHubStudyConfigUrl(
 
 export function getGriffinUiUrl(study: string): string {
   return `https://griffin.brave.com/?seed=UPSTREAM&search=${study}`;
-}
-
-export function getChannelNameFromString(
-  protoChannel: string,
-  isBraveSpecific: boolean,
-): string {
-  if (isBraveSpecific) {
-    if (protoChannel === 'STABLE') return 'RELEASE';
-    if (protoChannel === 'CANARY') return 'NIGHTLY';
-  }
-  return protoChannel;
-}
-
-export function getChannelName(
-  protoChannel: proto.Study.Channel,
-  isBraveSpecific: boolean,
-): string {
-  return getChannelNameFromString(
-    proto.Study.Channel[protoChannel],
-    isBraveSpecific,
-  );
-}
-
-export function getPlatformNameFromString(protoPlatfrom: string): string {
-  const PREFIX = 'PLATFORM_';
-  if (protoPlatfrom.startsWith(PREFIX))
-    return protoPlatfrom.substring(PREFIX.length);
-  return protoPlatfrom;
-}
-
-export function getPlatfromName(protoPlatfrom: proto.Study.Platform): string {
-  return getPlatformNameFromString(proto.Study.Platform[protoPlatfrom]);
 }

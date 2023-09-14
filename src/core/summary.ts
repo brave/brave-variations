@@ -2,6 +2,8 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
+import { createHash } from 'node:crypto';
+
 import { type variations as proto } from '../proto/generated/proto_bundle';
 import {
   type ProcessedStudy,
@@ -9,8 +11,9 @@ import {
   processStudyList,
   priorityToText,
 } from './study_processor';
-import { createHash } from 'node:crypto';
-import * as utils from './core_utils';
+import { SeedType, type ProcessingOptions } from './base_types';
+
+import * as url_utils from './url_utils';
 import * as config from '../config';
 
 enum ItemAction {
@@ -94,7 +97,7 @@ function getOverallAudience(
 export function makeSummary(
   oldSeed: proto.VariationsSeed,
   newSeed: proto.VariationsSeed,
-  options: utils.ProcessingOptions,
+  options: ProcessingOptions,
   minPriority: StudyPriority,
 ): Map<StudyPriority, SummaryItem[]> {
   const summary = new Map<StudyPriority, SummaryItem[]>();
@@ -190,7 +193,7 @@ function getGitHubDiffUrl(
 ): string {
   const path = `study/all-by-name/${study}`;
   const pathHash = sha256(path);
-  return `${utils.getGitHubStorageUrl()}/commit/${commit}#diff-${pathHash}`;
+  return `${url_utils.getGitHubStorageUrl()}/commit/${commit}#diff-${pathHash}`;
 }
 
 class TextBlock {
@@ -262,9 +265,9 @@ export function summaryToJson(
       hasNewKillSwitches ||= e.isNewKillSwitch();
       const f = affectedFeaturesToText(e.affectedFeatures);
       const block = new TextBlock(e.actionToText());
-      block.addLink(utils.getGriffinUiUrl(e.studyName), e.studyName);
+      block.addLink(url_utils.getGriffinUiUrl(e.studyName), e.studyName);
       block.addLink(
-        utils.getGitHubStudyConfigUrl(e.studyName, utils.SeedType.UPSTREAM),
+        url_utils.getGitHubStudyConfigUrl(e.studyName, SeedType.UPSTREAM),
         'Config',
       );
       if (newGitSha1 !== undefined) {

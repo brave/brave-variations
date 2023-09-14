@@ -5,18 +5,13 @@
 
 import { type variations as proto } from '../../proto/generated/proto_bundle';
 import {
-  ProcessedStudy,
+  type ProcessedStudy,
   type StudyFilter,
   type StudyPriority,
 } from '../../core/study_processor';
-import {
-  getChannelName,
-  getPlatfromName,
-  getFeatureSearchUrl,
-  type ProcessingOptions,
-  getGitHubStudyConfigUrl,
-  SeedType,
-} from '../../core/core_utils';
+import * as url_utils from '../../core/url_utils';
+import { SeedType } from '../../core/base_types';
+import { getChannelName, getPlatfromName } from '../../core/serializers';
 
 export class FeatureModel {
   name: string;
@@ -39,7 +34,7 @@ export class ExperimentModel {
     return features.map((f) => {
       return {
         name: f,
-        link: getFeatureSearchUrl(f),
+        link: url_utils.getFeatureSearchUrl(f),
       };
     });
   }
@@ -79,18 +74,11 @@ export class ExperimentModel {
 
 export class StudyModel {
   readonly processedStudy: ProcessedStudy;
-  readonly options: ProcessingOptions;
   readonly seedType: SeedType;
   readonly id: number;
 
-  constructor(
-    study: proto.IStudy,
-    options: ProcessingOptions,
-    seedType: SeedType,
-    id: number,
-  ) {
-    this.processedStudy = new ProcessedStudy(study, options);
-    this.options = options;
+  constructor(processedStudy: ProcessedStudy, seedType: SeedType, id: number) {
+    this.processedStudy = processedStudy;
     this.seedType = seedType;
     this.id = id;
   }
@@ -130,21 +118,14 @@ export class StudyModel {
   }
 
   getConfigUrl(): string {
-    return getGitHubStudyConfigUrl(this.name(), this.seedType);
+    return url_utils.getGitHubStudyConfigUrl(this.name(), this.seedType);
   }
 }
 
 export class StudyListModel {
   readonly processedStudies: StudyModel[];
-  constructor(
-    studies: proto.IStudy[],
-    options: ProcessingOptions,
-    type: SeedType,
-  ) {
-    this.processedStudies = studies.map((study, index) => {
-      const uniqueId = type * 1000000 + index;
-      return new StudyModel(study, options, type, uniqueId);
-    });
+  constructor(studies: StudyModel[]) {
+    this.processedStudies = studies;
   }
 
   filterStudies(f: StudyFilter): StudyModel[] {

@@ -4,7 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import { isFeatureBlocklisted, isStudyNameBlocklisted } from './blocklists';
 import { variations as proto } from '../proto/generated/proto_bundle';
-import { type ProcessingOptions } from './core_utils';
+import { type ProcessingOptions } from './base_types';
 import { matchesMaxVersion, parseVersionPattern } from './version';
 
 const SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] = [
