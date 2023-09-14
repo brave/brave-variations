@@ -1,4 +1,4 @@
-name: src-tests
+name: Tracker&Griffin tests
 
 on:
   pull_request:
@@ -19,10 +19,10 @@ jobs:
       - name: npm install
         run: npm install
 
-      - name: npm run build
+      - name: build
         run: npm run build
 
-      - name: lint
+      - name: run tests
         run: npm run test
 
       - name: lint

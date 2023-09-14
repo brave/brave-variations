@@ -2,95 +2,26 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
-import * as fs from 'fs';
-import * as path from 'path';
 import { Command } from '@commander-js/extra-typings';
-import { execSync } from 'child_process';
-
-import { variations as proto } from '../proto/generated/proto_bundle';
-import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
-import {
-  ProcessedStudy,
-  StudyPriority,
-  priorityToText,
-} from '../core/study_processor';
-import { makeSummary, summaryToJson } from '../core/summary';
-import { studyToJSON } from '../core/serializers';
+import * as fs from 'fs';
 import { type ProcessingOptions } from '../core/base_types';
+import { StudyPriority } from '../core/study_processor';
+import { makeSummary, summaryToJson } from '../core/summary';
 import * as url_utils from '../core/url_utils';
+import { variations as proto } from '../proto/generated/proto_bundle';
+import { downloadUrl, getSeedPath } from './node_utils';
+import {
+  fetchChromeSeedData,
+  storeDataToDirectory,
+  commitAllChanges,
+} from './tracker_lib';
 
-async function fetchChromeSeedData(): Promise<Buffer> {
-  const kChromeSeedUrl =
-    'https://clientservices.googleapis.com/chrome-variations/seed';
-  return await downloadUrl(kChromeSeedUrl);
-}
-
-function serializeStudiesToDirectory(
-  seedData: Buffer,
-  directory: string,
-  options: ProcessingOptions,
-): void {
-  const seed = proto.VariationsSeed.decode(seedData);
-  const exps = new Map<string, unknown[]>();
-  let cnt = 0;
-  const addStudy = (path: string, study: proto.IStudy) => {
-    const json = studyToJSON(study);
-    const list = exps.get(path);
-    if (list !== undefined) list.push(json);
-    else exps.set(path, [json]);
-    cnt++;
-  };
-
-  for (const study of seed.study) {
-    const name = study.name;
-    const processed = new ProcessedStudy(study, options);
-    processed.postProcessBeforeSerialization();
-    addStudy(path.join('all-by-name', name), study);
-    if (!processed.studyDetails.isOutdated()) {
-      const priority = processed.getPriority();
-      if (priority > StudyPriority.NON_INTERESTING)
-        addStudy(path.join(priorityToText(priority), name), study);
-    }
-  }
-
-  console.log(`${cnt} studies processed`);
-  for (const [name, json] of exps) {
-    const fileName = `${directory}/${name}`;
-    const dirname = path.dirname(fileName);
-    fs.mkdirSync(dirname, { recursive: true });
-    fs.writeFileSync(fileName, JSON.stringify(json, null, 2) + '\n');
-  }
-}
-
-function commitAllChanges(directory: string): string | undefined {
-  const utcDate = new Date().toUTCString();
-  const diff = execSync('git status --porcelain', { cwd: directory });
-  if (diff.length <= 2) {
-    console.log('Nothing to commit');
-    return undefined;
-  }
-  execSync('git add -A', { cwd: directory });
-  execSync(`git commit -m "Update seed ${utcDate}"`, { cwd: directory });
-  const sha1 = execSync('git rev-parse HEAD', { cwd: directory })
-    .toString()
-    .trim();
-  console.log('Changes committed, new commit hash', sha1);
-
-  return sha1;
-}
-
-function storeDataToDirectory(
-  seedData: Buffer,
-  directory: string,
-  options: ProcessingOptions,
-): void {
-  const studyDirectory = getStudyPath(directory);
-  fs.rmSync(studyDirectory, { recursive: true, force: true });
-  serializeStudiesToDirectory(seedData, studyDirectory, options);
-
-  // TODO: maybe use s3 instead of git?
-  fs.writeFileSync(getSeedPath(directory), seedData);
-}
+// import { Command } from '@commander-js/extra-typings';
+// import { ProcessingOptions } from 'core/base_types';
+// import { StudyPriority } from 'core/study_processor';
+// import { makeSummary, summaryToJson } from 'core/summary';
+// import { variations } from 'proto/generated/proto_bundle';
+// import { downloadUrl, getSeedPath } from './node_utils';
 
 async function main(): Promise<void> {
   const program = new Command()

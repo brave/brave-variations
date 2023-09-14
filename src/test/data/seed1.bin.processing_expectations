@@ -1,0 +1,298 @@
+{
+  "all-by-name/BetaStudy": [
+    {
+      "name": "BetaStudy",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": "BETA",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "all-by-name/BlocklistedStudy": [
+    {
+      "name": "BlocklistedStudy",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
+              "Ukm"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "all-by-name/EndedByDate": [
+    {
+      "name": "EndedByDate",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID",
+        "end_date": "Wed, 14 Sep 2022 17:10:24 GMT"
+      }
+    }
+  ],
+  "all-by-name/EndedMaxVersion": [
+    {
+      "name": "EndedMaxVersion",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "max_version": "99.1.49.83",
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "all-by-name/Stable-100": [
+    {
+      "name": "Stable-100",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 99,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        },
+        {
+          "name": "Default",
+          "probability_weight": 1
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "all-by-name/Stable-50": [
+    {
+      "name": "Stable-50",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 50,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        },
+        {
+          "name": "Default",
+          "probability_weight": 50
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "all-by-name/Stable-min": [
+    {
+      "name": "Stable-min",
+      "experiment": [
+        {
+          "name": "Enabled_1",
+          "probability_weight": 5,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        },
+        {
+          "name": "Control_1",
+          "probability_weight": 45
+        },
+        {
+          "name": "Default",
+          "probability_weight": 50
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "all-by-name/StudyKillSwitch": [
+    {
+      "name": "StudyKillSwitch",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "max_version": "299.0.0.0",
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "blocklisted/BlocklistedStudy": [
+    {
+      "name": "BlocklistedStudy",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
+              "Ukm"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "stable-100%/Stable-100": [
+    {
+      "name": "Stable-100",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 99,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        },
+        {
+          "name": "Default",
+          "probability_weight": 1
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "stable-50%/Stable-50": [
+    {
+      "name": "Stable-50",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 50,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        },
+        {
+          "name": "Default",
+          "probability_weight": 50
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "stable-emergency-kill-switch/StudyKillSwitch": [
+    {
+      "name": "StudyKillSwitch",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "max_version": "299.0.0.0",
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ],
+  "stable-min/Stable-min": [
+    {
+      "name": "Stable-min",
+      "experiment": [
+        {
+          "name": "Enabled_1",
+          "probability_weight": 5,
+          "feature_association": {
+            "enable_feature": [
+              "SomeFeature"
+            ]
+          }
+        },
+        {
+          "name": "Control_1",
+          "probability_weight": 45
+        },
+        {
+          "name": "Default",
+          "probability_weight": 50
+        }
+      ],
+      "filter": {
+        "channel": "STABLE",
+        "platform": "WINDOWS, MAC, LINUX, ANDROID"
+      }
+    }
+  ]
+}
