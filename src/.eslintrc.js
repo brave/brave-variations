@@ -16,6 +16,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   ignorePatterns: [
+    '*.js',
     'proto/generated/*',
     'node_modules/*',
   ],
