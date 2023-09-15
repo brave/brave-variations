@@ -6,12 +6,8 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import {
-  type ExperimentModel,
-  type FeatureModel,
-  type StudyModel,
-  type StudyListModel,
-} from './models';
+import { type StudyModel, type StudyListModel } from './study_model';
+import { type FeatureModel, type ExperimentModel } from './experiment_model';
 import { type StudyFilter } from '../../core/study_processor';
 import { SeedType } from '../../core/base_types';
 import { loadSeedDataAsync } from './seed_loader';
