@@ -21,7 +21,7 @@ export class ExperimentModel {
     this.studyModel = studyModel;
   }
 
-  getFeatures(features?: string[] | null): FeatureModel[] {
+  private getFeatures(features?: string[] | null): FeatureModel[] {
     if (features == null) {
       return [];
     }

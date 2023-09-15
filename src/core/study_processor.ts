@@ -34,6 +34,10 @@ export class StudyFilter {
   includeOutdated = false;
   showEmptyGroups = false;
   search?: string; // search in study/exp/feature names
+
+  constructor(params?: Partial<StudyFilter>) {
+    Object.assign(this, params);
+  }
 }
 
 export class ProcessedStudy {
