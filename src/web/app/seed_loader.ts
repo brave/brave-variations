@@ -19,7 +19,11 @@ async function loadFile(
     xhr.open('GET', url, true /* async */);
     xhr.responseType = responseType;
     xhr.onload = () => {
-      resolve(xhr.response);
+      if (xhr.status === 200) {
+        resolve(xhr.response);
+      } else {
+        reject(new Error('HTTP status:' + xhr.status));
+      }
     };
     xhr.onerror = (err) => {
       reject(err);
