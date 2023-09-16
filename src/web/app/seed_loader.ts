@@ -64,13 +64,13 @@ export function loadSeedDataAsync(
   cb: (type: SeedType, studyList: StudyListModel) => void,
 ) {
   loadSeedFromUrl(url_utils.variationsProductionUrl, SeedType.PRODUCTION)
-    .then(cb.bind(SeedType.PRODUCTION))
+    .then(cb.bind(cb, SeedType.PRODUCTION))
     .catch(console.error);
   loadSeedFromUrl(url_utils.variationsStagingUrl, SeedType.STAGING)
-    .then(cb.bind(SeedType.STAGING))
+    .then(cb.bind(cb, SeedType.STAGING))
     .catch(console.error);
   loadSeedFromUrl(url_utils.variationsUpstreamUrl, SeedType.UPSTREAM)
-    .then(cb.bind(SeedType.UPSTREAM))
+    .then(cb.bind(cb, SeedType.UPSTREAM))
     .catch(() => {
       /* ignore an error */
     });
