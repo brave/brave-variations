@@ -13,14 +13,25 @@ export const variationsUpstreamUrl =
 export const getUsedChromiumVersionUrl =
   'https://versions.brave.com/latest/release-windows-x64-chromium.version';
 
-export function getFeatureSearchUrl(feature: string): string {
+function makeSourceGraphUrl(query: string, repo: string, file: string) {
   return (
-    'https://sourcegraph.com/search?q=context:global+repo:%28%5Egithub%5C.com' +
-    '/brave/brave-core%24%7C%5Egithub%5C.com/chromium/chromium%24%29+/' +
-    '%28BASE_FEATURE%7CBASE_DECLARE_FEATURE%29%5C%28%5Cs*%5Cw*%2C%3F%5Cs*k%3F' +
-    feature +
-    '/+file:.*%28.cc%7C.h%7C.mm%7C.java%29%28.patch%29*&' +
-    'patternType=standard&sm=1&groupBy=repo'
+    `https://sourcegraph.com/search?q=context:global` +
+    `+${encodeURIComponent(query)}` +
+    `+repo:${encodeURIComponent(repo)}` +
+    `+file:${encodeURIComponent(file)}`
+  );
+}
+
+export function getFeatureSearchUrl(feature: string): string {
+  const BRAVE_CORE_OR_CHROME_REPO_PATTERN =
+    '^(github\\.com/brave/brave-core|github\\.com/chromium/chromium)$';
+  const FILES_WITH_FEATURES = '.*(.cc|.h|.mm)(.patch)?';
+
+  return makeSourceGraphUrl(
+    `/(BASE_FEATURE|BASE_DECLARE_FEATURE)` +
+      `\\((\\s*\\w+,)?\\s*(k|\\")?${feature}(Feature)?(\\")?\\s*(,|\\))/`,
+    BRAVE_CORE_OR_CHROME_REPO_PATTERN,
+    FILES_WITH_FEATURES,
   );
 }
 
@@ -32,13 +43,14 @@ export function getGitHubStudyConfigUrl(
   study: string,
   seedType: SeedType,
 ): string {
+  const BRAVE_VARIATIONS_REPO_PATTERN = '^github\\.com/brave/brave-variations$';
   if (seedType === SeedType.UPSTREAM)
     return `${getGitHubStorageUrl()}/blob/main/study/all-by-name/${study}`;
   const branch = seedType === SeedType.PRODUCTION ? 'production' : 'main';
-  return (
-    `https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/` +
-    `brave/brave-variations%24%40${branch}+%22name%22:+%22${study}` +
-    `%22++file:seed/seed.json&patternType=standard&sm=1&groupBy=repo`
+  return makeSourceGraphUrl(
+    `"name": "${study}"`,
+    `${BRAVE_VARIATIONS_REPO_PATTERN}@${branch}`,
+    'seed/seed.json',
   );
 }
 
