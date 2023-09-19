@@ -200,7 +200,7 @@ export class StudyDetails {
       this.totalWeight += weight;
       if (
         !e.name.startsWith('Default') &&
-        !e.name.startsWith('Control_') &&
+        !e.name.startsWith('Control') &&
         !areFeaturesInDefaultStates(e)
       ) {
         this.totalNonDefaultGroupsWeight += weight;
