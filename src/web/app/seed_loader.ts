@@ -46,10 +46,13 @@ async function loadSeedFromUrl(url: string, type: SeedType) {
   const data = await loadFile(url, 'arraybuffer');
   const seedBytes = new Uint8Array(data);
   const seed = proto.VariationsSeed.decode(seedBytes);
+  const isBrave = type !== SeedType.UPSTREAM;
 
-  const options: ProcessingOptions = {
-    minMajorVersion: await getCurrentMajorVersion,
-  };
+  // Desktop/Android could use a different major chrome version.
+  // Use -1 version for Brave studies to make sure that we don't cut
+  // anything important.
+  const minMajorVersion = (await getCurrentMajorVersion) - (isBrave ? 1 : 0);
+  const options: ProcessingOptions = { minMajorVersion };
   const studies: StudyModel[] = [];
   seed.study.forEach((study, index) => {
     const processed = new ProcessedStudy(study, options);
@@ -64,6 +67,7 @@ async function loadSeedFromUrl(url: string, type: SeedType) {
   return new StudyListModel(studies);
 }
 
+// Loads all available seeds asynchronously, updates React App state via the callback.
 export function loadSeedDataAsync(
   cb: (type: SeedType, studyList: StudyListModel) => void,
 ) {
@@ -76,6 +80,6 @@ export function loadSeedDataAsync(
   loadSeedFromUrl(url_utils.variationsUpstreamUrl, SeedType.UPSTREAM)
     .then(cb.bind(cb, SeedType.UPSTREAM))
     .catch(() => {
-      /* ignore an error */
+      /* ignore an error, a non-public endpoint */
     });
 }

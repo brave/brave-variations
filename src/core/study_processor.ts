@@ -15,11 +15,17 @@ const SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] = [
 ];
 
 export enum StudyChannelTarget {
+  // filter.channel includes DEV or CANNERY, doesn't include STABLE or BETA.
   DEV_OR_CANARY,
+
+  // filter.channel includes BETA, doesn't include STABLE
   BETA,
+
+  // filter.channel includes STABLE
   STABLE,
 }
 
+// See the priority descriptions at https://github.com/brave/finch-data-private/
 export enum StudyPriority {
   NON_INTERESTING,
   BLOCKLISTED,
@@ -38,8 +44,26 @@ export class StudyFilter {
   constructor(params?: Partial<StudyFilter>) {
     Object.assign(this, params);
   }
+
+  matches(s: ProcessedStudy): boolean {
+    if (this.search !== undefined) {
+      let found = false;
+      found ||= s.study.name.search(this.search) !== -1;
+      for (const e of s.study.experiment ?? [])
+        found ||= e.name.search(this.search) !== -1;
+      for (const feature of s.affectedFeatures)
+        found ||= feature.search(this.search) !== -1;
+      if (!found) return false;
+    }
+
+    if (s.getPriority() < this.minPriority) return false;
+    if (s.studyDetails.isOutdated() && !this.includeOutdated) return false;
+    return true;
+  }
 }
 
+// A wrapper over a raw proto.Study that processes it and collects some extra
+// data.
 export class ProcessedStudy {
   study: proto.IStudy;
   studyDetails: StudyDetails;
@@ -54,22 +78,6 @@ export class ProcessedStudy {
 
   getPriority(): StudyPriority {
     return this.studyDetails.getPriority();
-  }
-
-  matchesFilter(f: StudyFilter): boolean {
-    if (f.search !== undefined) {
-      let found = false;
-      found ||= this.study.name.search(f.search) !== -1;
-      for (const e of this.study.experiment ?? [])
-        found ||= e.name.search(f.search) !== -1;
-      for (const feature of this.affectedFeatures)
-        found ||= feature.search(f.search) !== -1;
-      if (!found) return false;
-    }
-
-    if (this.getPriority() < f.minPriority) return false;
-    if (this.studyDetails.isOutdated() && !f.includeOutdated) return false;
-    return true;
   }
 
   stripEmptyFilterGroups(): void {
@@ -273,6 +281,7 @@ function filterPlatforms(
   return platform.filter((p) => SUPPORTED_PLATFORMS.includes(p));
 }
 
+// Processes a list of studies and groups it according to study.name.
 export function processStudyList(
   list: proto.IStudy[],
   minPriority: StudyPriority,

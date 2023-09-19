@@ -17,7 +17,7 @@ import { ExperimentModel } from './experiment_model';
 export class StudyModel {
   readonly processedStudy: ProcessedStudy;
   readonly seedType: SeedType;
-  readonly id: number;
+  readonly id: number; // unique id used as keys in React lists.
 
   constructor(processedStudy: ProcessedStudy, seedType: SeedType, id: number) {
     this.processedStudy = processedStudy;
@@ -60,7 +60,7 @@ export class StudyModel {
   }
 
   getConfigUrl(): string {
-    return url_utils.getGitHubStudyConfigUrl(this.name(), this.seedType);
+    return url_utils.getStudyRawConfigUrl(this.name(), this.seedType);
   }
 }
 
@@ -71,8 +71,6 @@ export class StudyListModel {
   }
 
   filterStudies(f: StudyFilter): StudyModel[] {
-    return this.processedStudies.filter((s) =>
-      s.processedStudy.matchesFilter(f),
-    );
+    return this.processedStudies.filter((s) => f.matches(s.processedStudy));
   }
 }

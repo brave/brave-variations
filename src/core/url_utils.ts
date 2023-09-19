@@ -10,6 +10,8 @@ export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
 export const variationsUpstreamUrl =
   'https://griffin.brave.com/finch-data-private/seed.bin';
 
+// The API is used to detect the current Chromium major version (i.e. cr117).
+// windows-x64 is used just because it's the lagest desktop.
 export const getUsedChromiumVersionUrl =
   'https://versions.brave.com/latest/release-windows-x64-chromium.version';
 
@@ -22,6 +24,7 @@ function makeSourceGraphUrl(query: string, repo: string, file: string) {
   );
 }
 
+// Returns a sourcegraph.com link to search the given feature.
 export function getFeatureSearchUrl(feature: string): string {
   const BRAVE_CORE_OR_CHROME_REPO_PATTERN =
     '^(github\\.com/brave/brave-core|github\\.com/chromium/chromium)$';
@@ -39,7 +42,8 @@ export function getGitHubStorageUrl(): string {
   return 'https://github.com/brave/finch-data-private';
 }
 
-export function getGitHubStudyConfigUrl(
+// Returns a link to see at the raw study config.
+export function getStudyRawConfigUrl(
   study: string,
   seedType: SeedType,
 ): string {
@@ -54,6 +58,7 @@ export function getGitHubStudyConfigUrl(
   );
 }
 
+// Returns a link to see the study config at griffin.brave.com.
 export function getGriffinUiUrl(study: string): string {
   return `https://griffin.brave.com/?seed=UPSTREAM&search=${study}`;
 }

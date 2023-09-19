@@ -273,7 +273,7 @@ export function summaryToJson(
       const block = new TextBlock(e.actionToText());
       block.addLink(url_utils.getGriffinUiUrl(e.studyName), e.studyName);
       block.addLink(
-        url_utils.getGitHubStudyConfigUrl(e.studyName, SeedType.UPSTREAM),
+        url_utils.getStudyRawConfigUrl(e.studyName, SeedType.UPSTREAM),
         'Config',
       );
       if (newGitSha1 !== undefined) {

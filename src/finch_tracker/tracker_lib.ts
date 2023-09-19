@@ -23,6 +23,7 @@ export async function fetchChromeSeedData(): Promise<Buffer> {
   return await downloadUrl(kChromeSeedUrl);
 }
 
+// Processes, groups by name and converts to JSON a list of studies.
 export function serializeStudies(
   seedData: Buffer,
   options: ProcessingOptions,
@@ -50,6 +51,7 @@ export function serializeStudies(
   return map;
 }
 
+// Makes a new git commit (if we have changes), returns the hash.
 export function commitAllChanges(directory: string): string | undefined {
   const utcDate = new Date().toUTCString();
   const diff = execSync('git status --porcelain', { cwd: directory });
@@ -67,6 +69,8 @@ export function commitAllChanges(directory: string): string | undefined {
   return sha1;
 }
 
+// Processes and serializes a given seed to disk (including grouping to
+// subdirectories/files).
 export function storeDataToDirectory(
   seedData: Buffer,
   directory: string,
@@ -83,6 +87,6 @@ export function storeDataToDirectory(
     fs.writeFileSync(fileName, JSON.stringify(json, null, 2) + '\n');
   }
 
-  // TODO: maybe use s3 instead of git?
+  // TODO: maybe start to use s3 instead of git one day?
   fs.writeFileSync(getSeedPath(directory), seedData);
 }

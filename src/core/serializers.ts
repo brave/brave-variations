@@ -36,7 +36,7 @@ export function getChannelName(
   );
 }
 
-function secondToUTCString(unixTimeSeconds: number): string {
+function unixSecondToUTCString(unixTimeSeconds: number): string {
   return new Date(unixTimeSeconds * 1000).toUTCString();
 }
 
@@ -50,6 +50,8 @@ export function serializeChannels(channels?: string[]): string | undefined {
   return channels.join(', ');
 }
 
+// Converts a study to JSON that is ready to be serialized. Some field are
+// removed, some are converted to a human readable format.
 export function studyToJSON(study: proto.IStudy): Record<string, any> {
   const msg = proto.Study.fromObject(study);
   const json = msg.toJSON();
@@ -58,9 +60,9 @@ export function studyToJSON(study: proto.IStudy): Record<string, any> {
   delete json.activation_type;
   if (filter !== undefined) {
     if (filter.end_date !== undefined)
-      filter.end_date = secondToUTCString(filter.end_date);
+      filter.end_date = unixSecondToUTCString(filter.end_date);
     if (filter.start_date !== undefined) {
-      filter.start_date = secondToUTCString(filter.start_date);
+      filter.start_date = unixSecondToUTCString(filter.start_date);
     }
     filter.platform = serializePlatforms(filter.platform);
     filter.channel = serializeChannels(filter.channel);

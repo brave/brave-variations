@@ -40,7 +40,10 @@ async function main(): Promise<void> {
     )
     .option('--no-update', "Don't make any disk changes")
     .option('--no-commit', "Just update <finch_storage>, don't create a commit")
-    .option('-o --output <file>', 'A file to create a summary')
+    .option(
+      '-o --output <file>',
+      'A json file in slack mrkdwn format to output the summary',
+    )
     .parse();
 
   const storageDir = program.args[0];
@@ -87,6 +90,7 @@ async function main(): Promise<void> {
   let newGitSha1: string | undefined;
 
   if (createSummary) {
+    // Read the previous seed in advance, because the next step could update it.
     previousSeedData = fs.readFileSync(
       previousSeedFile ?? getSeedPath(storageDir),
     );
@@ -105,7 +109,7 @@ async function main(): Promise<void> {
       previousSeed,
       seed,
       options,
-      StudyPriority.STABLE_MIN,
+      StudyPriority.STABLE_MIN, // the min priority we care in the summary.
     );
     const summaryJSON = summaryToJson(summary, newGitSha1);
     if (summaryJSON !== undefined) {
