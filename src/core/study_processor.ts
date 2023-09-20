@@ -155,7 +155,14 @@ export class StudyDetails {
       console.error('Bad study ' + JSON.stringify(study));
       return;
     }
-    this.isEmergency = study.name.match(/KillSwitch/) !== null;
+    const isKillSwitch = (s: string) => {
+      return s.match(/(K|k)ill(S|s)witch/) !== null;
+    };
+    this.isEmergency =
+      isKillSwitch(study.name) ||
+      study.experiment?.find(
+        (e) => e.probability_weight > 0 && isKillSwitch(e.name),
+      ) !== undefined;
 
     if (maxVersion != null) {
       const parsed = parseVersionPattern(maxVersion);
