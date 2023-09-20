@@ -108,6 +108,8 @@ export function IncludeExcludeList(props: {
 
 export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   const filter = props.study.filter();
+  const minVersion = props.study.filter()?.min_version ?? '';
+  const maxVersion = props.study.filter()?.max_version ?? '';
   const experiments = React.useMemo(
     () => props.study.filterExperiments(props.filter),
     [props.study, props.filter],
@@ -127,6 +129,12 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
         </ul>
       </div>
       <div className="card-footer">
+        {(minVersion !== '' || maxVersion !== '') && (
+          <div className="study-meta">
+            Version range:[ {minVersion !== '' ? minVersion : 'any'} -{' '}
+            {maxVersion !== '' ? maxVersion : 'any'}]
+          </div>
+        )}
         <PropertyList caption="Channels" list={props.study.channels()} />
         <PropertyList caption="Platforms" list={props.study.platforms()} />
         <IncludeExcludeList
