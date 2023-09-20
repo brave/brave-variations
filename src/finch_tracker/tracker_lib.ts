@@ -38,14 +38,16 @@ export function serializeStudies(
   };
 
   for (const study of seed.study) {
-    const name = study.name;
+    const sanitizedName = path
+      .normalize(study.name)
+      .replace(/^(\.\.(\/|\\|$))+/, '');
     const processed = new ProcessedStudy(study, options);
     processed.postProcessBeforeSerialization();
-    addStudy(path.join('all-by-name', name), study);
+    addStudy(path.join('all-by-name', sanitizedName), study);
     if (!processed.studyDetails.isOutdated()) {
       const priority = processed.getPriority();
       if (priority > StudyPriority.NON_INTERESTING)
-        addStudy(path.join(priorityToText(priority), name), study);
+        addStudy(path.join(priorityToText(priority), sanitizedName), study);
     }
   }
   return map;
