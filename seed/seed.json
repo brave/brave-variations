@@ -1363,11 +1363,22 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
+                    "NIGHTLY"
                 ],
-                "min_version": "105.1.50.42",
+                "country": [
+                    "CA",
+                    "DE",
+                    "FR",
+                    "GB",
+                    "US",
+                    "AT",
+                    "ES",
+                    "MX",
+                    "BR",
+                    "AR",
+                    "IN"
+                ],
+                "min_version": "117.1.60.41",
                 "platform": [
                     "WINDOWS",
                     "MAC",
