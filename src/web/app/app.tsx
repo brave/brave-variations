@@ -113,8 +113,8 @@ export function IncludeExcludeList(props: {
 
 export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   const filter = props.study.filter();
-  const minVersion = props.study.filter()?.min_version ?? '';
-  const maxVersion = props.study.filter()?.max_version ?? '';
+  const minVersion = filter?.min_version ?? '';
+  const maxVersion = filter?.max_version ?? '';
   const experiments = React.useMemo(
     () => props.study.filterExperiments(props.filter),
     [props.study, props.filter],
@@ -157,8 +157,11 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   );
 }
 
-export function NavItem(props: { type: SeedType }) {
-  const paramManager = new SearchParamManager(useSearchParams());
+export function NavItem(props: {
+  type: SeedType;
+  searchParamManager: SearchParamManager;
+}) {
+  const paramManager = props.searchParamManager;
   const className =
     (props.type === paramManager.currentSeed ? 'active ' : '') +
     'nav-item nav-link btn-sm';
@@ -194,8 +197,9 @@ export function FilterCheckbox(props: {
 
 export function CurrentStudyList(props: {
   studies: Map<SeedType, StudyListModel>;
+  searchParamManager: SearchParamManager;
 }) {
-  const paramManager = new SearchParamManager(useSearchParams());
+  const paramManager = props.searchParamManager;
   const studies = React.useMemo(
     () =>
       props.studies
@@ -250,6 +254,12 @@ export function App() {
     loadSeedDataAsync(updateState);
   }, []);
 
+  const searchParams = useSearchParams();
+  const searchParamManager = React.useMemo(
+    () => new SearchParamManager(searchParams),
+    [searchParams],
+  );
+
   const hasUpstream = state.studies.get(SeedType.UPSTREAM) !== undefined;
 
   return (
@@ -257,13 +267,27 @@ export function App() {
       <section className="navbar navbar-light bg-light">
         <h1>Brave Variations</h1>
         <nav className="nav nav-pills">
-          <NavItem type={SeedType.PRODUCTION} />
-          <NavItem type={SeedType.STAGING} />
-          {hasUpstream && <NavItem type={SeedType.UPSTREAM} />}
+          <NavItem
+            type={SeedType.PRODUCTION}
+            searchParamManager={searchParamManager}
+          />
+          <NavItem
+            type={SeedType.STAGING}
+            searchParamManager={searchParamManager}
+          />
+          {hasUpstream && (
+            <NavItem
+              type={SeedType.UPSTREAM}
+              searchParamManager={searchParamManager}
+            />
+          )}
         </nav>
       </section>
       <main>
-        <CurrentStudyList studies={state.studies} />
+        <CurrentStudyList
+          studies={state.studies}
+          searchParamManager={searchParamManager}
+        />
       </main>
     </div>
   );

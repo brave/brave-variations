@@ -10,6 +10,18 @@ import { ProcessedStudy } from '../../core/study_processor';
 
 import * as url_utils from '../../core/url_utils';
 
+const getCurrentMajorVersion = new Promise<number>((resolve) => {
+  loadFile(url_utils.getUsedChromiumVersionUrl, 'text')
+    .then((chromeVersionData) => {
+      if (chromeVersionData !== undefined)
+        resolve(chromeVersionData.split('.')[0] ?? 0);
+      resolve(0);
+    })
+    .catch(() => {
+      resolve(0);
+    });
+});
+
 async function loadFile(
   url: string,
   responseType: 'arraybuffer' | 'text',
@@ -31,16 +43,6 @@ async function loadFile(
     xhr.send(null);
   });
 }
-
-const getCurrentMajorVersion = new Promise<number>((resolve) => {
-  loadFile(url_utils.getUsedChromiumVersionUrl, 'text')
-    .then((chromeVersionData) => {
-      if (chromeVersionData !== undefined)
-        resolve(chromeVersionData.split('.')[0] ?? 0);
-      resolve(0);
-    })
-    .catch(console.error);
-});
 
 async function loadSeedFromUrl(url: string, type: SeedType) {
   const data = await loadFile(url, 'arraybuffer');
