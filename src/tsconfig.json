@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "CommonJS",
+    "target": "es2019",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "typeRoots": [
+      "./node_modules/@types",
+    ],
+    // optional
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+  },
+  "include": [],
+}

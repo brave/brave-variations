@@ -1,7 +1,3 @@
-.loading {
-  margin: 50px 0;
-}
-
 .container {
   max-width: 970px;
 }
@@ -32,6 +28,10 @@ section.navbar {
   margin: 15px 0;
 }
 
+.card-body {
+  padding: 0em 1em;
+}
+
 .card h5 {
   font-size: 0.8em;
   font-weight: normal;
@@ -43,9 +43,37 @@ section.navbar {
   padding: 5px 0;
 }
 
-ul.study-meta {
+.exp-item {
+  color: rgb(80, 80, 80);
+}
+
+.major-exp-item {
+  color: black;
+}
+
+.study-meta {
   font-size: 0.8em;
   color: grey;
+  padding: 0;
+  margin: 0 0;
+}
+
+.filter-list {
+  display: flex;
+}
+
+.filter {
+  margin-right: 15px;
+}
+
+.enabled-feature {
+  color: rgb(51, 88, 43);
+  padding: 0;
+  margin: 0 0;
+}
+
+.disabled-feature {
+  color: rgb(108, 55, 50);
   padding: 0;
   margin: 0 0;
 }

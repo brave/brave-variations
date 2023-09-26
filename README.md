@@ -7,7 +7,7 @@ See the [Wiki](https://github.com/brave/brave-browser/wiki/Brave-Variations-(Gri
 A continuous integration server (CI) serializes and signs the updated seed file before publishing it to a CDN endpoint at https://variations.brave.com/seed. To browse the contents of the seed file a dashboard is hosted at https://griffin.brave.com. The repo is organized as follows:
 - `/crypto` contains a util to create key pairs and sign the seed file.
 - `/seed` contains the JSON seed definition and serialisation code.
-- `/web` contains the web dashboard to browse the seed contents.
+- `/src` contains the web dashboard to browse the seed contents and tracker code the track changes. See https://github.com/brave/brave-variations/blob/main/src/README.md for details.
 
 ## Git flow
 1. Work in feature branch and when done create a PR to `main` branch (which will be picked up by CI for staging).

@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig",
+  "include": [
+    "./**/*.ts*",
+  ],
+  "exclude": [
+    "node_modules/*",
+    "proto/generated/*",
+    "web/static/*"
+  ]
+}
