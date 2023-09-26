@@ -13,6 +13,11 @@ import { SeedType } from '../../core/base_types';
 import { loadSeedDataAsync } from './seed_loader';
 import { SearchParamManager } from './search_param_manager';
 
+function sanitizeUrl(url: string): string {
+  if (url.startsWith('https://') == null) return '#';
+  return url;
+}
+
 export function FeatureItem(props: {
   feature: FeatureModel;
   className: string;
@@ -22,7 +27,7 @@ export function FeatureItem(props: {
       className={props.className}
       target="blank"
       rel="noreferrer"
-      href={props.feature.link}
+      href={sanitizeUrl(props.feature.link)}
     >
       {props.feature.name}
     </a>
