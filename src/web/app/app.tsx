@@ -14,7 +14,7 @@ import { loadSeedDataAsync } from './seed_loader';
 import { SearchParamManager } from './search_param_manager';
 
 function sanitizeUrl(url: string): string {
-  if (url.startsWith('https://') == null) return '#';
+  if (!url.startsWith('https://')) return '#';
   return url;
 }
 
@@ -122,7 +122,11 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   return (
     <div className="card mb-3">
       <div className="card-header">
-        <a target="_blank" href={props.study.getConfigUrl()} rel="noreferrer">
+        <a
+          target="_blank"
+          href={sanitizeUrl(props.study.getConfigUrl())}
+          rel="noreferrer"
+        >
           {props.study.name()}
         </a>
       </div>
