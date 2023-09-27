@@ -12,6 +12,7 @@ import { type StudyFilter } from '../../core/study_processor';
 import { SeedType } from '../../core/base_types';
 import { loadSeedDataAsync } from './seed_loader';
 import { SearchParamManager } from './search_param_manager';
+import { variations as proto } from '../../proto/generated/proto_bundle';
 
 function sanitizeUrl(url: string): string {
   if (!url.startsWith('https://')) return '#';
@@ -98,6 +99,17 @@ export function PropertyList(props: {
   );
 }
 
+export function BooleanProperty(props: {
+  caption: string;
+  value: boolean | null | undefined;
+}) {
+  if (props.value == null) return <></>;
+  return PropertyList({
+    caption: props.caption,
+    list: [props.value ? 'True' : 'False'],
+  });
+}
+
 export function IncludeExcludeList(props: {
   caption: string;
   include: string[] | null | undefined;
@@ -106,7 +118,7 @@ export function IncludeExcludeList(props: {
   return (
     <>
       <PropertyList caption={props.caption} list={props.include} />
-      <PropertyList caption={'Exclude' + props.caption} list={props.exclude} />
+      <PropertyList caption={'Exclude ' + props.caption} list={props.exclude} />
     </>
   );
 }
@@ -115,6 +127,8 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
   const filter = props.study.filter();
   const minVersion = filter?.min_version ?? '';
   const maxVersion = filter?.max_version ?? '';
+  const minOsVersion = filter?.min_os_version ?? '';
+  const maxOsVersion = filter?.max_os_version ?? '';
   const experiments = React.useMemo(
     () => props.study.filterExperiments(props.filter),
     [props.study, props.filter],
@@ -144,6 +158,12 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
             {maxVersion !== '' ? maxVersion : 'any'}]
           </div>
         )}
+        {(minOsVersion !== '' || maxOsVersion !== '') && (
+          <div className="study-meta">
+            OS version range:[ {minOsVersion !== '' ? minOsVersion : 'any'} -{' '}
+            {maxOsVersion !== '' ? maxOsVersion : 'any'}]
+          </div>
+        )}
         <PropertyList caption="Channels" list={props.study.channels()} />
         <PropertyList caption="Platforms" list={props.study.platforms()} />
         <IncludeExcludeList
@@ -156,6 +176,39 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
           include={filter?.hardware_class}
           exclude={filter?.exclude_hardware_class}
         />
+        <IncludeExcludeList
+          caption="Google group"
+          include={filter?.google_group?.map((e) => e.toString())}
+          exclude={filter?.exclude_google_group?.map((e) => e.toString())}
+        />
+        <IncludeExcludeList
+          caption="Form factor"
+          include={filter?.form_factor?.map((e) => proto.Study.FormFactor[e])}
+          exclude={filter?.exclude_form_factor?.map(
+            (e) => proto.Study.FormFactor[e],
+          )}
+        />
+        <IncludeExcludeList
+          caption="CPU architecture"
+          include={filter?.cpu_architecture?.map(
+            (e) => proto.Study.CpuArchitecture[e],
+          )}
+          exclude={filter?.exclude_cpu_architecture?.map(
+            (e) => proto.Study.CpuArchitecture[e],
+          )}
+        />
+        {filter != null &&
+          Boolean(Object.hasOwn(filter, 'is_low_end_device')) &&
+          BooleanProperty({
+            caption: 'Low-end device',
+            value: filter?.is_low_end_device,
+          })}
+        {filter != null &&
+          Boolean(Object.hasOwn(filter, 'is_enterprise')) &&
+          BooleanProperty({
+            caption: 'Enterprise',
+            value: filter?.is_enterprise,
+          })}
       </div>
     </div>
   );
