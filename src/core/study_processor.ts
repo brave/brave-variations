@@ -140,6 +140,7 @@ export class StudyDetails {
   isBadStudyFormat = false; // a bad protobuf item
   isArchived = false; // max_version <= 100.*
   hasLimitedFilter = false; // the filter limits the audience significantly.
+  onlyDisabledFeatures = false;
 
   totalWeight = 0;
   totalNonDefaultGroupsWeight = 0;
@@ -159,11 +160,6 @@ export class StudyDetails {
     const isKillSwitch = (s: string) => {
       return s.match(/(K|k)ill(S|s)witch/) !== null;
     };
-    this.isEmergency =
-      isKillSwitch(study.name) ||
-      study.experiment?.find(
-        (e) => e.probability_weight > 0 && isKillSwitch(e.name),
-      ) !== undefined;
 
     if (maxVersion != null) {
       const parsed = parseVersionPattern(maxVersion);
@@ -198,6 +194,7 @@ export class StudyDetails {
     this.hasLimitedFilter ||=
       filter?.google_group != null && filter?.google_group.length !== 0;
 
+    this.isEmergency = isKillSwitch(study.name);
     for (const e of experiment) {
       const enableFeatures = e.feature_association?.enable_feature;
       const disabledFeatures = e.feature_association?.disable_feature;
@@ -207,7 +204,15 @@ export class StudyDetails {
       this.isBlocklisted ||=
         disabledFeatures != null &&
         disabledFeatures.some((n) => isFeatureBlocklisted(n));
+
+      this.isEmergency ||= e.probability_weight > 0 && isKillSwitch(e.name);
+
+      this.onlyDisabledFeatures ||=
+        e.probability_weight === 0 ||
+        e.feature_association?.enable_feature == null ||
+        e.feature_association?.enable_feature.length === 0;
     }
+
     const filteredPlatforms = filterPlatforms(filter);
     if (filteredPlatforms === undefined || filteredPlatforms.length === 0) {
       this.hasNoSupportedPlatform = true;
