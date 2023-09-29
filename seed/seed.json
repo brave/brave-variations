@@ -2467,6 +2467,35 @@
                 ]
             },
             "name": "BraveAIChatEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "PrettyPrintJSONDocument"
+                        ]
+                    },
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "119.1.61.0",
+                "min_version": "117.0.0.0",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "PrettyPrintJSONDocument"
         }
     ],
     "version": "1"
