@@ -37,13 +37,21 @@ class SummaryItem {
   hasBadStudies: boolean;
 
   getChangePriority(): StudyPriority {
+    if (
+      this.newPriority === StudyPriority.STABLE_ALL &&
+      this.oldPriority < StudyPriority.STABLE_MIN &&
+      this.newAudience === 1
+    ) {
+      // 0% => 100% change, consider it as a kill switch.
+      return StudyPriority.STABLE_ALL_EMERGENCY;
+    }
     return Math.max(this.oldPriority, this.newPriority);
   }
 
   isNewKillSwitch(): boolean {
     return (
       this.newPriority === StudyPriority.STABLE_ALL_EMERGENCY &&
-      this.action !== ItemAction.RemovedOrOutdated
+      (this.action === ItemAction.Up || this.action === ItemAction.New)
     );
   }
 

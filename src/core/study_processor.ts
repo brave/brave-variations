@@ -139,6 +139,7 @@ export class StudyDetails {
   hasNoSupportedPlatform = false; // doesn't have any brave-supported platform
   isBadStudyFormat = false; // a bad protobuf item
   isArchived = false; // max_version <= 100.*
+  hasLimitedFilter = false; // the filter limits the audience significantly.
 
   totalWeight = 0;
   totalNonDefaultGroupsWeight = 0;
@@ -194,6 +195,9 @@ export class StudyDetails {
 
     this.isBlocklisted = isStudyNameBlocklisted(study.name);
 
+    this.hasLimitedFilter ||=
+      filter?.google_group != null && filter?.google_group.length !== 0;
+
     for (const e of experiment) {
       const enableFeatures = e.feature_association?.enable_feature;
       const disabledFeatures = e.feature_association?.disable_feature;
@@ -240,7 +244,10 @@ export class StudyDetails {
     if (this.channelTarget !== StudyChannelTarget.STABLE) {
       return StudyPriority.NON_INTERESTING;
     }
-    if (this.maxNonDefaultWeight > this.totalWeight / 2) {
+    if (
+      this.maxNonDefaultWeight > this.totalWeight / 2 &&
+      !this.hasLimitedFilter
+    ) {
       return this.isEmergency
         ? StudyPriority.STABLE_ALL_EMERGENCY
         : StudyPriority.STABLE_ALL;
