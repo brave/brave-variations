@@ -3,7 +3,7 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "CommonJS",
-    "target": "es2019",
+    "target": "es2022",
     "allowJs": true,
     "moduleResolution": "node",
     "baseUrl": ".",

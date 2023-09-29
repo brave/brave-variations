@@ -34,21 +34,31 @@ class SummaryItem {
   oldAudience: number;
   newAudience: number;
 
+  hasOnlyDisabledFeatures: boolean;
   hasBadStudies: boolean;
 
   getChangePriority(): StudyPriority {
+    if (this.isNewKillSwitch()) return StudyPriority.STABLE_ALL_EMERGENCY;
     return Math.max(this.oldPriority, this.newPriority);
   }
 
   isNewKillSwitch(): boolean {
+    if (
+      this.newPriority === StudyPriority.STABLE_ALL &&
+      this.oldPriority < StudyPriority.STABLE_MIN &&
+      this.newAudience === 1
+    ) {
+      // 0% => 100% change with disabled feature, consider it as a kill switch.
+      if (this.hasOnlyDisabledFeatures) return true;
+    }
     return (
       this.newPriority === StudyPriority.STABLE_ALL_EMERGENCY &&
-      this.action !== ItemAction.RemovedOrOutdated
+      (this.action === ItemAction.Up || this.action === ItemAction.New)
     );
   }
 
   actionToText(): string {
-    if (this.isNewKillSwitch()) return ':zap:';
+    if (this.isNewKillSwitch()) return ':warning:';
 
     switch (this.action) {
       case ItemAction.New:
@@ -74,6 +84,12 @@ function getOverallPriority(studies: ProcessedStudy[]): StudyPriority {
   }
 
   return priority;
+}
+
+function hasOnlyDisabledFeatures(studies: ProcessedStudy[]): boolean {
+  return (
+    studies.find((s) => !s.studyDetails.onlyDisabledFeatures) === undefined
+  );
 }
 
 function getOverallAudience(
@@ -127,6 +143,7 @@ export function makeSummary(
       Math.max(item.newPriority, minPriority),
     );
 
+    item.hasOnlyDisabledFeatures = hasOnlyDisabledFeatures(newStudy);
     item.hasBadStudies =
       newStudy.find((v) => v.studyDetails.isBadStudyFormat) !== undefined;
 
@@ -227,6 +244,11 @@ class MrkdwnMessage {
     this.context += block.toString();
   }
 
+  addBlockToTop(block: TextBlock): void {
+    this.context =
+      block.toString() + (this.context !== '' ? ',\n' : '') + this.context;
+  }
+
   addHeader(text: string): void {
     this.context =
       `{"type":"header","text":{"type":"plain_text","text":"${text}"}},\n` +
@@ -269,7 +291,6 @@ export function summaryToJson(
     for (const e of itemList) {
       hasNewKillSwitches ||= e.isNewKillSwitch();
       hasBadStudies ||= e.hasBadStudies;
-      const f = affectedFeaturesToText(e.affectedFeatures);
       const block = new TextBlock(e.actionToText());
       block.addLink(url_utils.getGriffinUiUrl(e.studyName), e.studyName);
       block.addLink(
@@ -282,25 +303,33 @@ export function summaryToJson(
           'Diff',
         );
       }
-      const space = '        ';
-      block.add(`\\n${space}priority: ${e.oldPriority}→${e.newPriority}`);
+      const showOldPriority =
+        e.newPriority !== e.oldPriority && e.action !== ItemAction.New;
+      const showOldAudience =
+        e.newAudience !== e.oldAudience && e.action !== ItemAction.New;
       block.add(
-        `, audience: ${(e.oldAudience * 100).toFixed(0)}%` +
-          `→${(e.newAudience * 100).toFixed(0)}%`,
+        ' ' +
+          (showOldPriority ? `P${e.oldPriority}→` : '') +
+          `P${e.newPriority}`,
       );
-      block.add(`\\n${space}features:${f}`);
+      block.add(
+        `, :bust_in_silhouette:` +
+          (showOldAudience ? `${(e.oldAudience * 100).toFixed(0)}%→` : ``) +
+          `${(e.newAudience * 100).toFixed(0)}%`,
+      );
+      if (priority >= StudyPriority.STABLE_ALL)
+        block.add(` ${affectedFeaturesToText(e.affectedFeatures)}`);
       output.addBlock(block);
     }
     output.addDivider();
   }
   if (output.toString() === '') return undefined;
 
-  output.addHeader('New finch changes detected');
-
   if (hasNewKillSwitches) {
-    output.addBlock(
+    output.addBlockToTop(
       new TextBlock(
-        'cc ' + config.killSwitchNotificationIds.map((i) => `<@${i}>`).join(),
+        'New kill switches detected, cc ' +
+          config.killSwitchNotificationIds.map((i) => `<@${i}>`).join(),
       ),
     );
   }
