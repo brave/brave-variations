@@ -2321,7 +2321,8 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA"
                 ],
                 "min_version": "115.1.58.35",
                 "platform": [
@@ -2362,7 +2363,8 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA"
                 ],
                 "min_version": "115.1.58.35",
                 "platform": [
