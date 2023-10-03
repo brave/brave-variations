@@ -2496,6 +2496,32 @@
                 ]
             },
             "name": "PrettyPrintJSONDocument"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "InvalidateLocalSurfaceIdPreCommit"
+                        ]
+                    },
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "119.*",
+                "min_version": "117.*",
+                "platform": [
+                    "ANDROID"
+                ]
+            },
+            "name": "InvalidateLocalSurfaceIdPreCommit"
         }
     ],
     "version": "1"
