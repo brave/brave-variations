@@ -2547,6 +2547,31 @@
                 ]
             },
             "name": "Speedreader TTS"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveHorizontalTabsUpdate"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveHorizontalTabsUpdateEnabledStudy"
         }
     ],
     "version": "1"
