@@ -9,6 +9,11 @@
   margin: 0;
 }
 
+.heading {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 section.navbar {
   margin: 15px 0 5px 0;
   padding: 0;
@@ -63,7 +68,26 @@ section.navbar {
 }
 
 .filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
   margin-right: 15px;
+}
+
+.filter-left {
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+.filter-checkbox {
+  vertical-align:middle;
+  position: relative;
+  bottom: 1px;
+}
+
+mark {
+  padding: 0 0 0 0;
 }
 
 .enabled-feature {
