@@ -52,8 +52,9 @@ export class StudyFilter {
 
   set search(value: string | undefined) {
     this._search = value;
+    const sanitizedValue = value?.replaceAll(/\W/g, '');
     this._searchRegexp =
-      value !== undefined ? new RegExp(`(${value})`, 'gi') : undefined;
+      value !== undefined ? new RegExp(`(${sanitizedValue})`, 'gi') : undefined;
   }
 
   get searchRegexp() {
