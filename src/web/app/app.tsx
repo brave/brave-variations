@@ -317,7 +317,7 @@ export function FilterPriority(props: {
 }
 
 export function FilterSearch(props: {
-  search: string;
+  search: string | undefined;
   setSearch: (search: string) => void;
 }) {
   return (
