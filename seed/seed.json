@@ -2365,7 +2365,7 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldLaunchBraveAdsAsInProcessService"
                         ]
                     },
                     "name": "Enabled",
