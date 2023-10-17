@@ -2365,7 +2365,10 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "ShouldLaunchBraveAdsAsInProcessService"
+                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
                         ]
                     },
                     "name": "Enabled",
