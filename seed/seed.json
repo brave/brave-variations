@@ -2362,7 +2362,19 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 100
+                    "probability_weight": 90
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 10
                 },
                 {
                     "name": "Default",
