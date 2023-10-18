@@ -35,7 +35,7 @@ export function FeatureItem(props: {
       rel="noreferrer"
       href={sanitizeUrl(props.feature.link)}
     >
-      {maybeHightlight(props.filter, props.feature.name)}
+      {maybeHighlight(props.filter, props.feature.name)}
     </a>
   );
 }
@@ -66,7 +66,7 @@ export function FeatureList(props: {
   );
 }
 
-function maybeHightlight(filter: StudyFilter, text: string): JSX.Element {
+function maybeHighlight(filter: StudyFilter, text: string): JSX.Element {
   if (filter.searchRegexp === undefined) {
     return <>{text}</>;
   }
@@ -92,7 +92,7 @@ export function ExperimentItem(props: {
     (props.exp.isMajorGroup() ? 'major-exp-item' : 'exp-item');
   return (
     <li className={classes}>
-      {maybeHightlight(props.filter, props.exp.name())} ({props.exp.weight()}%)
+      {maybeHighlight(props.filter, props.exp.name())} ({props.exp.weight()}%)
       <FeatureList
         title="Enabled features"
         className="enabled-feature"
@@ -172,7 +172,7 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
           href={sanitizeUrl(props.study.getConfigUrl())}
           rel="noreferrer"
         >
-          {maybeHightlight(props.filter, props.study.name())}
+          {maybeHighlight(props.filter, props.study.name())}
         </a>
       </div>
       <div className="card-body">
@@ -284,7 +284,7 @@ export function FilterCheckbox(props: {
   );
 }
 
-export function FilterPriority(props: {
+export function PriorityFilter(props: {
   priority: number;
   setPriority: (newPos: number) => void;
 }) {
@@ -370,7 +370,7 @@ export function CurrentStudyList(props: {
               checked={paramManager.filter.includeOutdated}
               toggle={paramManager.toggleIncludeOutdated.bind(paramManager)}
             />
-            <FilterPriority
+            <PriorityFilter
               priority={paramManager.filter.minPriority}
               setPriority={paramManager.setMinPriority.bind(paramManager)}
             />
