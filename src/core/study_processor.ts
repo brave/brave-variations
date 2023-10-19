@@ -39,20 +39,35 @@ export class StudyFilter {
   minPriority = StudyPriority.NON_INTERESTING;
   includeOutdated = false;
   showEmptyGroups = false;
-  search?: string; // search in study/exp/feature names
+  private _search?: string; // search in study/exp/feature names
+  private _searchRegexp?: RegExp;
 
   constructor(params?: Partial<StudyFilter>) {
     Object.assign(this, params);
   }
 
+  get search(): string | undefined {
+    return this._search;
+  }
+
+  set search(value: string | undefined) {
+    this._search = value;
+    const sanitizedValue = value?.replaceAll(/\W/g, '');
+    this._searchRegexp =
+      value !== undefined ? new RegExp(`(${sanitizedValue})`, 'gi') : undefined;
+  }
+
+  get searchRegexp() {
+    return this._searchRegexp;
+  }
+
   matches(s: ProcessedStudy): boolean {
-    if (this.search !== undefined) {
+    const regex = this.searchRegexp;
+    if (regex !== undefined) {
       let found = false;
-      found ||= s.study.name.search(this.search) !== -1;
-      for (const e of s.study.experiment ?? [])
-        found ||= e.name.search(this.search) !== -1;
-      for (const feature of s.affectedFeatures)
-        found ||= feature.search(this.search) !== -1;
+      found ||= regex.test(s.study.name);
+      for (const e of s.study.experiment ?? []) found ||= regex.test(e.name);
+      for (const feature of s.affectedFeatures) found ||= regex.test(feature);
       if (!found) return false;
     }
 

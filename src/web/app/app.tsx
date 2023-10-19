@@ -8,7 +8,11 @@ import { useSearchParams } from 'react-router-dom';
 
 import { type StudyModel, type StudyListModel } from './study_model';
 import { type FeatureModel, type ExperimentModel } from './experiment_model';
-import { type StudyFilter } from '../../core/study_processor';
+import {
+  StudyPriority,
+  type StudyFilter,
+  priorityToText,
+} from '../../core/study_processor';
 import { SeedType } from '../../core/base_types';
 import { loadSeedDataAsync } from './seed_loader';
 import { SearchParamManager } from './search_param_manager';
@@ -21,6 +25,7 @@ function sanitizeUrl(url: string): string {
 
 export function FeatureItem(props: {
   feature: FeatureModel;
+  filter: StudyFilter;
   className: string;
 }) {
   return (
@@ -30,13 +35,14 @@ export function FeatureItem(props: {
       rel="noreferrer"
       href={sanitizeUrl(props.feature.link)}
     >
-      {props.feature.name}
+      {maybeHighlight(props.filter, props.feature.name)}
     </a>
   );
 }
 
 export function FeatureList(props: {
   title: string;
+  filter: StudyFilter;
   className: string;
   features: FeatureModel[];
 }) {
@@ -45,7 +51,11 @@ export function FeatureList(props: {
   }
   const features = props.features.map((f) => (
     <li key={f.name}>
-      <FeatureItem feature={f} className={props.className} />
+      <FeatureItem
+        feature={f}
+        filter={props.filter}
+        className={props.className}
+      />
     </li>
   ));
   return (
@@ -56,21 +66,42 @@ export function FeatureList(props: {
   );
 }
 
-export function ExperimentItem(props: { exp: ExperimentModel }) {
+function maybeHighlight(filter: StudyFilter, text: string) {
+  if (filter.searchRegexp === undefined) {
+    return <>{text}</>;
+  }
+  const parts = text.split(filter.searchRegexp);
+  return (
+    <React.Fragment>
+      {parts.map((part, i) => {
+        const matched = filter.searchRegexp?.test(part);
+        if (matched === true) return <mark key={i}>{part}</mark>;
+        return <React.Fragment key={i}>{part}</React.Fragment>;
+      })}
+    </React.Fragment>
+  );
+}
+
+export function ExperimentItem(props: {
+  exp: ExperimentModel;
+  filter: StudyFilter;
+}) {
   const paramsList = props.exp.parameters().map((p) => <li key={p}>{p}</li>);
   const classes =
     'list-group-item ' +
     (props.exp.isMajorGroup() ? 'major-exp-item' : 'exp-item');
   return (
     <li className={classes}>
-      {props.exp.name()} ({props.exp.weight()}%)
+      {maybeHighlight(props.filter, props.exp.name())} ({props.exp.weight()}%)
       <FeatureList
         title="Enabled features"
         className="enabled-feature"
+        filter={props.filter}
         features={props.exp.enabledFeatures()}
       />
       <FeatureList
         title="Disabled features"
+        filter={props.filter}
         className="disabled-feature"
         features={props.exp.disabledFeatures()}
       />
@@ -141,13 +172,13 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
           href={sanitizeUrl(props.study.getConfigUrl())}
           rel="noreferrer"
         >
-          {props.study.name()}
+          {maybeHighlight(props.filter, props.study.name())}
         </a>
       </div>
       <div className="card-body">
         <ul className="list-group list-group-flush">
           {experiments.map((e) => (
-            <ExperimentItem key={e.name()} exp={e} />
+            <ExperimentItem key={e.name()} exp={e} filter={props.filter} />
           ))}
         </ul>
       </div>
@@ -243,10 +274,63 @@ export function FilterCheckbox(props: {
       <label>
         <input
           type="checkbox"
+          className="filter-checkbox"
           checked={props.checked}
           onChange={props.toggle}
         />
         {props.title}
+      </label>
+    </div>
+  );
+}
+
+export function PriorityFilter(props: {
+  priority: number;
+  setPriority: (newPos: number) => void;
+}) {
+  const optionsList = Object.values(StudyPriority)
+    .filter((v): v is StudyPriority => {
+      return typeof v !== 'string';
+    })
+    .map((v) => (
+      <option value={v} key={v}>
+        {priorityToText(v)}
+      </option>
+    ));
+
+  return (
+    <div className="filter">
+      <label>
+        Min priority
+        <select
+          value={props.priority}
+          onInput={(e) => {
+            const target = e.target as HTMLSelectElement;
+            props.setPriority(parseInt(target.value));
+          }}
+        >
+          ${optionsList}
+        </select>
+      </label>
+    </div>
+  );
+}
+
+export function FilterSearch(props: {
+  search: string | undefined;
+  setSearch: (search: string) => void;
+}) {
+  return (
+    <div className="filter filter-left">
+      <label>
+        Search
+        <input
+          value={props.search}
+          onInput={(e) => {
+            const target = e.target as HTMLInputElement;
+            props.setSearch(target.value);
+          }}
+        />
       </label>
     </div>
   );
@@ -286,6 +370,14 @@ export function CurrentStudyList(props: {
               checked={paramManager.filter.includeOutdated}
               toggle={paramManager.toggleIncludeOutdated.bind(paramManager)}
             />
+            <PriorityFilter
+              priority={paramManager.filter.minPriority}
+              setPriority={paramManager.setMinPriority.bind(paramManager)}
+            />
+            <FilterSearch
+              search={paramManager.filter.search}
+              setSearch={paramManager.setSearch.bind(paramManager)}
+            />
           </div>
         </div>
         {studyList}
@@ -322,7 +414,9 @@ export function App() {
   return (
     <div className="container" id="app">
       <section className="navbar navbar-light bg-light">
-        <h1>Brave Variations</h1>
+        <a className="heading" href=".">
+          <h1>Brave Variations</h1>
+        </a>
         <nav className="nav nav-pills">
           <NavItem
             type={SeedType.PRODUCTION}

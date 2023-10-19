@@ -58,13 +58,25 @@ export class SearchParamManager {
 
   toggleShowEmptyGroups() {
     this.setParams({
-      showEmptyGroups: this.filter.showEmptyGroups ? 'false' : 'true',
+      showEmptyGroups: this.filter.showEmptyGroups ? null : 'true',
     });
   }
 
   toggleIncludeOutdated() {
     this.setParams({
-      includeOutdated: this.filter.includeOutdated ? 'false' : 'true',
+      includeOutdated: this.filter.includeOutdated ? null : 'true',
+    });
+  }
+
+  setMinPriority(minPriority: number) {
+    this.setParams({
+      minPriority: minPriority.toString(),
+    });
+  }
+
+  setSearch(value: string) {
+    this.setParams({
+      search: value === '' ? null : value,
     });
   }
 
