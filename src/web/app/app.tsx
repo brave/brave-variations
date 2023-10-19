@@ -66,7 +66,7 @@ export function FeatureList(props: {
   );
 }
 
-function maybeHighlight(filter: StudyFilter, text: string): JSX.Element {
+function maybeHighlight(filter: StudyFilter, text: string) {
   if (filter.searchRegexp === undefined) {
     return <>{text}</>;
   }
