@@ -2669,14 +2669,14 @@
                     "CO",
                     "IN"
                 ],
-                "end_date": 1692748799,
+                "end_date": 1699487999,
                 "platform": [
                     "WINDOWS",
                     "MAC",
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1692489600
+                "start_date": 1699228800
             },
             "name": "CreativeAdModelBasedPredictorStudyA"
         },
@@ -2744,14 +2744,14 @@
                     "CO",
                     "IN"
                 ],
-                "end_date": 1693007999,
+                "end_date": 1699747199,
                 "platform": [
                     "WINDOWS",
                     "MAC",
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1692748800
+                "start_date": 1699488000
             },
             "name": "CreativeAdModelBasedPredictorStudyB"
         },
@@ -2819,14 +2819,14 @@
                     "CO",
                     "IN"
                 ],
-                "end_date": 1693353599,
+                "end_date": 1699747200,
                 "platform": [
                     "WINDOWS",
                     "MAC",
                     "LINUX",
                     "ANDROID"
                 ],
-                "start_date": 1693008000
+                "start_date": 1699747200
             },
             "name": "CreativeAdModelBasedPredictorStudyC"
         }
