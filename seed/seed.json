@@ -2032,7 +2032,7 @@
                         },
                         {
                             "name": "target_major_version_beta",
-                            "value": "1.52"
+                            "value": "1.60"
                         },
                         {
                             "name": "target_major_version_stable",
