@@ -2462,6 +2462,39 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "AdBlockDefaultResourceUpdateInterval"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "update_interval_mins",
+                            "value": "1"
+                        }
+                    ],
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "AdBlockComponentUpdateIntervalStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "AIChat"
                         ]
                     },
