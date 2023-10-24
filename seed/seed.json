@@ -2572,6 +2572,32 @@
                 ]
             },
             "name": "BraveHorizontalTabsUpdateEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "EnableGetNetworkConnectivityHintAPI"
+                        ]
+                    },
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "120.*",
+                "min_version": "118.*",
+                "platform": [
+                    "WINDOWS"
+                ]
+            },
+            "name": "EnableGetNetworkConnectivityHintAPIKillSwitch"
         }
     ],
     "version": "1"
