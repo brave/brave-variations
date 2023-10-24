@@ -2875,6 +2875,32 @@
                 ]
             },
             "name": "EnableGetNetworkConnectivityHintAPIKillSwitch"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ScreenCaptureKitMacWindow"
+                        ]
+                    },
+                    "name": "EnabledLaunch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "120.*",
+                "min_version": "116.*",
+                "platform": [
+                    "MAC"
+                ]
+            },
+            "name": "ScreenCaptureKitMacWindow"
         }
     ],
     "version": "1"
