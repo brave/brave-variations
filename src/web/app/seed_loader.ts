@@ -48,13 +48,14 @@ async function loadSeedFromUrl(url: string, type: SeedType) {
   const data = await loadFile(url, 'arraybuffer');
   const seedBytes = new Uint8Array(data);
   const seed = proto.VariationsSeed.decode(seedBytes);
-  const isBrave = type !== SeedType.UPSTREAM;
+  const isBraveSeed = type !== SeedType.UPSTREAM;
 
   // Desktop/Android could use a different major chrome version.
   // Use -1 version for Brave studies to make sure that we don't cut
   // anything important.
-  const minMajorVersion = (await getCurrentMajorVersion) - (isBrave ? 1 : 0);
-  const options: ProcessingOptions = { minMajorVersion };
+  const minMajorVersion =
+    (await getCurrentMajorVersion) - (isBraveSeed ? 1 : 0);
+  const options: ProcessingOptions = { minMajorVersion, isBraveSeed };
   const studies: StudyModel[] = [];
   seed.study.forEach((study, index) => {
     const processed = new ProcessedStudy(study, options);

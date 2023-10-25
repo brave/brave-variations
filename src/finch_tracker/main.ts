@@ -69,6 +69,7 @@ async function main(): Promise<void> {
 
   const options: ProcessingOptions = {
     minMajorVersion,
+    isBraveSeed: false,
   };
 
   const outputFile = program.opts().output;

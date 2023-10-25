@@ -23,7 +23,10 @@ function serialize(json: Record<string, any>) {
 
 test('seed serialization', () => {
   const data = fs.readFileSync('test/data/seed1.bin');
-  const map = serializeStudies(data, { minMajorVersion: 116 });
+  const map = serializeStudies(data, {
+    minMajorVersion: 116,
+    isBraveSeed: true,
+  });
   const serializedOutput = serialize(map);
 
   const serializedExpectations = fs
@@ -87,7 +90,7 @@ describe('summary', () => {
   const summary = makeSummary(
     oldSeed,
     newSeed,
-    { minMajorVersion: 116 },
+    { minMajorVersion: 116, isBraveSeed: true },
     StudyPriority.STABLE_MIN,
   );
 
