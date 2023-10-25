@@ -2572,6 +2572,231 @@
                 ]
             },
             "name": "BraveHorizontalTabsUpdateEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "CreativeAdModelBasedPredictor"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "child_intent_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_intent_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "child_latent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_latent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "child_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "last_seen_ad_predictor_weight",
+                            "value": "0.0"
+                        },
+                        {
+                            "name": "last_seen_advertiser_ad_predictor_weight",
+                            "value": "0.0"
+                        },
+                        {
+                            "name": "priority_ad_predictor_weight",
+                            "value": "0.0"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "country": [
+                    "CO",
+                    "IN"
+                ],
+                "end_date": 1699487999,
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date": 1699228800
+            },
+            "name": "CreativeAdModelBasedPredictorStudyA"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "CreativeAdModelBasedPredictor"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "child_intent_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_intent_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "child_latent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_latent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "child_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "last_seen_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "last_seen_advertiser_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "priority_ad_predictor_weight",
+                            "value": "1.0"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "country": [
+                    "CO",
+                    "IN"
+                ],
+                "end_date": 1699747199,
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date": 1699488000
+            },
+            "name": "CreativeAdModelBasedPredictorStudyB"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "CreativeAdModelBasedPredictor"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "child_intent_segment_ad_predictor_weight",
+                            "value": "5.0"
+                        },
+                        {
+                            "name": "parent_intent_segment_ad_predictor_weight",
+                            "value": "5.0"
+                        },
+                        {
+                            "name": "child_latent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_latent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "child_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_interest_segment_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "last_seen_ad_predictor_weight",
+                            "value": "0.0"
+                        },
+                        {
+                            "name": "last_seen_advertiser_ad_predictor_weight",
+                            "value": "0.0"
+                        },
+                        {
+                            "name": "priority_ad_predictor_weight",
+                            "value": "0.0"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "country": [
+                    "CO",
+                    "IN"
+                ],
+                "end_date": 1700006399,
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "start_date": 1699747200
+            },
+            "name": "CreativeAdModelBasedPredictorStudyC"
         }
     ],
     "version": "1"
