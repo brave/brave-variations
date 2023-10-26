@@ -7,12 +7,15 @@ import { variations as proto } from '../proto/generated/proto_bundle';
 import { type ProcessingOptions } from './base_types';
 import { matchesMaxVersion, parseVersionPattern } from './version';
 
-const SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] = [
+const UPSTREAM_SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] = [
   proto.Study.Platform.PLATFORM_ANDROID,
   proto.Study.Platform.PLATFORM_LINUX,
   proto.Study.Platform.PLATFORM_MAC,
   proto.Study.Platform.PLATFORM_WINDOWS,
 ];
+
+const BRAVE_SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] =
+  UPSTREAM_SUPPORTED_PLATFORMS.concat([proto.Study.Platform.PLATFORM_IOS]);
 
 export enum StudyChannelTarget {
   // filter.channel includes DEV or CANNERY, doesn't include STABLE or BETA.
@@ -88,7 +91,7 @@ export class ProcessedStudy {
     this.study = study;
     this.studyDetails = new StudyDetails(study, options);
     this.affectedFeatures = getAffectedFeatures(study);
-    this.postProcessStudy();
+    this.postProcessStudy(options);
   }
 
   getPriority(): StudyPriority {
@@ -111,14 +114,14 @@ export class ProcessedStudy {
     details.maxNonDefaultIndex = 0;
   }
 
-  postProcessStudy(): void {
+  postProcessStudy(options: ProcessingOptions): void {
     this.study.filter?.channel?.sort();
     this.study.filter?.platform?.sort();
     this.study.filter?.country?.sort();
     this.study.filter?.locale?.sort();
     const filter = this.study.filter;
     if (filter != null) {
-      filter.platform = filterPlatforms(filter);
+      filter.platform = filterPlatforms(filter, options.isBraveSeed);
     }
   }
 
@@ -228,7 +231,7 @@ export class StudyDetails {
         e.feature_association?.enable_feature.length === 0;
     }
 
-    const filteredPlatforms = filterPlatforms(filter);
+    const filteredPlatforms = filterPlatforms(filter, options.isBraveSeed);
     if (filteredPlatforms === undefined || filteredPlatforms.length === 0) {
       this.hasNoSupportedPlatform = true;
     }
@@ -309,10 +312,14 @@ function areFeaturesInDefaultStates(e: proto.Study.IExperiment): boolean {
 
 function filterPlatforms(
   f: proto.Study.IFilter | undefined | null,
+  isBraveSeed: boolean,
 ): proto.Study.Platform[] | undefined {
   const platform = f?.platform;
   if (platform == null) return undefined;
-  return platform.filter((p) => SUPPORTED_PLATFORMS.includes(p));
+  const supportedPlatforms = isBraveSeed
+    ? BRAVE_SUPPORTED_PLATFORMS
+    : UPSTREAM_SUPPORTED_PLATFORMS;
+  return platform.filter((p) => supportedPlatforms.includes(p));
 }
 
 // Processes a list of studies and groups it according to study.name.

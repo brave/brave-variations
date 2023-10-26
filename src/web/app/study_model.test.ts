@@ -15,7 +15,10 @@ import { SeedType } from '../../core/base_types';
 
 function makeStudyModel(properties: proto.IStudy) {
   const study = new proto.Study(properties);
-  const processed = new ProcessedStudy(study, { minMajorVersion: 116 });
+  const processed = new ProcessedStudy(study, {
+    minMajorVersion: 116,
+    isBraveSeed: true,
+  });
   const randomID = Math.floor(Math.random() * 1000000);
   return new StudyModel(processed, SeedType.PRODUCTION, randomID);
 }
@@ -43,7 +46,10 @@ describe('models', () => {
     ],
     filter: {
       channel: [proto.Study.Channel.STABLE, proto.Study.Channel.CANARY],
-      platform: [proto.Study.Platform.PLATFORM_WINDOWS],
+      platform: [
+        proto.Study.Platform.PLATFORM_WINDOWS,
+        proto.Study.Platform.PLATFORM_IOS,
+      ],
     },
   });
 
@@ -82,7 +88,7 @@ describe('models', () => {
     expect(studyList.filterStudies(filter).length).toBe(1);
 
     expect(study1.channels()).toStrictEqual(['NIGHTLY', 'RELEASE']);
-    expect(study1.platforms()).toStrictEqual(['WINDOWS']);
+    expect(study1.platforms()).toStrictEqual(['WINDOWS', 'IOS']);
     const experiments = study1.filterExperiments(filter);
     expect(experiments.length).toBe(2);
     expect(experiments[0].name()).toBe('Enabled');

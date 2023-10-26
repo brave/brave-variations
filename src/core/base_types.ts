@@ -14,4 +14,7 @@ export class ProcessingOptions {
   // taken from API.
   // Studies that target to older versions are considered as outdated.
   minMajorVersion: number;
+
+  // True if study is originated from Brave (Griffin), false for upstream.
+  isBraveSeed: boolean;
 }
