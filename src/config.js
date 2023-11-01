@@ -25,6 +25,7 @@ module.exports = {
   killSwitchNotificationIds: [
     'U02DG0ATML3', // @matuchin
     'UE87NRK2A', // @iefremov
+    'UB9PF4X5K', // @Terry
   ],
   processingErrorNotificationIds: [
     'U02DG0ATML3', // @matuchin
