@@ -110,7 +110,7 @@ async function main(): Promise<void> {
       previousSeed,
       seed,
       options,
-      StudyPriority.STABLE_MIN, // the min priority we care in the summary.
+      StudyPriority.STABLE_50, // the min priority we care in the summary.
     );
     const summaryJSON = summaryToJson(summary, newGitSha1);
     if (summaryJSON !== undefined) {
