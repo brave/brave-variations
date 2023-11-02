@@ -2394,8 +2394,8 @@
                     "probability_weight": 20
                 },
                 {
-                  "name": "Default",
-                  "probability_weight": 80
+                    "name": "Default",
+                    "probability_weight": 80
                 }
             ],
             "filter": {
