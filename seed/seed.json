@@ -2042,8 +2042,7 @@
                 "channel": [
                     "RELEASE"
                 ],
-                "max_version": "119.1.60.114",
-                "min_version": "119.1.60.110",
+                "min_version": "119.1.60.114",
                 "platform": [
                     "WINDOWS",
                     "MAC",
