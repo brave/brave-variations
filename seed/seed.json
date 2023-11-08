@@ -2036,7 +2036,7 @@
                         },
                         {
                             "name": "target_major_version_stable",
-                            "value": "1.52"
+                            "value": "1.60"
                         }
                     ],
                     "probability_weight": 100
