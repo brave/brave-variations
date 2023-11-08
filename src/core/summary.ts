@@ -38,11 +38,13 @@ class SummaryItem {
   hasBadStudies: boolean;
 
   getChangePriority(): StudyPriority {
-    if (this.isNewKillSwitch()) return StudyPriority.STABLE_ALL_EMERGENCY;
+    if (this.isKillSwitchImportantUpdate()) {
+      return StudyPriority.STABLE_ALL_EMERGENCY;
+    }
     return Math.max(this.oldPriority, this.newPriority);
   }
 
-  isNewKillSwitch(): boolean {
+  isKillSwitchImportantUpdate(): boolean {
     if (
       this.newPriority === StudyPriority.STABLE_ALL &&
       this.oldPriority < StudyPriority.STABLE_MIN &&
@@ -53,12 +55,13 @@ class SummaryItem {
     }
     return (
       this.newPriority === StudyPriority.STABLE_ALL_EMERGENCY &&
-      (this.action === ItemAction.Up || this.action === ItemAction.New)
+      this.action !== ItemAction.Down &&
+      this.action !== ItemAction.RemovedOrOutdated
     );
   }
 
   actionToText(): string {
-    if (this.isNewKillSwitch()) return ':warning:';
+    if (this.isKillSwitchImportantUpdate()) return ':warning:';
 
     switch (this.action) {
       case ItemAction.New:
@@ -270,7 +273,7 @@ export function summaryToJson(
   newGitSha1?: string,
 ): string | undefined {
   const output = new MrkdwnMessage();
-  let hasNewKillSwitches = false;
+  let hasKillSwitchImportantUpdate = false;
   let hasBadStudies = false;
 
   // From the highest to the lowest priority:
@@ -289,7 +292,7 @@ export function summaryToJson(
     );
     itemList.sort((a, b) => a.action - b.action);
     for (const e of itemList) {
-      hasNewKillSwitches ||= e.isNewKillSwitch();
+      hasKillSwitchImportantUpdate ||= e.isKillSwitchImportantUpdate();
       hasBadStudies ||= e.hasBadStudies;
       const block = new TextBlock(e.actionToText());
       block.addLink(url_utils.getGriffinUiUrl(e.studyName), e.studyName);
@@ -325,10 +328,10 @@ export function summaryToJson(
   }
   if (output.toString() === '') return undefined;
 
-  if (hasNewKillSwitches) {
+  if (hasKillSwitchImportantUpdate) {
     output.addBlockToTop(
       new TextBlock(
-        'New kill switches detected, cc ' +
+        'Kill switches changes detected, cc ' +
           config.killSwitchNotificationIds.map((i) => `<@${i}>`).join(),
       ),
     );
