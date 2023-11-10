@@ -2048,7 +2048,7 @@
                     "parameters": [
                         {
                             "name": "target_major_version_stable",
-                            "value": "1.52"
+                            "value": "1.60"
                         }
                     ],
                     "probability_weight": 100
@@ -2062,6 +2062,7 @@
                 "channel": [
                     "RELEASE"
                 ],
+                "min_version": "119.1.60.114",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2547,6 +2548,34 @@
                 ]
             },
             "name": "BraveHorizontalTabsUpdateEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "Playlist"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "DefaultPlaylistStudy"
         }
     ],
     "version": "1"
