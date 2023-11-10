@@ -2362,7 +2362,7 @@
                             "ShouldAlwaysTriggerBraveSearchResultAdEvents"
                         ]
                     },
-                    "name": "Enabled",
+                    "name": "EnabledInUtility",
                     "probability_weight": 90
                 },
                 {
@@ -2374,7 +2374,7 @@
                             "ShouldAlwaysTriggerBraveSearchResultAdEvents"
                         ]
                     },
-                    "name": "Enabled",
+                    "name": "EnabledInProcess",
                     "probability_weight": 10
                 },
                 {
