@@ -2357,14 +2357,25 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "EnabledInUtilityDesktop",
+                    "probability_weight": 50
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "ShouldLaunchBraveAdsAsInProcessService",
                             "ShouldAlwaysRunBraveAdsService",
                             "ShouldSupportSearchResultAds",
                             "ShouldAlwaysTriggerBraveSearchResultAdEvents"
                         ]
                     },
-                    "name": "EnabledDesktop",
-                    "probability_weight": 100
+                    "name": "EnabledInProcessDesktop",
+                    "probability_weight": 50
                 },
                 {
                     "name": "Default",
