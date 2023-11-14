@@ -2357,17 +2357,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "ShouldAlwaysRunBraveAdsService",
-                            "ShouldSupportSearchResultAds",
-                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
-                        ]
-                    },
-                    "name": "EnabledInUtilityDesktop",
-                    "probability_weight": 50
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "ShouldLaunchBraveAdsAsInProcessService",
                             "ShouldAlwaysRunBraveAdsService",
                             "ShouldSupportSearchResultAds",
@@ -2375,7 +2364,7 @@
                         ]
                     },
                     "name": "EnabledInProcessDesktop",
-                    "probability_weight": 50
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
