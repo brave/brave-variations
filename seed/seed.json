@@ -2357,6 +2357,37 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "EnabledDesktop",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveSearchAdStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "ShouldAlwaysRunBraveAdsService",
                             "ShouldSupportSearchResultAds",
                             "ShouldAlwaysTriggerBraveSearchResultAdEvents"
@@ -2387,9 +2418,6 @@
                     "RELEASE"
                 ],
                 "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
                     "ANDROID"
                 ]
             },
