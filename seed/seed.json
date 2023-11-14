@@ -2634,6 +2634,35 @@
             "experiments": [
                 {
                     "feature_association": {
+                        "disable_feature": [
+                            "SmilAutoSuspendOnLag"
+                        ]
+                    },
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "120.*",
+                "min_version": "118.*",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "SmilAutoSuspendOnLagKillSwitch"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
                         "enable_feature": [
                             "Playlist"
                         ]
