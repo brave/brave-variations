@@ -74,34 +74,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "OmniboxTabSwitchByDefault"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX"
-                ]
-            },
-            "name": "OmniboxTabSwitchByDefaultStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "BraveGoogleSignInPermission"
                         ]
                     },
@@ -2647,34 +2619,6 @@
                 ]
             },
             "name": "SmilAutoSuspendOnLagKillSwitch"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "Playlist"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX"
-                ]
-            },
-            "name": "DefaultPlaylistStudy"
         }
     ],
     "version": "1"
