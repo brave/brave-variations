@@ -2463,6 +2463,7 @@
                 "channel": [
                     "RELEASE"
                 ],
+                "max_version": "119.1.60.119",
                 "min_version": "119.1.60.0",
                 "platform": [
                     "WINDOWS",
