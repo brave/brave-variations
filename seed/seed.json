@@ -2557,6 +2557,31 @@
             "experiments": [
                 {
                     "feature_association": {
+                        "enable_feature": [
+                            "brave-web-view-rounded-corners"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveWebViewRoundedCornersStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
                         "disable_feature": [
                             "SmilAutoSuspendOnLag"
                         ]
