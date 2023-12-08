@@ -2587,6 +2587,39 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "Speedreader"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "tts",
+                            "value": "true"
+                        }
+                    ],
+                    "probability_weight": 10
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 90
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC"
+                ]
+            },
+            "name": "Speedreader TTS"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "CreativeAdModelBasedPredictor"
                         ]
                     },
