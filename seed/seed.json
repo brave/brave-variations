@@ -2683,6 +2683,32 @@
                 ]
             },
             "name": "DefaultPassthroughCommandDecoderStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "CollectWebGPUSupportMetrics"
+                        ]
+                    },
+                    "name": "Disabled_CollectWebGPUSupportMetrics",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "119.*",
+                "min_version": "119.*",
+                "platform": [
+                    "LINUX"
+                ]
+            },
+            "name": "CollectWebGPUSupportMetricsKillSwitch"
         }
     ],
     "version": "1"
