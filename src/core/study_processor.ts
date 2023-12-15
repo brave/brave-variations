@@ -332,7 +332,10 @@ export function processStudyList(
   for (const study of list) {
     const name = study.name;
     const processedStudy = new ProcessedStudy(study, options);
-    if (processedStudy.getPriority() < minPriority) {
+    if (
+      processedStudy.getPriority() < minPriority ||
+      processedStudy.studyDetails.isOutdated()
+    ) {
       continue;
     }
 
