@@ -16,14 +16,16 @@ The format description:
 https://chromium.googlesource.com/chromium/src/+/master/testing/variations/README.md
 """
 
+import argparse
 import serialize
 import json
 import proto.study_pb2 as study_pb2
 import subprocess
 import sys
 import proto.variations_seed_pb2 as variations_seed_pb2
-import argparse
-import dateutil.parser
+import re
+
+from datetime import datetime
 from packaging import version
 
 
@@ -54,6 +56,7 @@ def make_field_trial_testing_config(seed, version_string, channel_string,
                                     target_date):
     target_version = version.parse(version_string)
     target_channel = serialize.SUPPORTED_CHANNELS[channel_string]
+    assert target_channel is not None
     config = {}
     for study in seed.study:
         json_study = {}
@@ -144,7 +147,11 @@ def main():
         print("Seed data is invalid")
         return -1
     seed_message = serialize.make_variations_seed_message(seed_data)
-    target_unix_time = dateutil.parser.parse(args.target_date).timestamp()
+
+    date = datetime.strptime(args.target_date, '%Y-%m-%d %H:%M:%S %z')
+    target_unix_time = date.timestamp()
+
+    assert re.match(r'^\d+.\d+.\d+.\d+$', args.target_version)
     json_config = make_field_trial_testing_config(
         seed_message, args.target_version, args.target_channel, target_unix_time)
     json.dump(json_config, args.output, indent=2)
