@@ -2597,11 +2597,11 @@
                             "value": "true"
                         }
                     ],
-                    "probability_weight": 10
+                    "probability_weight": 25
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 90
+                    "probability_weight": 75
                 }
             ],
             "filter": {
