@@ -74,34 +74,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "OmniboxTabSwitchByDefault"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX"
-                ]
-            },
-            "name": "OmniboxTabSwitchByDefaultStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "BraveGoogleSignInPermission"
                         ]
                     },
@@ -485,44 +457,6 @@
                 ]
             },
             "name": "DisableBlobPartitioning"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "Speedreader"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "feature_association": {
-                        "disable_feature": [
-                            "Speedreader"
-                        ]
-                    },
-                    "name": "Disabled",
-                    "probability_weight": 0
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE"
-                ],
-                "min_version": "92.1.28.100",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX"
-                ]
-            },
-            "name": "SpeedreaderReleaseStudy"
         },
         {
             "experiments": [
@@ -2049,7 +1983,7 @@
                     "parameters": [
                         {
                             "name": "target_major_version_stable",
-                            "value": "1.52"
+                            "value": "1.60"
                         }
                     ],
                     "probability_weight": 100
@@ -2063,6 +1997,7 @@
                 "channel": [
                     "RELEASE"
                 ],
+                "min_version": "119.1.60.114",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2357,25 +2292,14 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "ShouldAlwaysRunBraveAdsService",
-                            "ShouldSupportSearchResultAds",
-                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 90
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "ShouldLaunchBraveAdsAsInProcessService",
                             "ShouldAlwaysRunBraveAdsService",
                             "ShouldSupportSearchResultAds",
                             "ShouldAlwaysTriggerBraveSearchResultAdEvents"
                         ]
                     },
-                    "name": "Enabled",
-                    "probability_weight": 10
+                    "name": "EnabledInProcessDesktop",
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
@@ -2389,7 +2313,46 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveSearchAdStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "EnabledInUtility",
+                    "probability_weight": 90
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ShouldLaunchBraveAdsAsInProcessService",
+                            "ShouldAlwaysRunBraveAdsService",
+                            "ShouldSupportSearchResultAds",
+                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+                        ]
+                    },
+                    "name": "EnabledInProcess",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
                     "ANDROID"
                 ]
             },
@@ -2557,7 +2520,41 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC"
+                ]
+            },
+            "name": "Speedreader TTS"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "Speedreader"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "tts",
+                            "value": "true"
+                        }
+                    ],
+                    "probability_weight": 25
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 75
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
                 ],
                 "platform": [
                     "WINDOWS",
@@ -2590,6 +2587,129 @@
                 ]
             },
             "name": "BraveHorizontalTabsUpdateEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "brave-web-view-rounded-corners"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveWebViewRoundedCornersStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "SmilAutoSuspendOnLag"
+                        ]
+                    },
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "120.*",
+                "min_version": "118.*",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "SmilAutoSuspendOnLagKillSwitch"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "DefaultPassthroughCommandDecoder"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "BlockListByModel",
+                            "value": "5030D_EEA|ASUS_Z008D|ASUS_Z00AD|CPH2*|Galaxy Tab 2 3G|GT-I9500|Infinix X6*|K016|K01Q|Lenovo TB-X*|LM-*|M2006C3*|moto e*|moto g*|MRD-LX1|Nokia 2.3|P01M*|P01T_1|RMX2185|SM-A*|Star 4|TBT8A10|TECNO K*|vivo*"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "DefaultPassthroughCommandDecoder"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 0
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
+            },
+            "name": "DefaultPassthroughCommandDecoderStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "CollectWebGPUSupportMetrics"
+                        ]
+                    },
+                    "name": "Disabled_CollectWebGPUSupportMetrics",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "119.*",
+                "min_version": "119.*",
+                "platform": [
+                    "LINUX"
+                ]
+            },
+            "name": "CollectWebGPUSupportMetricsKillSwitch"
         }
     ],
     "version": "1"
