@@ -151,7 +151,7 @@ def main():
     date = datetime.strptime(args.target_date, '%Y-%m-%d %H:%M:%S %z')
     target_unix_time = date.timestamp()
 
-    assert re.match(r'^\d+.\d+.\d+.\d+$', args.target_version)
+    assert re.match(r'^\d+\.\d+\.\d+\.\d+$', args.target_version)
     json_config = make_field_trial_testing_config(
         seed_message, args.target_version, args.target_channel, target_unix_time)
     json.dump(json_config, args.output, indent=2)
