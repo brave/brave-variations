@@ -11,7 +11,7 @@ def _load_studies(filename="seed/seed.json"):
 
 def _save_studies(studies, filename="seed/seed.json"):
     with open(filename, "w") as fh:
-        json.dump(studies, fh, sort_keys=True, indent=4)
+        json.dump(studies, fh, indent=4)
 
 
 def _create_study(
