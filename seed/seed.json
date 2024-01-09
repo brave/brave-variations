@@ -2963,6 +2963,35 @@
                 ]
             },
             "name": "CollectWebGPUSupportMetricsKillSwitch"
+        },
+        {
+            "name": "CloseWatcher",
+            "experiments": [
+                {
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": [
+                            "CloseWatcher"
+                        ]
+                    }
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "min_version": "120.*",
+                "max_version": "122.*",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            }
         }
     ],
     "version": "1"
