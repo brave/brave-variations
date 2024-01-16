@@ -2152,7 +2152,8 @@
             "filter": {
                 "channel": [
                     "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "RELEASE"
                 ],
                 "platform": [
                     "WINDOWS",
@@ -2161,14 +2162,14 @@
                     "ANDROID"
                 ]
             },
-            "name": "BraveP3AConstellationBetaNightlyRollout"
+            "name": "BraveP3AConstellationEnabled"
         },
         {
             "experiments": [
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "BraveP3AConstellation"
+                            "BraveP3ATypicalJSONDeprecation"
                         ]
                     },
                     "name": "Enabled",
@@ -2181,6 +2182,8 @@
             ],
             "filter": {
                 "channel": [
+                    "NIGHTLY",
+                    "BETA",
                     "RELEASE"
                 ],
                 "platform": [
@@ -2190,7 +2193,7 @@
                     "ANDROID"
                 ]
             },
-            "name": "BraveP3AConstellationReleaseRollout"
+            "name": "BraveP3ATypicalJSONDeprecationEnabled"
         },
         {
             "experiments": [
