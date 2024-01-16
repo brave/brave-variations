@@ -2992,7 +2992,43 @@
                     "ANDROID"
                 ]
             }
-        }
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "Playlist"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "PlaylistFakeUA"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
+            },
+            "name": "PlaylistAndroidStudy"
+        },
     ],
     "version": "1"
 }
