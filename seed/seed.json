@@ -2757,8 +2757,7 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
-                    "BETA"
+                    "NIGHTLY"
                 ],
                 "platform": [
                     "ANDROID"
@@ -2784,8 +2783,7 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
-                    "BETA"
+                    "NIGHTLY"
                 ],
                 "platform": [
                     "ANDROID"
