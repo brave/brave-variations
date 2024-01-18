@@ -2590,36 +2590,6 @@
                             "Speedreader"
                         ]
                     },
-                    "name": "Speedreader: TTS enabled",
-                    "parameters": [
-                        {
-                            "name": "tts",
-                            "value": "true"
-                        }
-                    ],
-                    "probability_weight": 100
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC"
-                ]
-            },
-            "name": "Speedreader TTS"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "Speedreader"
-                        ]
-                    },
                     "name": "Enabled",
                     "parameters": [
                         {
@@ -2627,15 +2597,17 @@
                             "value": "true"
                         }
                     ],
-                    "probability_weight": 50
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 50
+                    "probability_weight": 0
                 }
             ],
             "filter": {
                 "channel": [
+                    "NIGHTLY",
+                    "BETA",
                     "RELEASE"
                 ],
                 "platform": [
