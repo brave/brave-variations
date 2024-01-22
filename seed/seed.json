@@ -74,6 +74,34 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveNewsFeedUpdate"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 90
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveFeedUpdateStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveGoogleSignInPermission"
                         ]
                     },
