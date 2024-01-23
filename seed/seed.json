@@ -3086,7 +3086,7 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "ZeroDayFlagTest"
+                            "brave-zero-day-flag-android"
                         ]
                     },
                     "name": "Enabled",
@@ -3105,7 +3105,7 @@
                     "ANDROID"
                 ]
             },
-            "name": "AADay0Study"
+            "name": "ZeroDayFlagAndroid"
         }
     ],
     "version": "1"
