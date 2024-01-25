@@ -12,6 +12,9 @@ def _load_studies(filename="seed/seed.json"):
 def _save_studies(studies, filename="seed/seed.json"):
     with open(filename, "w") as fh:
         json.dump(studies, fh, indent=4)
+        # Many editors such as GitHub Web add a newline at the end of the file.
+        # Append it here too to prevent this as a change in `git diff`.
+        fh.write("\n")
 
 
 def _create_study(
