@@ -2386,7 +2386,7 @@
                         ]
                     },
                     "name": "EnabledInUtility",
-                    "probability_weight": 80
+                    "probability_weight": 50
                 },
                 {
                     "feature_association": {
@@ -2398,7 +2398,7 @@
                         ]
                     },
                     "name": "EnabledInProcess",
-                    "probability_weight": 20
+                    "probability_weight": 50
                 },
                 {
                     "name": "Default",
