@@ -69,7 +69,13 @@ export class StudyFilter {
     if (regex !== undefined) {
       let found = false;
       found ||= regex.test(s.study.name);
-      for (const e of s.study.experiment ?? []) found ||= regex.test(e.name);
+      for (const e of s.study.experiment ?? []) {
+        found ||= regex.test(e.name);
+        for (const p of e.param ?? []) {
+          if (p.name != null) found ||= regex.test(p.name);
+          if (p.value != null) found ||= regex.test(p.value);
+        }
+      }
       for (const feature of s.affectedFeatures) found ||= regex.test(feature);
       if (!found) return false;
     }

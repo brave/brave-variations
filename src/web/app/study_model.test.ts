@@ -34,6 +34,7 @@ describe('models', () => {
           enable_feature: ['EnabledFeature1', 'EnabledFeature2'],
           disable_feature: ['DisabledFeature'],
         },
+        param: [{ name: 'OsBlocklist', value: 'MacOs' }],
       },
       {
         name: 'Empty',
@@ -130,6 +131,8 @@ describe('models', () => {
     expect(useFilter(studyList, { search: 'DisabledFeature' }).length).toBe(1);
     expect(useFilter(studyList, { search: 'EnabledFeature1' }).length).toBe(1);
     expect(useFilter(studyList, { search: 'Default' }).length).toBe(1);
+    expect(useFilter(studyList, { search: 'OsBlock' }).length).toBe(1);
+    expect(useFilter(studyList, { search: 'Mac' }).length).toBe(1);
   });
 
   test('filter-outdated', () => {
