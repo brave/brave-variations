@@ -74,6 +74,34 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveNewsFeedUpdate"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 90
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveFeedUpdateStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveGoogleSignInPermission"
                         ]
                     },
@@ -2358,7 +2386,7 @@
                         ]
                     },
                     "name": "EnabledInUtility",
-                    "probability_weight": 80
+                    "probability_weight": 50
                 },
                 {
                     "feature_association": {
@@ -2370,7 +2398,7 @@
                         ]
                     },
                     "name": "EnabledInProcess",
-                    "probability_weight": 20
+                    "probability_weight": 50
                 },
                 {
                     "name": "Default",
