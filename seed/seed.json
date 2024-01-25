@@ -561,7 +561,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
+                    "name": "DefaultAdNotificationsPerHour=10|MaximumAdNotificationsPerDay=100|MaximumInlineContentAdsPerHour=6|MaximumInlineContentAdsPerDay=20|AdServingVersion=2",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -612,7 +612,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/MaximumNewTabPageAdsPerDay=0/AdServingVersion=2",
+                    "name": "DefaultAdNotificationsPerHour=10|MaximumAdNotificationsPerDay=100|MaximumInlineContentAdsPerHour=6|MaximumInlineContentAdsPerDay=20|MaximumNewTabPageAdsPerDay=0|AdServingVersion=2",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -668,7 +668,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
+                    "name": "DefaultAdNotificationsPerHour=10|MaximumAdNotificationsPerDay=100|MaximumInlineContentAdsPerHour=6|MaximumInlineContentAdsPerDay=20|AdServingVersion=2",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -2396,7 +2396,7 @@
                             "CustomNotificationAds"
                         ]
                     },
-                    "name": "normalized_display_coordinate_x/1/normalized_display_coordinate_y/0/inset_x/0/inset_y/220",
+                    "name": "normalized_display_coordinate_x=1|normalized_display_coordinate_y=0|inset_x=0|inset_y=220",
                     "parameters": [
                         {
                             "name": "normalized_display_coordinate_x",
@@ -2438,7 +2438,7 @@
                             "CustomNotificationAds"
                         ]
                     },
-                    "name": "normalized_display_coordinate_x/1/normalized_display_coordinate_y/0/inset_x/0/inset_y/72",
+                    "name": "normalized_display_coordinate_x=1|normalized_display_coordinate_y=0|inset_x=0|inset_y=72",
                     "parameters": [
                         {
                             "name": "normalized_display_coordinate_x",
