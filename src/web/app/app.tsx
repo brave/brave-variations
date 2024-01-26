@@ -86,7 +86,9 @@ export function ExperimentItem(props: {
   exp: ExperimentModel;
   filter: StudyFilter;
 }) {
-  const paramsList = props.exp.parameters().map((p) => <li key={p}>{p}</li>);
+  const paramsList = props.exp
+    .parameters()
+    .map((p) => <li key={p}>{maybeHighlight(props.filter, p)}</li>);
   const classes =
     'list-group-item ' +
     (props.exp.isMajorGroup() ? 'major-exp-item' : 'exp-item');
