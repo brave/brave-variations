@@ -507,53 +507,6 @@
             "experiments": [
                 {
                     "feature_association": {
-                        "disable_feature": [
-                            "TextClassification"
-                        ],
-                        "enable_feature": [
-                            "EpsilonGreedyBandit"
-                        ]
-                    },
-                    "name": "Treatment",
-                    "parameters": [
-                        {
-                            "name": "epsilon_value",
-                            "value": "0.33"
-                        }
-                    ],
-                    "probability_weight": 10
-                },
-                {
-                    "name": "Control",
-                    "probability_weight": 10
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 80
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE",
-                    "BETA",
-                    "NIGHTLY"
-                ],
-                "country": [
-                    "GB"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAds.EpsilonGreedyBanditStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
                         "enable_feature": [
                             "MacCoreLocationBackend"
                         ]
