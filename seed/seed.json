@@ -2671,7 +2671,9 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
                 ],
                 "platform": [
                     "ANDROID"
