@@ -2658,7 +2658,7 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "brave-zero-day-flag-android"
+                            "BraveZeroDayFlagAndroid"
                         ]
                     },
                     "name": "Enabled",
