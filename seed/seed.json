@@ -78,11 +78,11 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 50
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 50
+                    "probability_weight": 0
                 }
             ],
             "filter": {
@@ -2538,6 +2538,34 @@
                 "channel": [
                     "NIGHTLY",
                     "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveHorizontalTabsUpdateEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveHorizontalTabsUpdate"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 90
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
                 ],
                 "platform": [
                     "WINDOWS",
