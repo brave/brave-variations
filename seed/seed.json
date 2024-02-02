@@ -74,6 +74,34 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveNewsFeedUpdate"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveFeedUpdateStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveGoogleSignInPermission"
                         ]
                     },
@@ -565,7 +593,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
+                    "name": "DefaultAdNotificationsPerHour=10|MaximumAdNotificationsPerDay=100|MaximumInlineContentAdsPerHour=6|MaximumInlineContentAdsPerDay=20|AdServingVersion=2",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -616,7 +644,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/MaximumNewTabPageAdsPerDay=0/AdServingVersion=2",
+                    "name": "DefaultAdNotificationsPerHour=10|MaximumAdNotificationsPerDay=100|MaximumInlineContentAdsPerHour=6|MaximumInlineContentAdsPerDay=20|MaximumNewTabPageAdsPerDay=0|AdServingVersion=2",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -672,7 +700,7 @@
                             "AdServing"
                         ]
                     },
-                    "name": "DefaultAdNotificationsPerHour=10/MaximumAdNotificationsPerDay=100/MaximumInlineContentAdsPerHour=6/MaximumInlineContentAdsPerDay=20/AdServingVersion=2",
+                    "name": "DefaultAdNotificationsPerHour=10|MaximumAdNotificationsPerDay=100|MaximumInlineContentAdsPerHour=6|MaximumInlineContentAdsPerDay=20|AdServingVersion=2",
                     "parameters": [
                         {
                             "name": "default_ad_notifications_per_hour",
@@ -1497,6 +1525,36 @@
             "experiments": [
                 {
                     "feature_association": {
+                        "disable_feature": [
+                            "BraveShowStrictFingerprintingMode"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "120.1.63.110",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveAggressiveModeRetirementExperiment"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
                         "enable_feature": [
                             "AllowCertainClientHints"
                         ]
@@ -2278,83 +2336,13 @@
             "filter": {
                 "channel": [
                     "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "RELEASE"
                 ],
                 "platform": [
                     "WINDOWS",
                     "MAC",
                     "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveSearchAdStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "ShouldLaunchBraveAdsAsInProcessService",
-                            "ShouldAlwaysRunBraveAdsService",
-                            "ShouldSupportSearchResultAds",
-                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
-                        ]
-                    },
-                    "name": "EnabledInProcessDesktop",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX"
-                ]
-            },
-            "name": "BraveSearchAdStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "ShouldAlwaysRunBraveAdsService",
-                            "ShouldSupportSearchResultAds",
-                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
-                        ]
-                    },
-                    "name": "EnabledInUtility",
-                    "probability_weight": 80
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "ShouldLaunchBraveAdsAsInProcessService",
-                            "ShouldAlwaysRunBraveAdsService",
-                            "ShouldSupportSearchResultAds",
-                            "ShouldAlwaysTriggerBraveSearchResultAdEvents"
-                        ]
-                    },
-                    "name": "EnabledInProcess",
-                    "probability_weight": 20
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "RELEASE"
-                ],
-                "platform": [
                     "ANDROID"
                 ]
             },
@@ -2397,7 +2385,7 @@
                             "CustomNotificationAds"
                         ]
                     },
-                    "name": "normalized_display_coordinate_x/1/normalized_display_coordinate_y/0/inset_x/0/inset_y/220",
+                    "name": "normalized_display_coordinate_x=1|normalized_display_coordinate_y=0|inset_x=0|inset_y=220",
                     "parameters": [
                         {
                             "name": "normalized_display_coordinate_x",
@@ -2439,7 +2427,7 @@
                             "CustomNotificationAds"
                         ]
                     },
-                    "name": "normalized_display_coordinate_x/1/normalized_display_coordinate_y/0/inset_x/0/inset_y/72",
+                    "name": "normalized_display_coordinate_x=1|normalized_display_coordinate_y=0|inset_x=0|inset_y=72",
                     "parameters": [
                         {
                             "name": "normalized_display_coordinate_x",
@@ -2510,36 +2498,6 @@
                             "Speedreader"
                         ]
                     },
-                    "name": "Speedreader: TTS enabled",
-                    "parameters": [
-                        {
-                            "name": "tts",
-                            "value": "true"
-                        }
-                    ],
-                    "probability_weight": 100
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC"
-                ]
-            },
-            "name": "Speedreader TTS"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "Speedreader"
-                        ]
-                    },
                     "name": "Enabled",
                     "parameters": [
                         {
@@ -2547,15 +2505,17 @@
                             "value": "true"
                         }
                     ],
-                    "probability_weight": 50
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 50
+                    "probability_weight": 0
                 }
             ],
             "filter": {
                 "channel": [
+                    "NIGHTLY",
+                    "BETA",
                     "RELEASE"
                 ],
                 "platform": [
@@ -2581,6 +2541,34 @@
                 "channel": [
                     "NIGHTLY",
                     "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveHorizontalTabsUpdateEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveHorizontalTabsUpdate"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 10
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 90
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
                 ],
                 "platform": [
                     "WINDOWS",
