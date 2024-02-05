@@ -2616,7 +2616,7 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "BraveZeroDayFlagAndroid"
+                            "BraveDayZeroFlag"
                         ]
                     },
                     "name": "Enabled",
@@ -2637,7 +2637,7 @@
                     "ANDROID"
                 ]
             },
-            "name": "ZeroDayFlagAndroid"
+            "name": "DayZeroExperiment"
         },
         {
             "experiments": [
