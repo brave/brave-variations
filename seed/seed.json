@@ -2026,7 +2026,7 @@
                     "MAC"
                 ]
             },
-            "name": "BraveAds.CustomNotificationAdsStudy"
+            "name": "CustomNotificationAdsStudy"
         },
         {
             "experiments": [
