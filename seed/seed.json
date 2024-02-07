@@ -2668,10 +2668,6 @@
                     "NIGHTLY"
                 ],
                 "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID",
                     "IOS"
                 ]
             },
