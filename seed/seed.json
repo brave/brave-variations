@@ -2388,6 +2388,40 @@
                     "ANDROID"
                 ]
             }
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveNTPBrandedWallpaper"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "initial_count_to_branded_wallpaper",
+                            "value": "1"
+                        },
+                        {
+                            "name": "count_to_branded_wallpaper",
+                            "value": "2"
+                        }
+                    ],
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "IOS"
+                ]
+            },
+            "name": "NewTabPageTakeoverPositionStudy"
         }
     ],
     "version": "1"
