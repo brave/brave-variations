@@ -471,45 +471,6 @@
             "experiments": [
                 {
                     "feature_association": {
-                        "disable_feature": [
-                            "IdleDetection",
-                            "WebNFC",
-                            "WebOTP",
-                            "ComputePressure",
-                            "SignedExchangeSubresourcePrefetch",
-                            "TextFragmentAnchor",
-                            "NavigatorPluginsFixed"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "max_version": "110.1.49.83",
-                "min_version": "96.1.34.4",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "ForceDisableBlinkFeatures"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
                         "enable_feature": [
                             "HangWatcher"
                         ]
