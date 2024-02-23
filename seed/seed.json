@@ -344,40 +344,6 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "BraveFirstPartyEphemeralStorage",
-                            "BraveDomainBlock1PES"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "max_version": "110.1.49.83",
-                "min_version": "101.1.38.109",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "FirstPartyEphemeralDomainBlockStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
                             "UserActivity"
                         ]
                     },
