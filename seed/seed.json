@@ -807,6 +807,47 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "SidebarShowAlwaysOnStable"
+                        ]
+                    },
+                    "name": "group_A",
+                    "probability_weight": 2
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "SidebarShowAlwaysOnStable"
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "name": "open_one_shot_leo_panel",
+                            "value": "true"
+                        }
+                    ],
+                    "name": "group_B",
+                    "probability_weight": 2
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 96
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS"
+                ]
+            },
+            "name": "SidebarEnabledStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "AllowCertainClientHints"
                         ]
                     },
