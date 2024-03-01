@@ -1120,29 +1120,6 @@
             "experiments": [
                 {
                     "feature_association": {
-                        "disable_feature": [
-                            "UnifiedPasswordManagerLocalPasswordsMigrationWarning"
-                        ]
-                    },
-                    "name": "Disabled",
-                    "probability_weight": 100
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA"
-                ],
-                "platform": [
-                    "ANDROID"
-                ]
-            },
-            "name": "UnifiedPasswordManagerLocalPasswordsMigrationWarningSampling"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
                         "enable_feature": [
                             "BraveAdblockMobileNotificationsListDefault"
                         ]
