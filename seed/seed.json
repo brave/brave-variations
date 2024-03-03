@@ -2163,6 +2163,32 @@
                 ]
             },
             "name": "BraveRewardsAllowSelfCustodyProvidersStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "HeapProfilerReporting"
+                        ]
+                    },
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "MAC"
+                ],
+                "min_version": "122.*",
+                "max_version": "125.*"
+            },
+            "name": "HeapProfilingMacKillSwitch"
         }
     ],
     "version": "1"
