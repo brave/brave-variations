@@ -2157,6 +2157,32 @@
                 "max_version": "125.*"
             },
             "name": "HeapProfilingMacKillSwitch"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "RendererAllocatesImages"
+                        ]
+                    },
+                    "name": "Disabled_RendererAllocatesImages",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "MAC"
+                ],
+                "min_version": "122.*",
+                "max_version": "124.*"
+            },
+            "name": "RendererAllocatesImagesKillSwitch"
         }
     ],
     "version": "1"
