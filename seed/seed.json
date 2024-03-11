@@ -1397,6 +1397,38 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "PartitionedCookies"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "min_version": "122.1.63.0",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "PartitionedCookies"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "Speedreader"
                         ]
                     },
@@ -2143,6 +2175,32 @@
                 "max_version": "125.*"
             },
             "name": "HeapProfilingMacKillSwitch"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "RendererAllocatesImages"
+                        ]
+                    },
+                    "name": "Disabled_RendererAllocatesImages",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "MAC"
+                ],
+                "min_version": "122.*",
+                "max_version": "124.*"
+            },
+            "name": "RendererAllocatesImagesKillSwitch"
         }
     ],
     "version": "1"
