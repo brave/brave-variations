@@ -74,6 +74,34 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "HistoryMoreSearchResults"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "DefaultBraveOmniboxMoreHistoryStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveNewsFeedUpdate"
                         ]
                     },
@@ -726,21 +754,6 @@
                             "BraveSearchOmniboxBanner"
                         ]
                     },
-                    "name": "banner_type_A",
-                    "parameters": [
-                        {
-                            "name": "banner_type",
-                            "value": "type_A"
-                        }
-                    ],
-                    "probability_weight": 25
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "BraveSearchOmniboxBanner"
-                        ]
-                    },
                     "name": "banner_type_B",
                     "parameters": [
                         {
@@ -748,7 +761,7 @@
                             "value": "type_B"
                         }
                     ],
-                    "probability_weight": 25
+                    "probability_weight": 33
                 },
                 {
                     "feature_association": {
@@ -763,7 +776,7 @@
                             "value": "type_C"
                         }
                     ],
-                    "probability_weight": 25
+                    "probability_weight": 33
                 },
                 {
                     "feature_association": {
@@ -778,11 +791,12 @@
                             "value": "type_D"
                         }
                     ],
-                    "probability_weight": 25
+                    "probability_weight": 34
                 }
             ],
             "filter": {
                 "channel": [
+                    "BETA",
                     "NIGHTLY"
                 ],
                 "country": [
