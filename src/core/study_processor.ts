@@ -65,6 +65,8 @@ export class StudyFilter {
   }
 
   matches(s: ProcessedStudy): boolean {
+    if (s.getPriority() < this.minPriority) return false;
+    if (s.studyDetails.isOutdated() && !this.includeOutdated) return false;
     const regex = this.searchRegexp;
     if (regex !== undefined) {
       let found = false;
@@ -80,8 +82,6 @@ export class StudyFilter {
       if (!found) return false;
     }
 
-    if (s.getPriority() < this.minPriority) return false;
-    if (s.studyDetails.isOutdated() && !this.includeOutdated) return false;
     return true;
   }
 }
