@@ -2,18 +2,21 @@
   "compilerOptions": {
     "sourceMap": true,
     "noImplicitAny": true,
+    "allowJs": false,
     "module": "CommonJS",
     "target": "es2022",
-    "allowJs": true,
     "moduleResolution": "node",
     "baseUrl": ".",
-    "typeRoots": [
-      "./node_modules/@types",
-    ],
+    "typeRoots": ["../node_modules/@types"],
+    "jsx": "react-jsx",
+    "outDir": "build",
     // optional
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "strictNullChecks": true,
+    // tsx-specific:
+    "isolatedModules": true,
+    "esModuleInterop": true
   },
-  "include": [],
+  "include": ["./"]
 }

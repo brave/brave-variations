@@ -1,10 +1,10 @@
-// Copyright (c) 2023 The Brave Authors. All rights reserved.
+// Copyright (c) 2024 The Brave Authors. All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
+
+/** @type {import("prettier").Config} */
 module.exports = {
-  preset: 'ts-jest',
-  verbose: true,
-  testPathIgnorePatterns: ['/finch_tracker/build/'],
-  testEnvironment: 'node',
+  plugins: ['prettier-plugin-organize-imports'],
+  singleQuote: true,
 };

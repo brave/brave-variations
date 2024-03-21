@@ -1,4 +1,5 @@
-.vscode
+/.venv/
+/.vscode/
+node_modules/
 seed.bin
 serialnumber
-.venv/

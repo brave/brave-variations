@@ -1,0 +1,11 @@
+--- a/src/proto/study.proto
++++ b/src/proto/study.proto
+@@ -93,7 +93,7 @@ message Study {
+
+     // The cut of the total probability taken for this experiment (the x in
+     // x / N, where N is the sum of all x’s).  Ex: "50"
+-    required uint32 probability_weight = 2;
++    optional uint32 probability_weight = 2;
+
+     // Optional id used to uniquely identify this experiment for Google web
+     // properties.

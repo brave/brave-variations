@@ -5,11 +5,11 @@
 
 import * as fs from 'fs';
 
-import { serializeStudies } from './tracker_lib';
-import { expect, test, describe } from '@jest/globals';
-import { variations as proto } from '../proto/generated/proto_bundle';
-import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
+import { describe, expect, test } from '@jest/globals';
 import { StudyPriority } from '../core/study_processor';
+import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
+import { variations as proto } from '../proto/generated/proto_bundle';
+import { serializeStudies } from './tracker_lib';
 
 function serialize(json: Record<string, any>) {
   const ordered = Object.keys(json)
@@ -22,7 +22,7 @@ function serialize(json: Record<string, any>) {
 }
 
 test('seed serialization', () => {
-  const data = fs.readFileSync('test/data/seed1.bin');
+  const data = fs.readFileSync('src/test/data/seed1.bin');
   const map = serializeStudies(data, {
     minMajorVersion: 116,
     isBraveSeed: true,
@@ -30,11 +30,11 @@ test('seed serialization', () => {
   const serializedOutput = serialize(map);
 
   const serializedExpectations = fs
-    .readFileSync('test/data/seed1.bin.processing_expectations')
+    .readFileSync('src/test/data/seed1.bin.processing_expectations')
     .toString();
 
   if (serializedExpectations !== serializedOutput) {
-    const fileName = 'test/data/seed1.bin.failed';
+    const fileName = 'src/test/data/seed1.bin.failed';
     console.log('Saving non-matching output as ', fileName);
     fs.writeFileSync(fileName, serializedOutput);
   }

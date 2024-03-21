@@ -5,16 +5,16 @@
 import { createHash } from 'node:crypto';
 
 import { type variations as proto } from '../proto/generated/proto_bundle';
-import {
-  type ProcessedStudy,
-  StudyPriority,
-  processStudyList,
-  priorityToText,
-} from './study_processor';
 import { SeedType, type ProcessingOptions } from './base_types';
+import {
+  StudyPriority,
+  priorityToText,
+  processStudyList,
+  type ProcessedStudy,
+} from './study_processor';
 
+import config from '../config';
 import * as url_utils from './url_utils';
-import * as config from '../config';
 
 export enum ItemAction {
   New,

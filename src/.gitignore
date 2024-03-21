@@ -1,2 +1,4 @@
-node_modules/
-finch_tracker/build/
+/build/
+/*/build/
+
+*.failed
