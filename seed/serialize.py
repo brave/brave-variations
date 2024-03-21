@@ -68,10 +68,9 @@ def update_serial_number(serialnumber):
           (serialnumber, SERIALNUMBER_PATH))
 
 
-def make_variations_seed_message(seed_data):
+def make_variations_seed_message(seed_data, serialnumber):
     seed = variations_seed_pb2.VariationsSeed()
     seed.version = seed_data['version']
-    serialnumber = get_serial_number()
     seed.serial_number = serialnumber
 
     supported_optional_bool = {
@@ -209,17 +208,23 @@ def main():
     parser.add_argument(
       'seed_path', type=argparse.FileType('r'), nargs='?',
       help='json seed file to process')
+    parser.add_argument(
+      '--mock_serial_number',
+      help='mock serial number for testing purposes')
     args = parser.parse_args()
 
     print("Load", args.seed_path.name)
     seed_data = json.load(args.seed_path)
+    seed_data['studies'].sort(key=lambda study: study['name'])
 
     print("Validate seed data")
     if not validate(seed_data):
         print("Seed data is invalid")
         return -1
-    seed_message = make_variations_seed_message(seed_data)
-    update_serial_number(seed_message.serial_number)
+
+    serial_number = args.mock_serial_number or get_serial_number()
+    seed_message = make_variations_seed_message(seed_data, serial_number)
+    update_serial_number(serial_number)
 
     # Serialize and save as seed file
     with open(SEED_BIN_PATH, "wb") as seed_file:

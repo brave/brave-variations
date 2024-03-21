@@ -1,2 +1,3 @@
-node_modules/
 finch_tracker/build/
+node_modules/
+out/

@@ -12,22 +12,16 @@ module.exports = {
   plugins: ['prettier', 'licenses', 'react'],
   root: true,
   parserOptions: {
-    project: './tsconfig-lint.json',
+    project: './tsconfig.json',
     tsconfigRootDir: __dirname,
   },
   ignorePatterns: [
     '*.js',
     'proto/generated/*',
     'node_modules/*',
+    'web/static/*',
   ],
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        printWidth: 80,
-      },
-    ],
     '@typescript-eslint/explicit-function-return-type': 'off',
     'licenses/header': [
       2,
