@@ -7,13 +7,19 @@
     "allowJs": true,
     "moduleResolution": "node",
     "baseUrl": ".",
-    "typeRoots": [
-      "../node_modules/@types",
-    ],
+    "typeRoots": ["./node_modules/@types"],
+    "jsx": "react-jsx",
+    "outDir": "build",
     // optional
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "strictNullChecks": true,
+    // tsx-specific:
+    "isolatedModules": true,
+    "esModuleInterop": true
   },
-  "include": [],
+  // This config should cover all files in the project, but exclude all build
+  // outputs.
+  "include": ["./src"],
+  "exclude": ["**/build/", "**/bundle/"]
 }

@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
+
 module.exports = {
   settings: {
     react: {
@@ -9,25 +10,20 @@ module.exports = {
     },
   },
   extends: ['standard-with-typescript', 'prettier', 'plugin:react/recommended'],
-  plugins: ['prettier', 'licenses', 'react'],
+  plugins: ['licenses', 'react'],
   root: true,
   parserOptions: {
-    project: './tsconfig-lint.json',
+    project: '../tsconfig.json',
     tsconfigRootDir: __dirname,
   },
-  ignorePatterns: [
-    '*.js',
-    'proto/generated/*',
-    'node_modules/*',
+  ignorePatterns: ['**/build/', '/proto/generated/', '/web/public/bundle/'],
+  overrides: [
+    {
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
+      files: ['**/*.js'],
+    },
   ],
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        printWidth: 80,
-      },
-    ],
     '@typescript-eslint/explicit-function-return-type': 'off',
     'licenses/header': [
       2,
