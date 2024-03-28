@@ -954,7 +954,8 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA"
                 ],
                 "min_version": "120.1.63.110",
                 "platform": [
