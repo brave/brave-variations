@@ -2504,6 +2504,35 @@
             "name": "PrivateNetworkAccessKillswitch",
             "min_version": "123.*",
             "max_version": "125.*"
+        },
+        {
+            "name": "UseWritePixelsYUV",
+            "experiments": [
+                {
+                    "name": "Disabled_UseWritePixelsYUV",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": [
+                            "UseWritePixelsYUV"
+                        ]
+                    }
+                }
+            ],
+            "filter": {
+                "min_version": "123.*",
+                "max_version": "125.*",
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            }
         }
     ],
     "version": "1"
