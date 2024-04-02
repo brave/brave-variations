@@ -2244,6 +2244,10 @@
                         {
                             "name": "page_land_after",
                             "value": "5s"
+                        },
+                        {
+                            "name": "page_land_cap",
+                            "value": "0"
                         }
                     ],
                     "probability_weight": 100
