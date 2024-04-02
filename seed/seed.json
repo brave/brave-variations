@@ -954,7 +954,8 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA"
                 ],
                 "min_version": "120.1.63.110",
                 "platform": [
@@ -2243,6 +2244,10 @@
                         {
                             "name": "page_land_after",
                             "value": "5s"
+                        },
+                        {
+                            "name": "page_land_cap",
+                            "value": "0"
                         }
                     ],
                     "probability_weight": 100
@@ -2267,6 +2272,44 @@
                 ]
             },
             "name": "BraveAdsSiteVisitStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "NewTabPageAds"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "minimum_wait_time",
+                            "value": "1m"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAdsNewTabPageAdsStudy"
         },
         {
             "experiments": [
