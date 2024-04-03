@@ -2533,6 +2533,34 @@
                     "ANDROID"
                 ]
             }
+        },
+        {
+            "name": "NewTabPageTriggerForPrerender2Killswitch",
+            "experiments": [
+                {
+                    "name": "Disabled_NewTabPageTriggerForPrerender2",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": [
+                            "NewTabPageTriggerForPrerender2"
+                        ]
+                    }
+                }
+            ],
+            "filter": {
+                "min_version": "118.*",
+                "max_version": "125.*",
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            }
         }
     ],
     "version": "1"
