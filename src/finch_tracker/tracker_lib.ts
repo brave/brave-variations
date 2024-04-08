@@ -43,11 +43,11 @@ export function serializeStudies(
       .replace(/^(\.\.(\/|\\|$))+/, '');
     const processed = new ProcessedStudy(study, options);
     processed.postProcessBeforeSerialization();
-    addStudy(path.join('all-by-name', sanitizedName), study);
+    addStudy(`all-by-name/${sanitizedName}`, study);
     if (!processed.studyDetails.isOutdated()) {
       const priority = processed.getPriority();
       if (priority > StudyPriority.NON_INTERESTING)
-        addStudy(path.join(priorityToText(priority), sanitizedName), study);
+        addStudy(`${priorityToText(priority)}/${sanitizedName}`, study);
     }
   }
   return map;
