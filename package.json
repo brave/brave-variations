@@ -3,15 +3,15 @@
   "version": "0.0.1",
   "description": "Brave Variations",
   "scripts": {
-    "test": "jest",
-    "lint": "eslint . --ext ts,tsx",
-    "tracker": "node finch_tracker/build/finch_tracker/main.js",
-    "clean": "rm -rf ./proto/generated/proto_bundle* web/public/bundle/ finch_tracker/build/",
-    "build:proto": "pbjs -t static-module --keep-case ./proto/variations_seed.proto ./proto/study.proto -o proto/generated/proto_bundle.js && pbts -o proto/generated/proto_bundle.d.ts proto/generated/proto_bundle.js",
-    "build:tracker": "tsc -p finch_tracker/tsconfig.json",
-    "build:web": "webpack -c web/webpack.config.js --mode=production",
+    "test": "jest --config src/jest.config.js",
+    "lint": "eslint src --ext ts,tsx",
+    "tracker": "node src/finch_tracker/build/finch_tracker/main.js",
+    "clean": "rm -rf ./src/proto/generated/proto_bundle* src/web/public/bundle/ src/finch_tracker/build/",
+    "build:proto": "pbjs -t static-module --keep-case ./src/proto/variations_seed.proto ./src/proto/study.proto -o src/proto/generated/proto_bundle.js && pbts -o src/proto/generated/proto_bundle.d.ts src/proto/generated/proto_bundle.js",
+    "build:tracker": "tsc -p src/finch_tracker/tsconfig.json",
+    "build:web": "webpack -c src/web/webpack.config.js --mode=production",
     "build": "npm run build:proto && npm run build:web && npm run build:tracker",
-    "serve:dev": "webpack serve -c web/webpack.config.js --hot --mode=development"
+    "serve:dev": "webpack serve -c src/web/webpack.config.js --hot --mode=development"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

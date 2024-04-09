@@ -3,16 +3,11 @@ name: Tracker&Griffin tests
 on:
   pull_request:
     branches: [main, production]
-    paths:
-    - 'src/**'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src
     steps:
       - uses: actions/checkout@v4
 
