@@ -971,6 +971,36 @@
             "experiments": [
                 {
                     "feature_association": {
+                        "disable_feature": [
+                            "BraveShowStrictFingerprintingMode"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 15
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 85
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "min_version": "120.1.63.110",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveAggressiveModeRetirementExperiment"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
                         "enable_feature": [
                             "AllowCertainClientHints"
                         ]
