@@ -2495,7 +2495,7 @@
                     "MX"
                 ],
                 "start_date": 1711929600,
-                "end_date": 1712793599,
+                "end_date": 1714521599,
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2563,6 +2563,37 @@
                     "LINUX",
                     "ANDROID"
                 ]
+            }
+        },
+        {
+            "name": "BraveAdblockExperimentalListDefaultStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveAdblockExperimentalListDefault"
+                        ]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "min_version": "123.1.66.53"
             }
         }
     ],
