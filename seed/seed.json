@@ -995,7 +995,38 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "min_version": "120.1.63.110",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveAggressiveModeRetirementExperiment"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveShowStrictFingerprintingMode"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 15
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 85
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
                 ],
                 "min_version": "120.1.63.110",
                 "platform": [
@@ -2214,7 +2245,8 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX"
+                    "LINUX",
+                    "ANDROID"
                 ]
             },
             "name": "BraveRewardsAllowSelfCustodyProvidersStudy"
@@ -2270,6 +2302,340 @@
                 "max_version": "124.*"
             },
             "name": "RendererAllocatesImagesKillSwitch"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "SiteVisitFeature"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "page_land_after",
+                            "value": "5s"
+                        },
+                        {
+                            "name": "page_land_cap",
+                            "value": "0"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAdsSiteVisitStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "NewTabPageAds"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "minimum_wait_time",
+                            "value": "1m"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAdsNewTabPageAdsStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "TextClassification"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "page_probabilities_history_size",
+                            "value": "15"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAdsTextClassificationPageProbabilitiesStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "CreativeNotificationAdModelBasedPredictor"
+                        ]
+                    },
+                    "name": "StudyA",
+                    "parameters": [
+                        {
+                            "name": "child_intent_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_intent_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "child_latent_interest_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_latent_interest_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "child_interest_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_interest_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "untargeted_segment_predictor_weight",
+                            "value": "0.0"
+                        },
+                        {
+                            "name": "last_seen_ad_predictor_weight",
+                            "value": "0.0"
+                        },
+                        {
+                            "name": "last_seen_advertiser_predictor_weight",
+                            "value": "0.0"
+                        }
+                    ],
+                    "probability_weight": 10
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "CreativeNotificationAdModelBasedPredictor"
+                        ]
+                    },
+                    "name": "StudyB",
+                    "parameters": [
+                        {
+                            "name": "child_intent_segment_predictor_weight",
+                            "value": "5.0"
+                        },
+                        {
+                            "name": "parent_intent_segment_predictor_weight",
+                            "value": "5.0"
+                        },
+                        {
+                            "name": "child_latent_interest_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_latent_interest_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "child_interest_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "parent_interest_segment_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "untargeted_segment_predictor_weight",
+                            "value": "0.0001"
+                        },
+                        {
+                            "name": "last_seen_ad_predictor_weight",
+                            "value": "1.0"
+                        },
+                        {
+                            "name": "last_seen_advertiser_predictor_weight",
+                            "value": "1.0"
+                        }
+                    ],
+                    "probability_weight": 10
+                },
+                {
+                    "name": "StudyC",
+                    "probability_weight": 80
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "country": [
+                    "BR",
+                    "GB",
+                    "FR",
+                    "IN",
+                    "MX"
+                ],
+                "start_date": 1711929600,
+                "end_date": 1714521599,
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAds.CreativeNotificationAdModelBasedPredictorStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "PrivateNetworkAccessForNavigations",
+                            "PrivateNetworkAccessForNavigationsWarningOnly"
+                        ]
+                    },
+                    "name": "Disabled_PrivateNetworkAccessKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "PrivateNetworkAccessKillswitch",
+            "min_version": "123.*",
+            "max_version": "125.*"
+        },
+        {
+            "name": "UseWritePixelsYUV",
+            "experiments": [
+                {
+                    "name": "Disabled_UseWritePixelsYUV",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": [
+                            "UseWritePixelsYUV"
+                        ]
+                    }
+                }
+            ],
+            "filter": {
+                "min_version": "123.*",
+                "max_version": "125.*",
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            }
+        },
+        {
+            "name": "BraveAdblockExperimentalListDefaultStudy",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveAdblockExperimentalListDefault"
+                        ]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ],
+                "min_version": "123.1.66.53"
+            }
         }
     ],
     "version": "1"
