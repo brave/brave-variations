@@ -1561,7 +1561,7 @@
                     "parameters": [
                         {
                             "name": "target_major_version_stable",
-                            "value": "1.60"
+                            "value": "1.65"
                         }
                     ],
                     "probability_weight": 100
