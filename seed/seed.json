@@ -2636,6 +2636,100 @@
                 ],
                 "min_version": "123.1.66.53"
             }
+        },
+        {
+            "name": "DayZeroStudyAndroid",
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveDayZeroExperiment"
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "name": "variant",
+                            "value": "a"
+                        }
+                    ],
+                    "name": "EnabledA",
+                    "probability_weight": 3
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveDayZeroExperiment"
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "name": "variant",
+                            "value": "b"
+                        }
+                    ],
+                    "name": "EnabledB",
+                    "probability_weight": 3
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 94
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
+            }
+        },
+        {
+            "name": "DayZeroStudyWindows",
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveDayZeroExperiment"
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "name": "variant",
+                            "value": "a"
+                        }
+                    ],
+                    "name": "EnabledA",
+                    "probability_weight": 4
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveDayZeroExperiment"
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "name": "variant",
+                            "value": "b"
+                        }
+                    ],
+                    "name": "EnabledB",
+                    "probability_weight": 4
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 92
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS"
+                ]
+            }
         }
     ],
     "version": "1"
