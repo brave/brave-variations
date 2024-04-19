@@ -1879,7 +1879,8 @@
             "filter": {
                 "channel": [
                     "NIGHTLY",
-                    "BETA"
+                    "BETA",
+                    "RELEASE"
                 ],
                 "min_version": "122.1.65.32",
                 "platform": [
