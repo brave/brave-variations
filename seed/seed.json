@@ -2810,6 +2810,41 @@
                     "LINUX"
                 ]
             }
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveFallbackDoHProvider"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "BraveFallbackDoHProviderEndpoint",
+                            "value": "quad9"
+                        }
+                    ],
+                    "probability_weight": 50
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 50
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveFallbackDoHStudy"
         }
     ],
     "version": "1"
