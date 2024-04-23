@@ -2728,7 +2728,8 @@
             ],
             "filter": {
                 "channel": [
-                    "RELEASE"
+                    "RELEASE",
+                    "NIGHTLY"
                 ],
                 "platform": [
                     "ANDROID"
