@@ -5,8 +5,8 @@
 
 import { type SetURLSearchParams } from 'react-router-dom';
 
-import { StudyFilter, StudyPriority } from '../../core/study_processor';
 import { SeedType } from '../../core/base_types';
+import { StudyFilter, StudyPriority } from '../../core/study_processor';
 
 function stringToSeedType(value: string): SeedType | undefined {
   const index = Object.values(SeedType).indexOf(value);

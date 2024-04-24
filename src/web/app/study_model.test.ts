@@ -3,15 +3,15 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import { expect, test, describe } from '@jest/globals';
-import { variations as proto } from '../../proto/generated/proto_bundle';
+import { describe, expect, test } from '@jest/globals';
+import { SeedType } from '../../core/base_types';
 import {
   ProcessedStudy,
   StudyFilter,
   StudyPriority,
 } from '../../core/study_processor';
+import { variations as proto } from '../../proto/generated/proto_bundle';
 import { StudyListModel, StudyModel } from './study_model';
-import { SeedType } from '../../core/base_types';
 
 function makeStudyModel(properties: proto.IStudy) {
   const study = new proto.Study(properties);

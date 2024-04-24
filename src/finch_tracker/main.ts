@@ -11,9 +11,9 @@ import * as url_utils from '../core/url_utils';
 import { variations as proto } from '../proto/generated/proto_bundle';
 import { downloadUrl, getSeedPath } from './node_utils';
 import {
+  commitAllChanges,
   fetchChromeSeedData,
   storeDataToDirectory,
-  commitAllChanges,
 } from './tracker_lib';
 
 async function main(): Promise<void> {

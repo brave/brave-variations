@@ -10,9 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          fetch-depth: 0
 
       - name: npm install
         run: npm install
+
+      - name: typecheck:scripts
+        run: npm run typecheck:scripts
 
       - name: build
         run: npm run build
@@ -21,4 +26,4 @@ jobs:
         run: npm run test
 
       - name: lint
-        run: npm run lint
+        run: npm run lint -- --base origin/${{ github.event.pull_request.base.ref }}

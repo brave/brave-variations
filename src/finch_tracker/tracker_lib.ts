@@ -3,19 +3,19 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
-import { execSync } from 'child_process';
 
-import { variations as proto } from '../proto/generated/proto_bundle';
-import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
+import { type ProcessingOptions } from '../core/base_types';
+import { studyToJSON } from '../core/serializers';
 import {
   ProcessedStudy,
   StudyPriority,
   priorityToText,
 } from '../core/study_processor';
-import { studyToJSON } from '../core/serializers';
-import { type ProcessingOptions } from '../core/base_types';
+import { variations as proto } from '../proto/generated/proto_bundle';
+import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
 
 export async function fetchChromeSeedData(): Promise<Buffer> {
   const kChromeSeedUrl =

@@ -2,9 +2,9 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
-import { isFeatureBlocklisted, isStudyNameBlocklisted } from './blocklists';
 import { variations as proto } from '../proto/generated/proto_bundle';
 import { type ProcessingOptions } from './base_types';
+import { isFeatureBlocklisted, isStudyNameBlocklisted } from './blocklists';
 import { matchesMaxVersion, parseVersionPattern } from './version';
 
 const UPSTREAM_SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] = [

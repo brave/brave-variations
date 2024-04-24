@@ -1,14 +1,8 @@
 {
-  "extends": "../tsconfig",
-  "types": [
-    "browser",
-  ],
+  "extends": "../../tsconfig",
+  "types": ["browser"],
   "compilerOptions": {
-    "outDir": "build",
-    "jsx": "react-jsx",
+    "outDir": "build"
   },
-  "include": [
-    "./**/*",
-    "../proto/generated/"
-  ],
+  "include": ["./**/*"]
 }

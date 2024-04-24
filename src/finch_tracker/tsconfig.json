@@ -1,13 +1,8 @@
 {
-  "extends": "../tsconfig",
+  "extends": "../../tsconfig",
   "compilerOptions": {
-    "types": [
-      "node"
-    ],
-    "outDir": "build",
+    "types": ["node"],
+    "outDir": "build"
   },
-  "include": [
-    "./**/*",
-    "../proto/generated/"
-  ]
+  "include": ["./**/*", "../proto/generated/proto_bundle.js"]
 }

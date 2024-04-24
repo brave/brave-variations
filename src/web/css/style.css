@@ -3,7 +3,7 @@
 }
 
 .container h1 {
-  background: url("../img/brave_lion.svg") no-repeat left center/24px;
+  background: url('../img/brave_lion.svg') no-repeat left center/24px;
   font-size: 24px;
   padding: 0 0 0 32px;
   margin: 0;
@@ -24,7 +24,7 @@ section.navbar {
 }
 
 .nav-pills .nav-link.active {
-  background-color: #FF5500 !important;
+  background-color: #ff5500 !important;
   color: #f8f9fa !important;
 }
 
@@ -107,9 +107,9 @@ ul.study-meta li {
 }
 
 ul.study-meta li:after {
-  content: ", ";
+  content: ', ';
 }
 
 ul.study-meta li:last-child:after {
-  content: "";
+  content: '';
 }
