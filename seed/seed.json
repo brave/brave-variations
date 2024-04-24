@@ -2130,7 +2130,7 @@
                             "CreativeNotificationAdModelBasedPredictor"
                         ]
                     },
-                    "name": "StudyA",
+                    "name": "Enabled",
                     "parameters": [
                         {
                             "name": "child_intent_segment_predictor_weight",
@@ -2169,58 +2169,11 @@
                             "value": "0.0"
                         }
                     ],
-                    "probability_weight": 10
+                    "probability_weight": 100
                 },
                 {
-                    "feature_association": {
-                        "enable_feature": [
-                            "CreativeNotificationAdModelBasedPredictor"
-                        ]
-                    },
-                    "name": "StudyB",
-                    "parameters": [
-                        {
-                            "name": "child_intent_segment_predictor_weight",
-                            "value": "5.0"
-                        },
-                        {
-                            "name": "parent_intent_segment_predictor_weight",
-                            "value": "5.0"
-                        },
-                        {
-                            "name": "child_latent_interest_segment_predictor_weight",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "parent_latent_interest_segment_predictor_weight",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "child_interest_segment_predictor_weight",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "parent_interest_segment_predictor_weight",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "untargeted_segment_predictor_weight",
-                            "value": "0.0001"
-                        },
-                        {
-                            "name": "last_seen_ad_predictor_weight",
-                            "value": "1.0"
-                        },
-                        {
-                            "name": "last_seen_advertiser_predictor_weight",
-                            "value": "1.0"
-                        }
-                    ],
-                    "probability_weight": 10
-                },
-                {
-                    "name": "StudyC",
-                    "probability_weight": 80
+                    "name": "Default",
+                    "probability_weight": 0
                 }
             ],
             "filter": {
@@ -2229,15 +2182,6 @@
                     "BETA",
                     "RELEASE"
                 ],
-                "country": [
-                    "BR",
-                    "GB",
-                    "FR",
-                    "IN",
-                    "MX"
-                ],
-                "start_date": 1711929600,
-                "end_date": 1714521599,
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2246,7 +2190,7 @@
                     "IOS"
                 ]
             },
-            "name": "BraveAds.CreativeNotificationAdModelBasedPredictorStudy"
+            "name": "CreativeNotificationAdModelBasedPredictorStudy"
         },
         {
             "experiments": [
