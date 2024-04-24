@@ -4,30 +4,30 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: "Study name"
+        description: 'Study name'
         required: true
         type: string
       enable_feature:
-        description: "Feature name to enable"
+        description: 'Feature name to enable'
         required: true
         type: string
       probability_enabled:
-        description: "Percentage number to enable (ex: 25)"
+        description: 'Percentage number to enable (ex: 25)'
         required: true
-        default: "25"
+        default: '25'
         type: string
       channel:
-        description: "Channels to enable on (in comma separated value format)"
+        description: 'Channels to enable on (in comma separated value format)'
         required: true
-        default: "RELEASE,BETA,NIGHTLY"
+        default: 'RELEASE,BETA,NIGHTLY'
         type: string
       platform:
-        description: "Platforms to enable on (in comma separated value format)"
+        description: 'Platforms to enable on (in comma separated value format)'
         required: true
-        default: "WINDOWS,MAC,LINUX,ANDROID"
+        default: 'WINDOWS,MAC,LINUX,ANDROID'
         type: string
       min_version:
-        description: "Minimum version to enable on (optional)"
+        description: 'Minimum version to enable on (optional)'
         required: false
         type: string
 
@@ -44,11 +44,11 @@ jobs:
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
-          fetch-depth: "0"
+          fetch-depth: '0'
 
       - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236 # v4
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: upsert-study
         id: upsert

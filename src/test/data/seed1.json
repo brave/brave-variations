@@ -6,22 +6,22 @@
       "name": "StudyKillSwitch",
       "experiments": [
         {
-          "feature_association": { "enable_feature": [ "SomeFeature"] },
+          "feature_association": { "enable_feature": ["SomeFeature"] },
           "name": "Enabled",
           "probability_weight": 100
         }
       ],
       "filter": {
-        "channel": [ "RELEASE"],
+        "channel": ["RELEASE"],
         "max_version": "299.0.0.0",
-        "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID"]
+        "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
       }
     },
     {
       "name": "Stable-100",
       "experiments": [
         {
-          "feature_association": { "enable_feature": [ "SomeFeature"] },
+          "feature_association": { "enable_feature": ["SomeFeature"] },
           "name": "Enabled",
           "probability_weight": 99
         },
@@ -31,15 +31,15 @@
         }
       ],
       "filter": {
-        "channel": [ "RELEASE"],
-        "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID"]
+        "channel": ["RELEASE"],
+        "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
       }
     },
     {
       "name": "Stable-50",
       "experiments": [
         {
-          "feature_association": { "enable_feature": [ "SomeFeature"] },
+          "feature_association": { "enable_feature": ["SomeFeature"] },
           "name": "Enabled",
           "probability_weight": 50
         },
@@ -49,86 +49,92 @@
         }
       ],
       "filter": {
-        "channel": [ "RELEASE"],
-        "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID"]
+        "channel": ["RELEASE"],
+        "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
       }
     },
     {
       "name": "Stable-min",
       "experiments": [
         {
-          "feature_association": { "enable_feature": [ "SomeFeature"] },
+          "feature_association": { "enable_feature": ["SomeFeature"] },
           "name": "Enabled_1",
           "probability_weight": 5
         },
         {
           "name": "Control_1",
-          "feature_association": { "disabled_feature": [ "SomeFeature"] },
+          "feature_association": { "disabled_feature": ["SomeFeature"] },
           "probability_weight": 45
         },
         {
           "name": "Default",
-          "feature_association": { "disabled_feature": [ "SomeFeature"] },
+          "feature_association": { "disabled_feature": ["SomeFeature"] },
           "probability_weight": 50
         }
       ],
       "filter": {
-        "channel": [ "RELEASE"],
-        "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID"]
+        "channel": ["RELEASE"],
+        "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
       }
     },
     {
       "name": "BetaStudy",
       "experiments": [
         {
-          "feature_association": { "enable_feature": [ "SomeFeature"] },
+          "feature_association": { "enable_feature": ["SomeFeature"] },
           "name": "Enabled",
           "probability_weight": 100
         }
       ],
       "filter": {
-        "channel": [ "BETA"],
-        "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID"]
+        "channel": ["BETA"],
+        "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
       }
     },
     {
       "name": "EndedMaxVersion",
-      "experiments": [{
-          "feature_association": { "enable_feature": [ "SomeFeature"] },
+      "experiments": [
+        {
+          "feature_association": { "enable_feature": ["SomeFeature"] },
           "name": "Enabled",
           "probability_weight": 100
-      }],
+        }
+      ],
       "filter": {
-        "channel": [ "RELEASE"],
+        "channel": ["RELEASE"],
         "max_version": "99.1.49.83",
-        "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID"]
+        "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
       }
     },
     {
       "name": "EndedByDate",
-      "experiments": [{
-          "feature_association": { "enable_feature": [ "SomeFeature"] },
+      "experiments": [
+        {
+          "feature_association": { "enable_feature": ["SomeFeature"] },
           "name": "Enabled",
           "probability_weight": 100
-      }],
+        }
+      ],
       "filter": {
-        "channel": [ "RELEASE"],
+        "channel": ["RELEASE"],
         "end_date": 1663175424,
         "COMMENT": "end_date == Wednesday, September 14, 2022 5:10:24 PM",
-        "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID"]
+        "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
       }
     },
     {
       "name": "BlocklistedStudy",
-      "experiments": [{
-          "feature_association": { "enable_feature": [ "Ukm"] },
+      "experiments": [
+        {
+          "feature_association": { "enable_feature": ["Ukm"] },
           "COMMENT": "Ukm is blocklisted feature, see config.js",
           "name": "Enabled",
           "probability_weight": 100
-      }],
+        }
+      ],
       "filter": {
-        "channel": [ "RELEASE"],
-        "platform": [ "WINDOWS", "MAC", "LINUX", "ANDROID"]
+        "channel": ["RELEASE"],
+        "platform": ["WINDOWS", "MAC", "LINUX", "ANDROID"]
       }
     }
   ],

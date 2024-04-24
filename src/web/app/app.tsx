@@ -6,17 +6,17 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { type StudyModel, type StudyListModel } from './study_model';
-import { type FeatureModel, type ExperimentModel } from './experiment_model';
+import { SeedType } from '../../core/base_types';
 import {
   StudyPriority,
-  type StudyFilter,
   priorityToText,
+  type StudyFilter,
 } from '../../core/study_processor';
-import { SeedType } from '../../core/base_types';
-import { loadSeedDataAsync } from './seed_loader';
-import { SearchParamManager } from './search_param_manager';
 import { variations as proto } from '../../proto/generated/proto_bundle';
+import { type ExperimentModel, type FeatureModel } from './experiment_model';
+import { SearchParamManager } from './search_param_manager';
+import { loadSeedDataAsync } from './seed_loader';
+import { type StudyListModel, type StudyModel } from './study_model';
 
 function sanitizeUrl(url: string): string {
   if (!url.startsWith('https://')) return '#';

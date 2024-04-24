@@ -3,8 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import { type variations as proto } from '../../proto/generated/proto_bundle';
 import * as url_utils from '../../core/url_utils';
+import { type variations as proto } from '../../proto/generated/proto_bundle';
 import { type StudyModel } from './study_model';
 
 export class FeatureModel {

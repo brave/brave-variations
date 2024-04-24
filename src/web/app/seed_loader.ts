@@ -3,10 +3,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import { variations as proto } from '../../proto/generated/proto_bundle';
 import { SeedType, type ProcessingOptions } from '../../core/base_types';
-import { StudyListModel, StudyModel } from './study_model';
 import { ProcessedStudy } from '../../core/study_processor';
+import { variations as proto } from '../../proto/generated/proto_bundle';
+import { StudyListModel, StudyModel } from './study_model';
 
 import * as url_utils from '../../core/url_utils';
 
