@@ -16,6 +16,9 @@ jobs:
       - name: npm install
         run: npm install
 
+      - name: typecheck:scripts
+        run: npm run typecheck:scripts
+
       - name: build
         run: npm run build
 
