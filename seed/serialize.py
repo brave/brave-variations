@@ -328,6 +328,7 @@ def main():
     parser.add_argument(
       'seed_path', type=argparse.FileType('r'), nargs='?',
       help='json seed file to process')
+    parser.add_argument('--mock_serial_number', help='mock serial number')
     args = parser.parse_args()
 
     print("Load", args.seed_path.name)
@@ -339,6 +340,8 @@ def main():
         print("Seed data is invalid")
         return -1
     seed_message = make_variations_seed_message(seed_data)
+    if args.mock_serial_number is not None:
+        seed_message.serial_number = args.mock_serial_number
     update_serial_number(seed_message.serial_number)
 
     # Serialize and save as seed file

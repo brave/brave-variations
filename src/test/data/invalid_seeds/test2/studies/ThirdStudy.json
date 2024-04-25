@@ -1,0 +1,34 @@
+[
+  {
+    "name": "ThirdStudy",
+    "experiment": [
+      {
+        "name": "Enabled",
+        "probability_weight": 100,
+        "feature_association": {
+          "enable_feature": [
+            "AnotherFeature"
+          ]
+        }
+      },
+      {
+        "name": "Disabled",
+        "probability_weight": 0,
+        "feature_association": {
+          "disable_feature": [
+            "AnotherFeature"
+          ]
+        }
+      },
+      {
+        "name": "Default",
+        "probability_weight": 0
+      }
+    ],
+    "filter": {
+      "platform": [
+        "PLATFORM_MAC"
+      ]
+    }
+  }
+]

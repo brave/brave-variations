@@ -1,0 +1,37 @@
+[
+  {
+    "name": "TestStudy",
+    "experiment": [
+      {
+        "name": "Enabled",
+        "probability_weight": 100,
+        "feature_association": {
+          "enable_feature": [
+            "TestFeature"
+          ]
+        }
+      },
+      {
+        "name": "Disabled",
+        "probability_weight": 0,
+        "feature_association": {
+          "disable_feature": [
+            "TestFeature",
+            "AnotherFeature"
+          ]
+        }
+      },
+      {
+        "name": "Default",
+        "probability_weight": 0
+      }
+    ],
+    "filter": {
+      "max_version": "119.0.0.1",
+      "platform": [
+        "PLATFORM_MAC",
+        "PLATFORM_WINDOWS"
+      ]
+    }
+  }
+]

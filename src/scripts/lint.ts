@@ -3,8 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import { program } from '@commander-js/extra-typings';
 import { spawnSync } from 'child_process';
-import { program } from 'commander';
 
 // @ts-expect-error lint-staged is not typed.
 import lintStaged from 'lint-staged';
@@ -24,8 +24,8 @@ program
 
 interface Options {
   base?: string;
-  staged: boolean;
-  fix: boolean;
+  staged?: true;
+  fix?: true;
 }
 
 async function main(options: Options) {
@@ -50,6 +50,8 @@ async function main(options: Options) {
 function createLintStagedConfig(options: Options): any {
   const config: Record<string, any> = {
     '*': 'prettier  --ignore-unknown' + (options.fix ? ' --write' : ' --check'),
+    'studies/**/*.json':
+      'npm run seed_tools -- check_study' + (options.fix ? ' --fix' : ''),
     '*.{ts,js,tsx,jsx}':
       'eslint --config src/.eslintrc.js' + (options.fix ? ' --fix' : ''),
   };

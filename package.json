@@ -4,11 +4,12 @@
   "description": "Brave Variations",
   "scripts": {
     "build": "npm run build:proto && npm run build:web && npm run build:tracker",
-    "build:proto": "pbjs -t static-module --keep-case ./src/proto/variations_seed.proto ./src/proto/study.proto -o src/proto/generated/proto_bundle.js && pbts -o src/proto/generated/proto_bundle.d.ts src/proto/generated/proto_bundle.js",
+    "build:proto": "tsx src/scripts/generate_proto_ts.ts",
     "build:tracker": "tsc -p src/finch_tracker/tsconfig.json",
     "build:web": "webpack -c src/web/webpack.config.js --mode=production",
     "clean": "tsx src/scripts/clean.ts",
     "lint": "tsx src/scripts/lint.ts",
+    "seed_tools": "tsx src/seed_tools/seed_tools.ts",
     "serve:dev": "webpack serve -c src/web/webpack.config.js --hot --mode=development",
     "test": "jest --config=src/jest.config.js",
     "tracker": "node src/finch_tracker/build/finch_tracker/main.js",

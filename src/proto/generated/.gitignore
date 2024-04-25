@@ -1,1 +1,2 @@
-proto_bundle*
+*.js
+*.ts
