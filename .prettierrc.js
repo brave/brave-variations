@@ -11,4 +11,13 @@
 module.exports = {
   plugins: ['prettier-plugin-organize-imports'],
   singleQuote: true,
+  overrides: [
+    {
+      files: '*.json',
+      excludeFiles: 'tsconfig.json',
+      options: {
+        parser: 'json-stringify',
+      },
+    },
+  ],
 };
