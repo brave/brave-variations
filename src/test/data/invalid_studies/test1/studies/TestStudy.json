@@ -1,0 +1,28 @@
+[
+  {
+    "name": "TestStudy",
+    "experiment": [
+      {
+        "name": "Enabled",
+        "feature_association": {
+          "enable_feature": [
+            "TestFeature"
+          ]
+        }
+      },
+      {
+        "name": "Disabled",
+        "probability_weight": 100,
+        "feature_association": {
+          "disable_feature": [
+            "TestFeature"
+          ]
+        }
+      },
+      {
+        "name": "Default",
+        "probability_weight": 0
+      }
+    ]
+  }
+]
