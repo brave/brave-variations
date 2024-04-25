@@ -12,6 +12,7 @@ import proto.study_pb2 as study_pb2
 import time
 import proto.variations_seed_pb2 as variations_seed_pb2
 import argparse
+import collections
 
 SEED_BIN_PATH = "./seed.bin"
 SERIALNUMBER_PATH = "./serialnumber"
@@ -43,6 +44,73 @@ def validate(seed):
         if not set(study['filter']['platform']).issubset(PLATFORMS):
             print("platform not in ", PLATFORMS)
             return False
+
+    feature_names_to_studies = collections.defaultdict(list)
+    for study in seed['studies']:
+        used_feature_names = set()
+        for experiment in study['experiments']:
+            feature_association = experiment.get('feature_association')
+            if feature_association:
+                for enable_feature in feature_association.get('enable_feature', []):
+                    used_feature_names.add(enable_feature)
+                for disable_feature in feature_association.get('disable_feature', []):
+                    used_feature_names.add(disable_feature)
+
+        for used_feature_names in used_feature_names:
+            feature_names_to_studies[used_feature_names].append(study)
+
+    def get_study_platforms(study):
+        return set(study.get('filter', {}).get('platform', []))
+
+    def get_study_channels(study):
+        return set(study.get('filter', {}).get('channel', []))
+
+    def get_study_version_range(study):
+        def version_to_int_array(version_str):
+            parts = version_str.split('.')
+            version_list = []
+            for part in parts:
+                if part == '*':
+                    break
+                version_list.append(int(part))
+            return version_list
+
+        return [
+            version_to_int_array(study.get('filter', {}).get('min_version', '0.0.0.0')),
+            version_to_int_array(study.get('filter', {}).get('max_version', '9999.0.0.0')),
+        ]
+
+    def is_set_intersect(a, b):
+        return a == b or a.intersection(b)
+
+    def is_version_range_intersect(range1, range2):
+        def compare_versions(parts1, parts2):
+            if parts1 > parts2:
+                return 1
+            elif parts1 < parts2:
+                return -1
+            else:
+                return 0
+
+        return not (compare_versions(range1[1], range2[0]) < 0 or compare_versions(range2[1], range1[0]) < 0)
+
+    for studies in feature_names_to_studies.values():
+        for i, study1 in enumerate(studies):
+            study1_platform = get_study_platforms(study1)
+            study1_channel = get_study_channels(study1)
+            study1_version_range = get_study_version_range(study1)
+            for j in range(i + 1, len(studies)):
+                study2 = studies[j]
+                study2_platform = get_study_platforms(study2)
+                study2_channel = get_study_channels(study2)
+                study2_version_range = get_study_version_range(study2)
+                # Check if the studies overlap in platform
+                if is_set_intersect(study1_platform, study2_platform):
+                    # Check if the studies overlap in channel
+                    if is_set_intersect(study1_channel, study2_channel):
+                        # Check if the studies overlap in version
+                        if is_version_range_intersect(study1_version_range, study2_version_range):
+                            raise ValueError(f"Studies overlap:\n{study1}\n\n{study2}")
 
     return True
 
@@ -213,6 +281,7 @@ def main():
 
     print("Load", args.seed_path.name)
     seed_data = json.load(args.seed_path)
+    seed_data['studies'].sort(key=lambda study: study['name'])
 
     print("Validate seed data")
     if not validate(seed_data):
