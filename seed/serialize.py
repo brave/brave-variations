@@ -27,6 +27,73 @@ SUPPORTED_CHANNELS = {
     'RELEASE': study_pb2.Study.Channel.STABLE
 }
 
+def version_to_int_array(version_str):
+    version_list = []
+    if version_str is None:
+        return version_list
+
+    parts = version_str.split('.')
+    for part in parts:
+        if part == '*':
+            version_list.append(part)
+            break
+        version_list.append(int(part))
+
+    return version_list
+
+def compare_versions(version1, version2):
+    min_len = None
+    if not version1:
+        min_len = 0
+    elif version1[-1] == '*':
+        version1 = version1[:-1]
+        min_len = len(version1)
+
+    if not version2:
+        min_len = 0
+    elif version2[-1] == '*':
+        version2 = version2[:-1]
+        if min_len is not None:
+            min_len = min(min_len, len(version2))
+        else:
+            min_len = len(version2)
+
+    if min_len is not None:
+        version1 = version1[:min_len]
+        version2 = version2[:min_len]
+
+    if version1 > version2:
+        return 1
+    elif version1 < version2:
+        return -1
+    else:
+        return 0
+
+def test_version_comparison():
+    # //base/version_unittest.cc VersionTest.CompareToWildcardString
+    test_cases = [
+        ["1.0", "1.*", 0],
+        ["1.0", "0.*", 1],
+        ["1.0", "2.*", -1],
+        ["1.2.3", "1.2.3.*", 0],
+        ["10.0", "1.0.*", 1],
+        ["1.0", "3.0.*", -1],
+        ["1.4", "1.3.0.*", 1],
+        ["1.3.9", "1.3.*", 0],
+        ["1.4.1", "1.3.*", 1],
+        ["1.3", "1.4.5.*", -1],
+        ["1.5", "1.4.5.*", 1],
+        ["1.3.9", "1.3.*", 0],
+        ["1.2.0.0.0.0", "1.2.*", 0],
+        [None, None, 0],
+        [None, "1", 0],
+        ["1", None, 0],
+    ]
+    for test_case in test_cases:
+        version1 = version_to_int_array(test_case[0])
+        version2 = version_to_int_array(test_case[1])
+        assert compare_versions(version1, version2) == test_case[2]
+
 def validate(seed):
     for study in seed['studies']:
         total_proba = 0
@@ -66,34 +133,18 @@ def validate(seed):
         return set(study.get('filter', {}).get('channel', []))
 
     def get_study_version_range(study):
-        def version_to_int_array(version_str):
-            parts = version_str.split('.')
-            version_list = []
-            for part in parts:
-                if part == '*':
-                    break
-                version_list.append(int(part))
-            return version_list
-
         return [
-            version_to_int_array(study.get('filter', {}).get('min_version', '0.0.0.0')),
-            version_to_int_array(study.get('filter', {}).get('max_version', '9999.0.0.0')),
+            version_to_int_array(study.get('filter', {}).get('min_version')),
+            version_to_int_array(study.get('filter', {}).get('max_version')),
         ]
 
     def is_set_intersect(a, b):
         return a == b or a.intersection(b)
 
     def is_version_range_intersect(range1, range2):
-        def compare_versions(parts1, parts2):
-            if parts1 > parts2:
-                return 1
-            elif parts1 < parts2:
-                return -1
-            else:
-                return 0
+        return compare_versions(range1[1], range2[0]) >= 0 and compare_versions(range2[1], range1[0]) >= 0
 
-        return not (compare_versions(range1[1], range2[0]) < 0 or compare_versions(range2[1], range1[0]) < 0)
-
+    test_version_comparison()
     for studies in feature_names_to_studies.values():
         for i, study1 in enumerate(studies):
             study1_platform = get_study_platforms(study1)
@@ -110,7 +161,7 @@ def validate(seed):
                     if is_set_intersect(study1_channel, study2_channel):
                         # Check if the studies overlap in version
                         if is_version_range_intersect(study1_version_range, study2_version_range):
-                            raise ValueError(f"Studies overlap:\n{study1}\n\n{study2}")
+                            raise ValueError(f"Studies overlap:\n{json.dumps(study1, indent=2)}\n\n{json.dumps(study2, indent=2)}")
 
     return True
 
