@@ -138,8 +138,8 @@ def validate(seed):
             version_to_int_array(study.get('filter', {}).get('max_version')),
         ]
 
-    def is_set_intersect(a, b):
-        return a == b or a.intersection(b)
+    def is_filter_set_intersect(a, b):
+        return not a or not b or a.intersection(b)
 
     def is_version_range_intersect(range1, range2):
         return compare_versions(range1[1], range2[0]) >= 0 and compare_versions(range2[1], range1[0]) >= 0
@@ -156,9 +156,9 @@ def validate(seed):
                 study2_channel = get_study_channels(study2)
                 study2_version_range = get_study_version_range(study2)
                 # Check if the studies overlap in platform
-                if is_set_intersect(study1_platform, study2_platform):
+                if is_filter_set_intersect(study1_platform, study2_platform):
                     # Check if the studies overlap in channel
-                    if is_set_intersect(study1_channel, study2_channel):
+                    if is_filter_set_intersect(study1_channel, study2_channel):
                         # Check if the studies overlap in version
                         if is_version_range_intersect(study1_version_range, study2_version_range):
                             raise ValueError(f"Studies overlap:\n{json.dumps(study1, indent=2)}\n\n{json.dumps(study2, indent=2)}")
