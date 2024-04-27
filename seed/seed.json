@@ -2612,6 +2612,8 @@
                 }
             ],
             "filter": {
+                "min_version": "123.*",
+                "max_version": "125.*",
                 "channel": [
                     "NIGHTLY",
                     "BETA",
@@ -2624,9 +2626,7 @@
                     "ANDROID"
                 ]
             },
-            "name": "PrivateNetworkAccessKillswitch",
-            "min_version": "123.*",
-            "max_version": "125.*"
+            "name": "PrivateNetworkAccessKillswitch"
         },
         {
             "name": "UseWritePixelsYUV",
