@@ -1043,11 +1043,11 @@
                         ]
                     },
                     "name": "Disabled",
-                    "probability_weight": 15
+                    "probability_weight": 50
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 85
+                    "probability_weight": 50
                 }
             ],
             "filter": {
