@@ -2659,6 +2659,32 @@
             }
         },
         {
+            "name": "HLSLiveContentKillSwitch",
+            "experiments": [
+                {
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "disable_feature": [
+                            "BuiltInHlsPlayer"
+                        ]
+                    }
+                }
+            ],
+            "filter": {
+                "min_version": "119.*",
+                "max_version": "125.*",
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "ANDROID"
+                ]
+            }
+        },
+        {
             "name": "BraveAdblockExperimentalListDefaultStudy",
             "experiments": [
                 {
