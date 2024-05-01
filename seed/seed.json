@@ -2886,6 +2886,82 @@
                 ]
             },
             "name": "SyncResetProgressTokenStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "Conversions"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "creative_set_conversion_cap",
+                            "value": "0"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAdsConversionsStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "ExclusionRules"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "should_exclude_ad_if_creative_set_exceeds_conversion_cap",
+                            "value": "0"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAdsConversionsStudy"
         }
     ],
     "version": "1"
