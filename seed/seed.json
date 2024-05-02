@@ -1022,36 +1022,7 @@
             "filter": {
                 "channel": [
                     "NIGHTLY",
-                    "BETA"
-                ],
-                "min_version": "120.1.63.110",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "BraveAggressiveModeRetirementExperiment"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "disable_feature": [
-                            "BraveShowStrictFingerprintingMode"
-                        ]
-                    },
-                    "name": "Disabled",
-                    "probability_weight": 50
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 50
-                }
-            ],
-            "filter": {
-                "channel": [
+                    "BETA",
                     "RELEASE"
                 ],
                 "min_version": "120.1.63.110",
