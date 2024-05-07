@@ -500,7 +500,7 @@
                 {
                     "feature_association": {
                         "enable_feature": [
-                            "HangWatcher"
+                            "EnableHangWatcher"
                         ]
                     },
                     "name": "HangWatcherEnableDumps",
@@ -548,7 +548,7 @@
                     "LINUX"
                 ]
             },
-            "name": "EnableHangWatcher"
+            "name": "HangWatcher"
         },
         {
             "experiments": [
