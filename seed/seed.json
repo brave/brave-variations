@@ -826,6 +826,83 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_B",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_B"
+                        }
+                    ],
+                    "probability_weight": 2
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_C",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_C"
+                        }
+                    ],
+                    "probability_weight": 2
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_D",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_D"
+                        }
+                    ],
+                    "probability_weight": 2
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 94
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "country": [
+                    "CA",
+                    "DE",
+                    "FR",
+                    "GB",
+                    "AT",
+                    "ES",
+                    "MX",
+                    "BR",
+                    "AR",
+                    "IN"
+                ],
+                "min_version": "117.1.60.41",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveSearchPromotionBannerStudyOnStable"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "SidebarShowAlwaysOnStable"
                         ]
                     },
