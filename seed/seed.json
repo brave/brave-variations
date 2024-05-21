@@ -2642,6 +2642,35 @@
             }
         },
         {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "Canvas2DHibernation",
+                            "EvictionUnlocksResources"
+                        ]
+                    },
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "125.*",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "CanvasKillSwitches"
+        },
+        {
             "name": "BraveAdblockExperimentalListDefaultStudy",
             "experiments": [
                 {
