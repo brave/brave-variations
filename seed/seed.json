@@ -2642,34 +2642,6 @@
             }
         },
         {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "disable_feature": [
-                            "Canvas2DHibernation"
-                        ]
-                    },
-                    "name": "Disabled_EmergencyKillSwitch",
-                    "probability_weight": 100
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "max_version": "124.*",
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ]
-            },
-            "name": "Canvas2DHibernation"
-        },
-        {
             "name": "BraveAdblockExperimentalListDefaultStudy",
             "experiments": [
                 {
