@@ -2871,6 +2871,35 @@
                 ]
             },
             "name": "BraveFallbackDoHStudy"
+        },
+        {
+            "name": "ExtensionsManifestV2Study",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 100,
+                    "feature_association": {
+                        "enable_feature": [
+                            "ExtensionsManifestV2"
+                        ]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY"
+                ],
+                "min_version": "125.1.68.25",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            }
         }
     ],
     "version": "1"
