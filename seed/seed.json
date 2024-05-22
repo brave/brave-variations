@@ -2646,7 +2646,8 @@
                 {
                     "feature_association": {
                         "disable_feature": [
-                            "Canvas2DHibernation"
+                            "Canvas2DHibernation",
+                            "EvictionUnlocksResources"
                         ]
                     },
                     "name": "Disabled_EmergencyKillSwitch",
@@ -2659,7 +2660,7 @@
                     "BETA",
                     "RELEASE"
                 ],
-                "max_version": "124.*",
+                "max_version": "125.*",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -2667,7 +2668,7 @@
                     "ANDROID"
                 ]
             },
-            "name": "Canvas2DHibernation"
+            "name": "CanvasKillSwitches"
         },
         {
             "name": "BraveAdblockExperimentalListDefaultStudy",
