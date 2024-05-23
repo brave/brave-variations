@@ -1,4 +1,4 @@
-argparse==1.2.1
+argparse==1.4.0
 ecdsa>=0.17.0
 protobuf<4
 packaging>=20.0
