@@ -826,6 +826,83 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_B",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_B"
+                        }
+                    ],
+                    "probability_weight": 2
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_C",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_C"
+                        }
+                    ],
+                    "probability_weight": 2
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveSearchOmniboxBanner"
+                        ]
+                    },
+                    "name": "banner_type_D",
+                    "parameters": [
+                        {
+                            "name": "banner_type",
+                            "value": "type_D"
+                        }
+                    ],
+                    "probability_weight": 2
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 94
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "country": [
+                    "CA",
+                    "DE",
+                    "FR",
+                    "GB",
+                    "AT",
+                    "ES",
+                    "MX",
+                    "BR",
+                    "AR",
+                    "IN"
+                ],
+                "min_version": "117.1.60.41",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            },
+            "name": "BraveSearchPromotionBannerStudyOnStable"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "SidebarShowAlwaysOnStable"
                         ]
                     },
@@ -2514,6 +2591,35 @@
             }
         },
         {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "Canvas2DHibernation",
+                            "EvictionUnlocksResources"
+                        ]
+                    },
+                    "name": "Disabled_EmergencyKillSwitch",
+                    "probability_weight": 100
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "max_version": "125.*",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "CanvasKillSwitches"
+        },
+        {
             "name": "BraveAdblockExperimentalListDefaultStudy",
             "experiments": [
                 {
@@ -2702,24 +2808,16 @@
             "name": "BraveFallbackDoHStudy"
         },
         {
+            "name": "ExtensionsManifestV2Study",
             "experiments": [
                 {
+                    "name": "Enabled",
+                    "probability_weight": 100,
                     "feature_association": {
                         "enable_feature": [
-                            "ResetProgressMarkerOnCommitFailures"
+                            "ExtensionsManifestV2"
                         ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 0
-                },
-                {
-                    "feature_association": {
-                        "disable_feature": [
-                            "ResetProgressMarkerOnCommitFailures"
-                        ]
-                    },
-                    "name": "Disabled",
-                    "probability_weight": 100
+                    }
                 },
                 {
                     "name": "Default",
@@ -2728,18 +2826,15 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
+                    "NIGHTLY"
                 ],
+                "min_version": "125.1.68.25",
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX",
-                    "ANDROID"
+                    "LINUX"
                 ]
-            },
-            "name": "SyncResetProgressTokenStudy"
+            }
         }
     ],
     "version": "1"
