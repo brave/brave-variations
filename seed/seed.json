@@ -2963,6 +2963,48 @@
                     "LINUX"
                 ]
             }
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "AdEvent"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "parameters": [
+                        {
+                            "name": "debounce_clicked_ad_event_for",
+                            "value": "1s"
+                        },
+                        {
+                            "name": "deduplicate_clicked_ad_event_for",
+                            "value": "1s"
+                        }
+                    ],
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAdsAdEventStudy"
         }
     ],
     "version": "1"
