@@ -1,0 +1,20 @@
+name: Lint GitHub Actions
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+
+      - name: Check workflow files
+        run: |
+          echo "::add-matcher::.github/matchers/actionlint-matcher.json"
+          docker run --rm -v "$PWD:/repo:ro" --workdir /repo rhysd/actionlint:1.7.1 -color
+        shell: bash
