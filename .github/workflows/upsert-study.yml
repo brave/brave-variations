@@ -65,7 +65,7 @@ jobs:
             branch_name=pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
             git switch "${1}"
             git switch -c "${branch_name}"
-            .github/ci/griffin-study-utils.py upsert_study ${{ inputs.name }} ${{ inputs.enable_feature }} ${{ inputs.probability_enabled }} ${{ inputs.channel }} ${{ inputs.platform }} ${{ inputs.min_version }}
+            .github/ci/griffin-study-utils.py upsert_study "${{ inputs.name }}" "${{ inputs.enable_feature }}" "${{ inputs.probability_enabled }}" "${{ inputs.channel }}" "${{ inputs.platform }}" "${{ inputs.min_version }}"
             git add seed/seed.json
             git commit -m "Upsert study ${{ inputs.name }}"
             git push -u origin "${branch_name}"
@@ -88,8 +88,8 @@ jobs:
 
           gh pr edit "${pr_main_number}" -b "\`production\`: #${pr_production_number}"
           gh pr edit "${pr_production_number}" -b "\`main\`: #${pr_main_number}"
-          echo "pr_main_number=${pr_main_number}" >> $GITHUB_OUTPUT
-          echo "pr_production_number=${pr_production_number}" >> $GITHUB_OUTPUT
+          echo "pr_main_number=${pr_main_number}" >> "$GITHUB_OUTPUT"
+          echo "pr_production_number=${pr_production_number}" >> "$GITHUB_OUTPUT"
 
       - name: Report to slack
         id: slack
