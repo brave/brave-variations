@@ -35,7 +35,7 @@ export enum StudyPriority {
   STABLE_MIN,
   STABLE_50,
   STABLE_ALL,
-  STABLE_ALL_EMERGENCY,
+  STABLE_EMERGENCY_KILL_SWITCH,
 }
 
 export class StudyFilter {
@@ -149,7 +149,7 @@ export function priorityToText(p: StudyPriority): string {
       return 'stable-50%';
     case StudyPriority.STABLE_ALL:
       return 'stable-100%';
-    case StudyPriority.STABLE_ALL_EMERGENCY:
+    case StudyPriority.STABLE_EMERGENCY_KILL_SWITCH:
       return 'stable-emergency-kill-switch';
   }
   return '';
@@ -159,7 +159,7 @@ export class StudyDetails {
   endedByEndDate = false; // now() < end_date
   endedByMaxVersion = false; // max_version < current_stable
   isBlocklisted = false; // matches to config.js blocklists
-  isEmergency = false; // matches a kill switch signature
+  isKillSwitch = false; // matches a kill switch signature
   hasNoSupportedPlatform = false; // doesn't have any brave-supported platform
   isBadStudyFormat = false; // a bad protobuf item
   isArchived = false; // max_version <= 100.*
@@ -218,7 +218,7 @@ export class StudyDetails {
     this.hasLimitedFilter ||=
       filter?.google_group != null && filter?.google_group.length !== 0;
 
-    this.isEmergency = isKillSwitch(study.name);
+    this.isKillSwitch = isKillSwitch(study.name);
     for (const e of experiment) {
       const enableFeatures = e.feature_association?.enable_feature;
       const disabledFeatures = e.feature_association?.disable_feature;
@@ -229,7 +229,7 @@ export class StudyDetails {
         disabledFeatures != null &&
         disabledFeatures.some((n) => isFeatureBlocklisted(n));
 
-      this.isEmergency ||= e.probability_weight > 0 && isKillSwitch(e.name);
+      this.isKillSwitch ||= e.probability_weight > 0 && isKillSwitch(e.name);
 
       this.onlyDisabledFeatures ||=
         e.probability_weight === 0 ||
@@ -277,8 +277,8 @@ export class StudyDetails {
       this.maxNonDefaultWeight > this.totalWeight / 2 &&
       !this.hasLimitedFilter
     ) {
-      return this.isEmergency
-        ? StudyPriority.STABLE_ALL_EMERGENCY
+      return this.isKillSwitch
+        ? StudyPriority.STABLE_EMERGENCY_KILL_SWITCH
         : StudyPriority.STABLE_ALL;
     }
 
