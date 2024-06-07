@@ -16,5 +16,10 @@ jobs:
       - name: Check workflow files
         run: |
           echo "::add-matcher::.github/matchers/actionlint-matcher.json"
-          docker run --rm -v "$PWD:/repo:ro" --workdir /repo rhysd/actionlint:1.7.1 -color
+          docker run --rm \
+            --network none \
+            -v "$PWD/.git:/repo/.git:ro" \
+            -v "$PWD/.github/workflows:/repo/.github/workflows:ro" \
+            -w /repo \
+            rhysd/actionlint:1.7.1 -color
         shell: bash
