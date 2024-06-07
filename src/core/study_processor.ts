@@ -164,7 +164,7 @@ export class StudyDetails {
   isBadStudyFormat = false; // a bad protobuf item
   isArchived = false; // max_version <= 100.*
   hasLimitedFilter = false; // the filter limits the audience significantly.
-  onlyDisabledFeatures = false;
+  onlyDisabledFeatures = true;
 
   totalWeight = 0;
   totalNonDefaultGroupsWeight = 0;
@@ -231,7 +231,7 @@ export class StudyDetails {
 
       this.isKillSwitch ||= e.probability_weight > 0 && isKillSwitch(e.name);
 
-      this.onlyDisabledFeatures ||=
+      this.onlyDisabledFeatures &&=
         e.probability_weight === 0 ||
         e.feature_association?.enable_feature == null ||
         e.feature_association?.enable_feature.length === 0;
