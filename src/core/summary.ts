@@ -39,7 +39,7 @@ class SummaryItem {
 
   getChangePriority(): StudyPriority {
     if (this.isKillSwitchImportantUpdate()) {
-      return StudyPriority.STABLE_ALL_EMERGENCY;
+      return StudyPriority.STABLE_EMERGENCY_KILL_SWITCH;
     }
     return Math.max(this.oldPriority, this.newPriority);
   }
@@ -54,7 +54,7 @@ class SummaryItem {
       if (this.hasOnlyDisabledFeatures) return true;
     }
     return (
-      this.newPriority === StudyPriority.STABLE_ALL_EMERGENCY &&
+      this.newPriority === StudyPriority.STABLE_EMERGENCY_KILL_SWITCH &&
       this.action !== ItemAction.Down &&
       this.action !== ItemAction.RemovedOrOutdated
     );
