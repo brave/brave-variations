@@ -2925,8 +2925,7 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX",
-                    "ANDROID"
+                    "LINUX"
                 ],
                 "min_version": "120.*"
             },
