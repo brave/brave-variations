@@ -100,6 +100,33 @@ describe('stringifyStudyArray', () => {
       },
     ]);
   });
+
+  it('chromium mode should keep channel values', () => {
+    const startDate = new Date('2022-01-01T00:00:00Z');
+    const study = Study.fromJson(
+      {
+        name: 'study',
+        filter: {
+          start_date: Math.floor(startDate.getTime() / 1000),
+          channel: ['CANARY', 'BETA', 'STABLE'],
+        },
+      },
+      { ignoreUnknownFields: false },
+    );
+
+    const stringifiedStudyArray = stringifyStudyArray([study], {
+      isChromium: true,
+    });
+    expect(JSON.parse(stringifiedStudyArray)).toEqual([
+      {
+        name: 'study',
+        filter: {
+          start_date: startDate.toISOString(),
+          channel: ['CANARY', 'BETA', 'STABLE'],
+        },
+      },
+    ]);
+  });
 });
 
 describe('parseStudyArray', () => {
@@ -240,5 +267,23 @@ describe('parseStudyArray', () => {
     expect(() => parseStudyArray(studyArrayString)).toThrowError(
       'Cannot parse JSON string for variations.Study.Experiment#probability_weight - invalid uint 32: NaN',
     );
+  });
+
+  it('chromium mode should keep channel values', () => {
+    const study = JSON.stringify([
+      {
+        name: 'study',
+        filter: {
+          channel: ['CANARY', 'BETA', 'STABLE'],
+        },
+      },
+    ]);
+
+    const parsedStudyArray = parseStudyArray(study, { isChromium: true });
+    expect(parsedStudyArray[0].filter?.channel).toEqual([
+      Study_Channel.CANARY,
+      Study_Channel.BETA,
+      Study_Channel.STABLE,
+    ]);
   });
 });
