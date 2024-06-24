@@ -14,22 +14,22 @@ describe('validateSeed', () => {
     }
 
     function createStudyWithFilter(name: string, filter: any): Study {
-      return Study.fromJson(
-        {
-          name,
-          experiment: [
-            {
-              feature_association: {
-                enable_feature: ['feature1'],
-              },
+      const study: Record<string, any> = {
+        name,
+        experiment: [
+          {
+            feature_association: {
+              enable_feature: ['feature1'],
             },
-          ],
-          filter,
-        },
-        {
-          ignoreUnknownFields: false,
-        },
-      );
+          },
+        ],
+      };
+      if (filter !== null) {
+        study.filter = filter;
+      }
+      return Study.fromJson(study, {
+        ignoreUnknownFields: false,
+      });
     }
 
     const testCases = [
@@ -281,6 +281,101 @@ describe('validateSeed', () => {
         },
         filter2: {},
         expectedOverlapped: false,
+      },
+
+      // locale tests (make sure exclude_locale field is handled correctly)
+      {
+        filter1: {
+          locale: ['fr'],
+        },
+        filter2: {
+          locale: ['en'],
+        },
+        expectedOverlapped: false,
+      },
+      {
+        filter1: {
+          locale: ['fr'],
+        },
+        filter2: {},
+        expectedOverlapped: true,
+      },
+      {
+        filter1: {},
+        filter2: {
+          exclude_locale: ['fr'],
+        },
+        expectedOverlapped: true,
+      },
+      {
+        filter1: {
+          locale: ['en', 'fr'],
+        },
+        filter2: {
+          exclude_locale: ['en'],
+        },
+        expectedOverlapped: true,
+      },
+      {
+        filter1: {
+          exclude_locale: ['en'],
+        },
+        filter2: {
+          locale: ['en', 'fr'],
+        },
+        expectedOverlapped: true,
+      },
+      {
+        filter1: {
+          locale: ['en'],
+        },
+        filter2: {
+          exclude_locale: ['en', 'fr'],
+        },
+        expectedOverlapped: false,
+      },
+      {
+        filter1: {
+          exclude_locale: ['en', 'fr'],
+        },
+        filter2: {
+          locale: ['en'],
+        },
+        expectedOverlapped: false,
+      },
+      {
+        filter1: {
+          locale: ['en'],
+        },
+        filter2: {
+          exclude_locale: ['en'],
+        },
+        expectedOverlapped: false,
+      },
+      {
+        filter1: {
+          exclude_locale: ['en'],
+        },
+        filter2: {
+          locale: ['en'],
+        },
+        expectedOverlapped: false,
+      },
+      {
+        filter1: {
+          exclude_locale: ['en'],
+        },
+        filter2: {
+          exclude_locale: ['fr'],
+        },
+        expectedOverlapped: true,
+      },
+
+      // no filter at all
+      {
+        filter1: null,
+        filter2: null,
+        expectedOverlapped: true,
       },
     ];
 
