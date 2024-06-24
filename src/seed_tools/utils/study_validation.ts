@@ -20,14 +20,28 @@ export function validateStudyReturnErrors(
   study: Study,
   studyFilePath: string,
 ): string[] {
-  return Array.prototype.concat(
-    checkName(study, studyFilePath),
-    checkExperiments(study),
-    checkFilterExcludeFields(study),
-    checkDateRange(study),
-    checkVersionRange(study),
-    checkOsVersionRange(study),
-  );
+  const errors: string[] = [];
+  const validators = [
+    checkName,
+    checkExperiments,
+    checkFilterExcludeFields,
+    checkDateRange,
+    checkVersionRange,
+    checkOsVersionRange,
+  ];
+  for (const validator of validators) {
+    try {
+      errors.push(...validator(study, studyFilePath));
+    } catch (e) {
+      if (e instanceof Error) {
+        errors.push(e.message);
+      } else {
+        // Rethrow non-Error exceptions.
+        throw e;
+      }
+    }
+  }
+  return errors;
 }
 
 // Check that study name matches the file name.

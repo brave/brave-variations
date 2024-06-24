@@ -36,7 +36,7 @@ export async function readStudyFileReturnWithError(
       e.message += ` (${studyFilePath})`;
       return Result.error(e);
     }
-    // Re-throw non-Error exceptions.
+    // Rethrow non-Error exceptions.
     throw e;
   }
 }

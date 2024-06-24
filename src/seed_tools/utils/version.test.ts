@@ -8,82 +8,83 @@ import { Version } from './version';
 describe('Version', () => {
   describe('parse', () => {
     const testCases = [
-      { input: '', parts: 0, firstpart: 0, success: false },
-      { input: ' ', parts: 0, firstpart: 0, success: false },
-      { input: '\t', parts: 0, firstpart: 0, success: false },
-      { input: '\n', parts: 0, firstpart: 0, success: false },
-      { input: '  ', parts: 0, firstpart: 0, success: false },
-      { input: '.', parts: 0, firstpart: 0, success: false },
-      { input: ' . ', parts: 0, firstpart: 0, success: false },
-      { input: '0', parts: 1, firstpart: 0, success: true },
-      { input: '0.', parts: 0, firstpart: 0, success: false },
-      { input: '0.0', parts: 2, firstpart: 0, success: true },
+      { input: '', components: [] },
+      { input: ' ', components: [] },
+      { input: '\t', components: [] },
+      { input: '\n', components: [] },
+      { input: '  ', components: [] },
+      { input: '.', components: [] },
+      { input: ' . ', components: [] },
+      { input: '0', components: [0] },
+      { input: '0.', components: [] },
+      { input: '0.0', components: [0, 0] },
       {
         input: '4294967295.0',
-        parts: 2,
-        firstpart: 4294967295,
-        success: true,
+        components: [4294967295, 0],
       },
-      { input: '4294967296.0', parts: 0, firstpart: 0, success: false },
-      { input: '-1.0', parts: 0, firstpart: 0, success: false },
-      { input: '1.-1.0', parts: 0, firstpart: 0, success: false },
-      { input: '1,--1.0', parts: 0, firstpart: 0, success: false },
-      { input: '+1.0', parts: 0, firstpart: 0, success: false },
-      { input: '1.+1.0', parts: 0, firstpart: 0, success: false },
-      { input: '1+1.0', parts: 0, firstpart: 0, success: false },
-      { input: '++1.0', parts: 0, firstpart: 0, success: false },
-      { input: '1.0a', parts: 0, firstpart: 0, success: false },
+      { input: '4294967296.0', components: [] },
+      { input: '-1.0', components: [] },
+      { input: '1.-1.0', components: [] },
+      { input: '1,--1.0', components: [] },
+      { input: '+1.0', components: [] },
+      { input: '1.+1.0', components: [] },
+      { input: '1+1.0', components: [] },
+      { input: '++1.0', components: [] },
+      { input: '1.0a', components: [] },
       {
         input: '1.2.3.4.5.6.7.8.9.0',
-        parts: 10,
-        firstpart: 1,
-        success: true,
+        components: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
       },
-      { input: '02.1', parts: 0, firstpart: 0, success: false },
-      { input: '0.01', parts: 2, firstpart: 0, success: true },
-      { input: 'f.1', parts: 0, firstpart: 0, success: false },
-      { input: '15.007.20011', parts: 3, firstpart: 15, success: true },
-      { input: '15.5.28.130162', parts: 4, firstpart: 15, success: true },
+      { input: '02.1', components: [] },
+      { input: '0.01', components: [0, 1] },
+      { input: 'f.1', components: [] },
+      { input: '15.007.20011', components: [15, 7, 20011] },
+      { input: '15.5.28.130162', components: [15, 5, 28, 130162] },
     ];
 
     testCases.forEach((testCase) => {
-      it(`should ${testCase.success ? 'parse' : 'fail'} "${testCase.input}"`, () => {
-        if (!testCase.success) {
-          expect(() => new Version(testCase.input)).toThrowError();
-        } else {
+      it(`should ${testCase.components.length > 0 ? 'parse' : 'fail'} "${testCase.input}"`, () => {
+        if (testCase.components.length > 0) {
           const version = new Version(testCase.input);
           expect(
             () => new Version(testCase.input, { disallowWildcard: true }),
           ).not.toThrow();
-          expect(version.components.length).toBe(testCase.parts);
-          expect(version.components[0]).toBe(testCase.firstpart);
+          expect(version.components).toStrictEqual(testCase.components);
           expect(version.isWildcard).toBe(false);
+        } else {
+          expect(() => new Version(testCase.input)).toThrowError();
         }
       });
     });
 
     describe('wildcard', () => {
       const testCases = [
-        { version: '1.2.3.*', expected: true, isWildcard: true },
-        { version: '1.2.3.5*', expected: false, isWildcard: false },
-        { version: '1.2.3.56*', expected: false, isWildcard: false },
-        { version: '1.*.3', expected: false, isWildcard: false },
-        { version: '20.*', expected: true, isWildcard: true },
-        { version: '+2.*', expected: false, isWildcard: false },
-        { version: '*', expected: false, isWildcard: false },
-        { version: '*.2', expected: false, isWildcard: true },
+        { version: '1.2.3.*', components: [1, 2, 3] },
+        { version: '1.2.3.5*', components: [] },
+        { version: '1.2.3.56*', components: [] },
+        { version: '1.2.3.56.a.*', components: [] },
+        { version: '1.2.3.56.*.a', components: [] },
+        { version: '1.*.3', components: [] },
+        { version: '20.*', components: [20] },
+        { version: '+2.*', components: [] },
+        { version: '*', components: [] },
+        { version: '*.2', components: [] },
       ];
 
       testCases.forEach((testCase) => {
-        it(`should ${testCase.expected ? 'parse' : 'fail'} "${testCase.version}"`, () => {
-          if (testCase.expected) {
+        it(`should ${testCase.components.length > 0 ? 'parse' : 'fail'} "${testCase.version}"`, () => {
+          if (testCase.components.length > 0) {
             const version = new Version(testCase.version);
-            expect(version.isWildcard).toBe(testCase.isWildcard);
+            expect(version.components).toStrictEqual(testCase.components);
+            expect(version.isWildcard).toBe(true);
             expect(
               () => new Version(testCase.version, { disallowWildcard: true }),
             ).toThrowError();
           } else {
             expect(() => new Version(testCase.version)).toThrowError();
+            expect(
+              () => new Version(testCase.version, { disallowWildcard: true }),
+            ).toThrowError();
           }
         });
       });

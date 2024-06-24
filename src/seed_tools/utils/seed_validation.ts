@@ -19,7 +19,21 @@ export function validateSeed(seed: VariationsSeed) {
 
 // Validate a seed for common errors. Returns an array of error messages.
 export function validateSeedReturnErrors(seed: VariationsSeed): string[] {
-  return checkOverlappingStudies(seed);
+  const errors: string[] = [];
+  const validators = [checkOverlappingStudies];
+  for (const validator of validators) {
+    try {
+      errors.push(...validator(seed));
+    } catch (e) {
+      if (e instanceof Error) {
+        errors.push(e.message);
+      } else {
+        // Rethrow non-Error exceptions.
+        throw e;
+      }
+    }
+  }
+  return errors;
 }
 
 // Validates a seed by checking for overlapping studies that use the same
