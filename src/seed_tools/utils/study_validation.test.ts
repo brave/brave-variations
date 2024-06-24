@@ -178,6 +178,25 @@ describe('validateStudy', () => {
     }).toThrowError('Invalid version range');
   });
 
+  test('should throw an error if version is invalid', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+        },
+      ],
+      filter: {
+        min_version: '2.a',
+      },
+    });
+
+    expect(() => {
+      study_validation.validateStudy(study, studyFilePath);
+    }).toThrowError('contains non-numeric characters');
+  });
+
   test('should throw an error if os version range is invalid', () => {
     const study = Study.fromJson({
       name: 'study',

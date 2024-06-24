@@ -3,6 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import Result from '../../base/result';
+
 export interface VersionOptions {
   disallowLeadingZeros?: boolean;
   disallowWildcard?: boolean;
@@ -46,8 +48,12 @@ export class Version {
         continue;
       }
 
-      const parsedComponent = parseVersionComponent(strComponent);
+      const parsedComponentResult = parseVersionComponent(strComponent);
+      if (!parsedComponentResult.ok) {
+        throw new Error(`${parsedComponentResult.error}: ${versionStr}`);
+      }
 
+      const parsedComponent = parsedComponentResult.value;
       // base::Version allows leading zeros in subsequent parts (but not the
       // first) for legacy reasons. This is not necessary for our use case, so
       // we can forbid them.
@@ -121,18 +127,18 @@ export class Version {
 
 // Strictly parse a string as a number that can be represented as uint32. This
 // is required to match the behavior of base::Version in C++.
-function parseVersionComponent(str: string): number {
+function parseVersionComponent(str: string): Result<number, string> {
   if (!/^\d+$/.test(str)) {
-    throw new Error(
-      `Version component contains non-numeric characters: ${str}`,
+    return Result.error(
+      `Version component "${str}" contains non-numeric characters`,
     );
   }
 
   const num = parseInt(str, 10);
 
   if (num < 0 || num > 4294967295) {
-    throw new Error(`Version component does not fit into uint32: ${str}`);
+    return Result.error(`Version component "${str}" does not fit into uint32`);
   }
 
-  return num;
+  return Result.ok(num);
 }
