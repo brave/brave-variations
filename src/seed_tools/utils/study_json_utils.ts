@@ -7,8 +7,15 @@ import { promises as fs } from 'fs';
 import Result from 'src/base/result';
 import { Study } from '../../proto/generated/study';
 
-export async function readStudyFile(studyFilePath: string): Promise<Study[]> {
-  const result = await readStudyFileReturnWithError(studyFilePath);
+export interface Options {
+  isChromium?: boolean;
+}
+
+export async function readStudyFile(
+  studyFilePath: string,
+  options?: Options,
+): Promise<Study[]> {
+  const result = await readStudyFileReturnWithError(studyFilePath, options);
   if (result.ok) {
     return result.value[0];
   } else {
@@ -18,10 +25,11 @@ export async function readStudyFile(studyFilePath: string): Promise<Study[]> {
 
 export async function readStudyFileReturnWithError(
   studyFilePath: string,
+  options?: Options,
 ): Promise<Result<[Study[], string], Error>> {
   try {
     const studyArrayString = await fs.readFile(studyFilePath, 'utf8');
-    const studyArray = parseStudyArray(studyArrayString);
+    const studyArray = parseStudyArray(studyArrayString, options);
     return Result.ok([studyArray, studyArrayString]);
   } catch (e) {
     if (e instanceof Error) {
@@ -36,12 +44,19 @@ export async function readStudyFileReturnWithError(
 export async function writeStudyFile(
   studyArray: Study[],
   studyFilePath: string,
+  options?: Options,
 ) {
-  await fs.writeFile(studyFilePath, stringifyStudyArray(studyArray));
+  await fs.writeFile(studyFilePath, stringifyStudyArray(studyArray, options));
 }
 
-export function parseStudyArray(studyArrayString: string): Study[] {
-  const jsonStudies = JSON.parse(studyArrayString, jsonStudyReviever);
+export function parseStudyArray(
+  studyArrayString: string,
+  options?: Options,
+): Study[] {
+  const jsonStudies = JSON.parse(
+    studyArrayString,
+    jsonStudyReviever.bind(null, options),
+  );
   if (!Array.isArray(jsonStudies)) {
     throw new Error('Root element must be an array');
   }
@@ -57,7 +72,10 @@ export function parseStudyArray(studyArrayString: string): Study[] {
   return studyArray;
 }
 
-export function stringifyStudyArray(studyArray: Study[]): string {
+export function stringifyStudyArray(
+  studyArray: Study[],
+  options?: Options,
+): string {
   const jsonStudies: any[] = [];
   for (const study of studyArray) {
     const jsonStudy = Study.toJson(study, {
@@ -70,17 +88,25 @@ export function stringifyStudyArray(studyArray: Study[]): string {
 
   // Use 2 spaces for indentation and add a newline at the end to match Prettier
   // `json-stringify` behaviour.
-  return JSON.stringify(jsonStudies, jsonStudyReplacer, 2) + '\n';
+  return (
+    JSON.stringify(jsonStudies, jsonStudyReplacer.bind(null, options), 2) + '\n'
+  );
 }
 
-function jsonStudyReplacer(key: string, value: any): any {
+function jsonStudyReplacer(
+  options: Options | undefined,
+  key: string,
+  value: any,
+): any {
   switch (key) {
     case 'start_date':
     case 'end_date': {
-      const intValue = Number.isInteger(value) ? value : parseInt(value);
-      return new Date(intValue * 1000).toISOString();
+      return new Date(value * 1000).toISOString();
     }
     case 'channel':
+      if (options?.isChromium === true) {
+        return value;
+      }
       return value.map((value: string): string => {
         switch (value) {
           case 'CANARY':
@@ -95,7 +121,11 @@ function jsonStudyReplacer(key: string, value: any): any {
   }
 }
 
-function jsonStudyReviever(key: string, value: any): any {
+function jsonStudyReviever(
+  options: Options | undefined,
+  key: string,
+  value: any,
+): any {
   switch (key) {
     case 'start_date':
     case 'end_date': {
@@ -110,6 +140,9 @@ function jsonStudyReviever(key: string, value: any): any {
       return Math.floor(new Date(value).getTime() / 1000).toString();
     }
     case 'channel':
+      if (options?.isChromium === true) {
+        return value;
+      }
       return value.map((value: string): string => {
         switch (value) {
           case 'NIGHTLY':
