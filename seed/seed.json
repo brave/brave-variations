@@ -2772,7 +2772,9 @@
             ],
             "filter": {
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA",
+                    "RELEASE"
                 ],
                 "min_version": "125.1.68.25",
                 "platform": [
