@@ -2977,7 +2977,8 @@
                 "platform": [
                     "WINDOWS",
                     "MAC",
-                    "LINUX"
+                    "LINUX",
+                    "ANDROID"
                 ],
                 "min_version": "120.*"
             },
