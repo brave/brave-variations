@@ -2951,38 +2951,6 @@
                 ]
             },
             "name": "BraveAdsAdEventStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "BraveWalletAnkrBalances"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 50
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 50
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA",
-                    "RELEASE"
-                ],
-                "platform": [
-                    "WINDOWS",
-                    "MAC",
-                    "LINUX",
-                    "ANDROID"
-                ],
-                "min_version": "120.*"
-            },
-            "name": "BraveWalletAnkrBalancesEnabled"
         }
     ],
     "version": "1"
