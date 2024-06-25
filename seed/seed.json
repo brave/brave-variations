@@ -2901,7 +2901,35 @@
             "filter": {
                 "channel": [
                     "NIGHTLY",
-                    "BETA",
+                    "BETA"
+                ],
+                "min_version": "125.1.68.25",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX"
+                ]
+            }
+        },
+        {
+            "name": "ExtensionsManifestV2StudyRelease",
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "probability_weight": 25,
+                    "feature_association": {
+                        "enable_feature": [
+                            "ExtensionsManifestV2"
+                        ]
+                    }
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
                     "RELEASE"
                 ],
                 "min_version": "125.1.68.25",
