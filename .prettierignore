@@ -1,2 +1,3 @@
 seed/seed.json
+src/test/data/**/*unformatted*
 src/web/css/bootstrap.min.css

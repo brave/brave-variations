@@ -9,4 +9,7 @@ module.exports = {
   verbose: true,
   testPathIgnorePatterns: ['/finch_tracker/build/'],
   testEnvironment: 'node',
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/$1',
+  },
 };
