@@ -2960,6 +2960,37 @@
                 "min_version": "120.*"
             },
             "name": "BraveWalletAnkrBalancesEnabled"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveP3ADifferentialSampling"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveP3ANebulaNightlyBeta"
         }
     ],
     "version": "1"
