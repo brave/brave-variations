@@ -18,7 +18,7 @@
   "devDependencies": {
     "@commander-js/extra-typings": "12.1.0",
     "@jest/globals": "29.7.0",
-    "@types/node": "20.14.7",
+    "@types/node": "20.14.9",
     "@types/react": "18.3.3",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
@@ -38,7 +38,7 @@
     "style-loader": "3.3.4",
     "ts-jest": "29.1.5",
     "ts-loader": "9.5.1",
-    "tsx": "4.15.7",
+    "tsx": "4.16.0",
     "typescript": "5.5.2",
     "webpack": "5.92.1",
     "webpack-cli": "4.10.0",
