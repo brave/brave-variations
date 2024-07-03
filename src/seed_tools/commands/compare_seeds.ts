@@ -4,9 +4,9 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { Command } from '@commander-js/extra-typings';
-import * as diff from 'diff';
 import { promises as fs } from 'fs';
 import { VariationsSeed } from '../../proto/generated/variations_seed';
+import diffStrings from '../utils/diff_strings';
 
 export default new Command('compare_seeds')
   .description('Compare two seed.bin')
@@ -14,9 +14,9 @@ export default new Command('compare_seeds')
   .argument('<seed2_file>', 'seed2 file')
   .action(main);
 
-async function main(seed1File: string, seed2File: string) {
-  const seed1Binary: Buffer = await fs.readFile(seed1File);
-  const seed2Binary: Buffer = await fs.readFile(seed2File);
+async function main(seed1FilePath: string, seed2FilePath: string) {
+  const seed1Binary: Buffer = await fs.readFile(seed1FilePath);
+  const seed2Binary: Buffer = await fs.readFile(seed2FilePath);
   if (seed1Binary.equals(seed2Binary)) {
     console.log('Seeds are equal');
     process.exit(0);
@@ -43,11 +43,11 @@ async function main(seed1File: string, seed2File: string) {
   if (seed1JsonString !== seed2JsonString) {
     console.error('Seeds are different');
     console.error(
-      diff.createTwoFilesPatch(
-        seed1File,
-        seed2File,
+      await diffStrings(
         seed1JsonString,
         seed2JsonString,
+        seed1FilePath,
+        seed2FilePath,
       ),
     );
   } else {

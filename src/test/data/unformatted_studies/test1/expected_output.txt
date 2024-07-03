@@ -1,5 +1,4 @@
-@@ -6,9 +6,9 @@
-         "name": "Enabled",
+@@ -7,7 +7,7 @@
          "probability_weight": 100,
          "feature_association": {
            "enable_feature": [
@@ -8,9 +7,7 @@
            ]
          }
        },
-       {
-@@ -20,21 +20,21 @@
-           ]
+@@ -21,19 +21,19 @@
          }
        },
        {
@@ -34,4 +31,3 @@
          "PLATFORM_MAC",
          "PLATFORM_LINUX",
          "PLATFORM_ANDROID"
-       ]

@@ -4,10 +4,10 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { Command } from '@commander-js/extra-typings';
-import * as diff from 'diff';
 import { promises as fs } from 'fs';
 import DefaultMap from 'src/base/containers/default_map';
 import { type Study } from '../../proto/generated/study';
+import diffStrings from '../utils/diff_strings';
 import * as study_json_utils from '../utils/study_json_utils';
 import * as study_validation from '../utils/study_validation';
 
@@ -76,12 +76,12 @@ async function checkAndOptionallyFixFormat(
     } else {
       errors.push(
         `Format required:\n` +
-          diff.createTwoFilesPatch(
-            studyFilePath,
-            studyFilePath + '.formatted',
+          (await diffStrings(
             studyArrayString,
             stringifiedStudyArray,
-          ),
+            studyFilePath,
+            studyFilePath + '.formatted',
+          )),
       );
     }
   }
