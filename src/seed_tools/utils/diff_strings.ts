@@ -7,6 +7,9 @@ import { exec } from 'child_process';
 import fs from 'fs/promises';
 import os from 'os';
 import path from 'path';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
 
 export default async function diffStrings(
   string1: string,
@@ -27,30 +30,27 @@ export default async function diffStrings(
   await fs.writeFile(tmpFile1, string1);
   await fs.writeFile(tmpFile2, string2);
 
-  return await new Promise<string>((resolve, reject) => {
-    // Use git diff to generate readable diff.
-    exec(
+  try {
+    // Run git diff on the temporary files, on non-empty diff it will exit with
+    // code 1.
+    await execAsync(
       `git diff --no-index --src-prefix= --dst-prefix= -- ${tmpFile1} ${tmpFile2}`,
       { encoding: 'utf8' },
-      (error, stdout, stderr) => {
-        if (error !== null && error.code !== 1) {
-          // git diff returns 1 if there are differences
-          reject(new Error(stderr));
-          return;
-        }
-
-        const result = stdout
-          .replaceAll(tmpFile1, displayFileName1)
-          .replaceAll(tmpFile2, displayFileName2);
-
-        resolve(result);
-      },
     );
-  }).finally(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    (async () => {
-      // Clean up temporary directory.
-      await fs.rm(tmpDir, { recursive: true });
-    })();
-  });
+    return '';
+  } catch (error) {
+    if (error.code === 1) {
+      // Handle the case where git diff returns 1 due to differences.
+      const result = error.stdout
+        .replaceAll(tmpFile1, displayFileName1)
+        .replaceAll(tmpFile2, displayFileName2);
+
+      return result;
+    } else {
+      // Rethrow the error for other exit codes.
+      throw error;
+    }
+  } finally {
+    await fs.rm(tmpDir, { recursive: true });
+  }
 }

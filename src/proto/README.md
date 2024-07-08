@@ -2,7 +2,7 @@
 
 The `protobuf-ts` library is chosen for typescript-based seed generator as it
 provides a robust mechanism to detect and report unknown fields and invalid
-values when parsing a content from object-like representation (such as JSON).
+values when parsing content from an object-like representation (such as JSON).
 
 However, the library targets `proto3`, while Variations proto files use
 `proto2`, causing `required` fields with default values to be omitted during

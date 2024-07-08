@@ -265,23 +265,19 @@ function doesFilterArrayWithExcludesIntersect<V>(
   // If both studies have include filters, they intersect if at least one value
   // is in common.
   if (study1Filter.length > 0 && study2Filter.length > 0) {
-    return study1Filter.some((locale) => study2Filter.includes(locale));
+    return study1Filter.some((value) => study2Filter.includes(value));
   }
 
   // If first study has an include filter and second study has an exclude
   // filter, the studies won't intersect if all include values are in the
   // exclude filter.
   if (study1Filter.length > 0 && study2ExcludeFilter.length > 0) {
-    return !study1Filter.every((locale) =>
-      study2ExcludeFilter.includes(locale),
-    );
+    return !study1Filter.every((value) => study2ExcludeFilter.includes(value));
   }
 
   // Same goes for the other way around.
   if (study1ExcludeFilter.length > 0 && study2Filter.length > 0) {
-    return !study2Filter.every((locale) =>
-      study1ExcludeFilter.includes(locale),
-    );
+    return !study2Filter.every((value) => study1ExcludeFilter.includes(value));
   }
 
   // If both studies have exclude filters, we assume they intersect.
