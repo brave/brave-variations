@@ -4,7 +4,6 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { promises as fs } from 'fs';
-import Result from 'src/base/result';
 import { Study } from '../../proto/generated/study';
 
 export interface Options {
@@ -16,25 +15,25 @@ export async function readStudyFile(
   options?: Options,
 ): Promise<Study[]> {
   const result = await readStudyFileReturnWithError(studyFilePath, options);
-  if (result.ok) {
-    return result.value[0];
+  if (result instanceof Error) {
+    throw result;
   } else {
-    throw result.error;
+    return result[0];
   }
 }
 
 export async function readStudyFileReturnWithError(
   studyFilePath: string,
   options?: Options,
-): Promise<Result<[Study[], string], Error>> {
+): Promise<[Study[], string] | Error> {
   try {
     const studyArrayString = await fs.readFile(studyFilePath, 'utf8');
     const studyArray = parseStudyArray(studyArrayString, options);
-    return Result.ok([studyArray, studyArrayString]);
+    return [studyArray, studyArrayString];
   } catch (e) {
     if (e instanceof Error) {
       e.message += ` (${studyFilePath})`;
-      return Result.error(e);
+      return e;
     }
     // Rethrow non-Error exceptions.
     throw e;

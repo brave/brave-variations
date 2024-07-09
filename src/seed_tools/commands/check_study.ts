@@ -26,12 +26,12 @@ async function main(studyFilePaths: string[], options: Options) {
   for (const studyFilePath of studyFilePaths) {
     const readStudyFileResult =
       await study_json_utils.readStudyFileReturnWithError(studyFilePath);
-    if (!readStudyFileResult.ok) {
-      errorsPerFile.get(studyFilePath).push(readStudyFileResult.error.message);
+    if (readStudyFileResult instanceof Error) {
+      errorsPerFile.get(studyFilePath).push(readStudyFileResult.message);
       continue;
     }
 
-    const [studies, studyArrayString] = readStudyFileResult.value;
+    const [studies, studyArrayString] = readStudyFileResult;
     for (const study of studies) {
       const studyErrors = study_validation.validateStudyReturnErrors(
         study,
