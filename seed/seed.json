@@ -2052,28 +2052,7 @@
                             "value": "0.0"
                         }
                     ],
-                    "probability_weight": 20
-                },
-                {
-                    "feature_association": {
-                        "enable_feature": [
-                            "CreativeNotificationAdModelBasedPredictor",
-                            "CreativeNewTabPageAdModelBasedPredictor",
-                            "CreativeInlineContentAdModelBasedPredictor"
-                        ]
-                    },
-                    "name": "NoAdvertiserRecency",
-                    "parameters": [
-                        {
-                            "name": "last_seen_advertiser_predictor_weight",
-                            "value": "0.0"
-                        }
-                    ],
-                    "probability_weight": 20
-                },
-                {
-                    "name": "Control",
-                    "probability_weight": 60
+                    "probability_weight": 100
                 }
             ],
             "filter": {
@@ -2082,6 +2061,7 @@
                     "BETA",
                     "RELEASE"
                 ],
+                "max_version": "128.1.69.51",
                 "platform": [
                     "WINDOWS",
                     "MAC",
