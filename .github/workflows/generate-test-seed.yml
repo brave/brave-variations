@@ -1,0 +1,118 @@
+name: Generate Test Seed
+
+on:
+  pull_request:
+    paths:
+      - 'seed/seed.json'
+      - 'studies/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ACTION_RUN_URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+      REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number }}/seed'
+
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5
+        with:
+          python-version: '3.11'
+
+      - name: Install python requirements
+        run: pip install -r seed/requirements.txt
+
+      - name: Comment "Generation In Progress"
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const actionRunURL = `${process.env.ACTION_RUN_URL}`;
+            const commentBody =
+            `## 🔄 Generating Test Seed
+
+            A new test seed file is currently being generated for this pull request.
+
+            ### What's Next?
+
+            - The generation process typically takes a few minutes.
+            - Once the generation is complete, this comment will provide further instructions.
+            - If the generation takes longer than 5 minutes, please review the [workflow logs](${actionRunURL}).
+            `
+            const comment = require('.github/workflows/scripts/comment.js')
+            await comment(github, context, commentBody)
+
+      - name: Install
+        run: |
+          npm ci
+
+      - name: Build & Test
+        run: |
+          npm run typecheck:scripts
+          npm run build:proto
+          npm run typecheck
+          npm run test
+
+      - name: Lint
+        run: |
+          npm run lint -- --base origin/${{ github.event.pull_request.base.ref }}
+
+      - name: Generate seed
+        run: |
+          # Use only python implementation for now.
+          python seed/serialize.py seed/seed.json
+          # TODO: enable this when per-file studies will be synced with seed.json.
+          # npm run seed_tools -- create_seed studies seed.bin
+
+      - name: Upload seed
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_PRODUCTION_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_PRODUCTION_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-west-2
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          gzip -c seed.bin | aws s3 cp - "s3://brave-production-griffin-origin/$REMOTE_SEED_PATH" \
+            --content-type application/octet-stream \
+            --content-encoding gzip
+
+          INVALIDATION_ID=$(aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/$REMOTE_SEED_PATH" --query 'Invalidation.Id' --output text)
+          aws cloudfront wait invalidation-completed --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --id "$INVALIDATION_ID"
+
+      - name: Comment "Generation Successful"
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const fs = require('fs');
+            const variationsServerURL = `https://griffin.brave.com/${process.env.REMOTE_SEED_PATH}`;
+            const serialNumberContent = fs.readFileSync('serialnumber', 'utf8');
+            const commentBody =
+            `## ✅ Test Seed Generated Successfully
+
+            To test the new seed, launch the browser with the following command line:
+            \`\`\`
+            --accept-empty-variations-seed-signature --variations-server-url=${variationsServerURL}
+            \`\`\`
+
+            #### Seed Details
+            - Serial Number: \`${serialNumberContent}\`
+            - Uploaded: \`${new Date().toISOString()}\`
+            `
+            const comment = require('.github/workflows/scripts/comment.js')
+            await comment(github, context, commentBody)
+
+      - name: Comment "Generation Failed"
+        if: failure()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const actionRunURL = `${process.env.ACTION_RUN_URL}`;
+            const commentBody =
+            `## ❌ Test Seed Generation Failed
+
+            [Workflow logs for more information.](${actionRunURL})
+            `
+            const comment = require('.github/workflows/scripts/comment.js')
+            await comment(github, context, commentBody)

@@ -19,11 +19,12 @@ export default async function diffStrings(
 ): Promise<string> {
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'diffString-'));
 
+  const dateStr = Date.now().toString();
   const tmpFile1 = path
-    .join(tmpDir, `file1-${Date.now()}.txt`)
+    .join(tmpDir, `file1-${dateStr}.txt`)
     .replaceAll('\\', '/');
   const tmpFile2 = path
-    .join(tmpDir, `file2-${Date.now()}.txt`)
+    .join(tmpDir, `file2-${dateStr}.txt`)
     .replaceAll('\\', '/');
 
   // Write strings to temporary files.
@@ -39,11 +40,13 @@ export default async function diffStrings(
     );
     return '';
   } catch (error) {
+    // Handle the case where git diff returns 1 due to differences.
     if (error.code === 1) {
-      // Handle the case where git diff returns 1 due to differences.
+      // Remove root forward slashes from the temporary file paths as git diff
+      // does not include them.
       const result = error.stdout
-        .replaceAll(tmpFile1, displayFileName1)
-        .replaceAll(tmpFile2, displayFileName2);
+        .replaceAll(tmpFile1.replace(/^\//, ''), displayFileName1)
+        .replaceAll(tmpFile2.replace(/^\//, ''), displayFileName2);
 
       return result;
     } else {
