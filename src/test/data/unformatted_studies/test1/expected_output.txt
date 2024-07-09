@@ -1,0 +1,33 @@
+@@ -7,7 +7,7 @@
+         "probability_weight": 100,
+         "feature_association": {
+           "enable_feature": [
+-              "TestFeature"
++            "TestFeature"
+           ]
+         }
+       },
+@@ -21,19 +21,19 @@
+         }
+       },
+       {
+-        "probability_weight": 0,
+-        "name": "Default"
++        "name": "Default",
++        "probability_weight": 0
+       }
+     ],
+     "filter": {
++      "min_version": "92.1.30.57",
+       "channel": [
+         "NIGHTLY",
+         "BETA",
+         "RELEASE"
+       ],
+-      "min_version": "92.1.30.57",
+       "platform": [
+-        "WINDOWS",
++        "PLATFORM_WINDOWS",
+         "PLATFORM_MAC",
+         "PLATFORM_LINUX",
+         "PLATFORM_ANDROID"
