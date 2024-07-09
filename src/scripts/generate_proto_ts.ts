@@ -4,7 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { program } from '@commander-js/extra-typings';
-import * as execa from 'execa';
+import { execSync } from 'child_process';
 import * as fs from 'fs';
 import { wsPath } from '../base/path_utils';
 
@@ -50,27 +50,29 @@ function removeGeneratedFiles() {
 }
 
 function generateProtobufJsWithTypeInfo() {
-  execa.execaSync(
-    'pbjs',
+  execSync(
     [
+      'npx',
+      '--',
+      'pbjs',
       '--t',
       'static-module',
       '--keep-case',
       ...protoFiles,
       '-o',
       `${protoGeneratedDir}/proto_bundle.js`,
-    ],
-    { stdio: 'inherit', preferLocal: true },
+    ].join(' '),
   );
 
-  execa.execaSync(
-    'pbts',
+  execSync(
     [
+      'npx',
+      '--',
+      'pbts',
       '-o',
       `${protoGeneratedDir}/proto_bundle.d.ts`,
       `${protoGeneratedDir}/proto_bundle.js`,
-    ],
-    { stdio: 'inherit', preferLocal: true },
+    ].join(' '),
   );
 }
 
@@ -79,9 +81,11 @@ function generateProtobufTs() {
     // Apply study.proto patch to make protobuf-ts serialize probability_weight
     // field if its value set to 0.
     gitApplyStudyProtoPatch();
-    execa.execaSync(
-      'protoc',
+    execSync(
       [
+        'npx',
+        '--',
+        'protoc',
         '--ts_out',
         protoGeneratedDir,
         '--proto_path',
@@ -89,8 +93,7 @@ function generateProtobufTs() {
         ...protoFiles,
         '--ts_opt',
         'use_proto_field_name',
-      ],
-      { stdio: 'inherit', preferLocal: true },
+      ].join(' '),
     );
   } finally {
     gitRevertStudyProtoPatch();
@@ -98,26 +101,24 @@ function generateProtobufTs() {
 }
 
 function generateStudyProtoPatch() {
-  execa.execaSync('git', ['diff', `${protoDir}/study.proto`], {
-    stdout: { file: `${protoDir}/study.proto.protobuf-ts.patch` },
-  });
+  fs.writeFileSync(
+    `${protoDir}/study.proto.protobuf-ts.patch`,
+    execSync(`git diff ${protoDir}/study.proto`, {
+      encoding: 'buffer',
+    }),
+  );
 }
 
 function gitApplyStudyProtoPatch() {
-  execa.execaSync(
-    'git',
-    ['apply', `${protoDir}/study.proto.protobuf-ts.patch`],
-    {
-      cwd: protoDir,
-      stdio: 'inherit',
-    },
-  );
+  execSync(`git apply ${protoDir}/study.proto.protobuf-ts.patch`, {
+    cwd: protoDir,
+    stdio: 'inherit',
+  });
 }
 
 function gitRevertStudyProtoPatch() {
-  execa.execaSync(
-    'git',
-    ['apply', '-R', `${protoDir}/study.proto.protobuf-ts.patch`],
-    { cwd: protoDir, stdio: 'inherit' },
-  );
+  execSync(`git apply -R ${protoDir}/study.proto.protobuf-ts.patch`, {
+    cwd: protoDir,
+    stdio: 'inherit',
+  });
 }
