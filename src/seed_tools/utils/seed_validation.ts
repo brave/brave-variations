@@ -3,6 +3,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import assert from 'assert';
 import DefaultMap from '../../base/containers/default_map';
 import { type Study_Filter } from '../../proto/generated/study';
 import { type VariationsSeed } from '../../proto/generated/variations_seed';
@@ -111,7 +112,8 @@ function checkOverlappingStudies(seed: VariationsSeed): string[] {
         // properties, meaning the same feature is used in both.
         if (!hasFilterDifference) {
           errors.push(
-            `Feature ${featureName} overlaps in studies. Check your filters:\n${study_json_utils.stringifyStudyArray([study1.study, study2.study])}`,
+            `Feature ${featureName} overlaps in studies. Check your filters:\n` +
+              `${study_json_utils.stringifyStudyArray([study1.study, study2.study])}`,
           );
         }
       }
@@ -276,12 +278,14 @@ function doesFilterArrayWithExcludesIntersect<V>(
   }
 
   // Same goes for the other way around.
-  if (study1ExcludeFilter.length > 0 && study2Filter.length > 0) {
+  if (study2Filter.length > 0 && study1ExcludeFilter.length > 0) {
     return !study2Filter.every((value) => study1ExcludeFilter.includes(value));
   }
 
+  assert(study1Filter.length === 0 && study2Filter.length === 0);
+
   // If both studies have exclude filters, we assume they intersect.
-  return study1ExcludeFilter.length !== 0 && study2ExcludeFilter.length !== 0;
+  return study1ExcludeFilter.length > 0 && study2ExcludeFilter.length > 0;
 }
 
 function doesFilterValueIntersect<V>(

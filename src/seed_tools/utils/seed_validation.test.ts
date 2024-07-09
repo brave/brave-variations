@@ -370,6 +370,24 @@ describe('validateSeed', () => {
         },
         expectedOverlapped: true,
       },
+      {
+        filter1: {
+          exclude_locale: ['fr'],
+        },
+        filter2: {
+          exclude_locale: ['en'],
+        },
+        expectedOverlapped: true,
+      },
+      {
+        filter1: {
+          exclude_locale: ['en'],
+        },
+        filter2: {
+          exclude_locale: ['en'],
+        },
+        expectedOverlapped: true,
+      },
 
       // no filter at all
       {
