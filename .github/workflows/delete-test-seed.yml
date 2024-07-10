@@ -4,12 +4,12 @@ on:
   pull_request:
     types: [closed]
     paths:
+      - 'seed/seed.json'
       - 'studies/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     env:
       REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number }}/seed'
 
