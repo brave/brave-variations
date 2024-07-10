@@ -1,0 +1,25 @@
+name: Delete Test Seed
+
+on:
+  pull_request:
+    types: [closed]
+    paths:
+      - 'seed/seed.json'
+      - 'studies/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number }}/seed'
+
+    steps:
+      - name: Delete seed
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_PRODUCTION_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_PRODUCTION_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-west-2
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          aws s3 rm "s3://brave-production-griffin-origin/$REMOTE_SEED_PATH"
+          aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/$REMOTE_SEED_PATH"

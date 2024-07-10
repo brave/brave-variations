@@ -24,6 +24,7 @@ export default new Command('create_seed')
   .option(
     '--serial_number_path <path>',
     'file path to write the serial number to',
+    './serialnumber',
   )
   .option('--mock_serial_number <value>', 'mock serial number')
   .action(main);
