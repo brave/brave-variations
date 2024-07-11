@@ -12,6 +12,7 @@ jobs:
     env:
       ACTION_RUN_URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
       REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number }}/seed'
+      SEED_VERSION: 'pull/${{ github.event.pull_request.number }}@${{ github.event.pull_request.head.sha }}'
 
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
@@ -63,9 +64,9 @@ jobs:
       - name: Generate seed
         run: |
           # Use only python implementation for now.
-          python seed/serialize.py seed/seed.json
+          python seed/serialize.py seed/seed.json --version "$SEED_VERSION"
           # TODO: enable this when per-file studies will be synced with seed.json.
-          # npm run seed_tools -- create_seed studies seed.bin
+          # npm run seed_tools -- create_seed studies seed.bin --version "$SEED_VERSION"
 
       - name: Upload seed
         env:
@@ -97,8 +98,9 @@ jobs:
             \`\`\`
 
             #### Seed Details
-            - Serial Number: \`${serialNumberContent}\`
+            - Version: \`${process.env.SEED_VERSION}\`
             - Uploaded: \`${new Date().toISOString()}\`
+            - Serial Number: \`${serialNumberContent}\`
             `
             const comment = require('.github/workflows/scripts/comment.js')
             await comment(github, context, commentBody)

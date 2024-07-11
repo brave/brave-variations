@@ -21,6 +21,7 @@ export default new Command('create_seed')
   .description('Create seed.bin from study files')
   .argument('<studies_dir>', 'path to a directory containing study files')
   .argument('<output_file>', 'output seed file')
+  .option('--version <value>', 'version to set into the seed')
   .option(
     '--serial_number_path <path>',
     'file path to write the serial number to',
@@ -32,6 +33,7 @@ export default new Command('create_seed')
 interface Options {
   mock_serial_number?: string;
   serial_number_path?: string;
+  version?: string;
 }
 
 async function main(studiesDir: string, outputFile: string, options: Options) {
@@ -47,7 +49,7 @@ async function main(studiesDir: string, outputFile: string, options: Options) {
   const variationsSeed: VariationsSeed = {
     study: [],
     layers: [],
-    version: '1',
+    version: options.version ?? '1',
   };
 
   for (const file of files) {
