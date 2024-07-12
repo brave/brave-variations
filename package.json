@@ -9,6 +9,7 @@
     "build:web": "webpack -c src/web/webpack.config.js --mode=production",
     "clean": "tsx src/scripts/clean.ts",
     "lint": "tsx src/scripts/lint.ts",
+    "postinstall": "npm run typecheck:scripts && npm run build:proto",
     "seed_tools": "tsx src/seed_tools/seed_tools.ts",
     "serve:dev": "webpack serve -c src/web/webpack.config.js --hot --mode=development",
     "test": "jest --config=src/jest.config.js",
