@@ -329,6 +329,7 @@ def main():
       'seed_path', type=argparse.FileType('r'), nargs='?',
       help='json seed file to process')
     parser.add_argument('--mock_serial_number', help='mock serial number')
+    parser.add_argument('--version', help='version')
     args = parser.parse_args()
 
     print("Load", args.seed_path.name)
@@ -343,6 +344,8 @@ def main():
     if args.mock_serial_number is not None:
         seed_message.serial_number = args.mock_serial_number
     update_serial_number(seed_message.serial_number)
+    if args.version is not None:
+        seed_message.version = args.version
 
     # Serialize and save as seed file
     with open(SEED_BIN_PATH, "wb") as seed_file:

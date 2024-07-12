@@ -7,6 +7,7 @@ import * as fs_sync from 'fs';
 import { promises as fs } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import { VariationsSeed } from 'src/proto/generated/variations_seed';
 import { wsPath } from '../../base/path_utils';
 import create_seed from './create_seed';
 
@@ -52,7 +53,40 @@ describe('create_seed command', () => {
 
         const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
         expect(outputSerialNumber).toEqual('1');
+        expect(VariationsSeed.fromBinary(output).version).toEqual('1');
       },
+    );
+  });
+
+  test('set seed version', async () => {
+    const testCaseDir = path.join(testDataDir, 'set_seed_version');
+    const studiesDir = path.join(testCaseDir, 'studies');
+    const outputFile = path.join(tempDir, 'output.bin');
+    const serialNumberPath = path.join(tempDir, 'serial_number.txt');
+
+    await create_seed.parseAsync([
+      'node',
+      'create_seed',
+      studiesDir,
+      outputFile,
+      '--version',
+      'test version value',
+      '--mock_serial_number',
+      '1',
+      '--serial_number_path',
+      serialNumberPath,
+    ]);
+
+    const output = await fs.readFile(outputFile);
+    const expectedOutput = await fs.readFile(
+      path.join(testCaseDir, 'expected_seed.bin'),
+    );
+    expect(output).toEqual(expectedOutput);
+
+    const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
+    expect(outputSerialNumber).toEqual('1');
+    expect(VariationsSeed.fromBinary(output).version).toEqual(
+      'test version value',
     );
   });
 
