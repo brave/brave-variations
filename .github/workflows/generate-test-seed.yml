@@ -92,10 +92,14 @@ jobs:
             const commentBody =
             `## ✅ Test Seed Generated Successfully
 
-            To test the new seed, launch the browser with the following command line:
-            \`\`\`
-            --accept-empty-variations-seed-signature --variations-server-url=${variationsServerURL}
-            \`\`\`
+            To apply the test seed:
+
+            1. **Desktop**: Launch the browser with \`--variations-pr=${{ github.event.pull_request.number }}\`.
+               **Android**: Set the command line to \`--variations-pr=${{ github.event.pull_request.number }}\` in debug menu, restart the browser.
+               **iOS**: Set \`Variations PR\` to \`${{ github.event.pull_request.number }}\` in \`Brave Core Switches\` debug menu, restart the browser.
+            2. Wait 5-10 seconds to fetch the seed.
+            3. Restart the browser to apply the seed.
+            4. Ensure **Active Variations** section at \`brave://version\` starts with the expected seed version (see below).
 
             #### Seed Details
             - Version: \`${process.env.SEED_VERSION}\`
