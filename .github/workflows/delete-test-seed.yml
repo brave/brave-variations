@@ -3,23 +3,28 @@ name: Delete Test Seed
 on:
   pull_request_target:
     types: [closed]
-    paths:
-      - 'seed/seed.json'
-      - 'studies/**'
+  workflow_dispatch:
+    inputs:
+      pull_request_number:
+        description: 'Pull Request Number'
+        required: true
+        type: number
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number }}/seed'
+      REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number || github.event.inputs.pull_request_number }}/seed'
 
     steps:
-      - name: Delete seed
+      - name: Delete test seed
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_PRODUCTION_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_PRODUCTION_SECRET_ACCESS_KEY }}
           AWS_REGION: us-west-2
           CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
-          aws s3 rm "s3://brave-production-griffin-origin/$REMOTE_SEED_PATH"
-          aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/$REMOTE_SEED_PATH"
+          if aws s3 ls "s3://brave-production-griffin-origin/$REMOTE_SEED_PATH" > /dev/null 2>&1; then
+            aws s3 rm "s3://brave-production-griffin-origin/$REMOTE_SEED_PATH"
+            aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/$REMOTE_SEED_PATH"
+          fi
