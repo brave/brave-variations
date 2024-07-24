@@ -1,10 +1,7 @@
 name: Test
 
 on:
-  push:
-    branches: [main, production]
   pull_request:
-    branches: [main, production]
 
 jobs:
   test:

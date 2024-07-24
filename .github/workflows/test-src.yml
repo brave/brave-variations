@@ -2,7 +2,6 @@ name: Tracker&Griffin tests
 
 on:
   pull_request:
-    branches: [main, production]
   workflow_dispatch:
 
 jobs:
