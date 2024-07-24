@@ -3,6 +3,7 @@ name: Tracker&Griffin tests
 on:
   pull_request:
   workflow_dispatch:
+  merge_group:
 
 jobs:
   build:
