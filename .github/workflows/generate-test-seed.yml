@@ -11,13 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ACTION_RUN_URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+      BASE_SHA: '${{ github.event.pull_request.base.sha }}'
       REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number }}/seed'
       SEED_VERSION: 'pull/${{ github.event.pull_request.number }}@${{ github.event.pull_request.head.sha }}'
 
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-        with:
-          fetch-depth: 0
+
+      - name: Fetch base commit
+        run: git fetch --depth=1 origin "$BASE_SHA"
 
       - name: Setup Python
         uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f # v5
@@ -59,7 +61,7 @@ jobs:
 
       - name: Lint
         run: |
-          npm run lint -- --base ${{ github.event.pull_request.base.sha }}
+          npm run lint -- --base "$BASE_SHA"
 
       - name: Generate seed
         run: |
