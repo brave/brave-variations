@@ -2,7 +2,6 @@ name: Tracker&Griffin tests
 
 on:
   pull_request:
-  workflow_dispatch:
   merge_group:
 
 jobs:
@@ -26,4 +25,4 @@ jobs:
         run: npm run test
 
       - name: lint
-        run: npm run lint -- --base origin/${{ github.event.pull_request.base.ref }}
+        run: npm run lint -- --base origin/${{ github.event.pull_request.base.ref || github.event.merge_group.base_ref }}
