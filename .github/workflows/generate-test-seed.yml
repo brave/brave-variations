@@ -59,7 +59,7 @@ jobs:
 
       - name: Lint
         run: |
-          npm run lint -- --base origin/${{ github.event.pull_request.base.ref }}
+          npm run lint -- --base ${{ github.event.pull_request.base.sha }}
 
       - name: Generate seed
         run: |
