@@ -2660,6 +2660,7 @@
             ],
             "filter": {
                 "channel": [
+                    "UNKNOWN",
                     "NIGHTLY"
                 ],
                 "platform": [
