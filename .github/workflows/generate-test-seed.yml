@@ -2,6 +2,7 @@ name: Generate Test Seed
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     paths:
       - 'seed/seed.json'
       - 'studies/**'
@@ -9,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.action != 'labeled' || github.event.label.name == 'CI/rebuild'
+
     env:
       ACTION_RUN_URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
       BASE_SHA: '${{ github.event.pull_request.base.sha }}'
@@ -17,10 +20,22 @@ jobs:
       SEED_VERSION: 'pull/${{ github.event.pull_request.number }}@${{ github.sha }}'
 
     steps:
+      - name: Remove CI/rebuild label
+        if: github.event.action == 'labeled' && github.event.label.name == 'CI/rebuild'
+        run: gh pr edit ${{ github.event.pull_request.number }} --remove-label 'CI/rebuild'
+
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Fetch base commit
         run: git fetch --depth=1 origin "$BASE_SHA"
+
+      - name: Rebase on base branch
+        run: |
+          echo "${{ contains(github.event.pull_request.labels.*.name, 'CI/no-rebase') }}"
+          if [[ -z "${{ github.event.pull_request.labels }}" ]] || [[ -z "$(echo "${{ github.event.pull_request.labels }}" | grep 'CI/no-rebase')" ]]; then
+            git fetch origin "${{ github.event.pull_request.base.sha }}"
+            git rebase FETCH_HEAD
+          fi
 
       - name: Setup Python
         uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f # v5
