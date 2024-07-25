@@ -2,6 +2,7 @@ name: Generate Test Seed
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     paths:
       - 'seed/seed.json'
       - 'studies/**'
@@ -9,15 +10,29 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.action != 'labeled' || github.event.label.name == 'CI/rebuild'
+
     env:
       ACTION_RUN_URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
       REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number }}/seed'
       SEED_VERSION: 'pull/${{ github.event.pull_request.number }}@${{ github.event.pull_request.head.sha }}'
 
     steps:
+      - name: Remove CI/rebuild label
+        if: contains(github.event.pull_request.labels.*.name, 'CI/rebuild')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --remove-label 'CI/rebuild'
+
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           fetch-depth: 0
+
+      - name: Rebase on base branch
+        if: "!contains(github.event.pull_request.labels.*.name, 'CI/no-rebase')"
+        run: |
+          git fetch origin "${{ github.event.pull_request.base.sha }}"
+          git rebase FETCH_HEAD
 
       - name: Setup Python
         uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f # v5

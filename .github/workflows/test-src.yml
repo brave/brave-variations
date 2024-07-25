@@ -2,12 +2,21 @@ name: Tracker&Griffin tests
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
   merge_group:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.action != 'labeled' || github.event.label.name == 'CI/rebuild'
+
     steps:
+      - name: Remove CI/rebuild label
+        if: github.event.action == 'labeled' && github.event.label.name == 'CI/rebuild'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr edit ${{ github.event.pull_request.number }} --remove-label 'CI/rebuild'
+
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           fetch-depth: 0
