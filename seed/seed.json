@@ -2066,27 +2066,12 @@
             "experiments": [
                 {
                     "feature_association": {
-                        "enable_feature": [
-                            "DefaultPassthroughCommandDecoder"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "parameters": [
-                        {
-                            "name": "BlockListByModel",
-                            "value": "5030D_EEA|ASUS_Z008D|ASUS_Z00AD|CPH2*|Galaxy Tab 2 3G|GT-I9500|Infinix X6*|K016|K01Q|Lenovo TB-X*|LM-*|M2006C3*|moto e*|moto g*|MRD-LX1|Nokia 2.3|P01M*|P01T_1|RMX2185|SM-A*|Star 4|TBT8A10|TECNO K*|vivo*"
-                        }
-                    ],
-                    "probability_weight": 100
-                },
-                {
-                    "feature_association": {
                         "disable_feature": [
                             "DefaultPassthroughCommandDecoder"
                         ]
                     },
                     "name": "Disabled",
-                    "probability_weight": 0
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
@@ -2099,6 +2084,7 @@
                     "BETA",
                     "RELEASE"
                 ],
+                "min_version": "125.*",
                 "platform": [
                     "ANDROID"
                 ]
