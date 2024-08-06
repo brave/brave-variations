@@ -2566,7 +2566,7 @@
                         }
                     ],
                     "name": "EnabledA",
-                    "probability_weight": 4
+                    "probability_weight": 5
                 },
                 {
                     "feature_association": {
@@ -2581,11 +2581,11 @@
                         }
                     ],
                     "name": "EnabledB",
-                    "probability_weight": 4
+                    "probability_weight": 5
                 },
                 {
                     "name": "Default",
-                    "probability_weight": 92
+                    "probability_weight": 90
                 }
             ],
             "filter": {
