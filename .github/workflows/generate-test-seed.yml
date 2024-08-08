@@ -12,8 +12,9 @@ jobs:
     env:
       ACTION_RUN_URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
       BASE_SHA: '${{ github.event.pull_request.base.sha }}'
+      HEAD_SHA: '${{ github.event.pull_request.head.sha }}'
       REMOTE_SEED_PATH: 'pull/${{ github.event.pull_request.number }}/seed'
-      SEED_VERSION: 'pull/${{ github.event.pull_request.number }}@${{ github.event.pull_request.head.sha }}'
+      SEED_VERSION: 'pull/${{ github.event.pull_request.number }}@${{ github.sha }}'
 
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
@@ -103,10 +104,15 @@ jobs:
             3. Restart the browser to apply the seed.
             4. Ensure **Active Variations** section at \`brave://version\` starts with the expected seed version (see below).
 
-            #### Seed Details
-            - Version: \`${process.env.SEED_VERSION}\`
-            - Uploaded: \`${new Date().toISOString()}\`
-            - Serial Number: \`${serialNumberContent}\`
+            ### Seed Details
+            |Parameter|Value|
+            |--------|--------|
+            |Version|\`${process.env.SEED_VERSION}\`|
+            |Uploaded|${new Date().toUTCString()}|
+            |PR commit|${process.env.HEAD_SHA}|
+            |Base commit|${process.env.BASE_SHA}|
+            |Merge commit|${process.env.GITHUB_SHA}|
+            |Serial number|\`${serialNumberContent}\`|
             `
             const comment = require('.github/workflows/scripts/comment.js')
             await comment(github, context, commentBody)
