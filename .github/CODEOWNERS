@@ -1,5 +1,8 @@
 # The order is important. The last matching pattern takes the most precedence.
 
+# Griffin maintainers are responsible for all machinery in this repository.
 * @brave/griffin-maintainers
 
+# The seed file is owned by the uplift team as any change to it directly affects
+# public builds. It's important to update the seed in a controlled manner.
 /seed/seed.json @brave/uplift-approvers
