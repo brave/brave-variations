@@ -17,17 +17,19 @@ https://chromium.googlesource.com/chromium/src/+/master/testing/variations/READM
 """
 
 import argparse
-import serialize
 import json
-import proto.study_pb2 as study_pb2
+import os
+import re
+import serialize
 import subprocess
 import sys
-import proto.variations_seed_pb2 as variations_seed_pb2
-import re
+import tempfile
 
 from datetime import datetime, timezone
 from packaging import version
 
+import proto.study_pb2 as study_pb2
+import proto.variations_seed_pb2 as variations_seed_pb2
 
 PLATFORM_NAMES = {
     study_pb2.Study.Platform.PLATFORM_WINDOWS: 'windows',
@@ -50,10 +52,48 @@ def _get_variations_revision(date: str, branch: str) -> str:
     return output.rstrip().decode('utf-8')
 
 
-def _get_seed_data(seed_git_path: str, variations_revision: str):
+def _get_variations_seed_legacy(revision: str):
     seed_string = subprocess.check_output(
-        ['git', 'show', f'{variations_revision}:{seed_git_path}'])
-    return json.loads(seed_string)
+        ['git', 'show', f'{revision}:{LEGACY_SEED_PATH}'])
+    json_seed = json.loads(seed_string)
+    print("Validate seed data")
+    if not serialize.validate(json_seed):
+        raise RuntimeError("Seed data is invalid")
+    return serialize.make_variations_seed_message(json_seed)
+
+def _get_variations_seed(revision: str):
+    legacy_seed = _get_variations_seed_legacy(revision)
+    if legacy_seed is not None:
+        return legacy_seed
+
+    print('Run npm install..')
+    subprocess.check_output(['npm', 'install'])
+
+    tmp_dir = tempfile.mkdtemp(f'studies-{revision}')
+    print('temp directory to seed data:', tmp_dir)
+
+    seed_path = os.path.join(tmp_dir, 'seed.bin')
+
+    files_output = subprocess.check_output(
+        ['git', 'show', f'{revision}:{SEED_FOLDER}']).decode()
+    for filename in files_output.splitlines()[1:]:
+        if filename.endswith('.json'):
+          print('saving', filename)
+          with open(os.path.join(tmp_dir, filename), 'wb') as f:
+            content = subprocess.check_output(
+                ['git', 'show', f'{revision}:{SEED_FOLDER}/{filename}'])
+            f.write(content)
+
+    subprocess.check_output(['npm', 'run', 'seed_tools', '--', 'create_seed',
+                             tmp_dir, seed_path])
+
+
+    seed = variations_seed_pb2.VariationsSeed()
+
+    with open(seed_path, 'rb') as f:
+      seed.ParseFromString(f.read())
+
+    return seed
 
 
 def make_field_trial_testing_config(seed, version_string, channel_string,
@@ -119,9 +159,6 @@ def make_field_trial_testing_config(seed, version_string, channel_string,
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-      'seed_path', type=argparse.FileType('r'), nargs='?',
-      default='seed/seed.json', help='json seed file to process')
-    parser.add_argument(
       '-o', '--output', type=argparse.FileType('w'), required=True,
       help='The path to write fieldtrial_testing_config.json'
            'See src/testing/variations/README.md for details')
@@ -150,14 +187,8 @@ def main():
         branch = 'production-archive'
 
     revision = _get_variations_revision(args.target_date, branch)
-    print("Load", args.seed_path.name, 'at', revision, 'from branch', branch)
-    seed_data = _get_seed_data(args.seed_path.name, revision)
-
-    print("Validate seed data")
-    if not serialize.validate(seed_data):
-        print("Seed data is invalid")
-        return -1
-    seed_message = serialize.make_variations_seed_message(seed_data)
+    print('Load seed at', revision, 'from branch', branch)
+    seed_message = _get_variations_seed(revision)
 
     if args.output_revision is not None:
       args.output_revision.write(revision)
