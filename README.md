@@ -14,9 +14,8 @@ A continuous integration server (CI) serializes and signs the updated seed file 
 
 ## Git flow
 
-1. Work in feature branch and when done create a PR to `main` branch (which will be picked up by CI for staging).
-2. Verify that everything works as intended via the staging endpoint `--variations-server-url=https://variations.bravesoftware.com/seed`.
-3. Cherry-pick the commit to production by creating another PR to `production` branch (which will be picked up by CI again).
+1. Work in feature branch and when done create a PR to `main` branch.
+2. Verify that everything works as intended via PR instructions (use `--variations-pr` flag).
 
 ## Key Generation and Exchange
 

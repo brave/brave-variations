@@ -20,7 +20,7 @@ function makeStudyModel(properties: proto.IStudy) {
     isBraveSeed: true,
   });
   const randomID = Math.floor(Math.random() * 1000000);
-  return new StudyModel(processed, SeedType.PRODUCTION, randomID);
+  return new StudyModel(processed, SeedType.MAIN, randomID);
 }
 
 describe('models', () => {

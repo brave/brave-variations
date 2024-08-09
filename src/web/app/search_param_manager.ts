@@ -37,8 +37,7 @@ export class SearchParamManager {
     const filter = new StudyFilter();
     filter.search = searchParams.get('search') ?? undefined;
     this.currentSeed =
-      stringToSeedType(searchParams.get('seed') ?? 'PRODUCTION') ??
-      SeedType.PRODUCTION;
+      stringToSeedType(searchParams.get('seed') ?? 'MAIN') ?? SeedType.MAIN;
     filter.minPriority =
       this.currentSeed === SeedType.UPSTREAM
         ? StudyPriority.STABLE_MIN

@@ -4,8 +4,8 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 export enum SeedType {
-  PRODUCTION, // production Brave seed (brave-variations@production)
-  STAGING, // staging Brave seed (brave-variations@main)
+  MAIN, // main Brave seed (brave-variations@main)
+  STAGING, // staging Brave seed (brave-variations@staging)
   UPSTREAM, // Chrome seed (Finch)
 }
 

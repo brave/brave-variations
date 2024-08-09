@@ -74,8 +74,8 @@ async function loadSeedFromUrl(url: string, type: SeedType) {
 export function loadSeedDataAsync(
   cb: (type: SeedType, studyList: StudyListModel) => void,
 ) {
-  loadSeedFromUrl(url_utils.variationsProductionUrl, SeedType.PRODUCTION)
-    .then(cb.bind(cb, SeedType.PRODUCTION))
+  loadSeedFromUrl(url_utils.variationsMainUrl, SeedType.MAIN)
+    .then(cb.bind(cb, SeedType.MAIN))
     .catch(console.error);
   loadSeedFromUrl(url_utils.variationsStagingUrl, SeedType.STAGING)
     .then(cb.bind(cb, SeedType.STAGING))
