@@ -42,6 +42,8 @@ PLATFORM_NAMES = {
 # The date when `production` branch was deprecated and moved to archive.
 # Now the production seed is stored in main branch.
 PRODUCTION_BRANCH_MIGRATION_DATE = datetime(2024, 8, 9, tzinfo=timezone.utc)
+LEGACY_SEED_PATH = 'seed/seed.json'
+SEED_FOLDER = 'studies/'
 
 def _get_variations_revision(date: str, branch: str) -> str:
     args = ['git', 'rev-list', '-n', '1', '--first-parent']
