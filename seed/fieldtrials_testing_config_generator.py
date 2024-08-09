@@ -25,7 +25,7 @@ import sys
 import proto.variations_seed_pb2 as variations_seed_pb2
 import re
 
-from datetime import datetime
+from datetime import datetime, timezone
 from packaging import version
 
 
@@ -37,8 +37,12 @@ PLATFORM_NAMES = {
     study_pb2.Study.Platform.PLATFORM_ANDROID: 'android'
 }
 
+# The date when `production` branch was deprecated and moved to archive.
+# Now the production seed is stored in main branch.
+PRODUCTION_BRANCH_MIGRATION_DATE = datetime(2024, 8, 9, tzinfo=timezone.utc)
+
 def _get_variations_revision(date: str, branch: str) -> str:
-    args =['git', 'rev-list', '-n', '1', '--first-parent']
+    args = ['git', 'rev-list', '-n', '1', '--first-parent']
     if date:
       args.append(f'--before={date}')
     args.append(f'origin/{branch}')
@@ -122,6 +126,9 @@ def main():
       help='The path to write fieldtrial_testing_config.json'
            'See src/testing/variations/README.md for details')
     parser.add_argument(
+      '--output-revision', type=argparse.FileType('w'), required=False,
+      help='Save brave-variations revision to the provided file')
+    parser.add_argument(
       '-ver', '--target-version', type=str, required=True,
       help='The browser version in format [chrome_major].[brave_version]'
            '(used to process filters)')
@@ -133,13 +140,17 @@ def main():
       '-d', '--target-date', type=str,
       help=('Take version seed_path on a specific date.'
             '"Format: "2022-09-09 10:02:27 +0000"'))
-    parser.add_argument(
-      '-b', '--target-branch', type=str, default='production',
-      help='target brave-variations branch to build config')
     args = parser.parse_args()
 
-    revision = _get_variations_revision(args.target_date, args.target_branch)
-    print("Load", args.seed_path.name, 'at', revision)
+    date = datetime.strptime(args.target_date, '%Y-%m-%d %H:%M:%S %z')
+    target_unix_time = date.timestamp()
+
+    branch = 'main'
+    if date < PRODUCTION_BRANCH_MIGRATION_DATE:
+        branch = 'production-archive'
+
+    revision = _get_variations_revision(args.target_date, branch)
+    print("Load", args.seed_path.name, 'at', revision, 'from branch', branch)
     seed_data = _get_seed_data(args.seed_path.name, revision)
 
     print("Validate seed data")
@@ -148,8 +159,8 @@ def main():
         return -1
     seed_message = serialize.make_variations_seed_message(seed_data)
 
-    date = datetime.strptime(args.target_date, '%Y-%m-%d %H:%M:%S %z')
-    target_unix_time = date.timestamp()
+    if args.output_revision is not None:
+      args.output_revision.write(revision)
 
     assert re.match(r'^\d+\.\d+\.\d+\.\d+$', args.target_version)
     json_config = make_field_trial_testing_config(
