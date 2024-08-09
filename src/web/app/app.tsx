@@ -421,7 +421,7 @@ export function App() {
         </a>
         <nav className="nav nav-pills">
           <NavItem
-            type={SeedType.PRODUCTION}
+            type={SeedType.MAIN}
             searchParamManager={searchParamManager}
           />
           <NavItem

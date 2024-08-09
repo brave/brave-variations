@@ -34,7 +34,7 @@ async function main(options: Options) {
     process.exit(1);
   }
   if (options.base === undefined && !options.staged) {
-    options.base = getBaseBranch(['origin/main', 'origin/production']);
+    options.base = getBaseBranch(['origin/main']);
     console.log(`Base branch: ${options.base}`);
   }
   const passed: boolean = await lintStaged({
