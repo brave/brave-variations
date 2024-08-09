@@ -1,4 +1,4 @@
 # The order is important. The last matching pattern takes the most precedence.
 
 *                @brave/griffin-maintainers
-seed/seed.json   @brave/uplift-approvers
+/seed/seed.json   @brave/uplift-approvers
