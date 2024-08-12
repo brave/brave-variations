@@ -49,7 +49,7 @@ def _get_variations_revision(date: str, branch: str) -> str:
     args = ['git', 'rev-list', '-n', '1', '--first-parent']
     if date:
       args.append(f'--before={date}')
-    args.append(f'origin/{branch}')
+    args.append(branch)
     output = subprocess.check_output(args)
     return output.rstrip().decode('utf-8')
 
@@ -190,6 +190,9 @@ def main():
       '-d', '--target-date', type=str,
       help=('Take version seed_path on a specific date.'
             '"Format: "2022-09-09 10:02:27 +0000"'))
+    parser.add_argument(
+      '--use-current-branch', action='store_true',
+      help='Use HEAD instead of main/production-archive')
     args = parser.parse_args()
 
     if args.target_date:
@@ -198,9 +201,12 @@ def main():
         date = datetime.now(tz=timezone.utc)
     target_unix_time = date.timestamp()
 
-    branch = 'main'
-    if date < PRODUCTION_BRANCH_MIGRATION_DATE:
-        branch = 'production-archive'
+    if args.use_current_branch:
+        branch = 'HEAD'
+    elif date < PRODUCTION_BRANCH_MIGRATION_DATE:
+        branch = 'origin/production-archive'
+    else:
+        branch = 'origin/main'
 
     revision = _get_variations_revision(args.target_date, branch)
     print('Load seed at', revision, 'from branch', branch)
