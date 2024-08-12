@@ -192,7 +192,10 @@ def main():
             '"Format: "2022-09-09 10:02:27 +0000"'))
     args = parser.parse_args()
 
-    date = datetime.strptime(args.target_date, '%Y-%m-%d %H:%M:%S %z')
+    if args.target_date:
+        date = datetime.strptime(args.target_date, '%Y-%m-%d %H:%M:%S %z')
+    else:
+        date = datetime.now(tz=timezone.utc)
     target_unix_time = date.timestamp()
 
     branch = 'main'

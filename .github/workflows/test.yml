@@ -29,7 +29,6 @@ jobs:
         run: python3 seed/fieldtrials_testing_config_generator.py
           --output fieldtrial_testing_config.json
           --output-revision brave-variations-revision.txt
-          --target-date "2024-08-12 00:02:25 +0000"
           --target-version 128.1.70.65 --target-channel NIGHTLY
 
       - name: fmt seed
