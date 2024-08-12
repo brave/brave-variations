@@ -19,6 +19,7 @@ https://chromium.googlesource.com/chromium/src/+/master/testing/variations/READM
 import argparse
 import json
 import os
+import platform
 import re
 import serialize
 import subprocess
@@ -43,7 +44,9 @@ PLATFORM_NAMES = {
 # Now the production seed is stored in main branch.
 PRODUCTION_BRANCH_MIGRATION_DATE = datetime(2024, 8, 9, tzinfo=timezone.utc)
 LEGACY_SEED_PATH = 'seed/seed.json'
-SEED_FOLDER = 'studies/'
+SEED_FOLDER = 'studies'
+
+NPM_EXECUTABLE = 'npm.cmd' if sys.platform == 'win32' else 'npm'
 
 def _get_variations_revision(date: str, branch: str) -> str:
     args = ['git', 'rev-list', '-n', '1', '--first-parent']
@@ -73,7 +76,7 @@ def _get_variations_seed(revision: str):
         return legacy_seed
 
     print('Run npm install..')
-    subprocess.check_output(['npm', 'install'])
+    subprocess.check_output([NPM_EXECUTABLE, 'install'])
 
     tmp_dir = tempfile.mkdtemp(f'studies-{revision}')
     print('temp directory to seed data:', tmp_dir)
@@ -90,8 +93,8 @@ def _get_variations_seed(revision: str):
                 ['git', 'show', f'{revision}:{SEED_FOLDER}/{filename}'])
             f.write(content)
 
-    subprocess.check_output(['npm', 'run', 'seed_tools', '--', 'create_seed',
-                             tmp_dir, seed_path])
+    subprocess.check_output([NPM_EXECUTABLE, 'run', 'seed_tools', '--',
+                             'create_seed', tmp_dir, seed_path])
 
 
     seed = variations_seed_pb2.VariationsSeed()
