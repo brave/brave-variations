@@ -100,24 +100,29 @@ def _get_variations_seed(revision: str):
 
 def make_field_trial_testing_config(seed, version_string, channel_string,
                                     target_date):
-    target_version = version.parse(version_string)
+    target_version = serialize.version_to_int_array(version_string)
     target_channel = serialize.SUPPORTED_CHANNELS[channel_string]
     assert target_channel is not None
     config = {}
     for study in seed.study:
         json_study = {}
+        min_version = (serialize.version_to_int_array(study.filter.min_version)
+                       if study.filter.min_version else None)
+        max_version = (serialize.version_to_int_array(study.filter.max_version)
+                       if study.filter.max_version else None)
+
         if (study.filter.start_date and study.filter.start_date > target_date):
             print('skip ' + study.name + ' because of start_date')
             continue
         if (study.filter.end_date and study.filter.end_date < target_date):
             print('skip ' + study.name + ' because of end_date')
             continue
-        if (study.filter.min_version and
-            target_version < version.parse(study.filter.min_version)):
+        if (min_version is not None and
+            serialize.compare_versions(target_version, min_version)) < 0:
             print('skip ' + study.name + ' because of min_version')
             continue
-        if (study.filter.max_version and
-            target_version > version.parse(study.filter.max_version)):
+        if (max_version is not None and
+            serialize.compare_versions(target_version, max_version)) > 0:
             print('skip ' + study.name + ' because of max_version')
             continue
         if study.filter.channel and not target_channel in study.filter.channel:
