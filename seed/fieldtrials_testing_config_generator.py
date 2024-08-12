@@ -55,9 +55,13 @@ def _get_variations_revision(date: str, branch: str) -> str:
 
 
 def _get_variations_seed_legacy(revision: str):
-    seed_string = subprocess.check_output(
-        ['git', 'show', f'{revision}:{LEGACY_SEED_PATH}'])
-    json_seed = json.loads(seed_string)
+    try:
+      seed_string = subprocess.check_output(
+          ['git', 'show', f'{revision}:{LEGACY_SEED_PATH}'])
+      json_seed = json.loads(seed_string)
+    except subprocess.CalledProcessError:
+      return None
+
     print("Validate seed data")
     if not serialize.validate(json_seed):
         raise RuntimeError("Seed data is invalid")
@@ -136,6 +140,8 @@ def make_field_trial_testing_config(seed, version_string, channel_string,
         # Find an experiment with max probability_weight:
         best_experiment = max(
             study.experiment, key=lambda x: x.probability_weight)
+        print(f'add {study.name} = {best_experiment.name} ' +
+              f'[weight: {best_experiment.probability_weight}]')
 
         study_number = str(len(config) + 1)
         experiments_json = {}
