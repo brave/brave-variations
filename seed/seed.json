@@ -2555,8 +2555,42 @@
                     "probability_weight": 4
                 },
                 {
-                    "name": "Default",
-                    "probability_weight": 92
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveDayZeroExperiment"
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "name": "variant",
+                            "value": "a"
+                        }
+                    ],
+                    "name": "EnabledA_Ext",
+                    "probability_weight": 1
+                },
+                {
+                    "name": "Default_Preperiod_A",
+                    "probability_weight": 45
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveDayZeroExperiment"
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "name": "variant",
+                            "value": "b"
+                        }
+                    ],
+                    "name": "EnabledB_Ext",
+                    "probability_weight": 1
+                },
+                {
+                    "name": "Default_Preperiod_B",
+                    "probability_weight": 45
                 }
             ],
             "filter": {
