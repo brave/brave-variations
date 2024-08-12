@@ -17,17 +17,20 @@ https://chromium.googlesource.com/chromium/src/+/master/testing/variations/READM
 """
 
 import argparse
-import serialize
 import json
-import proto.study_pb2 as study_pb2
+import os
+import platform
+import re
+import serialize
 import subprocess
 import sys
-import proto.variations_seed_pb2 as variations_seed_pb2
-import re
+import tempfile
 
 from datetime import datetime, timezone
 from packaging import version
 
+import proto.study_pb2 as study_pb2
+import proto.variations_seed_pb2 as variations_seed_pb2
 
 PLATFORM_NAMES = {
     study_pb2.Study.Platform.PLATFORM_WINDOWS: 'windows',
@@ -40,42 +43,93 @@ PLATFORM_NAMES = {
 # The date when `production` branch was deprecated and moved to archive.
 # Now the production seed is stored in main branch.
 PRODUCTION_BRANCH_MIGRATION_DATE = datetime(2024, 8, 9, tzinfo=timezone.utc)
+LEGACY_SEED_PATH = 'seed/seed.json'
+SEED_FOLDER = 'studies'
+
+NPM_EXECUTABLE = 'npm.cmd' if sys.platform == 'win32' else 'npm'
 
 def _get_variations_revision(date: str, branch: str) -> str:
     args = ['git', 'rev-list', '-n', '1', '--first-parent']
     if date:
       args.append(f'--before={date}')
-    args.append(f'origin/{branch}')
+    args.append(branch)
     output = subprocess.check_output(args)
     return output.rstrip().decode('utf-8')
 
 
-def _get_seed_data(seed_git_path: str, variations_revision: str):
-    seed_string = subprocess.check_output(
-        ['git', 'show', f'{variations_revision}:{seed_git_path}'])
-    return json.loads(seed_string)
+def _get_variations_seed_legacy(revision: str):
+    try:
+      seed_string = subprocess.check_output(
+          ['git', 'show', f'{revision}:{LEGACY_SEED_PATH}'])
+      json_seed = json.loads(seed_string)
+    except subprocess.CalledProcessError:
+      return None
+
+    print("Validate seed data")
+    if not serialize.validate(json_seed):
+        raise RuntimeError("Seed data is invalid")
+    return serialize.make_variations_seed_message(json_seed)
+
+def _get_variations_seed(revision: str):
+    legacy_seed = _get_variations_seed_legacy(revision)
+    if legacy_seed is not None:
+        return legacy_seed
+
+    print('Run npm install..')
+    subprocess.check_output([NPM_EXECUTABLE, 'install'])
+
+    tmp_dir = tempfile.mkdtemp(f'studies-{revision}')
+    print('temp directory to seed data:', tmp_dir)
+
+    seed_path = os.path.join(tmp_dir, 'seed.bin')
+
+    files_output = subprocess.check_output(
+        ['git', 'show', f'{revision}:{SEED_FOLDER}']).decode()
+    for filename in files_output.splitlines()[1:]:
+        if filename.endswith('.json'):
+          print('saving', filename)
+          with open(os.path.join(tmp_dir, filename), 'wb') as f:
+            content = subprocess.check_output(
+                ['git', 'show', f'{revision}:{SEED_FOLDER}/{filename}'])
+            f.write(content)
+
+    subprocess.check_output([NPM_EXECUTABLE, 'run', 'seed_tools', '--',
+                             'create_seed', tmp_dir, seed_path])
+
+
+    seed = variations_seed_pb2.VariationsSeed()
+
+    with open(seed_path, 'rb') as f:
+      seed.ParseFromString(f.read())
+
+    return seed
 
 
 def make_field_trial_testing_config(seed, version_string, channel_string,
                                     target_date):
-    target_version = version.parse(version_string)
+    target_version = serialize.version_to_int_array(version_string)
     target_channel = serialize.SUPPORTED_CHANNELS[channel_string]
     assert target_channel is not None
     config = {}
     for study in seed.study:
         json_study = {}
+        min_version = (serialize.version_to_int_array(study.filter.min_version)
+                       if study.filter.min_version else None)
+        max_version = (serialize.version_to_int_array(study.filter.max_version)
+                       if study.filter.max_version else None)
+
         if (study.filter.start_date and study.filter.start_date > target_date):
             print('skip ' + study.name + ' because of start_date')
             continue
         if (study.filter.end_date and study.filter.end_date < target_date):
             print('skip ' + study.name + ' because of end_date')
             continue
-        if (study.filter.min_version and
-            target_version < version.parse(study.filter.min_version)):
+        if (min_version is not None and
+            serialize.compare_versions(target_version, min_version)) < 0:
             print('skip ' + study.name + ' because of min_version')
             continue
-        if (study.filter.max_version and
-            target_version > version.parse(study.filter.max_version)):
+        if (max_version is not None and
+            serialize.compare_versions(target_version, max_version)) > 0:
             print('skip ' + study.name + ' because of max_version')
             continue
         if study.filter.channel and not target_channel in study.filter.channel:
@@ -89,6 +143,8 @@ def make_field_trial_testing_config(seed, version_string, channel_string,
         # Find an experiment with max probability_weight:
         best_experiment = max(
             study.experiment, key=lambda x: x.probability_weight)
+        print(f'add {study.name} = {best_experiment.name} ' +
+              f'[weight: {best_experiment.probability_weight}]')
 
         study_number = str(len(config) + 1)
         experiments_json = {}
@@ -119,9 +175,6 @@ def make_field_trial_testing_config(seed, version_string, channel_string,
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-      'seed_path', type=argparse.FileType('r'), nargs='?',
-      default='seed/seed.json', help='json seed file to process')
-    parser.add_argument(
       '-o', '--output', type=argparse.FileType('w'), required=True,
       help='The path to write fieldtrial_testing_config.json'
            'See src/testing/variations/README.md for details')
@@ -140,24 +193,27 @@ def main():
       '-d', '--target-date', type=str,
       help=('Take version seed_path on a specific date.'
             '"Format: "2022-09-09 10:02:27 +0000"'))
+    parser.add_argument(
+      '--use-current-branch', action='store_true',
+      help='Use HEAD instead of main/production-archive')
     args = parser.parse_args()
 
-    date = datetime.strptime(args.target_date, '%Y-%m-%d %H:%M:%S %z')
+    if args.target_date:
+        date = datetime.strptime(args.target_date, '%Y-%m-%d %H:%M:%S %z')
+    else:
+        date = datetime.now(tz=timezone.utc)
     target_unix_time = date.timestamp()
 
-    branch = 'main'
-    if date < PRODUCTION_BRANCH_MIGRATION_DATE:
-        branch = 'production-archive'
+    if args.use_current_branch:
+        branch = 'HEAD'
+    elif date < PRODUCTION_BRANCH_MIGRATION_DATE:
+        branch = 'origin/production-archive'
+    else:
+        branch = 'origin/main'
 
     revision = _get_variations_revision(args.target_date, branch)
-    print("Load", args.seed_path.name, 'at', revision, 'from branch', branch)
-    seed_data = _get_seed_data(args.seed_path.name, revision)
-
-    print("Validate seed data")
-    if not serialize.validate(seed_data):
-        print("Seed data is invalid")
-        return -1
-    seed_message = serialize.make_variations_seed_message(seed_data)
+    print('Load seed at', revision, 'from branch', branch)
+    seed_message = _get_variations_seed(revision)
 
     if args.output_revision is not None:
       args.output_revision.write(revision)

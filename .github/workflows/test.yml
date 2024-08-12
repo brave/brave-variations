@@ -25,6 +25,30 @@ jobs:
       - name: Serialize seed
         run: python seed/serialize.py seed/seed.json
 
+      - name: Generate testing_fieldtrials.json (HEAD)
+        run: python3 seed/fieldtrials_testing_config_generator.py
+          --use-current-branch
+          --target-version 128.1.70.65
+          --target-channel NIGHTLY
+          --output fieldtrial_testing_config.json
+          --output-revision brave-variations-revision.txt
+
+      - name: Generate testing_fieldtrials.json (legacy seed.json)
+        run: python3 seed/fieldtrials_testing_config_generator.py
+          --target-date "2024-08-12 00:02:25 +0000"
+          --target-version 128.1.70.65
+          --target-channel NIGHTLY
+          --output fieldtrial_testing_config.json
+          --output-revision brave-variations-revision.txt
+
+      - name: Generate testing_fieldtrials.json (production-archive)
+        run: python3 seed/fieldtrials_testing_config_generator.py
+          --target-date "2024-07-18 00:02:08 +0000"
+          --target-version 127.1.70.1
+          --target-channel NIGHTLY
+          --output fieldtrial_testing_config.json
+          --output-revision brave-variations-revision.txt
+
       - name: fmt seed
         run: |
           python3 ./.github/ci/griffin-study-utils.py fmt
