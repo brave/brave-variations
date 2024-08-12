@@ -25,11 +25,8 @@ jobs:
       - name: Serialize seed
         run: python seed/serialize.py seed/seed.json
 
-      - name: npm install
-        run: npm install
-
       - name: Generate testing_fieldtrials.json for perf tests
-        run: python3 seed/fieldtrials_testing_config_generator.py \
+        run: python3 seed/fieldtrials_testing_config_generator.py
           --output fieldtrial_testing_config.json
           --output-revision brave-variations-revision.txt
           --target-date "2024-08-12 00:02:25 +0000"
