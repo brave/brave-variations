@@ -70,6 +70,20 @@ describe('validateStudy', () => {
     },
   );
 
+  test('should throw an error if layer is set', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      layer: {
+        layer_id: 1,
+        layer_member_id: 1,
+      },
+    });
+
+    expect(() => {
+      study_validation.validateStudy(study, studyFilePath);
+    }).toThrowError('Layers are currently not supported');
+  });
+
   test('should throw an error if experiment name is not defined', () => {
     const study = Study.fromJson({
       name: 'study',

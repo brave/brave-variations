@@ -26,6 +26,7 @@ export function validateStudyReturnErrors(
   const errors: string[] = [];
   const validators = [
     checkName,
+    checkLayers,
     checkExperiments,
     checkFilterExcludeFields,
     checkDateRange,
@@ -65,6 +66,14 @@ function checkName(study: Study, studyFilePath: string): string[] {
     errors.push(
       `Invalid study name: ${study.name} (expected ASCII without "${invalidFeatureOrFieldTrialNameChars}" chars)`,
     );
+  }
+  return errors;
+}
+
+function checkLayers(study: Study): string[] {
+  const errors: string[] = [];
+  if (study.layer !== undefined) {
+    errors.push('Layers are currently not supported');
   }
   return errors;
 }
