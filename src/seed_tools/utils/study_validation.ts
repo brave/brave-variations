@@ -159,19 +159,17 @@ function checkExperiments(study: Study): string[] {
 
     // Valiate params.
     const paramNames = new Set<string>();
-    if (experiment.param.length > 0) {
-      for (const param of experiment.param) {
-        if (param.name === undefined || param.name === '') {
-          errors.push(`Empty param name in experiment ${experiment.name}`);
-          continue;
-        }
-        if (paramNames.has(param.name)) {
-          errors.push(
-            `Duplicate param name: ${param.name} in experiment ${experiment.name}`,
-          );
-        }
-        paramNames.add(param.name);
+    for (const param of experiment.param) {
+      if (param.name === undefined || param.name === '') {
+        errors.push(`Empty param name in experiment ${experiment.name}`);
+        continue;
       }
+      if (paramNames.has(param.name)) {
+        errors.push(
+          `Duplicate param name: ${param.name} in experiment ${experiment.name}`,
+        );
+      }
+      paramNames.add(param.name);
     }
   }
 
