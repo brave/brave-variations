@@ -56,13 +56,27 @@ describe('validateStudy', () => {
     }).toThrowError('Study name study1 does not match file name');
   });
 
+  test.each(['study_😀', 'study_,', 'study_<', 'study_*'])(
+    'should throw an error if study name has invalid char %s',
+    (studyName) => {
+      const study = Study.fromJson({
+        name: studyName,
+        experiment: [],
+      });
+
+      expect(() => {
+        study_validation.validateStudy(study, studyFilePath);
+      }).toThrowError(`Invalid study name: ${studyName}`);
+    },
+  );
+
   test('should throw an error if experiment name is not defined', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
         {
           name: '',
-          probabilityWeight: 50,
+          probabilityWeight: 100,
         },
       ],
     });
@@ -70,6 +84,39 @@ describe('validateStudy', () => {
     expect(() => {
       study_validation.validateStudy(study, studyFilePath);
     }).toThrowError('Experiment name is not defined for study study');
+  });
+
+  test.each(['exp😀', 'exp<', 'exp*'])(
+    'should throw an error if experiment name has invalid char %s',
+    (experimentName) => {
+      const study = Study.fromJson({
+        name: 'study',
+        experiment: [
+          {
+            name: experimentName,
+            probabilityWeight: 100,
+          },
+        ],
+      });
+
+      expect(() => {
+        study_validation.validateStudy(study, studyFilePath);
+      }).toThrowError(`Invalid experiment name: ${experimentName}`);
+    },
+  );
+
+  test('should not throw if experiment name has comma', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1,',
+          probability_weight: 100,
+        },
+      ],
+    });
+
+    study_validation.validateStudy(study, studyFilePath);
   });
 
   test('should throw an error if duplicate experiment names are found', () => {
@@ -94,6 +141,153 @@ describe('validateStudy', () => {
     expect(() => {
       study_validation.validateStudy(study, studyFilePath);
     }).toThrowError('Duplicate experiment name: experiment1');
+  });
+
+  test.each(['exp😀', 'exp<', 'exp*'])(
+    'should throw an error if feature name has invalid char %s',
+    (featureName) => {
+      const featureAssociations = [
+        { enable_feature: [featureName] },
+        { disable_feature: [featureName] },
+        { forcing_feature_on: featureName },
+        { forcing_feature_off: featureName },
+      ];
+      for (const featureAssociation of featureAssociations) {
+        const study = Study.fromJson({
+          name: 'study',
+          experiment: [
+            {
+              name: 'experiment',
+              probabilityWeight: 100,
+              feature_association: featureAssociation as any,
+            },
+          ],
+        });
+
+        expect(() => {
+          study_validation.validateStudy(study, studyFilePath);
+        }).toThrowError(
+          `Invalid feature name for experiment experiment: ${featureName}`,
+        );
+      }
+    },
+  );
+
+  test('should not throw if forcing flag is correct', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+          forcing_flag: 'hello',
+        },
+      ],
+    });
+
+    study_validation.validateStudy(study, studyFilePath);
+  });
+
+  test('should throw an error if forcing flag is incorrect', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+          forcing_flag: 'Hello',
+        },
+      ],
+    });
+
+    expect(() => {
+      study_validation.validateStudy(study, studyFilePath);
+    }).toThrowError('Invalid forcing flag for experiment experiment1');
+  });
+
+  test('should throw an error if google_web_experiment/trigger_id conflict', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+          google_web_experiment_id: 1,
+          google_web_trigger_experiment_id: 2,
+        },
+      ],
+    });
+
+    expect(() => {
+      study_validation.validateStudy(study, studyFilePath);
+    }).toThrowError(
+      'Experiment experiment1 has both google_web_experiment_id and web_trigger_experiment_id',
+    );
+  });
+
+  test('should throw an error if param name is empty', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+          param: [
+            {
+              name: '',
+              value: '1',
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(() => {
+      study_validation.validateStudy(study, studyFilePath);
+    }).toThrowError('Empty param name in experiment experiment1');
+  });
+
+  test('should throw an error if params conflict', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+          param: [
+            {
+              name: 'test',
+              value: '1',
+            },
+            {
+              name: 'test',
+              value: '2',
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(() => {
+      study_validation.validateStudy(study, studyFilePath);
+    }).toThrowError('Duplicate param name: test in experiment experiment1');
+  });
+
+  test('should throw an error if default_experiment_name not found', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+        },
+      ],
+      default_experiment_name: 'DefaultExp',
+    });
+
+    expect(() => {
+      study_validation.validateStudy(study, studyFilePath);
+    }).toThrowError('Missing default experiment: DefaultExp in study study');
   });
 
   test('should throw an error if total probability is not 100', () => {
