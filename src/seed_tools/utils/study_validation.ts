@@ -272,7 +272,7 @@ function checkExperimentName(
   errors: string[],
 ) {
   if (experimentName === '') {
-    errors.push(`Experiment name is not defined for study ${study.name}`);
+    errors.push(`Experiment name is not defined for study: ${study.name}`);
   }
   if (!isStringASCIIWithoutChars(experimentName, invalidExperimentNameChars)) {
     errors.push(
@@ -286,6 +286,11 @@ function checkFeatureName(
   featureName: string,
   errors: string[],
 ) {
+  if (featureName === '') {
+    errors.push(
+      `Feature name is not defined for experiment: ${experiment.name}`,
+    );
+  }
   if (
     !isStringASCIIWithoutChars(featureName, invalidFeatureOrFieldTrialNameChars)
   ) {

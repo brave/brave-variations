@@ -97,7 +97,7 @@ describe('validateStudy', () => {
 
     expect(() => {
       study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Experiment name is not defined for study study');
+    }).toThrowError('Experiment name is not defined for study: study');
   });
 
   test.each(['exp😀', 'exp<', 'exp*'])(
@@ -155,6 +155,25 @@ describe('validateStudy', () => {
     expect(() => {
       study_validation.validateStudy(study, studyFilePath);
     }).toThrowError('Duplicate experiment name: experiment1');
+  });
+
+  test('should throw an error if feature name is not defined', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment',
+          feature_association: {
+            enable_feature: [''],
+          },
+          probabilityWeight: 100,
+        },
+      ],
+    });
+
+    expect(() => {
+      study_validation.validateStudy(study, studyFilePath);
+    }).toThrowError('Feature name is not defined for experiment: experiment');
   });
 
   test.each(['feature😀', 'feature,', 'feature<', 'feature*'])(
