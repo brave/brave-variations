@@ -84,6 +84,10 @@ function checkExperiments(study: Study): string[] {
   const experimentNames = new Set<string>();
   let totalProbability = 0;
   for (const experiment of study.experiment) {
+    let hasForcingFeatureOn = false;
+    let hasForcingFeatureOff = false;
+    let hasForcingFlag = false;
+
     // Validate experiment name.
     checkExperimentName(study, experiment.name, errors);
     if (experimentNames.has(experiment.name)) {
@@ -99,17 +103,22 @@ function checkExperiments(study: Study): string[] {
     totalProbability += experiment.probability_weight ?? 0;
 
     // Validate features.
-    if (experiment.feature_association !== undefined) {
+    const featureAssociations = experiment.feature_association;
+    if (featureAssociations !== undefined) {
       const featureNamesToCheck = [
-        ...experiment.feature_association.enable_feature,
-        ...experiment.feature_association.disable_feature,
-        experiment.feature_association.forcing_feature_on,
-        experiment.feature_association.forcing_feature_off,
+        ...featureAssociations.enable_feature,
+        ...featureAssociations.disable_feature,
       ];
+      if (featureAssociations.forcing_feature_on !== undefined) {
+        featureNamesToCheck.push(featureAssociations.forcing_feature_on);
+        hasForcingFeatureOn = true;
+      }
+      if (featureAssociations.forcing_feature_off !== undefined) {
+        featureNamesToCheck.push(featureAssociations.forcing_feature_off);
+        hasForcingFeatureOff = true;
+      }
       for (const featureName of featureNamesToCheck) {
-        if (featureName !== undefined) {
-          checkFeatureName(experiment, featureName, errors);
-        }
+        checkFeatureName(experiment, featureName, errors);
       }
     }
 
@@ -124,6 +133,18 @@ function checkExperiments(study: Study): string[] {
           `Invalid forcing flag for experiment ${experiment.name}: ${experiment.forcing_flag} (expected lowercase ASCII)`,
         );
       }
+      hasForcingFlag = true;
+    }
+
+    // Check either all forcing options are not set or only one of them is set.
+    if (
+      [hasForcingFeatureOn, hasForcingFeatureOff, hasForcingFlag].filter(
+        Boolean,
+      ).length > 1
+    ) {
+      errors.push(
+        `Forcing feature_on, feature_off and flag are mutually exclusive, cannot mix them in experiment: ${experiment.name}`,
+      );
     }
 
     // Validate google_web_experiment_id and google_web_trigger_experiment_id.

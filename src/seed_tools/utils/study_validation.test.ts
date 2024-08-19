@@ -222,6 +222,85 @@ describe('validateStudy', () => {
     },
   );
 
+  test.each([
+    [true, true, false],
+    [true, false, true],
+    [false, true, true],
+    [true, true, true],
+  ])(
+    'should throw on mixed forcing options',
+    (forcingFeatureOn, forcingFeatureOff, forcingFlag) => {
+      const studyJson = {
+        name: 'study',
+        experiment: [
+          {
+            name: 'experiment1',
+            probability_weight: 100,
+            feature_association: {},
+          },
+        ],
+      };
+      if (forcingFeatureOn) {
+        (
+          studyJson.experiment[0].feature_association as any
+        ).forcing_feature_on = 'feature1';
+      }
+      if (forcingFeatureOff) {
+        (
+          studyJson.experiment[0].feature_association as any
+        ).forcing_feature_off = 'feature1';
+      }
+      if (forcingFlag) {
+        (studyJson.experiment[0] as any).forcing_flag = 'feature1';
+      }
+
+      const study = Study.fromJson(studyJson);
+
+      expect(() => {
+        study_validation.validateStudy(study, studyFilePath);
+      }).toThrowError(
+        'Forcing feature_on, feature_off and flag are mutually exclusive',
+      );
+    },
+  );
+
+  test.each([
+    [true, false, false],
+    [false, true, false],
+    [false, false, true],
+  ])(
+    'should not throw on correct forcing options use',
+    (forcingFeatureOn, forcingFeatureOff, forcingFlag) => {
+      const studyJson = {
+        name: 'study',
+        experiment: [
+          {
+            name: 'experiment1',
+            probability_weight: 100,
+            feature_association: {},
+          },
+        ],
+      };
+      if (forcingFeatureOn) {
+        (
+          studyJson.experiment[0].feature_association as any
+        ).forcing_feature_on = 'feature1';
+      }
+      if (forcingFeatureOff) {
+        (
+          studyJson.experiment[0].feature_association as any
+        ).forcing_feature_off = 'feature1';
+      }
+      if (forcingFlag) {
+        (studyJson.experiment[0] as any).forcing_flag = 'feature1';
+      }
+
+      const study = Study.fromJson(studyJson);
+
+      study_validation.validateStudy(study, studyFilePath);
+    },
+  );
+
   test('should throw an error if google_web_experiment/trigger_id conflict', () => {
     const study = Study.fromJson({
       name: 'study',
