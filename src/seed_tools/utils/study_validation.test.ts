@@ -188,22 +188,25 @@ describe('validateStudy', () => {
     study_validation.validateStudy(study, studyFilePath);
   });
 
-  test('should throw an error if forcing flag is incorrect', () => {
-    const study = Study.fromJson({
-      name: 'study',
-      experiment: [
-        {
-          name: 'experiment1',
-          probability_weight: 100,
-          forcing_flag: 'Hello',
-        },
-      ],
-    });
+  test.each(['Hello', ''])(
+    'should throw an error if forcing flag is incorrect %s',
+    (forcingFlag) => {
+      const study = Study.fromJson({
+        name: 'study',
+        experiment: [
+          {
+            name: 'experiment1',
+            probability_weight: 100,
+            forcing_flag: forcingFlag,
+          },
+        ],
+      });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Invalid forcing flag for experiment experiment1');
-  });
+      expect(() => {
+        study_validation.validateStudy(study, studyFilePath);
+      }).toThrowError('Invalid forcing flag for experiment experiment1');
+    },
+  );
 
   test('should throw an error if google_web_experiment/trigger_id conflict', () => {
     const study = Study.fromJson({

@@ -91,35 +91,23 @@ function checkExperiments(study: Study): string[] {
 
     // Validate features.
     if (experiment.feature_association !== undefined) {
-      if (experiment.feature_association.enable_feature.length > 0) {
-        for (const feature of experiment.feature_association.enable_feature) {
-          checkFeatureName(experiment, feature, errors);
+      const featureNamesToCheck = [
+        ...experiment.feature_association.enable_feature,
+        ...experiment.feature_association.disable_feature,
+        experiment.feature_association.forcing_feature_on,
+        experiment.feature_association.forcing_feature_off,
+      ];
+      for (const featureName of featureNamesToCheck) {
+        if (featureName !== undefined) {
+          checkFeatureName(experiment, featureName, errors);
         }
-      }
-      if (experiment.feature_association.disable_feature.length > 0) {
-        for (const feature of experiment.feature_association.disable_feature) {
-          checkFeatureName(experiment, feature, errors);
-        }
-      }
-      if (experiment.feature_association.forcing_feature_on !== undefined) {
-        checkFeatureName(
-          experiment,
-          experiment.feature_association.forcing_feature_on,
-          errors,
-        );
-      }
-      if (experiment.feature_association.forcing_feature_off !== undefined) {
-        checkFeatureName(
-          experiment,
-          experiment.feature_association.forcing_feature_off,
-          errors,
-        );
       }
     }
 
     // Validate forcing flag.
     if (experiment.forcing_flag !== undefined) {
       if (
+        experiment.forcing_flag === '' ||
         !isStringASCIIWithoutChars(experiment.forcing_flag, '') ||
         experiment.forcing_flag !== experiment.forcing_flag.toLowerCase()
       ) {
