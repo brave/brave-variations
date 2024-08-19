@@ -91,18 +91,12 @@ function checkExperiments(study: Study): string[] {
 
     // Validate features.
     if (experiment.feature_association !== undefined) {
-      if (
-        experiment.feature_association.enable_feature !== undefined &&
-        experiment.feature_association.enable_feature.length > 0
-      ) {
+      if (experiment.feature_association.enable_feature.length > 0) {
         for (const feature of experiment.feature_association.enable_feature) {
           checkFeatureName(experiment, feature, errors);
         }
       }
-      if (
-        experiment.feature_association.disable_feature !== undefined &&
-        experiment.feature_association.disable_feature.length > 0
-      ) {
+      if (experiment.feature_association.disable_feature.length > 0) {
         for (const feature of experiment.feature_association.disable_feature) {
           checkFeatureName(experiment, feature, errors);
         }
