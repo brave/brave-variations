@@ -75,3 +75,17 @@ npm run seed_tools -- split_seed_json <seed_json_path> <output_dir>
 - `<seed_json_path>`: The path to the `seed.json` file to be split.
 - `<output_dir>`: The directory where the individual study files will be
   outputted.
+
+### `validate_seed_pb`
+
+Validates a seed protobuf.
+
+##### Syntax
+
+```bash
+npm run seed_tools -- validate_seed_pb <seed_bin>
+```
+
+##### Arguments
+
+- `<seed_bin>`: The path to the binary-serialized `seed` protobuf.

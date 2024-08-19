@@ -9,6 +9,7 @@ import check_study from './commands/check_study';
 import compare_seeds from './commands/compare_seeds';
 import create_seed from './commands/create_seed';
 import split_seed_json from './commands/split_seed_json';
+import validate_seed_pb from './commands/validate_seed_pb';
 
 program
   .name('seed_tools')
@@ -17,4 +18,5 @@ program
   .addCommand(compare_seeds)
   .addCommand(create_seed)
   .addCommand(split_seed_json)
+  .addCommand(validate_seed_pb)
   .parse();
