@@ -143,7 +143,7 @@ describe('validateStudy', () => {
     }).toThrowError('Duplicate experiment name: experiment1');
   });
 
-  test.each(['exp😀', 'exp<', 'exp*'])(
+  test.each(['feature😀', 'feature,', 'feature<', 'feature*'])(
     'should throw an error if feature name has invalid char %s',
     (featureName) => {
       const featureAssociations = [
