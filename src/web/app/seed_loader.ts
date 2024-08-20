@@ -26,7 +26,7 @@ async function loadFile(
   url: string,
   responseType: 'arraybuffer' | 'text',
 ): Promise<any> {
-  return await new Promise<any | undefined>((resolve, reject) => {
+  return await new Promise<any>((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true /* async */);
     xhr.responseType = responseType;
@@ -37,8 +37,8 @@ async function loadFile(
         reject(new Error('HTTP status:' + xhr.status));
       }
     };
-    xhr.onerror = (err) => {
-      reject(err);
+    xhr.onerror = () => {
+      reject(new Error('XHR error'));
     };
     xhr.send(null);
   });

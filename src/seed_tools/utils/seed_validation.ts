@@ -198,7 +198,6 @@ function doesVersionFieldRangeIntersect(
 function doesDateRangeIntersect(
   study1: ProcessedStudy,
   study2: ProcessedStudy,
-  field: 'start_date',
 ): boolean {
   const [start1, end1] = study1.date_range;
   const [start2, end2] = study2.date_range;

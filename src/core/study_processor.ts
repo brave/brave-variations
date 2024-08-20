@@ -182,7 +182,7 @@ export class StudyDetails {
       return;
     }
     const isKillSwitch = (s: string) => {
-      return s.match(/(K|k)ill(S|s)witch/) !== null;
+      return /(K|k)ill(S|s)witch/.test(s);
     };
 
     if (maxVersion != null) {
@@ -223,11 +223,9 @@ export class StudyDetails {
       const enableFeatures = e.feature_association?.enable_feature;
       const disabledFeatures = e.feature_association?.disable_feature;
       this.isBlocklisted ||=
-        enableFeatures != null &&
-        enableFeatures.some((n) => isFeatureBlocklisted(n));
+        enableFeatures?.some((n) => isFeatureBlocklisted(n)) ?? false;
       this.isBlocklisted ||=
-        disabledFeatures != null &&
-        disabledFeatures.some((n) => isFeatureBlocklisted(n));
+        disabledFeatures?.some((n) => isFeatureBlocklisted(n)) ?? false;
 
       this.isKillSwitch ||= e.probability_weight > 0 && isKillSwitch(e.name);
 
@@ -261,9 +259,9 @@ export class StudyDetails {
     }
 
     const channel = study.filter?.channel;
-    if (channel != null && channel.includes(proto.Study.Channel.BETA))
+    if (channel?.includes(proto.Study.Channel.BETA))
       this.channelTarget = StudyChannelTarget.BETA;
-    if (channel != null && channel.includes(proto.Study.Channel.STABLE))
+    if (channel?.includes(proto.Study.Channel.STABLE))
       this.channelTarget = StudyChannelTarget.STABLE;
   }
 

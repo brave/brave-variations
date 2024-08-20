@@ -14,12 +14,12 @@ describe('validate_seed command', () => {
   let errorMock: jest.SpyInstance;
   let exitMock: jest.SpyInstance;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     errorMock = jest.spyOn(console, 'error').mockImplementation();
     exitMock = jest.spyOn(process, 'exit').mockImplementation();
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     jest.restoreAllMocks();
   });
 

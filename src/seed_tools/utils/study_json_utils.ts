@@ -130,7 +130,7 @@ function jsonStudyReviever(
     case 'end_date': {
       const isIsoString =
         typeof value === 'string' &&
-        value.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/) !== null;
+        /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(value);
       if (!isIsoString) {
         throw new Error(
           `Invalid ${key} value "${value}", only ISO format with Z timezone is supported`,

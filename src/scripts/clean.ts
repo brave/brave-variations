@@ -10,7 +10,7 @@ const dirsToRemove = ['./src/finch_tracker/build', './src/web/public/bundle'];
 
 program.description('Cleans build directories').action(main).parse();
 
-async function main() {
+function main() {
   fs.readdirSync('src/proto/generated').forEach((file) => {
     if (file.startsWith('proto_bundle')) {
       fs.unlinkSync(`src/proto/generated/${file}`);

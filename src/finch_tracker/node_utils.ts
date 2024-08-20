@@ -10,7 +10,9 @@ export async function downloadUrl(url: string): Promise<Buffer> {
     const data: any = [];
     https
       .get(url, (res) => {
-        res.on('data', (chunk) => data.push(chunk));
+        res.on('data', (chunk) => {
+          data.push(chunk);
+        });
         res.on('end', () => {
           resolve(Buffer.concat(data));
         });
