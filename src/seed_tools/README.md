@@ -76,16 +76,16 @@ npm run seed_tools -- split_seed_json <seed_json_path> <output_dir>
 - `<output_dir>`: The directory where the individual study files will be
   outputted.
 
-### `validate_seed_pb`
+### `validate_seed`
 
 Validates a seed protobuf.
 
 ##### Syntax
 
 ```bash
-npm run seed_tools -- validate_seed_pb <seed_bin>
+npm run seed_tools -- validate_seed <seed_file>
 ```
 
 ##### Arguments
 
-- `<seed_bin>`: The path to the binary-serialized `seed` protobuf.
+- `<seed_file>`: The path to the binary-serialized `seed` protobuf.

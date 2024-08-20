@@ -9,14 +9,14 @@ import { VariationsSeed } from '../../proto/generated/variations_seed';
 import * as seed_validation from '../utils/seed_validation';
 import * as study_validation from '../utils/study_validation';
 
-export default new Command('validate_seed_pb')
+export default new Command('validate_seed')
   .description('Validates seed.bin')
-  .argument('<seed_bin>', 'path to a seed protobuf')
+  .argument('<seed_file>', 'path to a seed protobuf')
   .action(main);
 
-async function main(seedBin: string) {
+async function main(seedFilePath: string) {
   const variationsSeed = VariationsSeed.fromBinary(
-    await fs.readFile(seedBin, { encoding: null }),
+    await fs.readFile(seedFilePath, { encoding: null }),
   );
   const errors = [];
   for (const study of variationsSeed.study) {
@@ -37,11 +37,8 @@ async function main(seedBin: string) {
 
   console.log('Seed studies count:', variationsSeed.study.length);
   if (errors.length > 0) {
-    console.log('Seed validation errors:');
-    for (const error of errors) {
-      console.log(error);
-    }
+    console.error(`Seed validation errors:\n${errors.join('\n---\n')}`);
   }
 
-  process.exitCode = errors.length > 0 ? 1 : 0;
+  process.exit(errors.length > 0 ? 1 : 0);
 }
