@@ -351,7 +351,7 @@ export function CurrentStudyList(props: {
     [props.studies, paramManager.currentSeed, paramManager.filter],
   );
 
-  const studyList = studies?.map((study, i) => (
+  const studyList = studies?.map((study) => (
     <StudyItem key={study.id} study={study} filter={paramManager.filter} />
   ));
 

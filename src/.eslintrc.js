@@ -9,7 +9,18 @@ module.exports = {
       version: 'detect',
     },
   },
-  extends: ['standard-with-typescript', 'prettier', 'plugin:react/recommended'],
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended-type-checked',
+    'plugin:@typescript-eslint/stylistic-type-checked',
+    'prettier',
+    'plugin:react/recommended',
+  ],
   plugins: ['licenses', 'react'],
   root: true,
   parserOptions: {
@@ -25,6 +36,13 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/require-await': 'off',
+
     'licenses/header': [
       2,
       {

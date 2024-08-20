@@ -44,7 +44,7 @@ export default async function diffStrings(
     if (error.code === 1) {
       // Remove root forward slashes from the temporary file paths as git diff
       // does not include them.
-      const result = error.stdout
+      const result = (error.stdout as string)
         .replaceAll(tmpFile1.replace(/^\//, ''), displayFileName1)
         .replaceAll(tmpFile2.replace(/^\//, ''), displayFileName2);
 

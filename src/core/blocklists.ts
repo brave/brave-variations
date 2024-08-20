@@ -11,7 +11,7 @@ class Blocklist {
     for (const line of patterns) {
       if (line === '') continue;
       const len = line.length;
-      if (len > 2 && line[0] === '/' && line[len - 1] === '/') {
+      if (len > 2 && line.startsWith('/') && line[len - 1] === '/') {
         this.regexps.push(new RegExp(line.substring(1, len - 2)));
       } else {
         this.regexps.push(new RegExp(`^${line}$`));

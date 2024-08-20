@@ -43,7 +43,7 @@ async function main(options: Options) {
 function removeGeneratedFiles() {
   const files = fs.readdirSync(protoGeneratedDir);
   files.forEach((file) => {
-    if (file.match(/.*\.(ts|js)$/) !== null) {
+    if (/.*\.(ts|js)$/.test(file)) {
       fs.unlinkSync(`${protoGeneratedDir}/${file}`);
     }
   });
