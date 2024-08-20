@@ -1,0 +1,83 @@
+[
+  {
+    name: 'DayZeroStudyWindows',
+    experiment: [
+      {
+        name: 'EnabledA',
+        probability_weight: 4,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'a',
+          },
+        ],
+      },
+      {
+        name: 'EnabledB',
+        probability_weight: 4,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'b',
+          },
+        ],
+      },
+      {
+        name: 'EnabledA_Ext',
+        probability_weight: 1,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'a',
+          },
+        ],
+      },
+      {
+        name: 'Default_Preperiod_A',
+        probability_weight: 45,
+      },
+      {
+        name: 'EnabledB_Ext',
+        probability_weight: 1,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'b',
+          },
+        ],
+      },
+      {
+        name: 'Default_Preperiod_B',
+        probability_weight: 45,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+      ],
+    },
+  },
+]
