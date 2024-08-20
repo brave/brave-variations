@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "description": "Brave Variations",
   "scripts": {
-    "build": "npm run build:proto && npm run build:web && npm run build:tracker",
+    "build": "npm run build:proto && npm run build:web",
     "build:proto": "tsx src/scripts/generate_proto_ts.ts",
-    "build:tracker": "tsc -p src/finch_tracker/tsconfig.json",
     "build:web": "webpack -c src/web/webpack.config.js --mode=production",
     "clean": "tsx src/scripts/clean.ts",
     "lint": "tsx src/scripts/lint.ts",
@@ -13,7 +12,7 @@
     "seed_tools": "tsx src/seed_tools/seed_tools.ts",
     "serve:dev": "webpack serve -c src/web/webpack.config.js --hot --mode=development",
     "test": "jest --config=src/jest.config.js",
-    "tracker": "node src/finch_tracker/build/finch_tracker/main.js",
+    "tracker": "tsx src/finch_tracker/main.ts",
     "typecheck": "tsc --noEmit",
     "typecheck:scripts": "tsc --noEmit --project src/scripts"
   },
