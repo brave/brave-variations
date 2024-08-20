@@ -3003,7 +3003,7 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 50
+                    "probability_weight": 100
                 },
                 {
                     "feature_association": {
@@ -3012,7 +3012,7 @@
                         ]
                     },
                     "name": "Disabled",
-                    "probability_weight": 50
+                    "probability_weight": 0
                 },
                 {
                     "name": "Default",
@@ -3023,6 +3023,42 @@
                 "min_version": "127.1.70.49",
                 "channel": [
                     "NIGHTLY"
+                ],
+                "platform": [
+                    "WINDOWS"
+                ]
+            },
+            "name": "WorkaroundNewWindowFlash"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "BraveWorkaroundNewWindowFlash"
+                        ]
+                    },
+                    "name": "Enabled",
+                    "probability_weight": 25
+                },
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveWorkaroundNewWindowFlash"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 75
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "min_version": "127.1.70.49",
+                "channel": [
+                    "BETA"
                 ],
                 "platform": [
                     "WINDOWS"
