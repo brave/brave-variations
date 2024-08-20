@@ -29,7 +29,7 @@ interface Options {
   generate_patch?: true;
 }
 
-async function main(options: Options) {
+function main(options: Options) {
   if (options.generate_patch) {
     generateStudyProtoPatch();
     return;
