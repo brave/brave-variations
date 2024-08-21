@@ -7,26 +7,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      BASE_SHA: '${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}'
-
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-
-      - name: fetch base commit
-        run: git fetch --depth=1 origin "$BASE_SHA"
 
       - name: npm install
         run: npm install
 
-      - name: typecheck:scripts
-        run: npm run typecheck:scripts
+      - name: typecheck
+        run: npm run typecheck
 
-      - name: build
-        run: npm run build
+      - name: lint
+        run: npm run lint -- --all
 
       - name: run tests
         run: npm run test
 
-      - name: lint
-        run: npm run lint -- --base "$BASE_SHA"
+      - name: build
+        run: npm run build

@@ -3,6 +3,7 @@ name: Generate Test Seed
 on:
   pull_request:
     paths:
+      - '.github/workflows/generate-test-seed.yml'
       - 'seed/seed.json'
       - 'studies/**'
 
@@ -50,19 +51,16 @@ jobs:
             await comment(github, context, commentBody)
 
       - name: Install
-        run: |
-          npm ci
+        run: npm ci
 
-      - name: Build & Test
-        run: |
-          npm run typecheck:scripts
-          npm run build:proto
-          npm run typecheck
-          npm run test
+      - name: Typecheck
+        run: npm run typecheck
 
       - name: Lint
-        run: |
-          npm run lint -- --base "$BASE_SHA"
+        run: npm run lint -- --base "$BASE_SHA"
+
+      - name: Test
+        run: npm run test
 
       - name: Generate seed
         run: |
