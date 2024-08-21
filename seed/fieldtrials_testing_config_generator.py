@@ -49,10 +49,12 @@ SEED_FOLDER = 'studies'
 NPM_EXECUTABLE = 'npm.cmd' if sys.platform == 'win32' else 'npm'
 
 def _get_variations_revision(date: str, branch: str) -> str:
-    args = ['git', 'rev-list', '-n', '1', '--first-parent']
+    # fetch the branch:
+    subprocess.check_call(['git', 'fetch', 'origin', branch])
+
+    args = ['git', 'rev-list', 'FETCH_HEAD', '-n', '1', '--first-parent']
     if date:
       args.append(f'--before={date}')
-    args.append(branch)
     output = subprocess.check_output(args)
     return output.rstrip().decode('utf-8')
 
@@ -207,9 +209,9 @@ def main():
     if args.use_current_branch:
         branch = 'HEAD'
     elif date < PRODUCTION_BRANCH_MIGRATION_DATE:
-        branch = 'origin/production-archive'
+        branch = 'production-archive'
     else:
-        branch = 'origin/main'
+        branch = 'main'
 
     revision = _get_variations_revision(args.target_date, branch)
     print('Load seed at', revision, 'from branch', branch)
