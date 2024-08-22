@@ -207,14 +207,16 @@ def main():
     target_unix_time = date.timestamp()
 
     if args.use_current_branch:
-        branch = 'HEAD'
-    elif date < PRODUCTION_BRANCH_MIGRATION_DATE:
-        branch = 'production-archive'
+        revision = 'HEAD'
+        print('Load seed from HEAD')
     else:
-        branch = 'main'
+        if date < PRODUCTION_BRANCH_MIGRATION_DATE:
+            branch = 'production-archive'
+        else:
+            branch = 'main'
+        revision = _get_variations_revision(args.target_date, branch)
+        print('Load seed at', revision, 'from branch', branch)
 
-    revision = _get_variations_revision(args.target_date, branch)
-    print('Load seed at', revision, 'from branch', branch)
     seed_message = _get_variations_seed(revision)
 
     if args.output_revision is not None:
