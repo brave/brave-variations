@@ -21,6 +21,16 @@ module.exports = {
     'MetricsClearLogsOnClonedInstall',
   ],
 
+  gpuRelatedFeatures: [
+    'DefaultANGLEVulkan',
+    'DefaultPassthroughCommandDecoder',
+    'EnableDrDcVulkan',
+    'Vulkan',
+    'VulkanFromANGLE',
+    'VulkanV2',
+    'VulkanVMALargeHeapBlockSizeExperiment',
+  ],
+
   // Add your slack ID to get notifications about new kill switches.
   // To retrive it use Slack profile => Copy Member ID.
   killSwitchNotificationIds: [
@@ -31,5 +41,8 @@ module.exports = {
   processingErrorNotificationIds: [
     'U02DG0ATML3', // @matuchin
     'UE87NRK2A', // @iefremov
+  ],
+  gpuRelatedNotificationIds: [
+    'U0D73ULKD', // @serg
   ],
 };

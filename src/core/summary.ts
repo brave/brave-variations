@@ -275,6 +275,7 @@ export function summaryToJson(
   const output = new MrkdwnMessage();
   let hasKillSwitchImportantUpdate = false;
   let hasBadStudies = false;
+  let gpuRelatedFeaturesDetected = false;
 
   // From the highest to the lowest priority:
   const priorityList = Object.values(StudyPriority)
@@ -292,6 +293,12 @@ export function summaryToJson(
     );
     itemList.sort((a, b) => a.action - b.action);
     for (const e of itemList) {
+      for (const f of e.affectedFeatures) {
+        if (config.gpuRelatedFeatures.includes(f)) {
+          gpuRelatedFeaturesDetected = true;
+          break;
+        }
+      }
       hasKillSwitchImportantUpdate ||= e.isKillSwitchImportantUpdate();
       hasBadStudies ||= e.hasBadStudies;
       const block = new TextBlock(e.actionToText());
@@ -327,6 +334,15 @@ export function summaryToJson(
     output.addDivider();
   }
   if (output.toString() === '') return undefined;
+
+  if (gpuRelatedFeaturesDetected) {
+    output.addBlockToTop(
+      new TextBlock(
+        'GPU related changes detected, cc ' +
+          config.gpuRelatedNotificationIds.map((i) => `<@${i}>`).join(),
+      ),
+    );
+  }
 
   if (hasKillSwitchImportantUpdate) {
     output.addBlockToTop(
