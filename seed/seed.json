@@ -2843,7 +2843,8 @@
             "filter": {
                 "min_version": "127.1.70.49",
                 "channel": [
-                    "NIGHTLY"
+                    "NIGHTLY",
+                    "BETA"
                 ],
                 "platform": [
                     "WINDOWS"
@@ -2860,7 +2861,7 @@
                         ]
                     },
                     "name": "Enabled",
-                    "probability_weight": 25
+                    "probability_weight": 0
                 },
                 {
                     "feature_association": {
@@ -2869,7 +2870,7 @@
                         ]
                     },
                     "name": "Disabled",
-                    "probability_weight": 75
+                    "probability_weight": 100
                 },
                 {
                     "name": "Default",
@@ -2879,7 +2880,7 @@
             "filter": {
                 "min_version": "127.1.70.49",
                 "channel": [
-                    "BETA"
+                    "RELEASE"
                 ],
                 "platform": [
                     "WINDOWS"
