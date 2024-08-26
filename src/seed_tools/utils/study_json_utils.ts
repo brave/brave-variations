@@ -13,27 +13,21 @@ export interface Options {
 export async function readStudyFile(
   studyFilePath: string,
   options?: Options,
-): Promise<Study[]> {
-  const result = await readStudyFileReturnWithError(studyFilePath, options);
-  if (result instanceof Error) {
-    throw result;
-  } else {
-    return result[0];
-  }
-}
-
-export async function readStudyFileReturnWithError(
-  studyFilePath: string,
-  options?: Options,
-): Promise<[Study[], string] | Error> {
+): Promise<{
+  studies: Study[];
+  studyFileContent: string;
+  errors: string[];
+}> {
+  let studies: Study[] = [];
+  let studyFileContent = '';
   try {
-    const studyArrayString = await fs.readFile(studyFilePath, 'utf8');
-    const studyArray = parseStudyArray(studyArrayString, options);
-    return [studyArray, studyArrayString];
+    studyFileContent = await fs.readFile(studyFilePath, 'utf8');
+    studies = parseStudies(studyFileContent, options);
+    return { studies, studyFileContent, errors: [] };
   } catch (e) {
     if (e instanceof Error) {
       e.message += ` (${studyFilePath})`;
-      return e;
+      return { studies, studyFileContent, errors: [e.message] };
     }
     // Rethrow non-Error exceptions.
     throw e;
@@ -41,14 +35,14 @@ export async function readStudyFileReturnWithError(
 }
 
 export async function writeStudyFile(
-  studyArray: Study[],
+  studies: Study[],
   studyFilePath: string,
   options?: Options,
 ) {
-  await fs.writeFile(studyFilePath, stringifyStudyArray(studyArray, options));
+  await fs.writeFile(studyFilePath, stringifyStudies(studies, options));
 }
 
-export function parseStudyArray(
+export function parseStudies(
   studyArrayString: string,
   options?: Options,
 ): Study[] {
@@ -71,12 +65,9 @@ export function parseStudyArray(
   return studyArray;
 }
 
-export function stringifyStudyArray(
-  studyArray: Study[],
-  options?: Options,
-): string {
+export function stringifyStudies(studies: Study[], options?: Options): string {
   const jsonStudies: any[] = [];
-  for (const study of studyArray) {
+  for (const study of studies) {
     const jsonStudy = Study.toJson(study, {
       emitDefaultValues: false,
       enumAsInteger: false,
