@@ -13,69 +13,159 @@ import {
   type Study,
 } from '../../proto/generated/study';
 import { VariationsSeed } from '../../proto/generated/variations_seed';
+import diffStrings from '../utils/diff_strings';
+import * as file_utils from '../utils/file_utils';
 import * as seed_validation from '../utils/seed_validation';
 import * as study_json_utils from '../utils/study_json_utils';
-import * as study_validation from '../utils/study_validation';
 
 export default new Command('create_seed')
   .description('Create seed.bin from study files')
-  .argument('<studies_dir>', 'path to a directory containing study files')
-  .argument('<output_file>', 'output seed file')
-  .option('--version <value>', 'version to set into the seed')
+  .argument('<studies_dir>', 'path to the directory containing study files')
+  .option('--fix', 'fix format errors in-place')
+  .option('--mock_serial_number <value>', 'mock serial number')
+  .option('--output_seed_file <path>', 'file path to write the seed')
   .option(
-    '--serial_number_path <path>',
-    'file path to write the serial number to',
+    '--output_serial_number_file <path>',
+    'file path to write the seed serial number',
     './serialnumber',
   )
-  .option('--mock_serial_number <value>', 'mock serial number')
+  .option('--validate_only', 'validate the seed without creating it')
+  .option('--version <value>', 'seed version to set')
   .action(main);
 
 interface Options {
+  fix?: true;
   mock_serial_number?: string;
-  serial_number_path?: string;
+  output_seed_file?: string;
+  output_serial_number_file?: string;
+  validate_only?: true;
   version?: string;
 }
 
-async function main(studiesDir: string, outputFile: string, options: Options) {
-  const files: string[] = [];
-  for (const dirItem of await fs.readdir(studiesDir, { withFileTypes: true })) {
-    if (!dirItem.isFile()) {
-      continue;
-    }
-    files.push(dirItem.name);
+async function main(studiesDir: string, options: Options) {
+  if (options.output_seed_file === undefined && !options.validate_only) {
+    console.error(
+      'Either --output_seed_file or --validate_only option must be provided',
+    );
+    process.exit(1);
   }
-  files.sort();
+
+  if (options.fix && !options.validate_only) {
+    console.error(
+      'The --fix option can only be used with --validate_only option',
+    );
+    process.exit(1);
+  }
+
+  const { studies, studyFileBaseNameMap, errors } =
+    await readStudiesFromDirectory(studiesDir, options);
 
   const variationsSeed: VariationsSeed = {
-    study: [],
+    study: studies,
     layers: [],
     version: options.version ?? '1',
   };
-
-  for (const file of files) {
-    const filePath = path.join(studiesDir, file);
-    const studies = await study_json_utils.readStudyFile(filePath);
-    for (const study of studies) {
-      study_validation.validateStudy(study, filePath);
-      setStudyFixedParameters(study);
-      variationsSeed.study.push(study);
-    }
-  }
-
-  seed_validation.validateSeed(variationsSeed);
 
   const serialNumber =
     options.mock_serial_number ?? generateSerialNumber(variationsSeed);
   variationsSeed.serial_number = serialNumber;
 
-  const seedBinary = VariationsSeed.toBinary(variationsSeed);
-  await fs.writeFile(outputFile, seedBinary);
-  if (options.serial_number_path !== undefined) {
-    await fs.writeFile(options.serial_number_path, serialNumber);
+  errors.push(
+    ...seed_validation.getSeedErrors(variationsSeed, studyFileBaseNameMap),
+  );
+
+  if (errors.length > 0) {
+    console.error(`Seed validation errors:\n${errors.join('\n---\n')}`);
+    process.exit(1);
   }
-  console.log(outputFile, 'created with serial number', serialNumber);
-  console.log('Study files count:', files.length);
-  console.log('Seed studies count:', variationsSeed.study.length);
+
+  console.log('Seed study count:', variationsSeed.study.length);
+  if (options.output_seed_file !== undefined) {
+    const seedBinary = VariationsSeed.toBinary(variationsSeed);
+    await fs.writeFile(options.output_seed_file, seedBinary);
+    if (options.output_serial_number_file !== undefined) {
+      await fs.writeFile(options.output_serial_number_file, serialNumber);
+    }
+    console.log(
+      options.output_seed_file,
+      'created with serial number',
+      serialNumber,
+    );
+  }
+}
+
+async function readStudiesFromDirectory(
+  studiesDir: string,
+  options: Options,
+): Promise<{
+  studies: Study[];
+  studyFileBaseNameMap: Map<Study, string>;
+  errors: string[];
+}> {
+  const files = (await fs.readdir(studiesDir)).sort();
+
+  const studies: Study[] = [];
+  const studyFileBaseNameMap = new Map<Study, string>();
+  const errors: string[] = [];
+
+  for (const file of files) {
+    const filePath = path.join(studiesDir, file);
+    const readStudyFileResult = await study_json_utils.readStudyFile(filePath);
+    errors.push(...readStudyFileResult.errors);
+    errors.push(
+      ...(await checkAndOptionallyFixFormat(
+        filePath,
+        readStudyFileResult.studies,
+        readStudyFileResult.studyFileContent,
+        options,
+      )),
+    );
+    if (readStudyFileResult.errors.length > 0) {
+      continue;
+    }
+    for (const study of readStudyFileResult.studies) {
+      setStudyDefaultParameters(study);
+      studies.push(study);
+      studyFileBaseNameMap.set(study, file_utils.getFileBaseName(filePath));
+    }
+  }
+
+  return { studies, studyFileBaseNameMap, errors };
+}
+
+async function checkAndOptionallyFixFormat(
+  studyFilePath: string,
+  studies: Study[],
+  studyArrayString: string,
+  options: Options,
+): Promise<string[]> {
+  const errors: string[] = [];
+  const stringifiedStudies = study_json_utils.stringifyStudies(studies);
+  if (stringifiedStudies !== studyArrayString) {
+    if (options.fix) {
+      await fs.writeFile(studyFilePath, stringifiedStudies);
+    } else {
+      errors.push(
+        `Format required:\n` +
+          (await diffStrings(
+            studyArrayString,
+            stringifiedStudies,
+            studyFilePath,
+            studyFilePath + '.formatted',
+          )),
+      );
+    }
+  }
+  return errors;
+}
+
+function setStudyDefaultParameters(study: Study) {
+  if (study.activation_type === undefined) {
+    study.activation_type = Study_ActivationType.ACTIVATE_ON_STARTUP;
+  }
+  if (study.consistency === undefined) {
+    study.consistency = Study_Consistency.PERMANENT;
+  }
 }
 
 function generateSerialNumber(variationsSeed: VariationsSeed): string {
@@ -86,9 +176,4 @@ function generateSerialNumber(variationsSeed: VariationsSeed): string {
     .update(timestamp)
     .digest('hex');
   return hash;
-}
-
-function setStudyFixedParameters(study: Study) {
-  study.activation_type = Study_ActivationType.ACTIVATE_ON_STARTUP;
-  study.consistency = Study_Consistency.PERMANENT;
 }

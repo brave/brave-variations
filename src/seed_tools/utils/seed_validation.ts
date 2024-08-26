@@ -5,22 +5,27 @@
 
 import assert from 'assert';
 import DefaultMap from '../../base/containers/default_map';
-import { type Study_Filter } from '../../proto/generated/study';
+import { Study, type Study_Filter } from '../../proto/generated/study';
 import { type VariationsSeed } from '../../proto/generated/variations_seed';
 import ProcessedStudy from './processed_study';
 import * as study_json_utils from './study_json_utils';
-
-// Validate a seed for common errors. Throws an error if any is found.
-export function validateSeed(seed: VariationsSeed) {
-  const errors = validateSeedReturnErrors(seed);
-  if (errors.length > 0) {
-    throw new Error(`Error validating seed:\n${errors.join('\n')}`);
-  }
-}
+import * as study_validation from './study_validation';
 
 // Validate a seed for common errors. Returns an array of error messages.
-export function validateSeedReturnErrors(seed: VariationsSeed): string[] {
+export function getSeedErrors(
+  seed: VariationsSeed,
+  studyFileBaseNameMap?: Map<Study, string>,
+): string[] {
   const errors: string[] = [];
+  for (const study of seed.study) {
+    errors.push(
+      ...study_validation.getStudyErrors(
+        study,
+        studyFileBaseNameMap?.get(study) ?? study.name,
+      ),
+    );
+  }
+
   const validators = [checkOverlappingStudies];
   for (const validator of validators) {
     try {
@@ -113,7 +118,7 @@ function checkOverlappingStudies(seed: VariationsSeed): string[] {
         if (!hasFilterDifference) {
           errors.push(
             `Feature ${featureName} overlaps in studies. Check your filters:\n` +
-              `${study_json_utils.stringifyStudyArray([study1.study, study2.study])}`,
+              `${study_json_utils.stringifyStudies([study1.study, study2.study])}`,
           );
         }
       }

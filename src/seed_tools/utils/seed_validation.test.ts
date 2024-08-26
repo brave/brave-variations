@@ -5,9 +5,9 @@
 
 import { Study } from '../../proto/generated/study';
 import { type VariationsSeed } from '../../proto/generated/variations_seed';
-import { validateSeed } from './seed_validation';
+import { getSeedErrors } from './seed_validation';
 
-describe('validateSeed', () => {
+describe('getSeedErrors', () => {
   describe('checkOverlappingStudies', () => {
     function toFilterDate(date: string): number {
       return new Date(date).getTime() / 1000;
@@ -18,9 +18,11 @@ describe('validateSeed', () => {
         name,
         experiment: [
           {
+            name: 'experiment1',
             feature_association: {
               enable_feature: ['feature1'],
             },
+            probability_weight: 100,
           },
         ],
       };
@@ -406,14 +408,13 @@ describe('validateSeed', () => {
           ],
         } as unknown as VariationsSeed;
 
+        const errors: string[] = getSeedErrors(seed);
         if (testCase.expectedOverlapped) {
-          expect(() => {
-            validateSeed(seed);
-          }).toThrowError('overlaps in studies');
+          expect(errors).toContainEqual(
+            expect.stringContaining('overlaps in studies'),
+          );
         } else {
-          expect(() => {
-            validateSeed(seed);
-          }).not.toThrow();
+          expect(errors).toEqual([]);
         }
       });
     });
