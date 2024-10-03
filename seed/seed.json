@@ -1758,35 +1758,6 @@
             "experiments": [
                 {
                     "feature_association": {
-                        "enable_feature": [
-                            "CustomNotificationAds"
-                        ]
-                    },
-                    "name": "Enabled",
-                    "probability_weight": 100
-                },
-                {
-                    "name": "Default",
-                    "probability_weight": 0
-                }
-            ],
-            "filter": {
-                "channel": [
-                    "NIGHTLY",
-                    "BETA"
-                ],
-                "min_version": "115.1.58.35",
-                "platform": [
-                    "WINDOWS",
-                    "MAC"
-                ]
-            },
-            "name": "CustomNotificationAdsStudy"
-        },
-        {
-            "experiments": [
-                {
-                    "feature_association": {
                         "disable_feature": [
                             "PrettyPrintJSONDocument"
                         ]
