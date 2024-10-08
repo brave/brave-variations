@@ -2919,6 +2919,67 @@
                 ]
             },
             "name": "BraveWebcompatExceptionsServiceReleaseStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveRoundTimeStamps"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 100
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 0
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "NIGHTLY",
+                    "BETA"
+                ],
+                "min_version": "125.*",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveRoundTimeStampsStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "disable_feature": [
+                            "BraveRoundTimeStamps"
+                        ]
+                    },
+                    "name": "Disabled",
+                    "probability_weight": 5
+                },
+                {
+                    "name": "Default",
+                    "probability_weight": 95
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE"
+                ],
+                "min_version": "125.*",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID"
+                ]
+            },
+            "name": "BraveRoundTimeStampsReleaseStudy"
         }
     ],
     "version": "1"
