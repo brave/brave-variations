@@ -10,11 +10,13 @@ import { type Study } from '../../proto/generated/study';
 import { VariationsSeed } from '../../proto/generated/variations_seed';
 import * as study_json_utils from '../utils/study_json_utils';
 
-export default new Command('split_seed_json')
-  .description('Split seed.json into study files')
-  .argument('<seed_json_path>', 'path to seed.json')
-  .argument('<output_dir>', 'output directory')
-  .action(main);
+export default function createCommand() {
+  return new Command('split_seed_json')
+    .description('Split seed.json into study files')
+    .argument('<seed_json_path>', 'path to seed.json')
+    .argument('<output_dir>', 'output directory')
+    .action(main);
+}
 
 async function main(seedPath: string, outputDir: string) {
   const seedJson = preprocessSeedJson(

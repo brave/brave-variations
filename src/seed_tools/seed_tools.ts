@@ -12,7 +12,7 @@ import split_seed_json from './commands/split_seed_json';
 program
   .name('seed_tools')
   .description('Seed tools for manipulating study files.')
-  .addCommand(compare_seeds)
-  .addCommand(create_seed)
-  .addCommand(split_seed_json)
+  .addCommand(compare_seeds())
+  .addCommand(create_seed())
+  .addCommand(split_seed_json())
   .parse();
