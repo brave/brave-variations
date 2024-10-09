@@ -8,9 +8,9 @@ import {
   Study_Channel,
   Study_Platform,
 } from '../../proto/generated/study';
-import { parseStudyArray, stringifyStudyArray } from './study_json_utils';
+import { parseStudies, stringifyStudies } from './study_json_utils';
 
-describe('stringifyStudyArray', () => {
+describe('stringifyStudies', () => {
   it('should convert start_date and end_date to ISO string', () => {
     const startDate = new Date('2022-01-01T00:00:00Z');
     const endDate = new Date('2022-12-31T23:59:59Z');
@@ -25,7 +25,7 @@ describe('stringifyStudyArray', () => {
       { ignoreUnknownFields: false },
     );
 
-    const stringifiedStudyArray = stringifyStudyArray([study]);
+    const stringifiedStudyArray = stringifyStudies([study]);
     expect(JSON.parse(stringifiedStudyArray)).toEqual([
       {
         name: 'study',
@@ -48,7 +48,7 @@ describe('stringifyStudyArray', () => {
       { ignoreUnknownFields: false },
     );
 
-    const stringifiedStudyArray = stringifyStudyArray([study]);
+    const stringifiedStudyArray = stringifyStudies([study]);
     expect(JSON.parse(stringifiedStudyArray)).toEqual([
       {
         name: 'study',
@@ -80,7 +80,7 @@ describe('stringifyStudyArray', () => {
       { ignoreUnknownFields: false },
     );
 
-    const stringifiedStudyArray = stringifyStudyArray([study]);
+    const stringifiedStudyArray = stringifyStudies([study]);
     expect(JSON.parse(stringifiedStudyArray)).toEqual([
       {
         name: 'BraveHorizontalTabsUpdateEnabledStudy',
@@ -114,7 +114,7 @@ describe('stringifyStudyArray', () => {
       { ignoreUnknownFields: false },
     );
 
-    const stringifiedStudyArray = stringifyStudyArray([study], {
+    const stringifiedStudyArray = stringifyStudies([study], {
       isChromium: true,
     });
     expect(JSON.parse(stringifiedStudyArray)).toEqual([
@@ -129,7 +129,7 @@ describe('stringifyStudyArray', () => {
   });
 });
 
-describe('parseStudyArray', () => {
+describe('parseStudies', () => {
   it('should convert ISO string start_date and end_date to Unix timestamp', () => {
     const startDate = '2022-01-01T00:00:00.000Z';
     const endDate = '2022-12-31T23:59:59.999Z';
@@ -144,7 +144,7 @@ describe('parseStudyArray', () => {
       },
     ]);
 
-    const parsedStudyArray = parseStudyArray(study);
+    const parsedStudyArray = parseStudies(study);
     expect(parsedStudyArray[0].filter?.start_date).toEqual(
       BigInt(Math.floor(new Date(startDate).getTime() / 1000)),
     );
@@ -155,7 +155,7 @@ describe('parseStudyArray', () => {
 
   it('should throw an error for invalid start_date or end_date format', () => {
     const parseStudyWithFilter = (filter: any) => {
-      return parseStudyArray(
+      return parseStudies(
         JSON.stringify([
           {
             name: 'study',
@@ -186,7 +186,7 @@ describe('parseStudyArray', () => {
       },
     ]);
 
-    const parsedStudyArray = parseStudyArray(study);
+    const parsedStudyArray = parseStudies(study);
     expect(parsedStudyArray[0].filter?.channel).toEqual([
       Study_Channel.CANARY,
       Study_Channel.BETA,
@@ -205,7 +205,7 @@ describe('parseStudyArray', () => {
       },
     ]);
 
-    const parsedStudyArray = parseStudyArray(study);
+    const parsedStudyArray = parseStudies(study);
     expect(parsedStudyArray[0].filter?.channel).toEqual([
       Study_Channel.STABLE,
       Study_Channel.BETA,
@@ -224,14 +224,14 @@ describe('parseStudyArray', () => {
       Study.fromJson({ name: 'Study 2' }),
     ];
 
-    const result = parseStudyArray(studyArrayString);
+    const result = parseStudies(studyArrayString);
     expect(result).toEqual(expectedStudyArray);
   });
 
   it('should throw an error if the study is not array', () => {
     const invalidStudyArrayString = '{}';
 
-    expect(() => parseStudyArray(invalidStudyArrayString)).toThrowError(
+    expect(() => parseStudies(invalidStudyArrayString)).toThrowError(
       'Root element must be an array',
     );
   });
@@ -239,7 +239,7 @@ describe('parseStudyArray', () => {
   it('should throw an error if the study array string is invalid', () => {
     const invalidStudyArrayString = 'invalid';
 
-    expect(() => parseStudyArray(invalidStudyArrayString)).toThrowError(
+    expect(() => parseStudies(invalidStudyArrayString)).toThrowError(
       'Unexpected token',
     );
   });
@@ -247,7 +247,7 @@ describe('parseStudyArray', () => {
   it('should throw on unknown fields when parsing studies', () => {
     const studyArrayString = '[{"name":"Study 1","unknownField":"value"}]';
 
-    expect(() => parseStudyArray(studyArrayString)).toThrowError(
+    expect(() => parseStudies(studyArrayString)).toThrowError(
       'Found unknown field while reading variations.Study from JSON format. JSON key: unknownField',
     );
   });
@@ -255,7 +255,7 @@ describe('parseStudyArray', () => {
   it('should throw on invalid field types when parsing studies', () => {
     const studyArrayString = '[{"name":"Study 1","experiment":"value"}]';
 
-    expect(() => parseStudyArray(studyArrayString)).toThrowError(
+    expect(() => parseStudies(studyArrayString)).toThrowError(
       'Cannot parse JSON string for variations.Study#experiment',
     );
   });
@@ -264,7 +264,7 @@ describe('parseStudyArray', () => {
     const studyArrayString =
       '[{"name":"Study 1","experiment":[{"probability_weight":"abc"}]}]';
 
-    expect(() => parseStudyArray(studyArrayString)).toThrowError(
+    expect(() => parseStudies(studyArrayString)).toThrowError(
       'Cannot parse JSON string for variations.Study.Experiment#probability_weight - invalid uint 32: NaN',
     );
   });
@@ -279,7 +279,7 @@ describe('parseStudyArray', () => {
       },
     ]);
 
-    const parsedStudyArray = parseStudyArray(study, { isChromium: true });
+    const parsedStudyArray = parseStudies(study, { isChromium: true });
     expect(parsedStudyArray[0].filter?.channel).toEqual([
       Study_Channel.CANARY,
       Study_Channel.BETA,
