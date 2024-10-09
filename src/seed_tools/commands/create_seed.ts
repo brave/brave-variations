@@ -18,41 +18,51 @@ import * as file_utils from '../utils/file_utils';
 import * as seed_validation from '../utils/seed_validation';
 import * as study_json_utils from '../utils/study_json_utils';
 
-export default new Command('create_seed')
-  .description('Create seed.bin from study files')
-  .argument('<studies_dir>', 'path to the directory containing study files')
-  .option('--fix', 'fix format errors in-place')
-  .option('--mock_serial_number <value>', 'mock serial number')
-  .option('--output_seed_file <path>', 'file path to write the seed')
-  .option(
-    '--output_serial_number_file <path>',
-    'file path to write the seed serial number',
-    './serialnumber',
-  )
-  .option('--validate_only', 'validate the seed without creating it')
-  .option('--version <value>', 'seed version to set')
-  .action(main);
+export default function createCommand() {
+  return new Command('create_seed')
+    .description('Create seed.bin from study files')
+    .argument('<studies_dir>', 'path to the directory containing study files')
+    .argument(
+      '[output_seed_file]',
+      'output seed file, may be omitted if --validate_only is provided',
+    )
+    .option('--fix', 'fix format errors in-place')
+    .option('--mock_serial_number <value>', 'mock serial number')
+    .option(
+      '--output_serial_number_file <path>',
+      'file path to write the seed serial number',
+      './serialnumber',
+    )
+    .option('--validate_only', 'validate the seed without creating it')
+    .option('--version <value>', 'seed version to set')
+    .action(main);
+}
 
 interface Options {
   fix?: true;
   mock_serial_number?: string;
-  output_seed_file?: string;
   output_serial_number_file?: string;
   validate_only?: true;
   version?: string;
 }
 
-async function main(studiesDir: string, options: Options) {
-  if (options.output_seed_file === undefined && !options.validate_only) {
+async function main(
+  studiesDir: string,
+  outputSeedFile: string | undefined,
+  options: Options,
+) {
+  console.log(outputSeedFile, options);
+  if (outputSeedFile === undefined && !options.validate_only) {
     console.error(
-      'Either --output_seed_file or --validate_only option must be provided',
+      'Either output_seed_file or --validate_only must be provided',
     );
     process.exit(1);
   }
 
-  if (options.fix && !options.validate_only) {
+  if (options.fix && outputSeedFile) {
+    console.log(`outputSeedFile: "${outputSeedFile}"`);
     console.error(
-      'The --fix option can only be used with --validate_only option',
+      'The --fix option cannot be used when an output_seed_file is provided',
     );
     process.exit(1);
   }
@@ -80,17 +90,13 @@ async function main(studiesDir: string, options: Options) {
   }
 
   console.log('Seed study count:', variationsSeed.study.length);
-  if (options.output_seed_file !== undefined) {
+  if (outputSeedFile !== undefined) {
     const seedBinary = VariationsSeed.toBinary(variationsSeed);
-    await fs.writeFile(options.output_seed_file, seedBinary);
+    await fs.writeFile(outputSeedFile, seedBinary);
     if (options.output_serial_number_file !== undefined) {
       await fs.writeFile(options.output_serial_number_file, serialNumber);
     }
-    console.log(
-      options.output_seed_file,
-      'created with serial number',
-      serialNumber,
-    );
+    console.log(outputSeedFile, 'created with serial number', serialNumber);
   }
 }
 
