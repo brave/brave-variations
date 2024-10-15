@@ -9,9 +9,9 @@ import * as os from 'os';
 import * as path from 'path';
 import { VariationsSeed } from 'src/proto/generated/variations_seed';
 import { wsPath } from '../../base/path_utils';
-import create_seed from './create_seed';
+import create from './create';
 
-describe('create_seed command', () => {
+describe('create command', () => {
   const testDataDir = wsPath('//src/test/data');
 
   let tempDir: string;
@@ -42,9 +42,9 @@ describe('create_seed command', () => {
         const outputFile = path.join(tempDir, 'output.bin');
         const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
-        await create_seed().parseAsync([
+        await create().parseAsync([
           'node',
-          'create_seed',
+          'create',
           studiesDir,
           outputFile,
           '--mock_serial_number',
@@ -72,9 +72,9 @@ describe('create_seed command', () => {
     const outputFile = path.join(tempDir, 'output.bin');
     const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
-    await create_seed().parseAsync([
+    await create().parseAsync([
       'node',
-      'create_seed',
+      'create',
       studiesDir,
       outputFile,
       '--version',
@@ -98,21 +98,6 @@ describe('create_seed command', () => {
     );
   });
 
-  test('no output file no validate', async () => {
-    const testCaseDir = path.join(testDataDir, 'set_seed_version');
-    const studiesDir = path.join(testCaseDir, 'studies');
-
-    await expect(
-      create_seed().parseAsync(['node', 'create_seed', studiesDir]),
-    ).rejects.toThrowError('process.exit(1)');
-
-    expect(errorMock).toHaveBeenCalledWith(
-      expect.stringContaining(
-        'Either output_seed_file or --validate_only must be provided',
-      ),
-    );
-  });
-
   describe('invalid studies', () => {
     const invalidStudiesDir = path.join(testDataDir, 'invalid_studies');
     it.each(fs_sync.readdirSync(invalidStudiesDir))(
@@ -124,9 +109,9 @@ describe('create_seed command', () => {
         const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
         await expect(
-          create_seed().parseAsync([
+          create().parseAsync([
             'node',
-            'create_seed',
+            'create',
             studiesDir,
             outputFile,
             '--mock_serial_number',
@@ -150,9 +135,9 @@ describe('create_seed command', () => {
         const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
         await expect(
-          create_seed().parseAsync([
+          create().parseAsync([
             'node',
-            'create_seed',
+            'create',
             studiesDir,
             outputFile,
             '--mock_serial_number',
@@ -179,19 +164,14 @@ describe('create_seed command', () => {
     const unformattedStudiesDir = path.join(testDataDir, 'unformatted_studies');
 
     it.each(fs_sync.readdirSync(unformattedStudiesDir))(
-      'correctly validates %s',
+      'correctly lints %s',
       async (testCase) => {
         const testCaseDir = path.join(unformattedStudiesDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
         const outputFile = path.join(tempDir, 'output.bin');
 
         await expect(
-          create_seed().parseAsync([
-            'node',
-            'create_seed',
-            studiesDir,
-            outputFile,
-          ]),
+          create().parseAsync(['node', 'create', studiesDir, outputFile]),
         ).rejects.toThrowError('process.exit(1)');
 
         const expectedOutput = await fs.readFile(
@@ -201,112 +181,6 @@ describe('create_seed command', () => {
         expect(errorMock).toHaveBeenCalledWith(
           expect.stringContaining(expectedOutput),
         );
-      },
-    );
-  });
-
-  describe('validate valid studies', () => {
-    const unformattedStudiesDir = path.join(testDataDir, 'valid_seeds');
-
-    it.each(fs_sync.readdirSync(unformattedStudiesDir))(
-      'correctly validates %s',
-      async (testCase) => {
-        const testCaseDir = path.join(unformattedStudiesDir, testCase);
-        const studiesDir = path.join(testCaseDir, 'studies');
-
-        await create_seed().parseAsync([
-          'node',
-          'create_seed',
-          studiesDir,
-          '--validate_only',
-        ]);
-
-        expect(errorMock).toHaveBeenCalledTimes(0);
-      },
-    );
-  });
-
-  describe('validate unformatted studies', () => {
-    const unformattedStudiesDir = path.join(testDataDir, 'unformatted_studies');
-
-    it.each(fs_sync.readdirSync(unformattedStudiesDir))(
-      'correctly validates %s',
-      async (testCase) => {
-        const testCaseDir = path.join(unformattedStudiesDir, testCase);
-        const studiesDir = path.join(testCaseDir, 'studies');
-
-        await expect(
-          create_seed().parseAsync([
-            'node',
-            'create_seed',
-            studiesDir,
-            '--validate_only',
-          ]),
-        ).rejects.toThrowError('process.exit(1)');
-
-        const expectedOutput = await fs.readFile(
-          path.join(testCaseDir, 'expected_output.txt'),
-          'utf-8',
-        );
-        expect(errorMock).toHaveBeenCalledWith(
-          expect.stringContaining(expectedOutput),
-        );
-      },
-    );
-  });
-
-  describe('fix unformatted studies', () => {
-    const unformattedStudiesDir = path.join(testDataDir, 'unformatted_studies');
-
-    it.each(fs_sync.readdirSync(unformattedStudiesDir))(
-      'correctly fixes %s',
-      async (testCase) => {
-        const testCaseDir = path.join(unformattedStudiesDir, testCase);
-        const studiesDir = path.join(testCaseDir, 'studies');
-        const tempStudiesDir = path.join(tempDir, 'studies');
-        const outputFile = path.join(tempDir, 'output.bin');
-
-        // copy the unformatted studies to a temp dir
-        await fs.mkdir(tempStudiesDir);
-        await fs.copyFile(
-          path.join(studiesDir, 'TestStudy.json'),
-          path.join(tempStudiesDir, 'TestStudy.json'),
-        );
-
-        // Validate should fail.
-        await expect(
-          create_seed().parseAsync([
-            'node',
-            'create_seed',
-            tempStudiesDir,
-            '--validate_only',
-          ]),
-        ).rejects.toThrowError('process.exit(1)');
-
-        // Fix studies.
-        await create_seed().parseAsync([
-          'node',
-          'create_seed',
-          tempStudiesDir,
-          '--validate_only',
-          '--fix',
-        ]);
-
-        // Validate should not fail.
-        await create_seed().parseAsync([
-          'node',
-          'create_seed',
-          tempStudiesDir,
-          '--validate_only',
-        ]);
-
-        // // Seed creation should not fail.
-        await create_seed().parseAsync([
-          'node',
-          'create_seed',
-          tempStudiesDir,
-          outputFile,
-        ]);
       },
     );
   });
@@ -315,15 +189,15 @@ describe('create_seed command', () => {
     const invalidSeedsDir = path.join(testDataDir, 'invalid_seeds');
 
     it.each(fs_sync.readdirSync(invalidSeedsDir))(
-      'correctly validates %s',
+      'correctly lints %s',
       async (testCase) => {
         const testCaseDir = path.join(invalidSeedsDir, testCase);
         const outputFile = path.join(tempDir, 'output.bin');
 
         await expect(
-          create_seed().parseAsync([
+          create().parseAsync([
             'node',
-            'create_seed',
+            'create',
             path.join(testCaseDir, 'studies'),
             outputFile,
           ]),

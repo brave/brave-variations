@@ -9,9 +9,13 @@
 Compares two seed binary files and displays a human-readable diff. Used for safe
 migration from the python seed generator to the typescript seed generator.
 
-### `create_seed`
+### `create`
 
 Generates a `seed.bin` file from study files.
+
+### `lint`
+
+Lints study files.
 
 ### `split_seed_json`
 
