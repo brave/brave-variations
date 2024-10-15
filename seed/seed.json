@@ -1789,6 +1789,7 @@
                     "RELEASE"
                 ],
                 "min_version": "119.1.60.0",
+                "max_version": "122.0.6261.56",
                 "platform": [
                     "WINDOWS",
                     "MAC",
