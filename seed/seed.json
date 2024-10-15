@@ -5,6 +5,49 @@
                 {
                     "feature_association": {
                         "enable_feature": [
+                            "AIChat"
+                        ]
+                    },
+                    "name": "DefaultLlama",
+                    "params": {
+                        "AIChat": {
+                            "default_model": "chat-basic"
+                        }
+                    },
+                    "probability_weight": 25
+                },
+                {
+                    "feature_association": {
+                        "enable_feature": [
+                            "AIChat"
+                        ]
+                    },
+                    "name": "DefaultMixtral",
+                    "probability_weight": 75
+                }
+            ],
+            "filter": {
+                "channel": [
+                    "RELEASE",
+                    "BETA",
+                    "NIGHTLY"
+                ],
+                "min_version": "122.0.6261.57",
+                "platform": [
+                    "WINDOWS",
+                    "MAC",
+                    "LINUX",
+                    "ANDROID",
+                    "IOS"
+                ]
+            },
+            "name": "BraveAIChatDefaultModelStudy"
+        },
+        {
+            "experiments": [
+                {
+                    "feature_association": {
+                        "enable_feature": [
                             "BraveAdblockDefault1pBlocking"
                         ]
                     },
