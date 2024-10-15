@@ -104,6 +104,16 @@ function checkExperiments(study: Study): string[] {
         featureNamesToCheck.push(featureAssociations.forcing_feature_off);
         hasForcingFeatureOff = true;
       }
+      // Check featureNamesToCheck is unique.
+      const featureNamesSet = new Set(featureNamesToCheck);
+      if (featureNamesSet.size !== featureNamesToCheck.length) {
+        const duplicateNames = featureNamesToCheck.filter(
+          (name, index) => featureNamesToCheck.indexOf(name) !== index,
+        );
+        errors.push(
+          `Duplicate feature name(s) "${duplicateNames.join(', ')}" in feature_association for experiment ${experiment.name}`,
+        );
+      }
       for (const featureName of featureNamesToCheck) {
         checkFeatureName(experiment, featureName, errors);
       }

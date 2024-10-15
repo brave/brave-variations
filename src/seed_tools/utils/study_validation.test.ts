@@ -228,6 +228,26 @@ describe('getStudyErrors', () => {
     },
   );
 
+  test('should error if feature is duplicated', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+          feature_association: {
+            enable_feature: ['Feature'],
+            disable_feature: ['Feature'],
+          },
+        },
+      ],
+    });
+
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(expect.stringContaining(`Duplicate feature name`));
+  });
+
   test('should not error if forcing flag is correct', () => {
     const study = Study.fromJson({
       name: 'study',
