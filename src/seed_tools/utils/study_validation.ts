@@ -3,26 +3,14 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import path from 'path';
 import { type Study, type Study_Experiment } from '../../proto/generated/study';
 import * as study_filter_utils from './study_filter_utils';
 
 const invalidFeatureOrFieldTrialNameChars = ',<*';
 const invalidExperimentNameChars = '<*';
 
-// Validate a study for common errors. Throws an error if any is found.
-export function validateStudy(study: Study, studyFilePath: string) {
-  const errors = validateStudyReturnErrors(study, studyFilePath);
-  if (errors.length > 0) {
-    throw new Error(`Error validating ${studyFilePath}:\n${errors.join('\n')}`);
-  }
-}
-
 // Validate a study for common errors. Returns an array of error messages.
-export function validateStudyReturnErrors(
-  study: Study,
-  studyFilePath: string,
-): string[] {
+export function getStudyErrors(study: Study, fileBaseName: string): string[] {
   const errors: string[] = [];
   const validators = [
     checkName,
@@ -35,7 +23,7 @@ export function validateStudyReturnErrors(
   ];
   for (const validator of validators) {
     try {
-      errors.push(...validator(study, studyFilePath));
+      errors.push(...validator(study, fileBaseName));
     } catch (e) {
       if (e instanceof Error) {
         errors.push(e.message);
@@ -49,9 +37,8 @@ export function validateStudyReturnErrors(
 }
 
 // Check that study name matches the file name.
-function checkName(study: Study, studyFilePath: string): string[] {
+function checkName(study: Study, fileBaseName: string): string[] {
   const errors: string[] = [];
-  const fileBaseName = path.basename(studyFilePath, '.json');
   if (
     study.name !== fileBaseName &&
     !study.name.startsWith(`${fileBaseName}_`)
@@ -116,6 +103,16 @@ function checkExperiments(study: Study): string[] {
       if (featureAssociations.forcing_feature_off !== undefined) {
         featureNamesToCheck.push(featureAssociations.forcing_feature_off);
         hasForcingFeatureOff = true;
+      }
+      // Check featureNamesToCheck is unique.
+      const featureNamesSet = new Set(featureNamesToCheck);
+      if (featureNamesSet.size !== featureNamesToCheck.length) {
+        const duplicateNames = featureNamesToCheck.filter(
+          (name, index) => featureNamesToCheck.indexOf(name) !== index,
+        );
+        errors.push(
+          `Duplicate feature name(s) "${duplicateNames.join(', ')}" in feature_association for experiment ${experiment.name}`,
+        );
       }
       for (const featureName of featureNamesToCheck) {
         checkFeatureName(experiment, featureName, errors);

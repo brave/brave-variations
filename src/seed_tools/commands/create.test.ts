@@ -9,19 +9,27 @@ import * as os from 'os';
 import * as path from 'path';
 import { VariationsSeed } from 'src/proto/generated/variations_seed';
 import { wsPath } from '../../base/path_utils';
-import create_seed from './create_seed';
+import create from './create';
 
-describe('create_seed command', () => {
+describe('create command', () => {
   const testDataDir = wsPath('//src/test/data');
 
   let tempDir: string;
+  let exitMock: jest.SpyInstance;
+  let errorMock: jest.SpyInstance;
 
   beforeEach(async () => {
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'create_seed-'));
+    exitMock = jest.spyOn(process, 'exit').mockImplementation((code) => {
+      throw new Error(`process.exit(${code})`);
+    });
+    errorMock = jest.spyOn(console, 'error').mockImplementation();
   });
 
   afterEach(async () => {
     await fs.rm(tempDir, { recursive: true, force: true });
+    exitMock.mockRestore();
+    errorMock.mockRestore();
   });
 
   describe('valid seeds', () => {
@@ -34,14 +42,14 @@ describe('create_seed command', () => {
         const outputFile = path.join(tempDir, 'output.bin');
         const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
-        await create_seed.parseAsync([
+        await create().parseAsync([
           'node',
-          'create_seed',
+          'create',
           studiesDir,
           outputFile,
           '--mock_serial_number',
           '1',
-          '--serial_number_path',
+          '--output_serial_number_file',
           serialNumberPath,
         ]);
 
@@ -64,16 +72,16 @@ describe('create_seed command', () => {
     const outputFile = path.join(tempDir, 'output.bin');
     const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
-    await create_seed.parseAsync([
+    await create().parseAsync([
       'node',
-      'create_seed',
+      'create',
       studiesDir,
       outputFile,
       '--version',
       'test version value',
       '--mock_serial_number',
       '1',
-      '--serial_number_path',
+      '--output_serial_number_file',
       serialNumberPath,
     ]);
 
@@ -101,17 +109,17 @@ describe('create_seed command', () => {
         const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
         await expect(
-          create_seed.parseAsync([
+          create().parseAsync([
             'node',
-            'create_seed',
+            'create',
             studiesDir,
             outputFile,
             '--mock_serial_number',
             '1',
-            '--serial_number_path',
+            '--output_serial_number_file',
             serialNumberPath,
           ]),
-        ).rejects.toThrow();
+        ).rejects.toThrowError('process.exit(1)');
       },
     );
   });
@@ -126,25 +134,74 @@ describe('create_seed command', () => {
         const outputFile = path.join(tempDir, 'output.bin');
         const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
+        await expect(
+          create().parseAsync([
+            'node',
+            'create',
+            studiesDir,
+            outputFile,
+            '--mock_serial_number',
+            '1',
+            '--output_serial_number_file',
+            serialNumberPath,
+          ]),
+        ).rejects.toThrowError('process.exit(1)');
+
         const expectedError = (
           await fs.readFile(
             path.join(testCaseDir, 'expected_error.txt'),
             'utf-8',
           )
         ).trim();
+        expect(errorMock).toHaveBeenCalledWith(
+          expect.stringContaining(expectedError),
+        );
+      },
+    );
+  });
+
+  describe('unformatted studies', () => {
+    const unformattedStudiesDir = path.join(testDataDir, 'unformatted_studies');
+
+    it.each(fs_sync.readdirSync(unformattedStudiesDir))(
+      'correctly lints %s',
+      async (testCase) => {
+        const testCaseDir = path.join(unformattedStudiesDir, testCase);
+        const studiesDir = path.join(testCaseDir, 'studies');
+        const outputFile = path.join(tempDir, 'output.bin');
 
         await expect(
-          create_seed.parseAsync([
+          create().parseAsync(['node', 'create', studiesDir, outputFile]),
+        ).rejects.toThrowError('process.exit(1)');
+
+        const expectedOutput = await fs.readFile(
+          path.join(testCaseDir, 'expected_output.txt'),
+          'utf-8',
+        );
+        expect(errorMock).toHaveBeenCalledWith(
+          expect.stringContaining(expectedOutput),
+        );
+      },
+    );
+  });
+
+  describe('studies should be valid in invalid_seed test dir', () => {
+    const invalidSeedsDir = path.join(testDataDir, 'invalid_seeds');
+
+    it.each(fs_sync.readdirSync(invalidSeedsDir))(
+      'correctly lints %s',
+      async (testCase) => {
+        const testCaseDir = path.join(invalidSeedsDir, testCase);
+        const outputFile = path.join(tempDir, 'output.bin');
+
+        await expect(
+          create().parseAsync([
             'node',
-            'create_seed',
-            studiesDir,
+            'create',
+            path.join(testCaseDir, 'studies'),
             outputFile,
-            '--mock_serial_number',
-            '1',
-            '--serial_number_path',
-            serialNumberPath,
           ]),
-        ).rejects.toThrow(new RegExp(expectedError));
+        ).rejects.toThrowError('process.exit(1)');
       },
     );
   });

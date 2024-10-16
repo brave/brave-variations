@@ -52,8 +52,8 @@ function getLintDiffCommands(options: Options): Record<string, any> {
     '*': 'prettier --ignore-unknown' + (options.fix ? ' --write' : ' --check'),
     '*.{ts,js,tsx,jsx}':
       'eslint --config src/.eslintrc.js' + (options.fix ? ' --fix' : ''),
-    'studies/**/*.json':
-      'npm run seed_tools -- check_study' + (options.fix ? ' --fix' : ''),
+    'studies/*': () =>
+      'npm run seed_tools -- lint studies' + (options.fix ? ' --fix' : ''),
   };
 }
 

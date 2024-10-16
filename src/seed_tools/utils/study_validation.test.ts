@@ -7,10 +7,10 @@ import { describe, expect, test } from '@jest/globals';
 import { Study } from '../../proto/generated/study';
 import * as study_validation from './study_validation';
 
-describe('validateStudy', () => {
-  const studyFilePath = '/path/to/study.json';
+describe('getStudyErrors', () => {
+  const studyFileBaseName = 'study';
 
-  test('should not throw an error if study is valid', () => {
+  test('should not error if study is valid', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -40,37 +40,41 @@ describe('validateStudy', () => {
       },
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).not.toThrow();
+    expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
+      [],
+    );
   });
 
-  test('should throw an error if study name does not match file name', () => {
+  test('should error if study name does not match file name', () => {
     const study = Study.fromJson({
       name: 'study1',
       experiment: [],
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Study name study1 does not match file name');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining('Study name study1 does not match file name'),
+    );
   });
 
   test.each(['study_😀', 'study_,', 'study_<', 'study_*'])(
-    'should throw an error if study name has invalid char %s',
+    'should error if study name has invalid char %s',
     (studyName) => {
       const study = Study.fromJson({
         name: studyName,
         experiment: [],
       });
 
-      expect(() => {
-        study_validation.validateStudy(study, studyFilePath);
-      }).toThrowError(`Invalid study name: ${studyName}`);
+      expect(
+        study_validation.getStudyErrors(study, studyFileBaseName),
+      ).toContainEqual(
+        expect.stringContaining(`Invalid study name: ${studyName}`),
+      );
     },
   );
 
-  test('should throw an error if layer is set', () => {
+  test('should error if layer is set', () => {
     const study = Study.fromJson({
       name: 'study',
       layer: {
@@ -79,12 +83,14 @@ describe('validateStudy', () => {
       },
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Layers are currently not supported');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining('Layers are currently not supported'),
+    );
   });
 
-  test('should throw an error if experiment name is not defined', () => {
+  test('should error if experiment name is not defined', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -95,13 +101,17 @@ describe('validateStudy', () => {
       ],
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Experiment name is not defined for study: study');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining(
+        'Experiment name is not defined for study: study',
+      ),
+    );
   });
 
   test.each(['exp😀', 'exp<', 'exp*'])(
-    'should throw an error if experiment name has invalid char %s',
+    'should error if experiment name has invalid char %s',
     (experimentName) => {
       const study = Study.fromJson({
         name: 'study',
@@ -113,13 +123,15 @@ describe('validateStudy', () => {
         ],
       });
 
-      expect(() => {
-        study_validation.validateStudy(study, studyFilePath);
-      }).toThrowError(`Invalid experiment name: ${experimentName}`);
+      expect(
+        study_validation.getStudyErrors(study, studyFileBaseName),
+      ).toContainEqual(
+        expect.stringContaining(`Invalid experiment name: ${experimentName}`),
+      );
     },
   );
 
-  test('should not throw if experiment name has comma', () => {
+  test('should not error if experiment name has comma', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -130,10 +142,12 @@ describe('validateStudy', () => {
       ],
     });
 
-    study_validation.validateStudy(study, studyFilePath);
+    expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
+      [],
+    );
   });
 
-  test('should throw an error if duplicate experiment names are found', () => {
+  test('should error if duplicate experiment names are found', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -152,12 +166,14 @@ describe('validateStudy', () => {
       ],
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Duplicate experiment name: experiment1');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining('Duplicate experiment name: experiment1'),
+    );
   });
 
-  test('should throw an error if feature name is not defined', () => {
+  test('should error if feature name is not defined', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -171,13 +187,17 @@ describe('validateStudy', () => {
       ],
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Feature name is not defined for experiment: experiment');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining(
+        'Feature name is not defined for experiment: experiment',
+      ),
+    );
   });
 
   test.each(['feature😀', 'feature,', 'feature<', 'feature*'])(
-    'should throw an error if feature name has invalid char %s',
+    'should error if feature name has invalid char %s',
     (featureName) => {
       const featureAssociations = [
         { enable_feature: [featureName] },
@@ -197,16 +217,38 @@ describe('validateStudy', () => {
           ],
         });
 
-        expect(() => {
-          study_validation.validateStudy(study, studyFilePath);
-        }).toThrowError(
-          `Invalid feature name for experiment experiment: ${featureName}`,
+        expect(
+          study_validation.getStudyErrors(study, studyFileBaseName),
+        ).toContainEqual(
+          expect.stringContaining(
+            `Invalid feature name for experiment experiment: ${featureName}`,
+          ),
         );
       }
     },
   );
 
-  test('should not throw if forcing flag is correct', () => {
+  test('should error if feature is duplicated', () => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+          feature_association: {
+            enable_feature: ['Feature'],
+            disable_feature: ['Feature'],
+          },
+        },
+      ],
+    });
+
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(expect.stringContaining(`Duplicate feature name`));
+  });
+
+  test('should not error if forcing flag is correct', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -218,11 +260,13 @@ describe('validateStudy', () => {
       ],
     });
 
-    study_validation.validateStudy(study, studyFilePath);
+    expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
+      [],
+    );
   });
 
   test.each(['Hello', ''])(
-    'should throw an error if forcing flag is incorrect %s',
+    'should error if forcing flag is incorrect %s',
     (forcingFlag) => {
       const study = Study.fromJson({
         name: 'study',
@@ -235,9 +279,13 @@ describe('validateStudy', () => {
         ],
       });
 
-      expect(() => {
-        study_validation.validateStudy(study, studyFilePath);
-      }).toThrowError('Invalid forcing flag for experiment experiment1');
+      expect(
+        study_validation.getStudyErrors(study, studyFileBaseName),
+      ).toContainEqual(
+        expect.stringContaining(
+          'Invalid forcing flag for experiment experiment1',
+        ),
+      );
     },
   );
 
@@ -275,10 +323,12 @@ describe('validateStudy', () => {
 
       const study = Study.fromJson(studyJson);
 
-      expect(() => {
-        study_validation.validateStudy(study, studyFilePath);
-      }).toThrowError(
-        'Forcing feature_on, feature_off and flag are mutually exclusive',
+      expect(
+        study_validation.getStudyErrors(study, studyFileBaseName),
+      ).toContainEqual(
+        expect.stringContaining(
+          'Forcing feature_on, feature_off and flag are mutually exclusive',
+        ),
       );
     },
   );
@@ -288,7 +338,7 @@ describe('validateStudy', () => {
     [false, true, false],
     [false, false, true],
   ])(
-    'should not throw on correct forcing options use',
+    'should not error on correct forcing options use',
     (forcingFeatureOn, forcingFeatureOff, forcingFlag) => {
       const studyJson = {
         name: 'study',
@@ -316,11 +366,13 @@ describe('validateStudy', () => {
 
       const study = Study.fromJson(studyJson);
 
-      study_validation.validateStudy(study, studyFilePath);
+      expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
+        [],
+      );
     },
   );
 
-  test('should throw an error if google_web_experiment/trigger_id conflict', () => {
+  test('should error if google_web_experiment/trigger_id conflict', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -333,14 +385,16 @@ describe('validateStudy', () => {
       ],
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError(
-      'Experiment experiment1 has both google_web_experiment_id and web_trigger_experiment_id',
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining(
+        'Experiment experiment1 has both google_web_experiment_id and web_trigger_experiment_id',
+      ),
     );
   });
 
-  test('should throw an error if param name is empty', () => {
+  test('should error if param name is empty', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -357,12 +411,14 @@ describe('validateStudy', () => {
       ],
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Empty param name in experiment experiment1');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining('Empty param name in experiment experiment1'),
+    );
   });
 
-  test('should throw an error if params conflict', () => {
+  test('should error if params conflict', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -383,12 +439,16 @@ describe('validateStudy', () => {
       ],
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Duplicate param name: test in experiment experiment1');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining(
+        'Duplicate param name: test in experiment experiment1',
+      ),
+    );
   });
 
-  test('should throw an error if default_experiment_name not found', () => {
+  test('should error if default_experiment_name not found', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -400,12 +460,16 @@ describe('validateStudy', () => {
       default_experiment_name: 'DefaultExp',
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Missing default experiment: DefaultExp in study study');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining(
+        'Missing default experiment: DefaultExp in study study',
+      ),
+    );
   });
 
-  test('should throw an error if total probability is not 100', () => {
+  test('should error if total probability is not 100', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -424,12 +488,14 @@ describe('validateStudy', () => {
       ],
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Total probability is not 100 for study study');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining('Total probability is not 100 for study study'),
+    );
   });
 
-  test('should throw an error if conflicting filter properties are found', () => {
+  test('should error if conflicting filter properties are found', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -444,12 +510,14 @@ describe('validateStudy', () => {
       },
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Filter conflict: exclude_locale and locale');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining('Filter conflict: exclude_locale and locale'),
+    );
   });
 
-  test('should not throw if conflicting filter is empty', () => {
+  test('should not error if conflicting filter is empty', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -464,10 +532,12 @@ describe('validateStudy', () => {
       },
     });
 
-    study_validation.validateStudy(study, studyFilePath);
+    expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
+      [],
+    );
   });
 
-  test('should throw an error if version range is invalid', () => {
+  test('should error if version range is invalid', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -482,12 +552,12 @@ describe('validateStudy', () => {
       },
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Invalid version range');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(expect.stringContaining('Invalid version range'));
   });
 
-  test('should throw an error if version is invalid', () => {
+  test('should error if version is invalid', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -501,12 +571,14 @@ describe('validateStudy', () => {
       },
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('contains non-numeric characters');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining('contains non-numeric characters'),
+    );
   });
 
-  test('should throw an error if os version range is invalid', () => {
+  test('should error if os version range is invalid', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -521,12 +593,12 @@ describe('validateStudy', () => {
       },
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Invalid os_version range');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(expect.stringContaining('Invalid os_version range'));
   });
 
-  test('should throw an error if date range is invalid', () => {
+  test('should error if date range is invalid', () => {
     const study = Study.fromJson({
       name: 'study',
       experiment: [
@@ -541,8 +613,8 @@ describe('validateStudy', () => {
       },
     });
 
-    expect(() => {
-      study_validation.validateStudy(study, studyFilePath);
-    }).toThrowError('Invalid date range');
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(expect.stringContaining('Invalid date range'));
   });
 });
