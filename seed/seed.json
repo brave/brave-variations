@@ -32,7 +32,7 @@
                     "BETA",
                     "NIGHTLY"
                 ],
-                "min_version": "122.0.6261.57",
+                "min_version": "122.1.63.161",
                 "platform": [
                     "WINDOWS",
                     "MAC",
@@ -1789,7 +1789,7 @@
                     "RELEASE"
                 ],
                 "min_version": "119.1.60.0",
-                "max_version": "122.0.6261.56",
+                "max_version": "122.1.63.160",
                 "platform": [
                     "WINDOWS",
                     "MAC",
