@@ -3,6 +3,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import JSON5 from 'json5';
 import {
   Study,
   Study_Channel,
@@ -26,7 +27,7 @@ describe('stringifyStudies', () => {
     );
 
     const stringifiedStudyArray = stringifyStudies([study]);
-    expect(JSON.parse(stringifiedStudyArray)).toEqual([
+    expect(JSON5.parse(stringifiedStudyArray)).toEqual([
       {
         name: 'study',
         filter: {
@@ -37,23 +38,25 @@ describe('stringifyStudies', () => {
     ]);
   });
 
-  it('should convert channel values', () => {
+  it('should convert channel, platform values', () => {
     const study = Study.fromJson(
       {
         name: 'study',
         filter: {
           channel: ['CANARY', 'BETA', 'STABLE'],
+          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
         },
       },
       { ignoreUnknownFields: false },
     );
 
     const stringifiedStudyArray = stringifyStudies([study]);
-    expect(JSON.parse(stringifiedStudyArray)).toEqual([
+    expect(JSON5.parse(stringifiedStudyArray)).toEqual([
       {
         name: 'study',
         filter: {
           channel: ['NIGHTLY', 'BETA', 'RELEASE'],
+          platform: ['LINUX', 'MAC'],
         },
       },
     ]);
@@ -73,7 +76,7 @@ describe('stringifyStudies', () => {
           },
         ],
         filter: {
-          platform: ['PLATFORM_WINDOWS', 'PLATFORM_MAC'],
+          platform: ['WINDOWS', 'MAC'],
           channel: ['CANARY', 'BETA', 'STABLE'],
         },
       },
@@ -81,7 +84,7 @@ describe('stringifyStudies', () => {
     );
 
     const stringifiedStudyArray = stringifyStudies([study]);
-    expect(JSON.parse(stringifiedStudyArray)).toEqual([
+    expect(JSON5.parse(stringifiedStudyArray)).toEqual([
       {
         name: 'BraveHorizontalTabsUpdateEnabledStudy',
         experiment: [
@@ -95,13 +98,13 @@ describe('stringifyStudies', () => {
         ],
         filter: {
           channel: ['NIGHTLY', 'BETA', 'RELEASE'],
-          platform: ['PLATFORM_WINDOWS', 'PLATFORM_MAC'],
+          platform: ['WINDOWS', 'MAC'],
         },
       },
     ]);
   });
 
-  it('chromium mode should keep channel values', () => {
+  it('chromium mode should not modify channel, platform values', () => {
     const startDate = new Date('2022-01-01T00:00:00Z');
     const study = Study.fromJson(
       {
@@ -109,6 +112,7 @@ describe('stringifyStudies', () => {
         filter: {
           start_date: Math.floor(startDate.getTime() / 1000),
           channel: ['CANARY', 'BETA', 'STABLE'],
+          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
         },
       },
       { ignoreUnknownFields: false },
@@ -117,12 +121,13 @@ describe('stringifyStudies', () => {
     const stringifiedStudyArray = stringifyStudies([study], {
       isChromium: true,
     });
-    expect(JSON.parse(stringifiedStudyArray)).toEqual([
+    expect(JSON5.parse(stringifiedStudyArray)).toEqual([
       {
         name: 'study',
         filter: {
           start_date: startDate.toISOString(),
           channel: ['CANARY', 'BETA', 'STABLE'],
+          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
         },
       },
     ]);
@@ -134,7 +139,7 @@ describe('parseStudies', () => {
     const startDate = '2022-01-01T00:00:00.000Z';
     const endDate = '2022-12-31T23:59:59.999Z';
 
-    const study = JSON.stringify([
+    const study = JSON5.stringify([
       {
         name: 'study',
         filter: {
@@ -156,7 +161,7 @@ describe('parseStudies', () => {
   it('should throw an error for invalid start_date or end_date format', () => {
     const parseStudyWithFilter = (filter: any) => {
       return parseStudies(
-        JSON.stringify([
+        JSON5.stringify([
           {
             name: 'study',
             filter,
@@ -177,7 +182,7 @@ describe('parseStudies', () => {
   });
 
   it('should convert channel values from NIGHTLY to CANARY and RELEASE to STABLE', () => {
-    const study = JSON.stringify([
+    const study = JSON5.stringify([
       {
         name: 'study',
         filter: {
@@ -195,12 +200,12 @@ describe('parseStudies', () => {
   });
 
   it('should not modify other keys', () => {
-    const study = JSON.stringify([
+    const study = JSON5.stringify([
       {
         name: 'study',
         filter: {
           channel: ['RELEASE', 'BETA', 'NIGHTLY'],
-          platform: ['PLATFORM_WINDOWS', 'PLATFORM_MAC'],
+          platform: ['WINDOWS', 'MAC'],
         },
       },
     ]);
@@ -240,7 +245,7 @@ describe('parseStudies', () => {
     const invalidStudyArrayString = 'invalid';
 
     expect(() => parseStudies(invalidStudyArrayString)).toThrowError(
-      'Unexpected token',
+      'invalid character',
     );
   });
 
@@ -270,7 +275,7 @@ describe('parseStudies', () => {
   });
 
   it('chromium mode should keep channel values', () => {
-    const study = JSON.stringify([
+    const study = JSON5.stringify([
       {
         name: 'study',
         filter: {
