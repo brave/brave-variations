@@ -15,6 +15,7 @@ describe('create command', () => {
   const testDataDir = wsPath('//src/test/data');
 
   let tempDir: string;
+  let logMock: jest.SpyInstance;
   let exitMock: jest.SpyInstance;
   let errorMock: jest.SpyInstance;
 
@@ -23,11 +24,13 @@ describe('create command', () => {
     exitMock = jest.spyOn(process, 'exit').mockImplementation((code) => {
       throw new Error(`process.exit(${code})`);
     });
+    logMock = jest.spyOn(console, 'log').mockImplementation();
     errorMock = jest.spyOn(console, 'error').mockImplementation();
   });
 
   afterEach(async () => {
     await fs.rm(tempDir, { recursive: true, force: true });
+    logMock.mockRestore();
     exitMock.mockRestore();
     errorMock.mockRestore();
   });
