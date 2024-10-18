@@ -86,8 +86,8 @@ describe('lint command', () => {
         // copy the unformatted studies to a temp dir
         await fs.mkdir(tempStudiesDir);
         await fs.copyFile(
-          path.join(studiesDir, 'TestStudy.json'),
-          path.join(tempStudiesDir, 'TestStudy.json'),
+          path.join(studiesDir, 'TestStudy.json5'),
+          path.join(tempStudiesDir, 'TestStudy.json5'),
         );
 
         // lint should fail.

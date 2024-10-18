@@ -1,0 +1,26 @@
+[
+  {
+    name: 'AnotherTestStudy',
+    experiment: [
+      {
+        name: 'Disabled',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'TestFeature',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '120.*',
+      platform: [
+        'WINDOWS',
+      ],
+    },
+  },
+]

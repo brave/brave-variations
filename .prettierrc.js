@@ -22,6 +22,7 @@ module.exports = {
     {
       files: '*.json5',
       options: {
+        // Sync with JSON5.stringify logic.
         plugins: ['prettier-plugin-multiline-arrays'],
         trailingComma: 'all',
       },
