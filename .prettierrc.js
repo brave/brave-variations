@@ -19,5 +19,12 @@ module.exports = {
         parser: 'json-stringify',
       },
     },
+    {
+      files: '*.json5',
+      options: {
+        plugins: ['prettier-plugin-multiline-arrays'],
+        trailingComma: 'all',
+      },
+    },
   ],
 };

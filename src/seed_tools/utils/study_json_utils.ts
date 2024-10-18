@@ -4,6 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { promises as fs } from 'fs';
+import JSON5 from 'json5';
 import { Study } from '../../proto/generated/study';
 
 export interface Options {
@@ -46,7 +47,7 @@ export function parseStudies(
   studyArrayString: string,
   options?: Options,
 ): Study[] {
-  const jsonStudies = JSON.parse(
+  const jsonStudies = JSON5.parse(
     studyArrayString,
     jsonStudyReviever.bind(null, options),
   );
@@ -79,7 +80,8 @@ export function stringifyStudies(studies: Study[], options?: Options): string {
   // Use 2 spaces for indentation and add a newline at the end to match Prettier
   // `json-stringify` behaviour.
   return (
-    JSON.stringify(jsonStudies, jsonStudyReplacer.bind(null, options), 2) + '\n'
+    JSON5.stringify(jsonStudies, jsonStudyReplacer.bind(null, options), 2) +
+    '\n'
   );
 }
 
@@ -105,6 +107,13 @@ function jsonStudyReplacer(
             return 'RELEASE';
         }
         return value;
+      });
+    case 'platform':
+      if (options?.isChromium === true) {
+        return value;
+      }
+      return value.map((value: string): string => {
+        return value.replace(/^PLATFORM_/, '');
       });
     default:
       return value;
@@ -141,6 +150,13 @@ function jsonStudyReviever(
             return 'STABLE';
         }
         return value;
+      });
+    case 'platform':
+      if (options?.isChromium === true) {
+        return value;
+      }
+      return value.map((value: string): string => {
+        return `PLATFORM_${value}`;
       });
     default:
       return value;
