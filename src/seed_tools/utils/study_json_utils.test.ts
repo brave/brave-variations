@@ -38,12 +38,13 @@ describe('stringifyStudies', () => {
     ]);
   });
 
-  it('should convert channel values', () => {
+  it('should convert channel, platform values', () => {
     const study = Study.fromJson(
       {
         name: 'study',
         filter: {
           channel: ['CANARY', 'BETA', 'STABLE'],
+          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
         },
       },
       { ignoreUnknownFields: false },
@@ -55,6 +56,7 @@ describe('stringifyStudies', () => {
         name: 'study',
         filter: {
           channel: ['NIGHTLY', 'BETA', 'RELEASE'],
+          platform: ['LINUX', 'MAC'],
         },
       },
     ]);
@@ -102,7 +104,7 @@ describe('stringifyStudies', () => {
     ]);
   });
 
-  it('chromium mode should keep channel values', () => {
+  it('chromium mode should not modify channel, platform values', () => {
     const startDate = new Date('2022-01-01T00:00:00Z');
     const study = Study.fromJson(
       {
@@ -110,6 +112,7 @@ describe('stringifyStudies', () => {
         filter: {
           start_date: Math.floor(startDate.getTime() / 1000),
           channel: ['CANARY', 'BETA', 'STABLE'],
+          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
         },
       },
       { ignoreUnknownFields: false },
@@ -124,6 +127,7 @@ describe('stringifyStudies', () => {
         filter: {
           start_date: startDate.toISOString(),
           channel: ['CANARY', 'BETA', 'STABLE'],
+          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
         },
       },
     ]);
