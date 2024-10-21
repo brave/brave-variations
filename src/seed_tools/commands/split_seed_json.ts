@@ -48,7 +48,7 @@ async function main(seedPath: string, outputDir: string) {
   for (const study of studies) {
     const studyName = study[0];
     const studyArray = study[1];
-    const studyFile = `${outputDir}/${studyName}.json`;
+    const studyFile = `${outputDir}/${studyName}.json5`;
     await study_json_utils.writeStudyFile(studyArray, studyFile);
   }
 }

@@ -16,6 +16,7 @@ describe('lint command', () => {
 
   let tempDir: string;
   let exitMock: jest.SpyInstance;
+  let logMock: jest.SpyInstance;
   let errorMock: jest.SpyInstance;
 
   beforeEach(async () => {
@@ -23,11 +24,13 @@ describe('lint command', () => {
     exitMock = jest.spyOn(process, 'exit').mockImplementation((code) => {
       throw new Error(`process.exit(${code})`);
     });
+    logMock = jest.spyOn(console, 'log').mockImplementation();
     errorMock = jest.spyOn(console, 'error').mockImplementation();
   });
 
   afterEach(async () => {
     await fs.rm(tempDir, { recursive: true, force: true });
+    logMock.mockRestore();
     exitMock.mockRestore();
     errorMock.mockRestore();
   });
@@ -86,8 +89,8 @@ describe('lint command', () => {
         // copy the unformatted studies to a temp dir
         await fs.mkdir(tempStudiesDir);
         await fs.copyFile(
-          path.join(studiesDir, 'TestStudy.json'),
-          path.join(tempStudiesDir, 'TestStudy.json'),
+          path.join(studiesDir, 'TestStudy.json5'),
+          path.join(tempStudiesDir, 'TestStudy.json5'),
         );
 
         // lint should fail.

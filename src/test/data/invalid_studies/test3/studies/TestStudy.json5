@@ -1,0 +1,21 @@
+[
+  {
+    name: 'TestStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'TestFeature',
+          ],
+        },
+      },
+    ],
+    filter: {
+      platform: [
+        'MACOS',
+      ],
+    },
+  },
+]
