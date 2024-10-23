@@ -1,0 +1,31 @@
+[
+  {
+    name: 'DefaultBraveCommandsStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveCommands',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]

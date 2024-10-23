@@ -1,0 +1,32 @@
+[
+  {
+    name: 'BraveWebcompatExceptionsServiceReleaseStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveWebcompatExceptionsService',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '128.1.69.150',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]

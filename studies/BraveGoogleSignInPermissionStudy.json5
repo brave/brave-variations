@@ -1,0 +1,81 @@
+[
+  {
+    name: 'BraveGoogleSignInPermissionStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveGoogleSignInPermission',
+          ],
+        },
+      },
+      {
+        name: 'Disabled',
+        probability_weight: 0,
+        feature_association: {
+          disable_feature: [
+            'BraveGoogleSignInPermission',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '111.1.51.5',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'BraveGoogleSignInPermissionStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveGoogleSignInPermission',
+          ],
+        },
+      },
+      {
+        name: 'Disabled',
+        probability_weight: 0,
+        feature_association: {
+          disable_feature: [
+            'BraveGoogleSignInPermission',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '111.1.51.5',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]
