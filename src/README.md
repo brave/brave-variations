@@ -1,4 +1,4 @@
-# Griffin & Finch Tracker
+# Griffin & Finch Tracker & Seed Tools
 
 ## Directory structure
 
@@ -6,11 +6,13 @@
 
 `finch_tracker` - NodeJS/TS console app to track seed changes. See https://github.com/brave/finch-data-private/#finch-tracker
 
-`web` WebUI hosted on griffin.brave.com. It parses raw seed data and shows them in human readable format. Doesn't use any sophisticated backend, 100% code runs on the client side.
-
-`test` is supporting code/data to use in tests
-
 `proto` chromium protobuf files describing seed data format.
+
+`seed_tools` seed generator and related tools to create the seed from `/studies` directory.
+
+`test` is supporting code/data to use in tests.
+
+`web` WebUI hosted on griffin.brave.com. It parses raw seed data and shows them in human readable format. Doesn't use any sophisticated backend, 100% code runs on the client side.
 
 ## Commands and actions
 

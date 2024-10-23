@@ -1,0 +1,51 @@
+[
+  {
+    name: 'UserActivityStudy',
+    experiment: [
+      {
+        name: 'Triggers',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'UserActivity',
+          ],
+        },
+        param: [
+          {
+            name: 'triggers',
+            value: '0D0B14110D0B14110D0B14110D0B1411=-1.0;0D0B1411070707=-1.0;07070707=-1.0;0B1512=0.5;0B1513=0.5;0B1514=0.5;06=1.0;04=0.5',
+          },
+          {
+            name: 'time_window',
+            value: '1h',
+          },
+          {
+            name: 'threshold',
+            value: '0.5',
+          },
+          {
+            name: 'idle_time_threshold',
+            value: '5s',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '108.1.47.73',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]
