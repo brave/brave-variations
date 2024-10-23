@@ -6,7 +6,6 @@
 import { SeedType } from './base_types';
 
 export const variationsMainUrl = 'https://variations.brave.com/seed';
-export const variationsStagingUrl = 'https://variations.bravesoftware.com/seed';
 export const variationsUpstreamUrl =
   'https://griffin.brave.com/finch-data-private/seed.bin';
 
@@ -47,14 +46,13 @@ export function getStudyRawConfigUrl(
   study: string,
   seedType: SeedType,
 ): string {
-  const BRAVE_VARIATIONS_REPO_PATTERN = '^github\\.com/brave/brave-variations$';
   if (seedType === SeedType.UPSTREAM)
     return `${getGitHubStorageUrl()}/blob/main/study/all-by-name/${study}`;
-  const branch = seedType === SeedType.MAIN ? 'main' : 'staging';
-  return makeSourceGraphUrl(
-    `"name": "${study}"`,
-    `${BRAVE_VARIATIONS_REPO_PATTERN}@${branch}`,
-    'seed/seed.json',
+  return (
+    'https://github.com/search?type=code' +
+    '&q=repo%3Abrave%2Fbrave-variations' +
+    '+path%3A%2F%5Eseed%5C%2Fseed.json%7C%5Estudies%5C%2F*.json5%2F+' +
+    `"%5C"name%5C"%3A+%5C"${encodeURIComponent(study)}%5C""`
   );
 }
 

@@ -5,7 +5,6 @@
 
 export enum SeedType {
   MAIN, // main Brave seed (brave-variations@main)
-  STAGING, // staging Brave seed (brave-variations@staging)
   UPSTREAM, // Chrome seed (Finch)
 }
 
