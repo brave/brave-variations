@@ -1,0 +1,43 @@
+[
+  {
+    name: 'BraveAds.CreativeAdModelBasedPredictorRecencyStudy',
+    experiment: [
+      {
+        name: 'NoRecency',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'CreativeNotificationAdModelBasedPredictor',
+            'CreativeNewTabPageAdModelBasedPredictor',
+            'CreativeInlineContentAdModelBasedPredictor',
+          ],
+        },
+        param: [
+          {
+            name: 'last_seen_ad_predictor_weight',
+            value: '0.0',
+          },
+          {
+            name: 'last_seen_advertiser_predictor_weight',
+            value: '0.0',
+          },
+        ],
+      },
+    ],
+    filter: {
+      max_version: '128.1.69.51',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
+]

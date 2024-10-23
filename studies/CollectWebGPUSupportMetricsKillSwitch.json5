@@ -1,0 +1,28 @@
+[
+  {
+    name: 'CollectWebGPUSupportMetricsKillSwitch',
+    experiment: [
+      {
+        name: 'Disabled_CollectWebGPUSupportMetrics',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'CollectWebGPUSupportMetrics',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '119.*',
+      max_version: '119.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'LINUX',
+      ],
+    },
+  },
+]
