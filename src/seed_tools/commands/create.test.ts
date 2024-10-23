@@ -101,6 +101,35 @@ describe('create command', () => {
     );
   });
 
+  describe('serial number is equal in the seed and in the generated file', () => {
+    const validSeedsDir = path.join(testDataDir, 'valid_seeds');
+    it.each(fs_sync.readdirSync(validSeedsDir))(
+      'correctly creates %s',
+      async (testCase) => {
+        const testCaseDir = path.join(validSeedsDir, testCase);
+        const studiesDir = path.join(testCaseDir, 'studies');
+        const outputFile = path.join(tempDir, 'output.bin');
+        const serialNumberPath = path.join(tempDir, 'serial_number.txt');
+
+        await create().parseAsync([
+          'node',
+          'create',
+          studiesDir,
+          outputFile,
+          '--output_serial_number_file',
+          serialNumberPath,
+        ]);
+
+        const output = await fs.readFile(outputFile);
+        const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
+        expect(outputSerialNumber).not.toEqual('1');
+        expect(VariationsSeed.fromBinary(output).serial_number).toEqual(
+          outputSerialNumber,
+        );
+      },
+    );
+  });
+
   describe('invalid studies', () => {
     const invalidStudiesDir = path.join(testDataDir, 'invalid_studies');
     it.each(fs_sync.readdirSync(invalidStudiesDir))(
@@ -117,8 +146,6 @@ describe('create command', () => {
             'create',
             studiesDir,
             outputFile,
-            '--mock_serial_number',
-            '1',
             '--output_serial_number_file',
             serialNumberPath,
           ]),
@@ -143,8 +170,6 @@ describe('create command', () => {
             'create',
             studiesDir,
             outputFile,
-            '--mock_serial_number',
-            '1',
             '--output_serial_number_file',
             serialNumberPath,
           ]),
