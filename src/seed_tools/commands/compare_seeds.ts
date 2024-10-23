@@ -13,16 +13,20 @@ export default function createCommand() {
     .description('Compare two seed.bin')
     .argument('<seed1_file>', 'seed1 file')
     .argument('<seed2_file>', 'seed2 file')
-    .argument('<seed1_serialnumber>', 'seed1 serialnumber file')
-    .argument('<seed2_serialnumber>', 'seed2 serialnumber file')
+    .option('--seed1_serialnumber_file <file>', 'seed1 serialnumber file')
+    .option('--seed2_serialnumber_file <file>', 'seed2 serialnumber file')
     .action(main);
+}
+
+interface Options {
+  seed1_serialnumber_file?: string;
+  seed2_serialnumber_file?: string;
 }
 
 async function main(
   seed1FilePath: string,
   seed2FilePath: string,
-  seed1SerialnumberFilePath: string,
-  seed2SerialnumberFilePath: string,
+  options: Options,
 ) {
   const seed1Binary: Buffer = await fs.readFile(seed1FilePath);
   const seed2Binary: Buffer = await fs.readFile(seed2FilePath);
@@ -62,21 +66,26 @@ async function main(
     process.exit(1);
   }
 
-  const seed1Serialnumber: string = await fs.readFile(
-    seed1SerialnumberFilePath,
-    'utf8',
-  );
-  const seed2Serialnumber: string = await fs.readFile(
-    seed2SerialnumberFilePath,
-    'utf8',
-  );
-  if (seed1Content.serial_number !== seed1Serialnumber) {
-    console.error('Seed1 serial number does not match');
-    process.exit(1);
+  if (options.seed1_serialnumber_file !== undefined) {
+    const seed1Serialnumber: string = await fs.readFile(
+      options.seed1_serialnumber_file,
+      'utf8',
+    );
+    if (seed1Content.serial_number !== seed1Serialnumber) {
+      console.error('Seed1 serial number does not match');
+      process.exit(1);
+    }
   }
-  if (seed2Content.serial_number !== seed2Serialnumber) {
-    console.error('Seed2 serial number does not match');
-    process.exit(1);
+
+  if (options.seed2_serialnumber_file !== undefined) {
+    const seed2Serialnumber: string = await fs.readFile(
+      options.seed2_serialnumber_file,
+      'utf8',
+    );
+    if (seed2Content.serial_number !== seed2Serialnumber) {
+      console.error('Seed2 serial number does not match');
+      process.exit(1);
+    }
   }
 
   console.log('Seeds are equal');

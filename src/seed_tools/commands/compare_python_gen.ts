@@ -58,7 +58,7 @@ async function main(options: Options) {
 
     // Run seed comparator
     execSync(
-      `npm run seed_tools compare_seeds ${pythonSeedFilePath} ${typescriptSeedFilePath} ${pythonSeedSerialNumberFilePath} ${typescriptSeedSerialNumberFilePath}`,
+      `npm run seed_tools compare_seeds ${pythonSeedFilePath} ${typescriptSeedFilePath} --seed1_serialnumber_file ${pythonSeedSerialNumberFilePath} --seed2_serialnumber_file ${typescriptSeedSerialNumberFilePath}`,
       { stdio: 'inherit' },
     );
   } finally {
