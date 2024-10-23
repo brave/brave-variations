@@ -12,8 +12,12 @@ import { readStudiesToSeed } from '../utils/studies_to_seed';
 export default function createCommand() {
   return new Command('create')
     .description('Create seed.bin from study files')
-    .argument('<studies_dir>', 'path to the directory containing study files')
-    .argument('<output_seed_file>', 'output seed file')
+    .argument(
+      '[studies_dir]',
+      'path to the directory containing study files',
+      'studies',
+    )
+    .argument('[output_seed_file]', 'output seed file', 'seed.bin')
     .option('--mock_serial_number <value>', 'mock serial number')
     .option(
       '--output_serial_number_file <path>',
