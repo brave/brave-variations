@@ -13,17 +13,19 @@ export default function createCommand() {
     .description('Compare two seed.bin')
     .argument('<seed1_file>', 'seed1 file')
     .argument('<seed2_file>', 'seed2 file')
+    .argument('<seed1_serialnumber>', 'seed1 serialnumber file')
+    .argument('<seed2_serialnumber>', 'seed2 serialnumber file')
     .action(main);
 }
 
-async function main(seed1FilePath: string, seed2FilePath: string) {
+async function main(
+  seed1FilePath: string,
+  seed2FilePath: string,
+  seed1SerialnumberFilePath: string,
+  seed2SerialnumberFilePath: string,
+) {
   const seed1Binary: Buffer = await fs.readFile(seed1FilePath);
   const seed2Binary: Buffer = await fs.readFile(seed2FilePath);
-  if (seed1Binary.equals(seed2Binary)) {
-    console.log('Seeds are equal');
-    process.exit(0);
-  }
-
   const seed1Content = VariationsSeed.fromBinary(seed1Binary);
   const seed2Content = VariationsSeed.fromBinary(seed2Binary);
 
@@ -52,9 +54,30 @@ async function main(seed1FilePath: string, seed2FilePath: string) {
         seed2FilePath,
       ),
     );
-  } else {
-    console.error('Seeds semantically equal but binary different');
+    process.exit(1);
   }
 
-  process.exit(1);
+  if (!seed1Binary.equals(seed2Binary)) {
+    console.error('Seeds semantically equal but binary different');
+    process.exit(1);
+  }
+
+  const seed1Serialnumber: string = await fs.readFile(
+    seed1SerialnumberFilePath,
+    'utf8',
+  );
+  const seed2Serialnumber: string = await fs.readFile(
+    seed2SerialnumberFilePath,
+    'utf8',
+  );
+  if (seed1Content.serial_number !== seed1Serialnumber) {
+    console.error('Seed1 serial number does not match');
+    process.exit(1);
+  }
+  if (seed2Content.serial_number !== seed2Serialnumber) {
+    console.error('Seed2 serial number does not match');
+    process.exit(1);
+  }
+
+  console.log('Seeds are equal');
 }
