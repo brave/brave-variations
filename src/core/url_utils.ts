@@ -46,14 +46,12 @@ export function getStudyRawConfigUrl(
   study: string,
   seedType: SeedType,
 ): string {
-  const BRAVE_VARIATIONS_REPO_PATTERN = '^github\\.com/brave/brave-variations$';
   if (seedType === SeedType.UPSTREAM)
     return `${getGitHubStorageUrl()}/blob/main/study/all-by-name/${study}`;
-  return makeSourceGraphUrl(
-    `"name": "${study}"`,
-    `${BRAVE_VARIATIONS_REPO_PATTERN}@$main`,
-    'seed/seed.json',
-  );
+  return 'https://github.com/search?type=code' +
+    '&q=repo%3Abrave%2Fbrave-variations' +
+    '+path%3A%2F%5Eseed%5C%2Fseed.json%7C%5Estudies%5C%2F*.json5%2F+' +
+    `"%5C"name%5C"%3A+%5C"${encodeURIComponent(study)}%5C""`;
 }
 
 // Returns a link to see the study config at griffin.brave.com.
