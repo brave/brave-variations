@@ -15,15 +15,10 @@ export default function createCommand() {
     .description(
       'Run python and typescript seed generators and compare results',
     )
-    .option('--python <value>', 'Path to python executable', 'python3')
     .action(main);
 }
 
-interface Options {
-  python: string;
-}
-
-async function main(options: Options) {
+async function main() {
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'seed-compare-'));
   const mockSerialNumber = 'mock_serial_number';
 
@@ -41,7 +36,7 @@ async function main(options: Options) {
 
     // Run Python seed generator
     execSync(
-      `${options.python} ./seed/serialize.py ./seed/seed.json --mock_serial_number ${mockSerialNumber}`,
+      `python3 ./seed/serialize.py ./seed/seed.json --mock_serial_number ${mockSerialNumber}`,
       {
         stdio: 'inherit',
       },
