@@ -9,7 +9,11 @@ import { readStudiesToSeed } from '../utils/studies_to_seed';
 export default function createCommand() {
   return new Command('lint')
     .description('Lint study files without creating seed.bin')
-    .argument('<studies_dir>', 'path to the directory containing study files')
+    .argument(
+      '[studies_dir]',
+      'path to the directory containing study files',
+      'studies',
+    )
     .option('--fix', 'fix format errors in-place')
     .action(lintStudies);
 }

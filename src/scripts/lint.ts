@@ -41,7 +41,7 @@ function getLintAllCommands(options: Options): string[] {
   return [
     'prettier . --ignore-unknown' + (options.fix ? ' --write' : ' --check'),
     'eslint . --config src/.eslintrc.js' + (options.fix ? ' --fix' : ''),
-    'npm run seed_tools -- lint studies' + (options.fix ? ' --fix' : ''),
+    'npm run -- seed_tools lint' + (options.fix ? ' --fix' : ''),
   ];
 }
 
@@ -52,7 +52,7 @@ function getLintDiffCommands(options: Options): Record<string, any> {
     '*.{ts,js,tsx,jsx}':
       'eslint --config src/.eslintrc.js' + (options.fix ? ' --fix' : ''),
     'studies/*': () =>
-      'npm run seed_tools -- lint studies' + (options.fix ? ' --fix' : ''),
+      'npm run -- seed_tools lint' + (options.fix ? ' --fix' : ''),
   };
 }
 
