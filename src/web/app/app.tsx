@@ -424,10 +424,6 @@ export function App() {
             type={SeedType.MAIN}
             searchParamManager={searchParamManager}
           />
-          <NavItem
-            type={SeedType.STAGING}
-            searchParamManager={searchParamManager}
-          />
           {hasUpstream && (
             <NavItem
               type={SeedType.UPSTREAM}

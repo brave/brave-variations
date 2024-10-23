@@ -77,9 +77,6 @@ export function loadSeedDataAsync(
   loadSeedFromUrl(url_utils.variationsMainUrl, SeedType.MAIN)
     .then(cb.bind(cb, SeedType.MAIN))
     .catch(console.error);
-  loadSeedFromUrl(url_utils.variationsStagingUrl, SeedType.STAGING)
-    .then(cb.bind(cb, SeedType.STAGING))
-    .catch(console.error);
   loadSeedFromUrl(url_utils.variationsUpstreamUrl, SeedType.UPSTREAM)
     .then(cb.bind(cb, SeedType.UPSTREAM))
     .catch(() => {
