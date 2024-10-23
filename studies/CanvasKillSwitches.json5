@@ -1,0 +1,31 @@
+[
+  {
+    name: 'CanvasKillSwitches',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'Canvas2DHibernation',
+            'EvictionUnlocksResources',
+          ],
+        },
+      },
+    ],
+    filter: {
+      max_version: '125.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]

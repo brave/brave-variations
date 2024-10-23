@@ -1,0 +1,77 @@
+[
+  {
+    name: 'BraveSearchPromotionBannerStudy',
+    experiment: [
+      {
+        name: 'banner_type_B',
+        probability_weight: 33,
+        feature_association: {
+          enable_feature: [
+            'BraveSearchOmniboxBanner',
+          ],
+        },
+        param: [
+          {
+            name: 'banner_type',
+            value: 'type_B',
+          },
+        ],
+      },
+      {
+        name: 'banner_type_C',
+        probability_weight: 33,
+        feature_association: {
+          enable_feature: [
+            'BraveSearchOmniboxBanner',
+          ],
+        },
+        param: [
+          {
+            name: 'banner_type',
+            value: 'type_C',
+          },
+        ],
+      },
+      {
+        name: 'banner_type_D',
+        probability_weight: 34,
+        feature_association: {
+          enable_feature: [
+            'BraveSearchOmniboxBanner',
+          ],
+        },
+        param: [
+          {
+            name: 'banner_type',
+            value: 'type_D',
+          },
+        ],
+      },
+    ],
+    filter: {
+      min_version: '117.1.60.41',
+      channel: [
+        'BETA',
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+      country: [
+        'CA',
+        'DE',
+        'FR',
+        'GB',
+        'US',
+        'AT',
+        'ES',
+        'MX',
+        'BR',
+        'AR',
+        'IN',
+      ],
+    },
+  },
+]

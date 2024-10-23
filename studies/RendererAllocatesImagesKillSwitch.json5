@@ -1,0 +1,28 @@
+[
+  {
+    name: 'RendererAllocatesImagesKillSwitch',
+    experiment: [
+      {
+        name: 'Disabled_RendererAllocatesImages',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'RendererAllocatesImages',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '122.*',
+      max_version: '124.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'MAC',
+      ],
+    },
+  },
+]

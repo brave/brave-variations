@@ -41,8 +41,7 @@ function getLintAllCommands(options: Options): string[] {
   return [
     'prettier . --ignore-unknown' + (options.fix ? ' --write' : ' --check'),
     'eslint . --config src/.eslintrc.js' + (options.fix ? ' --fix' : ''),
-    // TODO(goodov): Add a command to lint JSON studies when per-file structure
-    // appears.
+    'npm run seed_tools -- lint studies' + (options.fix ? ' --fix' : ''),
   ];
 }
 

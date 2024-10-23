@@ -1,0 +1,32 @@
+[
+  {
+    name: 'WhatsNewStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        param: [
+          {
+            name: 'target_major_version_stable',
+            value: '1.65',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '119.1.60.114',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]
