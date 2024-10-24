@@ -5,6 +5,7 @@
 
 import { type Study, type Study_Experiment } from '../../proto/generated/study';
 import * as study_filter_utils from './study_filter_utils';
+import { Version } from './version';
 
 const invalidFeatureOrFieldTrialNameChars = ',<*';
 const invalidExperimentNameChars = '<*';
@@ -20,6 +21,7 @@ export function getStudyErrors(study: Study, fileBaseName: string): string[] {
     checkDateRange,
     checkVersionRange,
     checkOsVersionRange,
+    checkChannelAndPlatform,
   ];
   for (const validator of validators) {
     try {
@@ -233,6 +235,22 @@ function checkVersionRange(study: Study): string[] {
   const [minVersion, maxVersion] =
     study_filter_utils.getStudyVersionRange(study);
 
+  function checkIfChromiumVersion(version: Version): boolean {
+    return version.components.length >= 3 && version.components[2] > 6000;
+  }
+
+  if (minVersion !== undefined && checkIfChromiumVersion(minVersion)) {
+    errors.push(
+      `Detected Chromium version in a filter for study ${study.name}: ${minVersion.toString()}. Use Brave version in a format CHROMIUM_MAJOR.BRAVE_MAJOR.BRAVE_MINOR.BRAVE_BUILD`,
+    );
+  }
+
+  if (maxVersion !== undefined && checkIfChromiumVersion(maxVersion)) {
+    errors.push(
+      `Detected Chromium version in a filter for study ${study.name}: ${maxVersion.toString()}. Use Brave version in a format CHROMIUM_MAJOR.BRAVE_MAJOR.BRAVE_MINOR.BRAVE_BUILD`,
+    );
+  }
+
   if (
     minVersion !== undefined &&
     maxVersion !== undefined &&
@@ -242,6 +260,7 @@ function checkVersionRange(study: Study): string[] {
       `Invalid version range for study ${study.name}: min (${minVersion.toString()}) > max (${maxVersion.toString()})`,
     );
   }
+
   return errors;
 }
 
@@ -260,6 +279,39 @@ function checkOsVersionRange(study: Study): string[] {
       `Invalid os_version range for study ${study.name}: min (${minOsVersion.toString()}) > max (${maxOsVersion.toString()})`,
     );
   }
+  return errors;
+}
+
+function checkChannelAndPlatform(study: Study): string[] {
+  const errors: string[] = [];
+  if (study.filter === undefined) {
+    errors.push(`Filter is not defined for study ${study.name}.`);
+    return errors;
+  }
+
+  if (study.filter.channel === undefined || study.filter.channel.length === 0) {
+    errors.push(`Channel filter is required for study ${study.name}`);
+  } else {
+    // Check if duplicate channels are present.
+    const channelSet = new Set(study.filter.channel);
+    if (channelSet.size !== study.filter.channel.length) {
+      errors.push(`Duplicate channel(s) in filter for study ${study.name}`);
+    }
+  }
+
+  if (
+    study.filter.platform === undefined ||
+    study.filter.platform.length === 0
+  ) {
+    errors.push(`Platform filter is required for study ${study.name}`);
+  } else {
+    // Check if duplicate platforms are present.
+    const platformSet = new Set(study.filter.platform);
+    if (platformSet.size !== study.filter.platform.length) {
+      errors.push(`Duplicate platform(s) in filter for study ${study.name}`);
+    }
+  }
+
   return errors;
 }
 
