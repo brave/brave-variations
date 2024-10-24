@@ -3,6 +3,12 @@
 # Griffin maintainers are responsible for all machinery in this repository.
 * @brave/griffin-maintainers
 
-# The seed file is owned by the uplift team as any change to it directly affects
-# public builds. It's important to update the seed in a controlled manner.
-/seed/seed.json @brave/uplift-approvers
+# The seed directory is deprecated and no longer used for the seed generation.
+# However, it is used by the perf infrastructure to access the Griffin seed at
+# some point in the past. Lock it to Griffin maintainers to prevent any
+# unrelated changes.
+/seed/** @brave/griffin-maintainers
+
+# The studies are owned by the uplift team as any change directly affects public
+# builds. It's important to update studies in a controlled manner.
+/studies/*.json5 @brave/uplift-approvers

@@ -4,7 +4,6 @@ on:
   pull_request:
     paths:
       - '.github/workflows/generate-test-seed.yml'
-      - 'seed/seed.json'
       - 'studies/**'
 
 jobs:
@@ -22,14 +21,6 @@ jobs:
 
       - name: Fetch base commit
         run: git fetch --depth=1 origin "$BASE_SHA"
-
-      - name: Setup Python
-        uses: actions/setup-python@f677139bbe7f9c59b41e40162b753c062f5d49a3 # v5
-        with:
-          python-version: '3.11'
-
-      - name: Install python requirements
-        run: pip install -r seed/requirements.txt
 
       - name: Comment "Generation In Progress"
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
@@ -64,10 +55,7 @@ jobs:
 
       - name: Generate seed
         run: |
-          # Use only python implementation for now.
-          python seed/serialize.py seed/seed.json --version "$SEED_VERSION"
-          # TODO: enable this when per-file studies will be synced with seed.json.
-          # npm run seed_tools -- create_seed studies seed.bin --version "$SEED_VERSION"
+          npm run seed_tools create -- --version "$SEED_VERSION"
 
       - name: Upload seed
         env:

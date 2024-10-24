@@ -1,0 +1,31 @@
+[
+  {
+    name: 'PrettyPrintJSONDocument',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'PrettyPrintJSONDocument',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '117.0.0.0',
+      max_version: '119.1.61.0',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]
