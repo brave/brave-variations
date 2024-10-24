@@ -28,7 +28,11 @@ describe('getSeedErrors', () => {
       };
       if (filter !== null) {
         study.filter = filter;
+      } else {
+        study.filter = {};
       }
+      study.filter.platform = study.filter.platform ?? ['PLATFORM_LINUX'];
+      study.filter.channel = study.filter.channel ?? ['BETA'];
       return Study.fromJson(study, {
         ignoreUnknownFields: false,
       });
