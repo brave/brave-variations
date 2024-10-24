@@ -5,6 +5,7 @@
 
 import { program } from '@commander-js/extra-typings';
 
+import compare_python_gen from './commands/compare_python_gen';
 import compare_seeds from './commands/compare_seeds';
 import create from './commands/create';
 import lint from './commands/lint';
@@ -13,6 +14,7 @@ import split_seed_json from './commands/split_seed_json';
 program
   .name('seed_tools')
   .description('Seed tools for manipulating study files.')
+  .addCommand(compare_python_gen())
   .addCommand(compare_seeds())
   .addCommand(create())
   .addCommand(lint())
