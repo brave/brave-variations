@@ -130,52 +130,52 @@ describe('getSeedErrors', () => {
       // min/max version tests.
       {
         filter1: {
-          min_version: '1.0.0',
-          max_version: '2.0.0',
+          min_version: '100.1.0.0',
+          max_version: '100.2.0.0',
         },
         filter2: {
-          min_version: '1.5.0',
-          max_version: '2.5.0',
+          min_version: '100.1.5.0',
+          max_version: '100.2.5.0',
         },
         expectedOverlapped: true,
       },
       {
         filter1: {
-          min_version: '1.0.0',
-          max_version: '2.0.0',
+          min_version: '100.1.0.0',
+          max_version: '100.2.0.0',
         },
         filter2: {
-          min_version: '1.*',
-          max_version: '2.*',
+          min_version: '100.1.*',
+          max_version: '100.2.*',
         },
         expectedOverlapped: true,
       },
       {
         filter1: {
-          min_version: '1.0.0',
-          max_version: '2.0.0',
+          min_version: '100.1.0.0',
+          max_version: '100.2.0.0',
         },
         filter2: {
-          min_version: '2.1.*',
-          max_version: '2.*',
+          min_version: '100.2.1.*',
+          max_version: '100.2.*',
         },
         expectedOverlapped: false,
       },
       {
         filter1: {
-          min_version: '1.5.0',
-          max_version: '2.0.0',
+          min_version: '100.1.5.0',
+          max_version: '100.2.0.0',
         },
         filter2: {
-          min_version: '1.*',
-          max_version: '1.5.*',
+          min_version: '100.1.*',
+          max_version: '100.1.5.*',
         },
         expectedOverlapped: true,
       },
       {
         filter1: {
-          min_version: '1.5.0',
-          max_version: '2.0.0',
+          min_version: '100.1.5.0',
+          max_version: '100.2.0.0',
         },
         filter2: {},
         expectedOverlapped: true,

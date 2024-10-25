@@ -239,10 +239,10 @@ function checkVersionRange(study: Study): string[] {
     if (
       version !== undefined &&
       version.components.length >= 3 &&
-      version.components[2] > 6000
+      (version.components[0] < 80 || version.components[2] > 4000)
     ) {
       errors.push(
-        `Detected Chromium version in a filter for study ${study.name}: ${version.toString()}. Use Brave version in a format CHROMIUM_MAJOR.BRAVE_MAJOR.BRAVE_MINOR.BRAVE_BUILD`,
+        `Detected non-Brave version in a filter for study ${study.name}: ${version.toString()}. Use Brave version in a format CHROMIUM_MAJOR.BRAVE_MAJOR.BRAVE_MINOR.BRAVE_BUILD`,
       );
     }
   };
