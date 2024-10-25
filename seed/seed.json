@@ -9,11 +9,12 @@
                         ]
                     },
                     "name": "DefaultLlama",
-                    "params": {
-                        "AIChat": {
-                            "default_model": "chat-basic"
+                    "parameters": [
+                        {
+                            "name": "default_model",
+                            "value": "chat-basic"
                         }
-                    },
+                    ],
                     "probability_weight": 25
                 },
                 {
