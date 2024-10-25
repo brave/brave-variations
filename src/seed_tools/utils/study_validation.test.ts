@@ -596,47 +596,51 @@ describe('getStudyErrors', () => {
     );
   });
 
-  test.each([{ min_version: '130.0.6517.0' }, { max_version: '135.0.6707.0' }])(
-    'should error if version is Chromium %s',
-    (filter: any) => {
-      const study = Study.fromJson({
-        name: 'study',
-        experiment: [
-          {
-            name: 'experiment1',
-            probability_weight: 100,
-          },
-        ],
-        filter,
-      });
+  test.each([
+    { min_version: '130.0.6517.0' },
+    { max_version: '135.0.6707.0' },
+    { min_version: '1.65.70' },
+    { min_version: '82.0.4056.0' },
+    { min_version: '79.0.3945.0' },
+  ])('should error if version is non-Brave %s', (filter: any) => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+        },
+      ],
+      filter,
+    });
 
-      expect(
-        study_validation.getStudyErrors(study, studyFileBaseName),
-      ).toContainEqual(
-        expect.stringContaining('Detected Chromium version in a filter'),
-      );
-    },
-  );
+    expect(
+      study_validation.getStudyErrors(study, studyFileBaseName),
+    ).toContainEqual(
+      expect.stringContaining('Detected non-Brave version in a filter'),
+    );
+  });
 
-  test.each([{ min_version: '130.1.70.0' }, { max_version: '135.1.91.0' }])(
-    'should not error if version is Brave %s',
-    (filter: any) => {
-      const study = Study.fromJson({
-        name: 'study',
-        experiment: [
-          {
-            name: 'experiment1',
-            probability_weight: 100,
-          },
-        ],
-        filter: { ...filter, platform: ['PLATFORM_LINUX'], channel: ['BETA'] },
-      });
+  test.each([
+    { min_version: '130.1.70.0' },
+    { max_version: '135.1.91.0' },
+    { min_version: '80.1.8.1' },
+  ])('should not error if version is Brave %s', (filter: any) => {
+    const study = Study.fromJson({
+      name: 'study',
+      experiment: [
+        {
+          name: 'experiment1',
+          probability_weight: 100,
+        },
+      ],
+      filter: { ...filter, platform: ['PLATFORM_LINUX'], channel: ['BETA'] },
+    });
 
-      expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
-        [],
-      );
-    },
-  );
+    expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
+      [],
+    );
+  });
 
   test('should error if os version range is invalid', () => {
     const study = Study.fromJson({
