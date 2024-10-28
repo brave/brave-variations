@@ -1,0 +1,37 @@
+[
+  {
+    name: 'Speedreader TTS',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'Speedreader',
+          ],
+        },
+        param: [
+          {
+            name: 'tts',
+            value: 'true',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+      ],
+    },
+  },
+]

@@ -1,0 +1,37 @@
+[
+  {
+    name: 'BraveFallbackDoHStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'BraveFallbackDoHProvider',
+          ],
+        },
+        param: [
+          {
+            name: 'BraveFallbackDoHProviderEndpoint',
+            value: 'quad9',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      channel: [
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]

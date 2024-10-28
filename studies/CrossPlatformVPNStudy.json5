@@ -1,0 +1,34 @@
+[
+  {
+    name: 'CrossPlatformVPNStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveVPN',
+            'BraveVPNLinkSubscriptionAndroidUI',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '110.1.49.120',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'ANDROID',
+      ],
+    },
+  },
+]

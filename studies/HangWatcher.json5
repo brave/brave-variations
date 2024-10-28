@@ -1,0 +1,57 @@
+[
+  {
+    name: 'HangWatcher',
+    experiment: [
+      {
+        name: 'HangWatcherEnableDumps',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'EnableHangWatcher',
+          ],
+        },
+        param: [
+          {
+            name: 'ui_thread_log_level',
+            value: '2',
+          },
+          {
+            name: 'io_thread_log_level',
+            value: '2',
+          },
+          {
+            name: 'renderer_process_main_thread_log_level',
+            value: '2',
+          },
+          {
+            name: 'renderer_process_io_thread_log_level',
+            value: '2',
+          },
+          {
+            name: 'utility_process_main_thread_log_level',
+            value: '2',
+          },
+          {
+            name: 'utility_process_io_thread_log_level',
+            value: '2',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      min_version: '97.1.36.14',
+      channel: [
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]
