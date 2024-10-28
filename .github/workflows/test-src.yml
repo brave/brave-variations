@@ -1,11 +1,11 @@
-name: Tracker&Griffin tests
+name: Test Griffin Package
 
 on:
   pull_request:
   merge_group:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
@@ -24,14 +24,3 @@ jobs:
 
       - name: build
         run: npm run build
-
-      - name: Setup Python
-        uses: actions/setup-python@f677139bbe7f9c59b41e40162b753c062f5d49a3 # v5
-        with:
-          python-version: '3.11'
-
-      - name: Install python seed generator requirements
-        run: pip install -r seed/requirements.txt
-
-      - name: Compare python and typescript seed generator
-        run: npm run seed_tools compare_python_gen
