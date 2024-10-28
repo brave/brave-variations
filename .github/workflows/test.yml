@@ -3,8 +3,8 @@ name: Test Python Generator
 on:
   pull_request:
     paths:
-     - 'seed/**'
-     - 'studies/**'
+      - 'seed/**'
+      - 'studies/**'
 
 jobs:
   test:

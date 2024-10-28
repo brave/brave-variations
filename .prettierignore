@@ -1,6 +1,6 @@
 /.*/**
 !/.github/**
-seed/seed.archive.json
+seed/seed.archived.json
 src/proto/generated/*
 src/test/data/**/*unformatted*
 src/web/css/bootstrap.min.css
