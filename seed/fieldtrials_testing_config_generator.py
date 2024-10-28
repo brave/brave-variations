@@ -88,15 +88,15 @@ def _get_variations_seed(revision: str):
     files_output = subprocess.check_output(
         ['git', 'show', f'{revision}:{SEED_FOLDER}']).decode()
     for filename in files_output.splitlines()[1:]:
-        if filename.endswith('.json'):
+        if filename.endswith('.json5'):
           print('saving', filename)
           with open(os.path.join(tmp_dir, filename), 'wb') as f:
             content = subprocess.check_output(
                 ['git', 'show', f'{revision}:{SEED_FOLDER}/{filename}'])
             f.write(content)
 
-    subprocess.check_output([NPM_EXECUTABLE, 'run', 'seed_tools', '--',
-                             'create_seed', tmp_dir, seed_path])
+    subprocess.check_output([NPM_EXECUTABLE, 'run', 'seed_tools', 'create', '--',
+                              tmp_dir, seed_path])
 
 
     seed = variations_seed_pb2.VariationsSeed()
