@@ -13,14 +13,14 @@ A continuous integration server (CI) serializes and signs the updated seed file 
 - `/src` contains the web dashboard to browse the seed contents, the tracker code to track seed changes and the current seed generator. See [src/README.md](src/README.md) for details.
 - `/studies` contains the studies used to generate the seed.
 
-## Git flow for `/studies`
+## Git flow for `studies`
 
-1. Run `npm install` after a checkout.
-2. Create or modify a study in `/studies`, following the protobuf schema in
-   [`src/proto/study.proto`](/src/proto/study.proto).
-3. Run `npm run seed_tools lint -- --fix` until there are no issues.
-4. Create a PR to the `main` branch.
-5. Verify that everything works as intended using the PR instructions.
+1. Run `npm install` after checking out the repository.
+2. Create or modify a study file in `studies` directory, following the protobuf
+   schema in [`src/proto/study.proto`](/src/proto/study.proto).
+3. Run `npm run seed_tools lint -- --fix` and address found issues.
+4. Create a Pull Request targeting the `main` branch.
+5. Follow the PR instructions to verify that everything works as intended.
 
 ## Key Generation and Exchange
 
