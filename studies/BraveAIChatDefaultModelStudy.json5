@@ -1,0 +1,46 @@
+[
+  {
+    name: 'BraveAIChatDefaultModelStudy',
+    experiment: [
+      {
+        name: 'DefaultLlama',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'AIChat',
+          ],
+        },
+        param: [
+          {
+            name: 'default_model',
+            value: 'chat-basic',
+          },
+        ],
+      },
+      {
+        name: 'DefaultMixtral',
+        probability_weight: 75,
+        feature_association: {
+          enable_feature: [
+            'AIChat',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '122.1.63.161',
+      channel: [
+        'RELEASE',
+        'BETA',
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
+]
