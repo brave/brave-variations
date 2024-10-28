@@ -15,11 +15,12 @@ A continuous integration server (CI) serializes and signs the updated seed file 
 
 ## Git flow for `/studies`
 
-1. Create or modify a study in `/studies`, following the protobuf schema in
+1. Run `npm install` after a checkout.
+2. Create or modify a study in `/studies`, following the protobuf schema in
    [`src/proto/study.proto`](/src/proto/study.proto).
-2. Run `npm run seed_tools lint -- --fix` until there are no issues.
-3. Create a PR to the `main` branch.
-4. Verify that everything works as intended using the PR instructions.
+3. Run `npm run seed_tools lint -- --fix` until there are no issues.
+4. Create a PR to the `main` branch.
+5. Verify that everything works as intended using the PR instructions.
 
 ## Key Generation and Exchange
 
