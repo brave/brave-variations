@@ -1,8 +1,9 @@
-name: Test
+name: Test Python Generator
 
 on:
   pull_request:
-  merge_group:
+    paths:
+      - 'seed/**'
 
 jobs:
   test:
