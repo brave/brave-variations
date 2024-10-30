@@ -50,14 +50,14 @@ async function readStudiesFromDirectory(
 }> {
   const files = (await fs.readdir(studiesDir)).sort();
 
-  const f = [];
+  const filesWithContent = [];
   for (const file of files) {
     const filePath = path.join(studiesDir, file);
     const content = await fs.readFile(filePath, 'utf8');
-    f.push({ path: filePath, content });
+    filesWithContent.push({ path: filePath, content });
   }
 
-  return await readStudies(f, fix);
+  return await readStudies(filesWithContent, fix);
 }
 
 async function readStudiesAtRevision(
@@ -72,16 +72,16 @@ async function readStudiesAtRevision(
     encoding: 'utf8',
   }).split('\n');
 
-  const f = [];
+  const filesWithContent = [];
   for (const file of files) {
     if (!file.endsWith('.json5')) continue;
     const content = execSync(`git show ${revision}:"${studiesDir}/${file}"`, {
       encoding: 'utf8',
     });
-    f.push({ path: file, content });
+    filesWithContent.push({ path: file, content });
   }
 
-  return await readStudies(f, false);
+  return await readStudies(filesWithContent, false);
 }
 
 async function readStudies(
