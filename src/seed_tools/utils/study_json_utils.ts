@@ -11,12 +11,6 @@ export interface Options {
   isChromium?: boolean;
 }
 
-// export function parseStudyFile(
-//   if (studyFileContent === undefined) {
-//   studyFileContent = await fs.readFile(studyFilePath, 'utf8');
-// }
-// }
-
 export function parseStudyFile(
   studyFilePath: string,
   studyFileContent: string,
