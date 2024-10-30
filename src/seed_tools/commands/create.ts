@@ -7,8 +7,8 @@ import { Command } from '@commander-js/extra-typings';
 import { createHash } from 'crypto';
 import { promises as fs } from 'fs';
 import { VariationsSeed } from '../../proto/generated/variations_seed';
-import { readStudiesToSeed } from '../utils/studies_to_seed';
 import { retainMostProbableExperiments } from '../utils/perf_tools';
+import { readStudiesToSeed } from '../utils/studies_to_seed';
 
 export default function createCommand() {
   return new Command('create')
@@ -30,6 +30,7 @@ export default function createCommand() {
       'Retains only the most probabble experiment in each study.' +
         'Used in the perf tests.',
     )
+    .option('--revision <sha1>', 'Generate seed for a particular revision.')
     .option('--version <value>', 'seed version to set')
     .action(createSeed);
 }
@@ -38,6 +39,7 @@ interface Options {
   mock_serial_number?: string;
   output_serial_number_file: string;
   perf_mode?: boolean;
+  revision?: string;
   version?: string;
 }
 
@@ -46,7 +48,11 @@ async function createSeed(
   outputSeedFile: string,
   options: Options,
 ) {
-  const { variationsSeed, errors } = await readStudiesToSeed(studiesDir, false);
+  const { variationsSeed, errors } = await readStudiesToSeed(
+    studiesDir,
+    false,
+    options.revision,
+  );
 
   if (errors.length > 0) {
     console.error(`Seed validation errors:\n${errors.join('\n---\n')}`);
