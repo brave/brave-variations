@@ -10,7 +10,7 @@ import { VariationsSeed } from '../../proto/generated/variations_seed';
 // experiments with a list containing only the most probable experiment.
 export function retainMostProbableExperiments(seed: VariationsSeed) {
   for (const study of seed.study) {
-    if (study.experiment.length < 2) continue;
+    if (study.experiment.length < 1) continue;
     let best: Study_Experiment | undefined;
     for (const exp of study.experiment) {
       if ((exp.probability_weight ?? 0) > (best?.probability_weight ?? 0)) {
@@ -22,7 +22,11 @@ export function retainMostProbableExperiments(seed: VariationsSeed) {
     }
 
     best.probability_weight = 100;
-    console.log(study.name, best.name);
     study.experiment = [best];
+
+    // default_experiment_name should be set to works with
+    // --enable-gpu-benchmarking chromium switch which enforces using
+    // the default experiment for all studies.
+    study.default_experiment_name = best.name;
   }
 }
