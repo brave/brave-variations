@@ -26,7 +26,7 @@ export async function readStudiesToSeed(
   errors: string[];
 }> {
   const { studies, studyFileBaseNameMap, errors } = revision
-    ? await readStudiesAtRevision(studiesDir, 'HEAD~2')
+    ? await readStudiesAtRevision(studiesDir, revision)
     : await readStudiesFromDirectory(studiesDir, fix);
   const variationsSeed: VariationsSeed = {
     study: studies,
