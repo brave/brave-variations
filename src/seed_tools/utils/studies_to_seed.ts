@@ -16,6 +16,7 @@ import diffStrings from '../utils/diff_strings';
 import * as file_utils from '../utils/file_utils';
 import * as seed_validation from '../utils/seed_validation';
 import * as study_json_utils from '../utils/study_json_utils';
+import { wsPath } from 'src/base/path_utils';
 
 export async function readStudiesToSeed(
   studiesDir: string,
@@ -68,6 +69,8 @@ async function readStudiesAtRevision(
   studyFileBaseNameMap: Map<Study, string>;
   errors: string[];
 }> {
+  const basePath = wsPath('//')
+  studiesDir = path.relative(basePath, studiesDir);
   const files = execSync(`git show ${revision}:${studiesDir}`, {
     encoding: 'utf8',
   }).split('\n');
