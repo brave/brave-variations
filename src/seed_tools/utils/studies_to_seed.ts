@@ -6,6 +6,7 @@
 import { execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import * as path from 'path';
+import { wsPath } from 'src/base/path_utils';
 import {
   Study_ActivationType,
   Study_Consistency,
@@ -16,7 +17,6 @@ import diffStrings from '../utils/diff_strings';
 import * as file_utils from '../utils/file_utils';
 import * as seed_validation from '../utils/seed_validation';
 import * as study_json_utils from '../utils/study_json_utils';
-import { wsPath } from 'src/base/path_utils';
 
 export async function readStudiesToSeed(
   studiesDir: string,
@@ -69,7 +69,7 @@ async function readStudiesAtRevision(
   studyFileBaseNameMap: Map<Study, string>;
   errors: string[];
 }> {
-  const basePath = wsPath('//')
+  const basePath = wsPath('//');
   studiesDir = path.relative(basePath, studiesDir);
   const files = execSync(`git show ${revision}:${studiesDir}`, {
     encoding: 'utf8',
