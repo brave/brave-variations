@@ -69,6 +69,42 @@ describe('create command', () => {
     );
   });
 
+  describe('perf seeds', () => {
+    const validSeedsDir = path.join(testDataDir, 'perf_seeds');
+    const runTest = async (testCase: string, revision?: string) => {
+      const testCaseDir = path.join(validSeedsDir, testCase);
+      const studiesDir = path.join(testCaseDir, 'studies');
+      const outputFile = path.join(tempDir, 'output.bin');
+
+      const args = [
+        'node',
+        'create',
+        studiesDir,
+        outputFile,
+        '--perf_mode',
+        '--mock_serial_number',
+        '1',
+      ];
+      args.push(...(revision ? ['--revision', revision] : []));
+      await create().parseAsync(args);
+
+      const output = await fs.readFile(outputFile);
+      const expectedOutput = await fs.readFile(
+        path.join(testCaseDir, 'expected_seed.bin'),
+      );
+      expect(output).toEqual(expectedOutput);
+
+      expect(VariationsSeed.fromBinary(output).version).toEqual('1');
+    };
+
+    fs_sync.readdirSync(validSeedsDir).forEach((testCase) => {
+      it(testCase, () => runTest(testCase, undefined));
+
+      // Check creating seed using git history.
+      it(`${testCase}_old_revision`, () => runTest(testCase, 'HEAD'));
+    });
+  });
+
   test('set seed version', async () => {
     const testCaseDir = path.join(testDataDir, 'set_seed_version');
     const studiesDir = path.join(testCaseDir, 'studies');
