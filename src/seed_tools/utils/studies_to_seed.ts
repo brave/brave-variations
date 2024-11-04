@@ -71,7 +71,7 @@ async function readStudiesAtRevision(
 }> {
   const basePath = wsPath('//');
   studiesDir = path.relative(basePath, studiesDir);
-  const files = execSync(`git show ${revision}:${studiesDir}`, {
+  const files = execSync(`git show "${revision}":"${studiesDir}"`, {
     encoding: 'utf8',
   }).split('\n');
 
