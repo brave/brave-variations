@@ -27,7 +27,7 @@ export default function createCommand() {
     )
     .option(
       '--perf_mode',
-      'Retains only the most probabble experiment in each study.' +
+      'Retains only the most probable experiment in each study.' +
         'Used in the perf tests.',
     )
     .option('--revision <sha1>', 'Generate seed for a particular revision.')

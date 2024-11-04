@@ -24,7 +24,7 @@ export function retainMostProbableExperiments(seed: VariationsSeed) {
     best.probability_weight = 100;
     study.experiment = [best];
 
-    // default_experiment_name should be set to works with
+    // default_experiment_name should be set to work with
     // --enable-gpu-benchmarking chromium switch which enforces using
     // the default experiment for all studies.
     study.default_experiment_name = best.name;
