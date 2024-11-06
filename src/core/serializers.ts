@@ -50,7 +50,10 @@ export function serializeChannels(channels?: string[]): string | undefined {
 // Converts a study to JSON that is ready to be serialized. Some field are
 // removed, some are converted to a human readable format.
 export function studyToJSON(study: Study): Record<string, any> {
-  const json = Study.toJson(study) as Record<string, any> | null;
+  const json = Study.toJson(study, { useProtoFieldName: true }) as Record<
+    string,
+    any
+  > | null;
   if (json === null) {
     throw new Error('Failed to convert study to JSON');
   }
