@@ -2,7 +2,13 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
-import { Study, Study_Channel, Study_Experiment, Study_Filter, Study_Platform} from '../proto/generated/study';
+import {
+  Study,
+  Study_Channel,
+  Study_Experiment,
+  Study_Filter,
+  Study_Platform,
+} from '../proto/generated/study';
 import { type ProcessingOptions } from './base_types';
 import { isFeatureBlocklisted, isStudyNameBlocklisted } from './blocklists';
 import { matchesMaxVersion, parseVersionPattern } from './version';
@@ -227,7 +233,8 @@ export class StudyDetails {
       this.isBlocklisted ||=
         disabledFeatures?.some((n) => isFeatureBlocklisted(n)) ?? false;
 
-      this.isKillSwitch ||= (e.probability_weight ?? 0) > 0 && isKillSwitch(e.name);
+      this.isKillSwitch ||=
+        (e.probability_weight ?? 0) > 0 && isKillSwitch(e.name);
 
       this.onlyDisabledFeatures &&=
         e.probability_weight === 0 ||

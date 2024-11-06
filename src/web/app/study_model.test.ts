@@ -4,15 +4,19 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { describe, expect, test } from '@jest/globals';
+import { PartialMessage } from '@protobuf-ts/runtime';
 import { SeedType } from '../../core/base_types';
 import {
   ProcessedStudy,
   StudyFilter,
   StudyPriority,
 } from '../../core/study_processor';
+import {
+  Study,
+  Study_Channel,
+  Study_Platform,
+} from '../../proto/generated/study';
 import { StudyListModel, StudyModel } from './study_model';
-import { Study, Study_Channel, Study_Platform } from '../../proto/generated/study';
-import { PartialMessage } from '@protobuf-ts/runtime';
 
 function makeStudyModel(properties: PartialMessage<Study>) {
   const study = Study.create(properties);
@@ -48,10 +52,7 @@ describe('models', () => {
     ],
     filter: {
       channel: [Study_Channel.STABLE, Study_Channel.CANARY],
-      platform: [
-        Study_Platform.WINDOWS,
-        Study_Platform.IOS,
-      ],
+      platform: [Study_Platform.WINDOWS, Study_Platform.IOS],
     },
   });
 
@@ -61,8 +62,6 @@ describe('models', () => {
       {
         name: 'Some',
         probability_weight: 100,
-        param: [],
-        override_ui_string: []
       },
     ],
     filter: {

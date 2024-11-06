@@ -13,8 +13,8 @@ import {
 } from './study_processor';
 
 import * as config from '../config';
-import * as url_utils from './url_utils';
 import { VariationsSeed } from '../proto/generated/variations_seed';
+import * as url_utils from './url_utils';
 
 export enum ItemAction {
   New,

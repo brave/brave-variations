@@ -8,13 +8,13 @@ import { type ProcessingOptions } from '../core/base_types';
 import { StudyPriority } from '../core/study_processor';
 import { makeSummary, summaryToJson } from '../core/summary';
 import * as url_utils from '../core/url_utils';
+import { VariationsSeed } from '../proto/generated/variations_seed';
 import { downloadUrl, getSeedPath } from './node_utils';
 import {
   commitAllChanges,
   fetchChromeSeedData,
   storeDataToDirectory,
 } from './tracker_lib';
-import { VariationsSeed } from '../proto/generated/variations_seed';
 
 async function main(): Promise<void> {
   const program = new Command()

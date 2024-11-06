@@ -5,8 +5,8 @@
 
 import { SeedType, type ProcessingOptions } from '../../core/base_types';
 import { ProcessedStudy } from '../../core/study_processor';
-import { StudyListModel, StudyModel } from './study_model';
 import { VariationsSeed } from '../../proto/generated/variations_seed';
+import { StudyListModel, StudyModel } from './study_model';
 
 import * as url_utils from '../../core/url_utils';
 

@@ -682,24 +682,23 @@ describe('getStudyErrors', () => {
     },
   );
 
-  test.each([
-    {},
-    { platform: [] },
-    { platform: ['LINUX', 'LINUX'] },
-  ])('should error if platform is invalid', (filter: any) => {
-    const study = Study.fromJson({
-      name: 'study',
-      experiment: [
-        {
-          name: 'experiment1',
-          probability_weight: 100,
-        },
-      ],
-      filter: { ...filter, channel: ['BETA'] },
-    });
+  test.each([{}, { platform: [] }, { platform: ['LINUX', 'LINUX'] }])(
+    'should error if platform is invalid',
+    (filter: any) => {
+      const study = Study.fromJson({
+        name: 'study',
+        experiment: [
+          {
+            name: 'experiment1',
+            probability_weight: 100,
+          },
+        ],
+        filter: { ...filter, channel: ['BETA'] },
+      });
 
-    expect(
-      study_validation.getStudyErrors(study, studyFileBaseName),
-    ).toContainEqual(expect.stringMatching(/(P|p)latform/));
-  });
+      expect(
+        study_validation.getStudyErrors(study, studyFileBaseName),
+      ).toContainEqual(expect.stringMatching(/(P|p)latform/));
+    },
+  );
 });

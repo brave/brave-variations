@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import { describe, expect, test } from '@jest/globals';
 import { StudyPriority } from '../core/study_processor';
 import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
-import { Study, Study_Channel, Study_Platform} from '../proto/generated/study';
+import { Study, Study_Channel, Study_Platform } from '../proto/generated/study';
 import { VariationsSeed } from '../proto/generated/variations_seed';
 import { serializeStudies } from './tracker_lib';
 

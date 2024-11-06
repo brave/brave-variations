@@ -2,7 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
-import {Study, Study_Channel, Study_Platform} from '../proto/generated/study';
+import { Study, Study_Channel, Study_Platform } from '../proto/generated/study';
 
 export function getPlatformNameFromString(protoPlatfrom: string): string {
   const PREFIX = 'PLATFORM_';
@@ -30,10 +30,7 @@ export function getChannelName(
   protoChannel: Study_Channel,
   isBraveSpecific: boolean,
 ): string {
-  return getChannelNameFromString(
-    Study_Channel[protoChannel],
-    isBraveSpecific,
-  );
+  return getChannelNameFromString(Study_Channel[protoChannel], isBraveSpecific);
 }
 
 function unixSecondToUTCString(unixTimeSeconds: number): string {
