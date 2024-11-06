@@ -26,7 +26,8 @@ function readDirectory(dir: string): string {
       continue;
     }
     const content = fs.readFileSync(filePath, 'utf-8');
-    result += file + '\n' + content + '\n';
+    if (result != '') result += '\n';
+    result += file + '\n' + content;
   }
   return result;
 }
