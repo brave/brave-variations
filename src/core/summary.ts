@@ -215,7 +215,7 @@ function getGitHubDiffUrl(
   oldPriority: StudyPriority,
   commit: string,
 ): string {
-  const path = `study/all-by-name/${study}`;
+  const path = `study/all-by-name/${study}.json5`;
   const pathHash = sha256(path);
   return `${url_utils.getGitHubStorageUrl()}/commit/${commit}#diff-${pathHash}`;
 }
