@@ -4,32 +4,42 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import * as fs from 'fs';
+import * as os from 'os';
 
 import { describe, expect, test } from '@jest/globals';
+import path from 'path';
 import { StudyPriority } from '../core/study_processor';
 import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
 import { Study, Study_Channel, Study_Platform } from '../proto/generated/study';
 import { VariationsSeed } from '../proto/generated/variations_seed';
-import { serializeStudies } from './tracker_lib';
+import { storeDataToDirectory } from './tracker_lib';
 
-function serialize(json: Record<string, any>) {
-  const ordered = Object.keys(json)
-    .sort()
-    .reduce((res: Record<string, any>, key) => {
-      res[key] = json[key];
-      return res;
-    }, {});
-  return JSON.stringify(ordered, undefined, 2);
+function readDirectory(dir: string): string {
+  const files = fs
+    .readdirSync(dir, { recursive: true, encoding: 'utf-8' })
+    .sort();
+  let result = '';
+
+  for (const file of files) {
+    const filePath = path.join(dir, file);
+    if (!file.endsWith('.json5')) {
+      continue;
+    }
+    const content = fs.readFileSync(filePath, 'utf-8');
+    result += file + '\n' + content + '\n';
+  }
+  return result;
 }
 
-test('seed serialization', () => {
+test('seed serialization', async () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'tracker-'));
   const data = fs.readFileSync('src/test/data/seed1.bin');
-  const map = serializeStudies(data, {
+  await storeDataToDirectory(data, tempDir, {
     minMajorVersion: 116,
     isBraveSeed: true,
   });
-  const serializedOutput = serialize(map);
 
+  const serializedOutput = readDirectory(path.join(tempDir));
   const serializedExpectations = fs
     .readFileSync('src/test/data/seed1.bin.processing_expectations')
     .toString();

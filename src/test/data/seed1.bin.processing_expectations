@@ -1,298 +1,438 @@
-{
-  "all-by-name/BetaStudy": [
-    {
-      "name": "BetaStudy",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 100,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
-        }
-      ],
-      "filter": {
-        "channel": "BETA",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "all-by-name/BlocklistedStudy": [
-    {
-      "name": "BlocklistedStudy",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 100,
-          "feature_association": {
-            "enable_feature": [
-              "Ukm"
-            ]
-          }
-        }
-      ],
-      "filter": {
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "all-by-name/EndedByDate": [
-    {
-      "name": "EndedByDate",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 100,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
-        }
-      ],
-      "filter": {
-        "end_date": "Wed, 14 Sep 2022 17:10:24 GMT",
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "all-by-name/EndedMaxVersion": [
-    {
-      "name": "EndedMaxVersion",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 100,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
-        }
-      ],
-      "filter": {
-        "max_version": "99.1.49.83",
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "all-by-name/Stable-100": [
-    {
-      "name": "Stable-100",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 99,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
+study/all-by-name/BetaStudy.json5
+[
+  {
+    name: 'BetaStudy',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
         },
-        {
-          "name": "Default",
-          "probability_weight": 1
-        }
+      },
+    ],
+    filter: {
+      channel: [
+        'BETA',
       ],
-      "filter": {
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "all-by-name/Stable-50": [
-    {
-      "name": "Stable-50",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 50,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/all-by-name/BlocklistedStudy.json5
+[
+  {
+    name: 'BlocklistedStudy',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'Ukm',
+          ],
         },
-        {
-          "name": "Default",
-          "probability_weight": 50
-        }
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
       ],
-      "filter": {
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "all-by-name/Stable-min": [
-    {
-      "name": "Stable-min",
-      "experiment": [
-        {
-          "name": "Enabled_1",
-          "probability_weight": 5,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/all-by-name/EndedByDate.json5
+[
+  {
+    name: 'EndedByDate',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
         },
-        {
-          "name": "Control_1",
-          "probability_weight": 45
+      },
+    ],
+    filter: {
+      end_date: '2022-09-14T17:10:24.000Z',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/all-by-name/EndedMaxVersion.json5
+[
+  {
+    name: 'EndedMaxVersion',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
         },
-        {
-          "name": "Default",
-          "probability_weight": 50
-        }
+      },
+    ],
+    filter: {
+      max_version: '99.1.49.83',
+      channel: [
+        'RELEASE',
       ],
-      "filter": {
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "all-by-name/StudyKillSwitch": [
-    {
-      "name": "StudyKillSwitch",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 100,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
-        }
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
       ],
-      "filter": {
-        "max_version": "299.0.0.0",
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "blocklisted/BlocklistedStudy": [
-    {
-      "name": "BlocklistedStudy",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 100,
-          "feature_association": {
-            "enable_feature": [
-              "Ukm"
-            ]
-          }
-        }
-      ],
-      "filter": {
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "stable-100%/Stable-100": [
-    {
-      "name": "Stable-100",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 99,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/all-by-name/Stable-100.json5
+[
+  {
+    name: 'Stable-100',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 99,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
         },
-        {
-          "name": "Default",
-          "probability_weight": 1
-        }
+      },
+      {
+        name: 'Default',
+        probability_weight: 1,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
       ],
-      "filter": {
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "stable-50%/Stable-50": [
-    {
-      "name": "Stable-50",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 50,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/all-by-name/Stable-50.json5
+[
+  {
+    name: 'Stable-50',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
         },
-        {
-          "name": "Default",
-          "probability_weight": 50
-        }
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
       ],
-      "filter": {
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "stable-emergency-kill-switch/StudyKillSwitch": [
-    {
-      "name": "StudyKillSwitch",
-      "experiment": [
-        {
-          "name": "Enabled",
-          "probability_weight": 100,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
-        }
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
       ],
-      "filter": {
-        "max_version": "299.0.0.0",
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ],
-  "stable-min/Stable-min": [
-    {
-      "name": "Stable-min",
-      "experiment": [
-        {
-          "name": "Enabled_1",
-          "probability_weight": 5,
-          "feature_association": {
-            "enable_feature": [
-              "SomeFeature"
-            ]
-          }
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/all-by-name/Stable-min.json5
+[
+  {
+    name: 'Stable-min',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled_1',
+        probability_weight: 5,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
         },
-        {
-          "name": "Control_1",
-          "probability_weight": 45
-        },
-        {
-          "name": "Default",
-          "probability_weight": 50
-        }
+      },
+      {
+        name: 'Control_1',
+        probability_weight: 45,
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
       ],
-      "filter": {
-        "channel": "STABLE",
-        "platform": "WINDOWS, MAC, LINUX, ANDROID"
-      }
-    }
-  ]
-}
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/all-by-name/StudyKillSwitch.json5
+[
+  {
+    name: 'StudyKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
+        },
+      },
+    ],
+    filter: {
+      max_version: '299.0.0.0',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/blocklisted/BlocklistedStudy.json5
+[
+  {
+    name: 'BlocklistedStudy',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'Ukm',
+          ],
+        },
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/stable-100%/Stable-100.json5
+[
+  {
+    name: 'Stable-100',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 99,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 1,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/stable-50%/Stable-50.json5
+[
+  {
+    name: 'Stable-50',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/stable-emergency-kill-switch/StudyKillSwitch.json5
+[
+  {
+    name: 'StudyKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
+        },
+      },
+    ],
+    filter: {
+      max_version: '299.0.0.0',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]
+
+study/stable-min/Stable-min.json5
+[
+  {
+    name: 'Stable-min',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Enabled_1',
+        probability_weight: 5,
+        feature_association: {
+          enable_feature: [
+            'SomeFeature',
+          ],
+        },
+      },
+      {
+        name: 'Control_1',
+        probability_weight: 45,
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+    activation_type: 'ACTIVATE_ON_STARTUP',
+  },
+]

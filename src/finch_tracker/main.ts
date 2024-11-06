@@ -98,7 +98,7 @@ async function main(): Promise<void> {
   }
 
   if (updateData) {
-    storeDataToDirectory(seedData, storageDir, options);
+    await storeDataToDirectory(seedData, storageDir, options);
     if (commitData) {
       newGitSha1 = commitAllChanges(storageDir);
     }

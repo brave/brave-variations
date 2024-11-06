@@ -8,7 +8,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { type ProcessingOptions } from '../core/base_types';
-import { studyToJSON } from '../core/serializers';
 import {
   ProcessedStudy,
   StudyPriority,
@@ -16,6 +15,7 @@ import {
 } from '../core/study_processor';
 import { Study } from '../proto/generated/study';
 import { VariationsSeed } from '../proto/generated/variations_seed';
+import { writeStudyFile } from '../seed_tools/utils/study_json_utils';
 import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
 
 export async function fetchChromeSeedData(): Promise<Buffer> {
@@ -24,18 +24,17 @@ export async function fetchChromeSeedData(): Promise<Buffer> {
   return await downloadUrl(kChromeSeedUrl);
 }
 
-// Processes, groups by name and converts to JSON a list of studies.
-export function serializeStudies(
+// Groups studies by name and priority.
+export function groupStudies(
   seedData: Buffer,
   options: ProcessingOptions,
-): Record<string, any[]> {
-  const map: Record<string, any[]> = {};
+): Record<string, Study[]> {
+  const map: Record<string, Study[]> = {};
   const seed = VariationsSeed.fromBinary(seedData);
   const addStudy = (path: string, study: Study) => {
-    const json = studyToJSON(study);
     const list = map[path];
-    if (list !== undefined) list.push(json);
-    else map[path] = [json];
+    if (list !== undefined) list.push(study);
+    else map[path] = [study];
   };
 
   for (const study of seed.study) {
@@ -74,20 +73,20 @@ export function commitAllChanges(directory: string): string | undefined {
 
 // Processes and serializes a given seed to disk (including grouping to
 // subdirectories/files).
-export function storeDataToDirectory(
+export async function storeDataToDirectory(
   seedData: Buffer,
   directory: string,
   options: ProcessingOptions,
-): void {
+): Promise<void> {
   const studyDirectory = getStudyPath(directory);
   fs.rmSync(studyDirectory, { recursive: true, force: true });
-  const map = serializeStudies(seedData, options);
+  const map = groupStudies(seedData, options);
 
-  for (const [name, json] of Object.entries(map)) {
-    const fileName = `${studyDirectory}/${name}`;
+  for (const [name, study] of Object.entries(map)) {
+    const fileName = `${studyDirectory}/${name}.json5`;
     const dirname = path.dirname(fileName);
     fs.mkdirSync(dirname, { recursive: true });
-    fs.writeFileSync(fileName, JSON.stringify(json, null, 2) + '\n');
+    await writeStudyFile(study, fileName, { isChromium: !options.isBraveSeed });
   }
 
   // TODO: maybe start to use s3 instead of git one day?
