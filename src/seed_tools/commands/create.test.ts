@@ -11,6 +11,26 @@ import { VariationsSeed } from 'src/proto/generated/variations_seed';
 import { wsPath } from '../../base/path_utils';
 import create from './create';
 
+// Helper function to compare protobuf with expected json.
+const compareProtobuf = (actual: Uint8Array, expectedFilename: string) => {
+  let expectedJson = '{}';
+  if (fs_sync.existsSync(expectedFilename)) {
+    expectedJson = fs_sync.readFileSync(expectedFilename, 'utf-8');
+  }
+  const expected = VariationsSeed.fromJsonString(expectedJson);
+  const actualObj = VariationsSeed.fromBinary(actual);
+  try {
+    expect(actualObj).toEqual(expected);
+  } catch (error) {
+    const failedFilename = expectedFilename + '.failed';
+    fs_sync.writeFileSync(
+      failedFilename,
+      VariationsSeed.toJsonString(actualObj, { prettySpaces: 2 }) + '\n',
+    );
+    throw error;
+  }
+};
+
 describe('create command', () => {
   const testDataDir = wsPath('//src/test/data');
 
@@ -57,10 +77,7 @@ describe('create command', () => {
         ]);
 
         const output = await fs.readFile(outputFile);
-        const expectedOutput = await fs.readFile(
-          path.join(testCaseDir, 'expected_seed.bin'),
-        );
-        expect(output).toEqual(expectedOutput);
+        compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
 
         const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
         expect(outputSerialNumber).toEqual('1');
@@ -89,10 +106,7 @@ describe('create command', () => {
       await create().parseAsync(args);
 
       const output = await fs.readFile(outputFile);
-      const expectedOutput = await fs.readFile(
-        path.join(testCaseDir, 'expected_seed.bin'),
-      );
-      expect(output).toEqual(expectedOutput);
+      compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
 
       expect(VariationsSeed.fromBinary(output).version).toEqual('1');
     };
@@ -125,6 +139,9 @@ describe('create command', () => {
     ]);
 
     const output = await fs.readFile(outputFile);
+    compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
+
+    // Check the binary output is the same as the expected output.
     const expectedOutput = await fs.readFile(
       path.join(testCaseDir, 'expected_seed.bin'),
     );
