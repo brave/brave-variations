@@ -1,0 +1,36 @@
+{
+  "serialNumber": "1",
+  "study": [
+    {
+      "name": "TestStudy",
+      "consistency": "PERMANENT",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "TestFeature"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      },
+      "activationType": "ACTIVATE_ON_STARTUP"
+    }
+  ],
+  "version": "1"
+}
