@@ -4,7 +4,7 @@
     experiment: [
       {
         name: 'DefaultLlama',
-        probability_weight: 50,
+        probability_weight: 25,
         feature_association: {
           enable_feature: [
             'AIChat',
@@ -19,7 +19,7 @@
       },
       {
         name: 'DefaultMixtral',
-        probability_weight: 50,
+        probability_weight: 75,
         feature_association: {
           enable_feature: [
             'AIChat',
