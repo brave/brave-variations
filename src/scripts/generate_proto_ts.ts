@@ -74,7 +74,7 @@ function generateProtobufTs() {
 
 function generateStudyProtoPatch() {
   fs.writeFileSync(
-    `${protoDir}/study.protobuf-ts.patch`,
+    `${protoDir}/study.proto.protobuf-ts.patch`,
     execSync(`git diff ${protoDir}/study.proto`, {
       encoding: 'buffer',
     }),
@@ -82,14 +82,14 @@ function generateStudyProtoPatch() {
 }
 
 function gitApplyStudyProtoPatch() {
-  execSync(`git apply ${protoDir}/study.protobuf-ts.patch`, {
+  execSync(`git apply ${protoDir}/study.proto.protobuf-ts.patch`, {
     cwd: protoDir,
     stdio: 'inherit',
   });
 }
 
 function gitRevertStudyProtoPatch() {
-  execSync(`git apply -R ${protoDir}/study.protobuf-ts.patch`, {
+  execSync(`git apply -R ${protoDir}/study.proto.protobuf-ts.patch`, {
     cwd: protoDir,
     stdio: 'inherit',
   });
