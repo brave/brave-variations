@@ -7,6 +7,7 @@ import { Command } from '@commander-js/extra-typings';
 import { createHash } from 'crypto';
 import { promises as fs } from 'fs';
 import { VariationsSeed } from '../../proto/generated/variations_seed';
+import { retainMostProbableExperiments } from '../utils/perf_tools';
 import { readStudiesToSeed } from '../utils/studies_to_seed';
 
 export default function createCommand() {
@@ -24,6 +25,12 @@ export default function createCommand() {
       'file path to write the seed serial number',
       './serialnumber',
     )
+    .option(
+      '--perf_mode',
+      'Retains only the most probable experiment in each study.' +
+        'Used in the perf tests.',
+    )
+    .option('--revision <sha1>', 'Generate seed for a particular revision.')
     .option('--version <value>', 'seed version to set')
     .action(createSeed);
 }
@@ -31,6 +38,8 @@ export default function createCommand() {
 interface Options {
   mock_serial_number?: string;
   output_serial_number_file: string;
+  perf_mode?: boolean;
+  revision?: string;
   version?: string;
 }
 
@@ -39,7 +48,11 @@ async function createSeed(
   outputSeedFile: string,
   options: Options,
 ) {
-  const { variationsSeed, errors } = await readStudiesToSeed(studiesDir, false);
+  const { variationsSeed, errors } = await readStudiesToSeed(
+    studiesDir,
+    false,
+    options.revision,
+  );
 
   if (errors.length > 0) {
     console.error(`Seed validation errors:\n${errors.join('\n---\n')}`);
@@ -53,6 +66,9 @@ async function createSeed(
   variationsSeed.version = options.version ?? '1';
 
   console.log('Seed study count:', variationsSeed.study.length);
+  if (options.perf_mode) {
+    retainMostProbableExperiments(variationsSeed);
+  }
   const seedBinary = VariationsSeed.toBinary(variationsSeed);
   await fs.writeFile(outputSeedFile, seedBinary);
   await fs.writeFile(options.output_serial_number_file, serialNumber);

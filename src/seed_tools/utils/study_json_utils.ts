@@ -11,24 +11,25 @@ export interface Options {
   isChromium?: boolean;
 }
 
-export async function readStudyFile(
+export function parseStudyFile(
   studyFilePath: string,
+  studyFileContent: string,
   options?: Options,
-): Promise<{
+): {
   studies: Study[];
-  studyFileContent: string;
   errors: string[];
-}> {
+} {
   let studies: Study[] = [];
-  let studyFileContent = '';
   try {
-    studyFileContent = await fs.readFile(studyFilePath, 'utf8');
     studies = parseStudies(studyFileContent, options);
-    return { studies, studyFileContent, errors: [] };
+    return { studies, errors: [] };
   } catch (e) {
     if (e instanceof Error) {
       e.message += ` (${studyFilePath})`;
-      return { studies, studyFileContent, errors: [e.message] };
+      return {
+        studies,
+        errors: [e.message],
+      };
     }
     // Rethrow non-Error exceptions.
     throw e;
