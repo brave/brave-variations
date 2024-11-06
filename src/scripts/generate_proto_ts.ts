@@ -36,7 +36,6 @@ function main(options: Options) {
   }
 
   removeGeneratedFiles();
-  generateProtobufJsWithTypeInfo();
   generateProtobufTs();
 }
 
@@ -47,33 +46,6 @@ function removeGeneratedFiles() {
       fs.unlinkSync(`${protoGeneratedDir}/${file}`);
     }
   });
-}
-
-function generateProtobufJsWithTypeInfo() {
-  execSync(
-    [
-      'npx',
-      '--',
-      'pbjs',
-      '--t',
-      'static-module',
-      '--keep-case',
-      ...protoFiles,
-      '-o',
-      `${protoGeneratedDir}/proto_bundle.js`,
-    ].join(' '),
-  );
-
-  execSync(
-    [
-      'npx',
-      '--',
-      'pbts',
-      '-o',
-      `${protoGeneratedDir}/proto_bundle.d.ts`,
-      `${protoGeneratedDir}/proto_bundle.js`,
-    ].join(' '),
-  );
 }
 
 function generateProtobufTs() {
@@ -102,7 +74,7 @@ function generateProtobufTs() {
 
 function generateStudyProtoPatch() {
   fs.writeFileSync(
-    `${protoDir}/study.proto.protobuf-ts.patch`,
+    `${protoDir}/study.protobuf-ts.patch`,
     execSync(`git diff ${protoDir}/study.proto`, {
       encoding: 'buffer',
     }),
@@ -110,14 +82,14 @@ function generateStudyProtoPatch() {
 }
 
 function gitApplyStudyProtoPatch() {
-  execSync(`git apply ${protoDir}/study.proto.protobuf-ts.patch`, {
+  execSync(`git apply ${protoDir}/study.protobuf-ts.patch`, {
     cwd: protoDir,
     stdio: 'inherit',
   });
 }
 
 function gitRevertStudyProtoPatch() {
-  execSync(`git apply -R ${protoDir}/study.proto.protobuf-ts.patch`, {
+  execSync(`git apply -R ${protoDir}/study.protobuf-ts.patch`, {
     cwd: protoDir,
     stdio: 'inherit',
   });

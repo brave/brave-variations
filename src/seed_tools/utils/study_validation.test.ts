@@ -30,7 +30,7 @@ describe('getStudyErrors', () => {
       filter: {
         locale: ['en'],
         channel: ['CANARY'],
-        platform: ['PLATFORM_WINDOWS'],
+        platform: ['WINDOWS'],
         start_date: Math.floor(new Date('2022-01-01').getTime() / 1000),
         end_date: Math.floor(new Date('2022-02-01').getTime() / 1000),
         min_version: '1.0',
@@ -243,7 +243,7 @@ describe('getStudyErrors', () => {
         },
       ],
       filter: {
-        platform: ['PLATFORM_LINUX'],
+        platform: ['LINUX'],
         channel: ['BETA'],
       },
     });
@@ -266,7 +266,7 @@ describe('getStudyErrors', () => {
           },
         ],
         filter: {
-          platform: ['PLATFORM_LINUX'],
+          platform: ['LINUX'],
           channel: ['BETA'],
         },
       });
@@ -342,7 +342,7 @@ describe('getStudyErrors', () => {
           },
         ],
         filter: {
-          platform: ['PLATFORM_LINUX'],
+          platform: ['LINUX'],
           channel: ['BETA'],
         },
       };
@@ -523,7 +523,7 @@ describe('getStudyErrors', () => {
         },
       ],
       filter: {
-        platform: ['PLATFORM_LINUX'],
+        platform: ['LINUX'],
         channel: ['BETA'],
         locale: [],
         exclude_locale: ['en'],
@@ -614,7 +614,7 @@ describe('getStudyErrors', () => {
           probability_weight: 100,
         },
       ],
-      filter: { ...filter, platform: ['PLATFORM_LINUX'], channel: ['BETA'] },
+      filter: { ...filter, platform: ['LINUX'], channel: ['BETA'] },
     });
 
     expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
@@ -673,7 +673,7 @@ describe('getStudyErrors', () => {
             probability_weight: 100,
           },
         ],
-        filter: { ...filter, platform: ['PLATFORM_LINUX'] },
+        filter: { ...filter, platform: ['LINUX'] },
       });
 
       expect(
@@ -685,7 +685,7 @@ describe('getStudyErrors', () => {
   test.each([
     {},
     { platform: [] },
-    { platform: ['PLATFORM_LINUX', 'PLATFORM_LINUX'] },
+    { platform: ['LINUX', 'LINUX'] },
   ])('should error if platform is invalid', (filter: any) => {
     const study = Study.fromJson({
       name: 'study',

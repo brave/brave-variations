@@ -31,7 +31,7 @@ describe('getSeedErrors', () => {
       } else {
         study.filter = {};
       }
-      study.filter.platform = study.filter.platform ?? ['PLATFORM_LINUX'];
+      study.filter.platform = study.filter.platform ?? ['LINUX'];
       study.filter.channel = study.filter.channel ?? ['BETA'];
       return Study.fromJson(study, {
         ignoreUnknownFields: false,
@@ -184,19 +184,19 @@ describe('getSeedErrors', () => {
       // platform tests
       {
         filter1: {
-          platform: ['PLATFORM_WINDOWS', 'PLATFORM_MAC'],
+          platform: ['WINDOWS', 'MAC'],
         },
         filter2: {
-          platform: ['PLATFORM_MAC'],
+          platform: ['MAC'],
         },
         expectedOverlapped: true,
       },
       {
         filter1: {
-          platform: ['PLATFORM_WINDOWS'],
+          platform: ['WINDOWS'],
         },
         filter2: {
-          platform: ['PLATFORM_MAC'],
+          platform: ['MAC'],
         },
         expectedOverlapped: false,
       },

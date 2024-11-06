@@ -4,7 +4,6 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import { createHash } from 'node:crypto';
 
-import { type variations as proto } from '../proto/generated/proto_bundle';
 import { SeedType, type ProcessingOptions } from './base_types';
 import {
   StudyPriority,
@@ -15,6 +14,7 @@ import {
 
 import * as config from '../config';
 import * as url_utils from './url_utils';
+import { VariationsSeed } from '../proto/generated/variations_seed';
 
 export enum ItemAction {
   New,
@@ -115,8 +115,8 @@ function getOverallAudience(
 }
 
 export function makeSummary(
-  oldSeed: proto.VariationsSeed,
-  newSeed: proto.VariationsSeed,
+  oldSeed: VariationsSeed,
+  newSeed: VariationsSeed,
   options: ProcessingOptions,
   minPriority: StudyPriority,
 ): Map<StudyPriority, SummaryItem[]> {

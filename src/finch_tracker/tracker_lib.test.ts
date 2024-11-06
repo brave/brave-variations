@@ -8,7 +8,8 @@ import * as fs from 'fs';
 import { describe, expect, test } from '@jest/globals';
 import { StudyPriority } from '../core/study_processor';
 import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
-import { variations as proto } from '../proto/generated/proto_bundle';
+import { Study, Study_Channel, Study_Platform} from '../proto/generated/study';
+import { VariationsSeed } from '../proto/generated/variations_seed';
 import { serializeStudies } from './tracker_lib';
 
 function serialize(json: Record<string, any>) {
@@ -46,11 +47,11 @@ describe('summary', () => {
   const common = {
     name: 'TestStudy',
     filter: {
-      channel: [proto.Study.Channel.STABLE],
-      platform: [proto.Study.Platform.PLATFORM_WINDOWS],
+      channel: [Study_Channel.STABLE],
+      platform: [Study_Platform.WINDOWS],
     },
   };
-  const oldStudy = new proto.Study({
+  const oldStudy = Study.create({
     ...common,
     experiment: [
       {
@@ -65,7 +66,7 @@ describe('summary', () => {
     ],
   });
 
-  const newStudy = new proto.Study({
+  const newStudy = Study.create({
     ...common,
     experiment: [
       {
@@ -84,8 +85,8 @@ describe('summary', () => {
       },
     ],
   });
-  const oldSeed = new proto.VariationsSeed({ study: [oldStudy] });
-  const newSeed = new proto.VariationsSeed({ study: [newStudy] });
+  const oldSeed = VariationsSeed.create({ study: [oldStudy] });
+  const newSeed = VariationsSeed.create({ study: [newStudy] });
 
   const summary = makeSummary(
     oldSeed,

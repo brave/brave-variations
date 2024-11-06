@@ -11,7 +11,7 @@ import {
   type StudyPriority,
 } from '../../core/study_processor';
 import * as url_utils from '../../core/url_utils';
-import { type variations as proto } from '../../proto/generated/proto_bundle';
+import { Study_Filter } from '../../proto/generated/study';
 import { ExperimentModel } from './experiment_model';
 
 export class StudyModel {
@@ -25,7 +25,7 @@ export class StudyModel {
     this.id = id;
   }
 
-  filter(): proto.Study.IFilter | undefined {
+  filter(): Study_Filter | undefined {
     return this.processedStudy.study.filter ?? undefined;
   }
 
@@ -42,7 +42,11 @@ export class StudyModel {
     if (study.experiment == null) return [];
     const models: ExperimentModel[] = [];
     for (const e of study.experiment) {
-      if (e.probability_weight > 0 || f === undefined || f.showEmptyGroups) {
+      if (
+        (e.probability_weight ?? 0) > 0 ||
+        f === undefined ||
+        f.showEmptyGroups
+      ) {
         const model = new ExperimentModel(e, this);
         models.push(model);
       }

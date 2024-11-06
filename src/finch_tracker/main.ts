@@ -8,13 +8,13 @@ import { type ProcessingOptions } from '../core/base_types';
 import { StudyPriority } from '../core/study_processor';
 import { makeSummary, summaryToJson } from '../core/summary';
 import * as url_utils from '../core/url_utils';
-import { variations as proto } from '../proto/generated/proto_bundle';
 import { downloadUrl, getSeedPath } from './node_utils';
 import {
   commitAllChanges,
   fetchChromeSeedData,
   storeDataToDirectory,
 } from './tracker_lib';
+import { VariationsSeed } from '../proto/generated/variations_seed';
 
 async function main(): Promise<void> {
   const program = new Command()
@@ -86,7 +86,7 @@ async function main(): Promise<void> {
     seedFile !== undefined
       ? fs.readFileSync(seedFile)
       : await fetchChromeSeedData();
-  const seed = proto.VariationsSeed.decode(seedData);
+  const seed = VariationsSeed.fromBinary(seedData);
   let previousSeedData: Buffer | undefined;
   let newGitSha1: string | undefined;
 
@@ -105,7 +105,7 @@ async function main(): Promise<void> {
   }
 
   if (createSummary && previousSeedData !== undefined) {
-    const previousSeed = proto.VariationsSeed.decode(previousSeedData);
+    const previousSeed = VariationsSeed.fromBinary(previousSeedData);
     const summary = makeSummary(
       previousSeed,
       seed,

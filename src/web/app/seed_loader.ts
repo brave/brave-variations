@@ -5,8 +5,8 @@
 
 import { SeedType, type ProcessingOptions } from '../../core/base_types';
 import { ProcessedStudy } from '../../core/study_processor';
-import { variations as proto } from '../../proto/generated/proto_bundle';
 import { StudyListModel, StudyModel } from './study_model';
+import { VariationsSeed } from '../../proto/generated/variations_seed';
 
 import * as url_utils from '../../core/url_utils';
 
@@ -47,7 +47,7 @@ async function loadFile(
 async function loadSeedFromUrl(url: string, type: SeedType) {
   const data = await loadFile(url, 'arraybuffer');
   const seedBytes = new Uint8Array(data);
-  const seed = proto.VariationsSeed.decode(seedBytes);
+  const seed = VariationsSeed.fromBinary(seedBytes);
   const isBraveSeed = type !== SeedType.UPSTREAM;
 
   // Desktop/Android could use a different major chrome version.

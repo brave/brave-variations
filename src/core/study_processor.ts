@@ -2,20 +2,20 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
-import { variations as proto } from '../proto/generated/proto_bundle';
+import { Study, Study_Channel, Study_Experiment, Study_Filter, Study_Platform} from '../proto/generated/study';
 import { type ProcessingOptions } from './base_types';
 import { isFeatureBlocklisted, isStudyNameBlocklisted } from './blocklists';
 import { matchesMaxVersion, parseVersionPattern } from './version';
 
-const UPSTREAM_SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] = [
-  proto.Study.Platform.PLATFORM_ANDROID,
-  proto.Study.Platform.PLATFORM_LINUX,
-  proto.Study.Platform.PLATFORM_MAC,
-  proto.Study.Platform.PLATFORM_WINDOWS,
+const UPSTREAM_SUPPORTED_PLATFORMS: readonly Study_Platform[] = [
+  Study_Platform.ANDROID,
+  Study_Platform.LINUX,
+  Study_Platform.MAC,
+  Study_Platform.WINDOWS,
 ];
 
-const BRAVE_SUPPORTED_PLATFORMS: readonly proto.Study.Platform[] =
-  UPSTREAM_SUPPORTED_PLATFORMS.concat([proto.Study.Platform.PLATFORM_IOS]);
+const BRAVE_SUPPORTED_PLATFORMS: readonly Study_Platform[] =
+  UPSTREAM_SUPPORTED_PLATFORMS.concat([Study_Platform.IOS]);
 
 export enum StudyChannelTarget {
   // filter.channel includes DEV or CANNERY, doesn't include STABLE or BETA.
@@ -86,14 +86,14 @@ export class StudyFilter {
   }
 }
 
-// A wrapper over a raw proto.Study that processes it and collects some extra
+// A wrapper over a raw Study that processes it and collects some extra
 // data.
 export class ProcessedStudy {
-  study: proto.IStudy;
+  study: Study;
   studyDetails: StudyDetails;
   affectedFeatures: Set<string>;
 
-  constructor(study: proto.IStudy, options: ProcessingOptions) {
+  constructor(study: Study, options: ProcessingOptions) {
     this.study = study;
     this.studyDetails = new StudyDetails(study, options);
     this.affectedFeatures = getAffectedFeatures(study);
@@ -106,7 +106,7 @@ export class ProcessedStudy {
 
   stripEmptyFilterGroups(): void {
     this.study.experiment = this.study.experiment?.filter(
-      (e) => e.probability_weight > 0,
+      (e) => (e.probability_weight ?? 0) > 0,
     );
   }
 
@@ -172,7 +172,7 @@ export class StudyDetails {
   maxNonDefaultIndex = -1;
   channelTarget = StudyChannelTarget.DEV_OR_CANARY;
 
-  constructor(study: proto.IStudy, options: ProcessingOptions) {
+  constructor(study: Study, options: ProcessingOptions) {
     const filter = study.filter;
     const experiment = study.experiment;
     const maxVersion = filter?.max_version;
@@ -202,7 +202,7 @@ export class StudyDetails {
         endDateSeconds = filter.end_date;
       } else {
         // Long
-        endDateSeconds = filter.end_date.toNumber();
+        endDateSeconds = Number(filter.end_date);
       }
 
       if (
@@ -227,7 +227,7 @@ export class StudyDetails {
       this.isBlocklisted ||=
         disabledFeatures?.some((n) => isFeatureBlocklisted(n)) ?? false;
 
-      this.isKillSwitch ||= e.probability_weight > 0 && isKillSwitch(e.name);
+      this.isKillSwitch ||= (e.probability_weight ?? 0) > 0 && isKillSwitch(e.name);
 
       this.onlyDisabledFeatures &&=
         e.probability_weight === 0 ||
@@ -242,7 +242,7 @@ export class StudyDetails {
 
     let index = 0;
     for (const e of experiment) {
-      const weight = e.probability_weight;
+      const weight = e.probability_weight ?? 0;
       this.totalWeight += weight;
       if (
         !e.name.startsWith('Default') &&
@@ -259,9 +259,9 @@ export class StudyDetails {
     }
 
     const channel = study.filter?.channel;
-    if (channel?.includes(proto.Study.Channel.BETA))
+    if (channel?.includes(Study_Channel.BETA))
       this.channelTarget = StudyChannelTarget.BETA;
-    if (channel?.includes(proto.Study.Channel.STABLE))
+    if (channel?.includes(Study_Channel.STABLE))
       this.channelTarget = StudyChannelTarget.STABLE;
   }
 
@@ -293,7 +293,7 @@ export class StudyDetails {
   }
 }
 
-function getAffectedFeatures(study: proto.IStudy): Set<string> {
+function getAffectedFeatures(study: Study): Set<string> {
   const features = new Set<string>();
   const experiment = study.experiment;
   if (experiment == null) {
@@ -306,7 +306,7 @@ function getAffectedFeatures(study: proto.IStudy): Set<string> {
   return features;
 }
 
-function areFeaturesInDefaultStates(e: proto.Study.IExperiment): boolean {
+function areFeaturesInDefaultStates(e: Study_Experiment): boolean {
   const enableFeature = e.feature_association?.enable_feature;
   const disableFeature = e.feature_association?.disable_feature;
   if (enableFeature != null && enableFeature.length > 0) return false;
@@ -315,11 +315,10 @@ function areFeaturesInDefaultStates(e: proto.Study.IExperiment): boolean {
 }
 
 function filterPlatforms(
-  f: proto.Study.IFilter | undefined | null,
+  f: Study_Filter,
   isBraveSeed: boolean,
-): proto.Study.Platform[] | undefined {
+): Study_Platform[] {
   const platform = f?.platform;
-  if (platform == null) return undefined;
   const supportedPlatforms = isBraveSeed
     ? BRAVE_SUPPORTED_PLATFORMS
     : UPSTREAM_SUPPORTED_PLATFORMS;
@@ -328,7 +327,7 @@ function filterPlatforms(
 
 // Processes a list of studies and groups it according to study.name.
 export function processStudyList(
-  list: proto.IStudy[],
+  list: Study[],
   minPriority: StudyPriority,
   options: ProcessingOptions,
 ): Map<string, ProcessedStudy[]> {

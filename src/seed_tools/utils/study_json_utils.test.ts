@@ -44,7 +44,7 @@ describe('stringifyStudies', () => {
         name: 'study',
         filter: {
           channel: ['CANARY', 'BETA', 'STABLE'],
-          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
+          platform: ['LINUX', 'MAC'],
         },
       },
       { ignoreUnknownFields: false },
@@ -112,7 +112,7 @@ describe('stringifyStudies', () => {
         filter: {
           start_date: Math.floor(startDate.getTime() / 1000),
           channel: ['CANARY', 'BETA', 'STABLE'],
-          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
+          platform: ['LINUX', 'MAC'],
         },
       },
       { ignoreUnknownFields: false },
@@ -127,7 +127,7 @@ describe('stringifyStudies', () => {
         filter: {
           start_date: startDate.toISOString(),
           channel: ['CANARY', 'BETA', 'STABLE'],
-          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
+          platform: ['LINUX', 'MAC'],
         },
       },
     ]);

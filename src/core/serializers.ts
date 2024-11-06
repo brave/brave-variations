@@ -2,7 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
-import { variations as proto } from '../proto/generated/proto_bundle';
+import {Study, Study_Channel, Study_Platform} from '../proto/generated/study';
 
 export function getPlatformNameFromString(protoPlatfrom: string): string {
   const PREFIX = 'PLATFORM_';
@@ -11,8 +11,8 @@ export function getPlatformNameFromString(protoPlatfrom: string): string {
   return protoPlatfrom;
 }
 
-export function getPlatfromName(protoPlatfrom: proto.Study.Platform): string {
-  return getPlatformNameFromString(proto.Study.Platform[protoPlatfrom]);
+export function getPlatfromName(protoPlatfrom: Study_Platform): string {
+  return getPlatformNameFromString(Study_Platform[protoPlatfrom]);
 }
 
 export function getChannelNameFromString(
@@ -27,11 +27,11 @@ export function getChannelNameFromString(
 }
 
 export function getChannelName(
-  protoChannel: proto.Study.Channel,
+  protoChannel: Study_Channel,
   isBraveSpecific: boolean,
 ): string {
   return getChannelNameFromString(
-    proto.Study.Channel[protoChannel],
+    Study_Channel[protoChannel],
     isBraveSpecific,
   );
 }
@@ -52,9 +52,11 @@ export function serializeChannels(channels?: string[]): string | undefined {
 
 // Converts a study to JSON that is ready to be serialized. Some field are
 // removed, some are converted to a human readable format.
-export function studyToJSON(study: proto.IStudy): Record<string, any> {
-  const msg = proto.Study.fromObject(study);
-  const json = msg.toJSON();
+export function studyToJSON(study: Study): Record<string, any> {
+  const json = Study.toJson(study) as Record<string, any> | null;
+  if (json === null) {
+    throw new Error('Failed to convert study to JSON');
+  }
   const filter = json.filter;
   delete json.consistency;
   delete json.activation_type;

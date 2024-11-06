@@ -14,7 +14,8 @@ import {
   StudyPriority,
   priorityToText,
 } from '../core/study_processor';
-import { variations as proto } from '../proto/generated/proto_bundle';
+import { Study } from '../proto/generated/study';
+import { VariationsSeed } from '../proto/generated/variations_seed';
 import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
 
 export async function fetchChromeSeedData(): Promise<Buffer> {
@@ -29,8 +30,8 @@ export function serializeStudies(
   options: ProcessingOptions,
 ): Record<string, any[]> {
   const map: Record<string, any[]> = {};
-  const seed = proto.VariationsSeed.decode(seedData);
-  const addStudy = (path: string, study: proto.IStudy) => {
+  const seed = VariationsSeed.fromBinary(seedData);
+  const addStudy = (path: string, study: Study) => {
     const json = studyToJSON(study);
     const list = map[path];
     if (list !== undefined) list.push(json);
