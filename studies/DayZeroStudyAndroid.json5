@@ -1,0 +1,49 @@
+[
+  {
+    name: 'DayZeroStudyAndroid',
+    experiment: [
+      {
+        name: 'EnabledA',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'a',
+          },
+        ],
+      },
+      {
+        name: 'EnabledB',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'b',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+]
