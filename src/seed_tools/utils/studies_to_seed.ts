@@ -13,7 +13,7 @@ import {
   type Study,
 } from '../../proto/generated/study';
 import { VariationsSeed } from '../../proto/generated/variations_seed';
-import { parseLegacySeedJson } from '../commands/split_seed_json';
+import { parseLegacySeedJson } from './legacy_json_to_seed';
 import diffStrings from '../utils/diff_strings';
 import * as file_utils from '../utils/file_utils';
 import * as seed_validation from '../utils/seed_validation';
@@ -86,8 +86,8 @@ async function readStudiesAtRevision(
       filesWithContent.push({ path: file, content });
     }
     return await readStudies(filesWithContent, false);
-  } catch (e) {
-    console.log(`Failed to read studies ${revision}, use seed.json fallback`);
+  } catch (error) {
+    console.log(`Failed to read studies ${revision}, use seed.json fallback:`, error);
     const seedContent = execSync(`git show "${revision}":seed/seed.json`, {
       encoding: 'utf8',
     });
