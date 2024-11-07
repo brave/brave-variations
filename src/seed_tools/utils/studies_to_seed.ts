@@ -13,6 +13,7 @@ import {
   type Study,
 } from '../../proto/generated/study';
 import { VariationsSeed } from '../../proto/generated/variations_seed';
+import { parseLegacySeedJson } from '../commands/split_seed_json';
 import diffStrings from '../utils/diff_strings';
 import * as file_utils from '../utils/file_utils';
 import * as seed_validation from '../utils/seed_validation';
@@ -71,20 +72,32 @@ async function readStudiesAtRevision(
 }> {
   const basePath = wsPath('//');
   studiesDir = path.relative(basePath, studiesDir);
-  const files = execSync(`git show "${revision}":"${studiesDir}"`, {
-    encoding: 'utf8',
-  }).split('\n');
+  try {
+    const files = execSync(`git show "${revision}":"${studiesDir}"`, {
+      encoding: 'utf8',
+    }).split('\n');
 
-  const filesWithContent = [];
-  for (const file of files) {
-    if (!file.endsWith('.json5')) continue;
-    const content = execSync(`git show ${revision}:"${studiesDir}/${file}"`, {
+    const filesWithContent = [];
+    for (const file of files) {
+      if (!file.endsWith('.json5')) continue;
+      const content = execSync(`git show ${revision}:"${studiesDir}/${file}"`, {
+        encoding: 'utf8',
+      });
+      filesWithContent.push({ path: file, content });
+    }
+    return await readStudies(filesWithContent, false);
+  } catch (e) {
+    console.log(`Failed to read studies ${revision}, use seed.json fallback`);
+    const seedContent = execSync(`git show "${revision}":seed/seed.json`, {
       encoding: 'utf8',
     });
-    filesWithContent.push({ path: file, content });
+    const { parsedSeed } = parseLegacySeedJson(seedContent);
+    return {
+      studies: parsedSeed.study,
+      studyFileBaseNameMap: new Map(),
+      errors: [],
+    };
   }
-
-  return await readStudies(filesWithContent, false);
 }
 
 async function readStudies(

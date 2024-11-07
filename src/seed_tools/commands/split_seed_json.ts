@@ -18,10 +18,11 @@ export default function createCommand() {
     .action(main);
 }
 
-async function main(seedPath: string, outputDir: string) {
-  const seedJson = preprocessSeedJson(
-    JSON.parse(await fs.readFile(seedPath, 'utf8')),
-  );
+export function parseLegacySeedJson(seedContent: string): {
+  parsedSeed: VariationsSeed;
+  studiesMap: DefaultMap<string, Study[]>;
+} {
+  const seedJson = preprocessSeedJson(JSON.parse(seedContent));
 
   // Parse the seed as protobuf json representation. The parse will fail if any
   // unknown fields or values are present in the json.
@@ -29,11 +30,17 @@ async function main(seedPath: string, outputDir: string) {
     ignoreUnknownFields: false,
   });
 
-  const studies = new DefaultMap<string, Study[]>(() => []);
+  const studiesMap = new DefaultMap<string, Study[]>(() => []);
   for (const study of parsedSeed.study) {
-    studies.get(study.name).push(study);
+    studiesMap.get(study.name).push(study);
   }
 
+  return { parsedSeed, studiesMap };
+}
+
+async function main(seedPath: string, outputDir: string) {
+  const seedContent = await fs.readFile(seedPath, 'utf8');
+  const { studiesMap } = parseLegacySeedJson(seedContent);
   await fs.mkdir(outputDir, { recursive: true });
 
   // Remove all files in the output directory.
@@ -45,7 +52,7 @@ async function main(seedPath: string, outputDir: string) {
   }
 
   // Write study files.
-  for (const study of studies) {
+  for (const study of studiesMap) {
     const studyName = study[0];
     const studyArray = study[1];
     const studyFile = `${outputDir}/${studyName}.json5`;
