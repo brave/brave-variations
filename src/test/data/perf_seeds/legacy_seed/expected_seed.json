@@ -1,0 +1,2556 @@
+{
+  "serialNumber": "1",
+  "study": [
+    {
+      "name": "Default1pBlockingStudy",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "BraveAdblockDefault1pBlocking"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "92.1.30.57",
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "DefaultBraveCommandsStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveCommands"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "DefaultBraveOmniboxMoreHistoryStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "HistoryMoreSearchResults"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveFeedUpdateStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveNewsFeedUpdate"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveGoogleSignInPermissionStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveGoogleSignInPermission"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "111.1.51.5",
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveGoogleSignInPermissionStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveGoogleSignInPermission"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "111.1.51.5",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "Default1pBlockingStudy",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "BraveAdblockDefault1pBlocking"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "92.1.30.57",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "EphemeralStorageStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "EphemeralStorage"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "89.1.21.73",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "EphemeralStorageStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "EphemeralStorage"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "89.1.21.73",
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "UserActivityStudy",
+      "defaultExperimentName": "Triggers",
+      "experiment": [
+        {
+          "name": "Triggers",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "UserActivity"
+            ]
+          },
+          "param": [
+            {
+              "name": "triggers",
+              "value": "0D0B14110D0B14110D0B14110D0B1411=-1.0;0D0B1411070707=-1.0;07070707=-1.0;0B1512=0.5;0B1513=0.5;0B1514=0.5;06=1.0;04=0.5"
+            },
+            {
+              "name": "time_window",
+              "value": "1h"
+            },
+            {
+              "name": "threshold",
+              "value": "0.5"
+            },
+            {
+              "name": "idle_time_threshold",
+              "value": "5s"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "minVersion": "108.1.47.73",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "MacCoreLocationBackendStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "MacCoreLocationBackend"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "91.1.26.74",
+        "channel": [
+          "STABLE",
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_MAC"
+        ]
+      }
+    },
+    {
+      "name": "BraveDebounceStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveDebounce"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "94.1.32.25",
+        "channel": [
+          "STABLE",
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "HangWatcher",
+      "defaultExperimentName": "HangWatcherEnableDumps",
+      "experiment": [
+        {
+          "name": "HangWatcherEnableDumps",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "EnableHangWatcher"
+            ]
+          },
+          "param": [
+            {
+              "name": "ui_thread_log_level",
+              "value": "2"
+            },
+            {
+              "name": "io_thread_log_level",
+              "value": "2"
+            },
+            {
+              "name": "renderer_process_main_thread_log_level",
+              "value": "2"
+            },
+            {
+              "name": "renderer_process_io_thread_log_level",
+              "value": "2"
+            },
+            {
+              "name": "utility_process_main_thread_log_level",
+              "value": "2"
+            },
+            {
+              "name": "utility_process_io_thread_log_level",
+              "value": "2"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "minVersion": "97.1.36.14",
+        "channel": [
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "DisableCnameUncloakingForAndroid",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "BraveAdblockCnameUncloaking"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "NavigationThreadingOptimizationsCompatOldVersions",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "NavigationThreadingOptimizations"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "maxVersion": "102.1.39.0",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "DisableReduceLanguage",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveReduceLanguage"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveRewardsWebUiPanelStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveRewardsWebUIPanel"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "103.1.43.9",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveTranslateStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "UseBraveTranslateGo",
+              "Translate"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "104.1.43.54",
+        "maxVersion": "106.1.45.44",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveAutoTranslateStudy",
+      "defaultExperimentName": "AutoTranslateDisabled",
+      "experiment": [
+        {
+          "name": "AutoTranslateDisabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "BraveEnableAutoTranslate"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "107.1.47.31",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveSearchPromotionBannerStudy",
+      "defaultExperimentName": "banner_type_D",
+      "experiment": [
+        {
+          "name": "banner_type_D",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveSearchOmniboxBanner"
+            ]
+          },
+          "param": [
+            {
+              "name": "banner_type",
+              "value": "type_D"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "minVersion": "117.1.60.41",
+        "channel": [
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ],
+        "country": [
+          "CA",
+          "DE",
+          "FR",
+          "GB",
+          "US",
+          "AT",
+          "ES",
+          "MX",
+          "BR",
+          "AR",
+          "IN"
+        ]
+      }
+    },
+    {
+      "name": "BraveSearchPromotionBannerStudyOnStable",
+      "defaultExperimentName": "Default",
+      "experiment": [
+        {
+          "name": "Default",
+          "probabilityWeight": 100
+        }
+      ],
+      "filter": {
+        "minVersion": "117.1.60.41",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ],
+        "country": [
+          "CA",
+          "DE",
+          "FR",
+          "GB",
+          "AT",
+          "ES",
+          "MX",
+          "BR",
+          "AR",
+          "IN"
+        ]
+      }
+    },
+    {
+      "name": "SidebarEnabledStudy",
+      "defaultExperimentName": "Default",
+      "experiment": [
+        {
+          "name": "Default",
+          "probabilityWeight": 100
+        }
+      ],
+      "filter": {
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS"
+        ]
+      }
+    },
+    {
+      "name": "BraveScreenFingerprintingBlockerStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveBlockScreenFingerprinting"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "108.1.48.19",
+        "channel": [
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "ClampPlatformVersionClientHint",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "ClampPlatformVersionClientHint"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "114.1.52.78",
+        "channel": [
+          "STABLE",
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveScreenFingerprintingBlockerStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveBlockScreenFingerprinting"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "111.1.50.93",
+        "channel": [
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveScreenFingerprintingBlockerStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveBlockScreenFingerprinting"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "111.1.50.93",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveAggressiveModeRetirementExperiment",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "BraveShowStrictFingerprintingMode"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "120.1.63.110",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "AllowCertainClientHintsStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "AllowCertainClientHints"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "104.1.44.59",
+        "channel": [
+          "STABLE",
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "MetricsAndCrashSampling",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "MetricsReporting"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "PostFREFixMetricsAndCrashSampling",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "PostFREFixMetricsReporting"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "CosmeticFilteringChildFramesStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveAdblockCosmeticFilteringChildFrames"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "106.1.46.14",
+        "channel": [
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "CrossPlatformVPNStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveVPN",
+              "BraveVPNLinkSubscriptionAndroidUI"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "110.1.49.120",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveAdblockMobileNotificationsListDefault",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveAdblockMobileNotificationsListDefault"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "STABLE",
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveCleanupSessionCookiesOnSessionRestore",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "BraveCleanupSessionCookiesOnSessionRestore"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "111.1.50.0",
+        "channel": [
+          "STABLE",
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_MAC"
+        ]
+      }
+    },
+    {
+      "name": "BraveForgetFirstPartyStorage",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveForgetFirstPartyStorage"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "114.1.53.83",
+        "channel": [
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveForgetFirstPartyStorage",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveForgetFirstPartyStorage"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "116.1.57.0",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "PartitionedCookies",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "PartitionedCookies"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "122.1.63.0",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "WhatsNewStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "param": [
+            {
+              "name": "target_major_version_stable",
+              "value": "1.65"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "minVersion": "119.1.60.114",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "ModuleFileNamePatchStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "ModuleFileNamePatch"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "112.1.51.89",
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS"
+        ]
+      }
+    },
+    {
+      "name": "ModuleFileNamePatchStudyRelease",
+      "defaultExperimentName": "Default",
+      "experiment": [
+        {
+          "name": "Default",
+          "probabilityWeight": 100
+        }
+      ],
+      "filter": {
+        "minVersion": "112.1.51.89",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS"
+        ]
+      }
+    },
+    {
+      "name": "BraveForgetFirstPartyStorage",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveForgetFirstPartyStorage"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "112.1.51.57",
+        "channel": [
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveRequestOTRTabRolloutStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveRequestOTRTab"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "CookieListDefaultStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveAdblockCookieListDefault"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "STABLE",
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "InnerHTMLParserFastpathStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "InnerHTMLParserFastpath"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "maxVersion": "114.1.52.999",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveP3AConstellationEnabled",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveP3AConstellation"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveP3ATypicalJSONDeprecationEnabled",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveP3ATypicalJSONDeprecation"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveLocalhostAccessPermissionStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveLocalhostAccessPermission"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "115.1.55.5",
+        "channel": [
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveSearchAdStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "ShouldLaunchBraveAdsAsInProcessService",
+              "ShouldAlwaysRunBraveAdsService",
+              "ShouldSupportSearchResultAds",
+              "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveSearchAdStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "ShouldAlwaysRunBraveAdsService",
+              "ShouldSupportSearchResultAds",
+              "ShouldAlwaysTriggerBraveSearchResultAdEvents"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "122.1.65.32",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "BraveAIChatEnabledStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "AIChat"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "119.1.60.0",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "PrettyPrintJSONDocument",
+      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "experiment": [
+        {
+          "name": "Disabled_EmergencyKillSwitch",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "PrettyPrintJSONDocument"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "117.0.0.0",
+        "maxVersion": "119.1.61.0",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "Speedreader TTS",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "Speedreader"
+            ]
+          },
+          "param": [
+            {
+              "name": "tts",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC"
+        ]
+      }
+    },
+    {
+      "name": "BraveHorizontalTabsUpdateEnabledStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveHorizontalTabsUpdate"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveHorizontalTabsUpdateEnabledStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveHorizontalTabsUpdate"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveWebViewRoundedCornersStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "brave-web-view-rounded-corners"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "SmilAutoSuspendOnLagKillSwitch",
+      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "experiment": [
+        {
+          "name": "Disabled_EmergencyKillSwitch",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "SmilAutoSuspendOnLag"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "118.*",
+        "maxVersion": "120.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "DefaultPassthroughCommandDecoderStudy",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "DefaultPassthroughCommandDecoder"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "125.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "CollectWebGPUSupportMetricsKillSwitch",
+      "defaultExperimentName": "Disabled_CollectWebGPUSupportMetrics",
+      "experiment": [
+        {
+          "name": "Disabled_CollectWebGPUSupportMetrics",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "CollectWebGPUSupportMetrics"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "119.*",
+        "maxVersion": "119.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "CloseWatcher",
+      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "experiment": [
+        {
+          "name": "Disabled_EmergencyKillSwitch",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "CloseWatcher"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "120.*",
+        "maxVersion": "122.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveRewardsAllowSelfCustodyProvidersStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveRewardsAllowSelfCustodyProviders"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "HeapProfilingMacKillSwitch",
+      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "experiment": [
+        {
+          "name": "Disabled_EmergencyKillSwitch",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "HeapProfilerReporting"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "122.*",
+        "maxVersion": "125.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_MAC"
+        ]
+      }
+    },
+    {
+      "name": "RendererAllocatesImagesKillSwitch",
+      "defaultExperimentName": "Disabled_RendererAllocatesImages",
+      "experiment": [
+        {
+          "name": "Disabled_RendererAllocatesImages",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "RendererAllocatesImages"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "122.*",
+        "maxVersion": "124.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_MAC"
+        ]
+      }
+    },
+    {
+      "name": "BraveAdsSiteVisitStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "SiteVisitFeature"
+            ]
+          },
+          "param": [
+            {
+              "name": "page_land_after",
+              "value": "5s"
+            },
+            {
+              "name": "page_land_cap",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "BraveAdsNewTabPageAdsStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "NewTabPageAds"
+            ]
+          },
+          "param": [
+            {
+              "name": "minimum_wait_time",
+              "value": "1m"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "BraveAdsTextClassificationPageProbabilitiesStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "TextClassification"
+            ]
+          },
+          "param": [
+            {
+              "name": "page_probabilities_history_size",
+              "value": "15"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "BraveAds.CreativeAdModelBasedPredictorRecencyStudy",
+      "defaultExperimentName": "NoRecency",
+      "experiment": [
+        {
+          "name": "NoRecency",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "CreativeNotificationAdModelBasedPredictor",
+              "CreativeNewTabPageAdModelBasedPredictor",
+              "CreativeInlineContentAdModelBasedPredictor"
+            ]
+          },
+          "param": [
+            {
+              "name": "last_seen_ad_predictor_weight",
+              "value": "0.0"
+            },
+            {
+              "name": "last_seen_advertiser_predictor_weight",
+              "value": "0.0"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "maxVersion": "128.1.69.51",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "PrivateNetworkAccessKillswitch",
+      "defaultExperimentName": "Disabled_PrivateNetworkAccessKillSwitch",
+      "experiment": [
+        {
+          "name": "Disabled_PrivateNetworkAccessKillSwitch",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "PrivateNetworkAccessForNavigations",
+              "PrivateNetworkAccessForNavigationsWarningOnly"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "123.*",
+        "maxVersion": "125.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "UseWritePixelsYUV",
+      "defaultExperimentName": "Disabled_UseWritePixelsYUV",
+      "experiment": [
+        {
+          "name": "Disabled_UseWritePixelsYUV",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "UseWritePixelsYUV"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "123.*",
+        "maxVersion": "125.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "CanvasKillSwitches",
+      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "experiment": [
+        {
+          "name": "Disabled_EmergencyKillSwitch",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "Canvas2DHibernation",
+              "EvictionUnlocksResources"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "maxVersion": "125.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveAdblockExperimentalListDefaultStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveAdblockExperimentalListDefault"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "123.1.66.53",
+        "channel": [
+          "BETA",
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveFallbackDoHStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveFallbackDoHProvider"
+            ]
+          },
+          "param": [
+            {
+              "name": "BraveFallbackDoHProviderEndpoint",
+              "value": "quad9"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "ExtensionsManifestV2Study",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "ExtensionsManifestV2"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "125.1.68.25",
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "ExtensionsManifestV2StudyRelease",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "ExtensionsManifestV2"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "125.1.68.25",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveAdsConversionsStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "Conversions"
+            ]
+          },
+          "param": [
+            {
+              "name": "creative_set_conversion_cap",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "BraveAdsExclusionRulesStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "ExclusionRules"
+            ]
+          },
+          "param": [
+            {
+              "name": "should_exclude_ad_if_creative_set_exceeds_conversion_cap",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "BraveAdsAdEventStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "AdEvent"
+            ]
+          },
+          "param": [
+            {
+              "name": "debounce_clicked_ad_event_for",
+              "value": "1s"
+            },
+            {
+              "name": "deduplicate_clicked_ad_event_for",
+              "value": "1s"
+            }
+          ]
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "BraveWalletAnkrBalancesEnabled",
+      "defaultExperimentName": "Default",
+      "experiment": [
+        {
+          "name": "Default",
+          "probabilityWeight": 100
+        }
+      ],
+      "filter": {
+        "minVersion": "120.*",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveP3ANebulaNightlyBeta",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveP3ADifferentialSampling"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "BraveP3AJSONOtherDeprecation",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveP3AOtherJSONDeprecation"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "DefaultPlaylistStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "Playlist"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "BraveP3ANebulaRelease",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveP3ADifferentialSampling"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID",
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "NewiOSPlaylistUIStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "NewPlaylistUI"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_IOS"
+        ]
+      }
+    },
+    {
+      "name": "UndecryptablePasswords",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "SkipUndecryptablePasswords"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "127.1.68.107",
+        "channel": [
+          "CANARY",
+          "BETA",
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX"
+        ]
+      }
+    },
+    {
+      "name": "WorkaroundNewWindowFlash",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveWorkaroundNewWindowFlash"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "127.1.70.49",
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS"
+        ]
+      }
+    },
+    {
+      "name": "WorkaroundNewWindowFlash",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveWorkaroundNewWindowFlash"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "127.1.70.49",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS"
+        ]
+      }
+    },
+    {
+      "name": "BraveWebcompatExceptionsServiceStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveWebcompatExceptionsService"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "128.1.70.66",
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveWebcompatExceptionsServiceReleaseStudy",
+      "defaultExperimentName": "Enabled",
+      "experiment": [
+        {
+          "name": "Enabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "enableFeature": [
+              "BraveWebcompatExceptionsService"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "128.1.69.150",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveRoundTimeStampsStudy",
+      "defaultExperimentName": "Disabled",
+      "experiment": [
+        {
+          "name": "Disabled",
+          "probabilityWeight": 100,
+          "featureAssociation": {
+            "disableFeature": [
+              "BraveRoundTimeStamps"
+            ]
+          }
+        }
+      ],
+      "filter": {
+        "minVersion": "125.*",
+        "channel": [
+          "CANARY",
+          "BETA"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    },
+    {
+      "name": "BraveRoundTimeStampsReleaseStudy",
+      "defaultExperimentName": "Default",
+      "experiment": [
+        {
+          "name": "Default",
+          "probabilityWeight": 100
+        }
+      ],
+      "filter": {
+        "minVersion": "125.*",
+        "channel": [
+          "STABLE"
+        ],
+        "platform": [
+          "PLATFORM_WINDOWS",
+          "PLATFORM_MAC",
+          "PLATFORM_LINUX",
+          "PLATFORM_ANDROID"
+        ]
+      }
+    }
+  ],
+  "version": "1"
+}

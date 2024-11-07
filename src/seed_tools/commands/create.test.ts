@@ -111,12 +111,13 @@ describe('create command', () => {
       expect(VariationsSeed.fromBinary(output).version).toEqual('1');
     };
 
-    fs_sync.readdirSync(validSeedsDir).forEach((testCase) => {
-      it(testCase, () => runTest(testCase, undefined));
+    it('test1', () => runTest('test1', undefined));
 
-      // Check creating seed using git history.
-      it(`${testCase}_old_revision`, () => runTest(testCase, 'HEAD'));
-    });
+    // Check creating seed using git history.
+    it('test1_git_revision', () => runTest('test1', 'HEAD'));
+
+    // Check creating seed using git history for legacy seed.json.
+    it('legacy_seed', () => runTest('legacy_seed', '3f3eb03e'));
   });
 
   test('set seed version', async () => {
