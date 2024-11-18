@@ -6,6 +6,7 @@
 import { Command } from '@commander-js/extra-typings';
 import { promises as fs } from 'fs';
 import { parseLegacySeedJson } from '../utils/legacy_json_to_seed';
+import * as study_json_utils from '../utils/study_json_utils';
 
 export default function createCommand() {
   return new Command('split_seed_json')
