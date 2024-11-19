@@ -44,7 +44,7 @@ function checkName(study: Study, fileBaseName: string): string[] {
 
   if (
     study.name !== fileBaseName &&
-    !fileBaseName.startsWith(`${study.name}_`)
+    !study.name.startsWith(`${fileBaseName}_`)
   ) {
     errors.push(
       `Study name ${study.name} does not match file name (expected ${fileBaseName} or ${fileBaseName}_<something>)`,
