@@ -122,7 +122,8 @@ describe('create command', () => {
     it('test1_git_revision', () => runTest('test1', 'HEAD'));
 
     // Check creating seed using git history for legacy seed.json.
-    it('legacy_seed', () => runTest('legacy_seed', '3f3eb03e'));
+    it('legacy_seed', () =>
+      runTest('legacy_seed', '3f3eb03e12eb7f37a315f66f735d3decb483a90d'));
   });
 
   test('set seed version', async () => {
