@@ -110,7 +110,7 @@ describe('getStudyErrors', () => {
     );
   });
 
-  test.each(['exp😀', 'exp<', 'exp*'])(
+  test.each(['exp😀', 'exp<', 'exp*', 'exp,'])(
     'should error if experiment name has invalid char %s',
     (experimentName) => {
       const study = Study.fromJson({
@@ -130,26 +130,6 @@ describe('getStudyErrors', () => {
       );
     },
   );
-
-  test('should not error if experiment name has comma', () => {
-    const study = Study.fromJson({
-      name: 'study',
-      experiment: [
-        {
-          name: 'experiment1,',
-          probability_weight: 100,
-        },
-      ],
-      filter: {
-        platform: ['PLATFORM_LINUX'],
-        channel: ['BETA'],
-      },
-    });
-
-    expect(study_validation.getStudyErrors(study, studyFileBaseName)).toEqual(
-      [],
-    );
-  });
 
   test('should error if duplicate experiment names are found', () => {
     const study = Study.fromJson({
@@ -225,7 +205,7 @@ describe('getStudyErrors', () => {
           study_validation.getStudyErrors(study, studyFileBaseName),
         ).toContainEqual(
           expect.stringContaining(
-            `Invalid feature name for experiment experiment: ${featureName}`,
+            `Invalid feature name: ${featureName} (use only 0-9,a-z,A-Z,_,-)`,
           ),
         );
       }

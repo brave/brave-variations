@@ -209,6 +209,16 @@ describe('create command', () => {
             serialNumberPath,
           ]),
         ).rejects.toThrowError('process.exit(1)');
+
+        const expectedError = (
+          await fs.readFile(
+            path.join(testCaseDir, 'expected_errors.txt'),
+            'utf-8',
+          )
+        ).trim();
+        expect(errorMock).toHaveBeenCalledWith(
+          expect.stringContaining(expectedError),
+        );
       },
     );
   });
