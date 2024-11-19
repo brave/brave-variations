@@ -21,6 +21,8 @@ jobs:
 
       - name: Fetch base commit
         run: git fetch --depth=1 origin "$BASE_SHA"
+      - name: Fetch legacy seed commit
+        run: git fetch origin 3f3eb03e12eb7f37a315f66f735d3decb483a90d
 
       - name: Comment "Generation In Progress"
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
