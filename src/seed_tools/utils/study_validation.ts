@@ -339,5 +339,7 @@ export function validateName(
     errors.push(
       `Invalid ${description} name: ${name} (use only 0-9,a-z,A-Z,_,-)`,
     );
+    return false;
   }
+  return true;
 }
