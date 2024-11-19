@@ -1,22 +1,22 @@
 {
-  "serialNumber": "1",
+  "serial_number": "1",
   "study": [
     {
       "name": "Default1pBlockingStudy",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "BraveAdblockDefault1pBlocking"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "92.1.30.57",
+        "min_version": "92.1.30.57",
         "channel": [
           "CANARY",
           "BETA"
@@ -31,13 +31,13 @@
     },
     {
       "name": "DefaultBraveCommandsStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveCommands"
             ]
           }
@@ -57,13 +57,13 @@
     },
     {
       "name": "DefaultBraveOmniboxMoreHistoryStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "HistoryMoreSearchResults"
             ]
           }
@@ -82,13 +82,13 @@
     },
     {
       "name": "BraveFeedUpdateStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveNewsFeedUpdate"
             ]
           }
@@ -107,20 +107,20 @@
     },
     {
       "name": "BraveGoogleSignInPermissionStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveGoogleSignInPermission"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "111.1.51.5",
+        "min_version": "111.1.51.5",
         "channel": [
           "CANARY",
           "BETA"
@@ -135,20 +135,20 @@
     },
     {
       "name": "BraveGoogleSignInPermissionStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveGoogleSignInPermission"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "111.1.51.5",
+        "min_version": "111.1.51.5",
         "channel": [
           "STABLE"
         ],
@@ -162,20 +162,20 @@
     },
     {
       "name": "Default1pBlockingStudy",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "BraveAdblockDefault1pBlocking"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "92.1.30.57",
+        "min_version": "92.1.30.57",
         "channel": [
           "STABLE"
         ],
@@ -189,20 +189,20 @@
     },
     {
       "name": "EphemeralStorageStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "EphemeralStorage"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "89.1.21.73",
+        "min_version": "89.1.21.73",
         "channel": [
           "STABLE"
         ],
@@ -216,20 +216,20 @@
     },
     {
       "name": "EphemeralStorageStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "EphemeralStorage"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "89.1.21.73",
+        "min_version": "89.1.21.73",
         "channel": [
           "CANARY",
           "BETA"
@@ -244,13 +244,13 @@
     },
     {
       "name": "UserActivityStudy",
-      "defaultExperimentName": "Triggers",
+      "default_experiment_name": "Triggers",
       "experiment": [
         {
           "name": "Triggers",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "UserActivity"
             ]
           },
@@ -275,7 +275,7 @@
         }
       ],
       "filter": {
-        "minVersion": "108.1.47.73",
+        "min_version": "108.1.47.73",
         "channel": [
           "CANARY",
           "BETA",
@@ -290,20 +290,20 @@
     },
     {
       "name": "MacCoreLocationBackendStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "MacCoreLocationBackend"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "91.1.26.74",
+        "min_version": "91.1.26.74",
         "channel": [
           "STABLE",
           "BETA",
@@ -316,20 +316,20 @@
     },
     {
       "name": "BraveDebounceStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveDebounce"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "94.1.32.25",
+        "min_version": "94.1.32.25",
         "channel": [
           "STABLE",
           "BETA",
@@ -345,13 +345,13 @@
     },
     {
       "name": "HangWatcher",
-      "defaultExperimentName": "HangWatcherEnableDumps",
+      "default_experiment_name": "HangWatcherEnableDumps",
       "experiment": [
         {
           "name": "HangWatcherEnableDumps",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "EnableHangWatcher"
             ]
           },
@@ -384,7 +384,7 @@
         }
       ],
       "filter": {
-        "minVersion": "97.1.36.14",
+        "min_version": "97.1.36.14",
         "channel": [
           "CANARY"
         ],
@@ -397,13 +397,13 @@
     },
     {
       "name": "DisableCnameUncloakingForAndroid",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "BraveAdblockCnameUncloaking"
             ]
           }
@@ -422,20 +422,20 @@
     },
     {
       "name": "NavigationThreadingOptimizationsCompatOldVersions",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "NavigationThreadingOptimizations"
             ]
           }
         }
       ],
       "filter": {
-        "maxVersion": "102.1.39.0",
+        "max_version": "102.1.39.0",
         "channel": [
           "STABLE"
         ],
@@ -448,13 +448,13 @@
     },
     {
       "name": "DisableReduceLanguage",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveReduceLanguage"
             ]
           }
@@ -476,20 +476,20 @@
     },
     {
       "name": "BraveRewardsWebUiPanelStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveRewardsWebUIPanel"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "103.1.43.9",
+        "min_version": "103.1.43.9",
         "channel": [
           "CANARY",
           "BETA",
@@ -504,13 +504,13 @@
     },
     {
       "name": "BraveTranslateStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "UseBraveTranslateGo",
               "Translate"
             ]
@@ -518,8 +518,8 @@
         }
       ],
       "filter": {
-        "minVersion": "104.1.43.54",
-        "maxVersion": "106.1.45.44",
+        "min_version": "104.1.43.54",
+        "max_version": "106.1.45.44",
         "channel": [
           "CANARY",
           "BETA",
@@ -535,20 +535,20 @@
     },
     {
       "name": "BraveAutoTranslateStudy",
-      "defaultExperimentName": "AutoTranslateDisabled",
+      "default_experiment_name": "AutoTranslateDisabled",
       "experiment": [
         {
           "name": "AutoTranslateDisabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "BraveEnableAutoTranslate"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "107.1.47.31",
+        "min_version": "107.1.47.31",
         "channel": [
           "CANARY",
           "BETA",
@@ -564,13 +564,13 @@
     },
     {
       "name": "BraveSearchPromotionBannerStudy",
-      "defaultExperimentName": "banner_type_D",
+      "default_experiment_name": "banner_type_D",
       "experiment": [
         {
           "name": "banner_type_D",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveSearchOmniboxBanner"
             ]
           },
@@ -583,7 +583,7 @@
         }
       ],
       "filter": {
-        "minVersion": "117.1.60.41",
+        "min_version": "117.1.60.41",
         "channel": [
           "BETA",
           "CANARY"
@@ -610,15 +610,15 @@
     },
     {
       "name": "BraveSearchPromotionBannerStudyOnStable",
-      "defaultExperimentName": "Default",
+      "default_experiment_name": "Default",
       "experiment": [
         {
           "name": "Default",
-          "probabilityWeight": 100
+          "probability_weight": 100
         }
       ],
       "filter": {
-        "minVersion": "117.1.60.41",
+        "min_version": "117.1.60.41",
         "channel": [
           "STABLE"
         ],
@@ -643,11 +643,11 @@
     },
     {
       "name": "SidebarEnabledStudy",
-      "defaultExperimentName": "Default",
+      "default_experiment_name": "Default",
       "experiment": [
         {
           "name": "Default",
-          "probabilityWeight": 100
+          "probability_weight": 100
         }
       ],
       "filter": {
@@ -661,20 +661,20 @@
     },
     {
       "name": "BraveScreenFingerprintingBlockerStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveBlockScreenFingerprinting"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "108.1.48.19",
+        "min_version": "108.1.48.19",
         "channel": [
           "CANARY"
         ],
@@ -687,20 +687,20 @@
     },
     {
       "name": "ClampPlatformVersionClientHint",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "ClampPlatformVersionClientHint"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "114.1.52.78",
+        "min_version": "114.1.52.78",
         "channel": [
           "STABLE",
           "BETA",
@@ -716,20 +716,20 @@
     },
     {
       "name": "BraveScreenFingerprintingBlockerStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveBlockScreenFingerprinting"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "111.1.50.93",
+        "min_version": "111.1.50.93",
         "channel": [
           "BETA"
         ],
@@ -742,20 +742,20 @@
     },
     {
       "name": "BraveScreenFingerprintingBlockerStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveBlockScreenFingerprinting"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "111.1.50.93",
+        "min_version": "111.1.50.93",
         "channel": [
           "STABLE"
         ],
@@ -768,20 +768,20 @@
     },
     {
       "name": "BraveAggressiveModeRetirementExperiment",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "BraveShowStrictFingerprintingMode"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "120.1.63.110",
+        "min_version": "120.1.63.110",
         "channel": [
           "CANARY",
           "BETA",
@@ -797,20 +797,20 @@
     },
     {
       "name": "AllowCertainClientHintsStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "AllowCertainClientHints"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "104.1.44.59",
+        "min_version": "104.1.44.59",
         "channel": [
           "STABLE",
           "BETA",
@@ -826,13 +826,13 @@
     },
     {
       "name": "MetricsAndCrashSampling",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "MetricsReporting"
             ]
           }
@@ -851,13 +851,13 @@
     },
     {
       "name": "PostFREFixMetricsAndCrashSampling",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "PostFREFixMetricsReporting"
             ]
           }
@@ -876,20 +876,20 @@
     },
     {
       "name": "CosmeticFilteringChildFramesStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveAdblockCosmeticFilteringChildFrames"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "106.1.46.14",
+        "min_version": "106.1.46.14",
         "channel": [
           "BETA",
           "CANARY"
@@ -904,13 +904,13 @@
     },
     {
       "name": "CrossPlatformVPNStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveVPN",
               "BraveVPNLinkSubscriptionAndroidUI"
             ]
@@ -918,7 +918,7 @@
         }
       ],
       "filter": {
-        "minVersion": "110.1.49.120",
+        "min_version": "110.1.49.120",
         "channel": [
           "CANARY",
           "BETA",
@@ -933,13 +933,13 @@
     },
     {
       "name": "BraveAdblockMobileNotificationsListDefault",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveAdblockMobileNotificationsListDefault"
             ]
           }
@@ -961,20 +961,20 @@
     },
     {
       "name": "BraveCleanupSessionCookiesOnSessionRestore",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "BraveCleanupSessionCookiesOnSessionRestore"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "111.1.50.0",
+        "min_version": "111.1.50.0",
         "channel": [
           "STABLE",
           "BETA",
@@ -987,20 +987,20 @@
     },
     {
       "name": "BraveForgetFirstPartyStorage",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveForgetFirstPartyStorage"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "114.1.53.83",
+        "min_version": "114.1.53.83",
         "channel": [
           "BETA"
         ],
@@ -1014,20 +1014,20 @@
     },
     {
       "name": "BraveForgetFirstPartyStorage",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveForgetFirstPartyStorage"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "116.1.57.0",
+        "min_version": "116.1.57.0",
         "channel": [
           "STABLE"
         ],
@@ -1041,20 +1041,20 @@
     },
     {
       "name": "PartitionedCookies",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "PartitionedCookies"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "122.1.63.0",
+        "min_version": "122.1.63.0",
         "channel": [
           "CANARY",
           "BETA",
@@ -1070,11 +1070,11 @@
     },
     {
       "name": "WhatsNewStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
+          "probability_weight": 100,
           "param": [
             {
               "name": "target_major_version_stable",
@@ -1084,7 +1084,7 @@
         }
       ],
       "filter": {
-        "minVersion": "119.1.60.114",
+        "min_version": "119.1.60.114",
         "channel": [
           "STABLE"
         ],
@@ -1097,20 +1097,20 @@
     },
     {
       "name": "ModuleFileNamePatchStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "ModuleFileNamePatch"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "112.1.51.89",
+        "min_version": "112.1.51.89",
         "channel": [
           "CANARY",
           "BETA"
@@ -1122,15 +1122,15 @@
     },
     {
       "name": "ModuleFileNamePatchStudyRelease",
-      "defaultExperimentName": "Default",
+      "default_experiment_name": "Default",
       "experiment": [
         {
           "name": "Default",
-          "probabilityWeight": 100
+          "probability_weight": 100
         }
       ],
       "filter": {
-        "minVersion": "112.1.51.89",
+        "min_version": "112.1.51.89",
         "channel": [
           "STABLE"
         ],
@@ -1141,20 +1141,20 @@
     },
     {
       "name": "BraveForgetFirstPartyStorage",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveForgetFirstPartyStorage"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "112.1.51.57",
+        "min_version": "112.1.51.57",
         "channel": [
           "CANARY"
         ],
@@ -1168,13 +1168,13 @@
     },
     {
       "name": "BraveRequestOTRTabRolloutStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveRequestOTRTab"
             ]
           }
@@ -1194,13 +1194,13 @@
     },
     {
       "name": "CookieListDefaultStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveAdblockCookieListDefault"
             ]
           }
@@ -1222,20 +1222,20 @@
     },
     {
       "name": "InnerHTMLParserFastpathStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "InnerHTMLParserFastpath"
             ]
           }
         }
       ],
       "filter": {
-        "maxVersion": "114.1.52.999",
+        "max_version": "114.1.52.999",
         "channel": [
           "CANARY",
           "BETA",
@@ -1251,13 +1251,13 @@
     },
     {
       "name": "BraveP3AConstellationEnabled",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveP3AConstellation"
             ]
           }
@@ -1279,13 +1279,13 @@
     },
     {
       "name": "BraveP3ATypicalJSONDeprecationEnabled",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveP3ATypicalJSONDeprecation"
             ]
           }
@@ -1307,20 +1307,20 @@
     },
     {
       "name": "BraveLocalhostAccessPermissionStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveLocalhostAccessPermission"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "115.1.55.5",
+        "min_version": "115.1.55.5",
         "channel": [
           "CANARY"
         ],
@@ -1334,13 +1334,13 @@
     },
     {
       "name": "BraveSearchAdStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "ShouldLaunchBraveAdsAsInProcessService",
               "ShouldAlwaysRunBraveAdsService",
               "ShouldSupportSearchResultAds",
@@ -1365,13 +1365,13 @@
     },
     {
       "name": "BraveSearchAdStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "ShouldAlwaysRunBraveAdsService",
               "ShouldSupportSearchResultAds",
               "ShouldAlwaysTriggerBraveSearchResultAdEvents"
@@ -1380,7 +1380,7 @@
         }
       ],
       "filter": {
-        "minVersion": "122.1.65.32",
+        "min_version": "122.1.65.32",
         "channel": [
           "CANARY",
           "BETA",
@@ -1393,20 +1393,20 @@
     },
     {
       "name": "BraveAIChatEnabledStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "AIChat"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "119.1.60.0",
+        "min_version": "119.1.60.0",
         "channel": [
           "STABLE"
         ],
@@ -1419,21 +1419,21 @@
     },
     {
       "name": "PrettyPrintJSONDocument",
-      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "default_experiment_name": "Disabled_EmergencyKillSwitch",
       "experiment": [
         {
           "name": "Disabled_EmergencyKillSwitch",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "PrettyPrintJSONDocument"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "117.0.0.0",
-        "maxVersion": "119.1.61.0",
+        "min_version": "117.0.0.0",
+        "max_version": "119.1.61.0",
         "channel": [
           "CANARY",
           "BETA",
@@ -1449,13 +1449,13 @@
     },
     {
       "name": "Speedreader TTS",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "Speedreader"
             ]
           },
@@ -1481,13 +1481,13 @@
     },
     {
       "name": "BraveHorizontalTabsUpdateEnabledStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveHorizontalTabsUpdate"
             ]
           }
@@ -1507,13 +1507,13 @@
     },
     {
       "name": "BraveHorizontalTabsUpdateEnabledStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveHorizontalTabsUpdate"
             ]
           }
@@ -1532,13 +1532,13 @@
     },
     {
       "name": "BraveWebViewRoundedCornersStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "brave-web-view-rounded-corners"
             ]
           }
@@ -1558,21 +1558,21 @@
     },
     {
       "name": "SmilAutoSuspendOnLagKillSwitch",
-      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "default_experiment_name": "Disabled_EmergencyKillSwitch",
       "experiment": [
         {
           "name": "Disabled_EmergencyKillSwitch",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "SmilAutoSuspendOnLag"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "118.*",
-        "maxVersion": "120.*",
+        "min_version": "118.*",
+        "max_version": "120.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1588,20 +1588,20 @@
     },
     {
       "name": "DefaultPassthroughCommandDecoderStudy",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "DefaultPassthroughCommandDecoder"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "125.*",
+        "min_version": "125.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1614,21 +1614,21 @@
     },
     {
       "name": "CollectWebGPUSupportMetricsKillSwitch",
-      "defaultExperimentName": "Disabled_CollectWebGPUSupportMetrics",
+      "default_experiment_name": "Disabled_CollectWebGPUSupportMetrics",
       "experiment": [
         {
           "name": "Disabled_CollectWebGPUSupportMetrics",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "CollectWebGPUSupportMetrics"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "119.*",
-        "maxVersion": "119.*",
+        "min_version": "119.*",
+        "max_version": "119.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1641,21 +1641,21 @@
     },
     {
       "name": "CloseWatcher",
-      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "default_experiment_name": "Disabled_EmergencyKillSwitch",
       "experiment": [
         {
           "name": "Disabled_EmergencyKillSwitch",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "CloseWatcher"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "120.*",
-        "maxVersion": "122.*",
+        "min_version": "120.*",
+        "max_version": "122.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1671,13 +1671,13 @@
     },
     {
       "name": "BraveRewardsAllowSelfCustodyProvidersStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveRewardsAllowSelfCustodyProviders"
             ]
           }
@@ -1699,21 +1699,21 @@
     },
     {
       "name": "HeapProfilingMacKillSwitch",
-      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "default_experiment_name": "Disabled_EmergencyKillSwitch",
       "experiment": [
         {
           "name": "Disabled_EmergencyKillSwitch",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "HeapProfilerReporting"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "122.*",
-        "maxVersion": "125.*",
+        "min_version": "122.*",
+        "max_version": "125.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1726,21 +1726,21 @@
     },
     {
       "name": "RendererAllocatesImagesKillSwitch",
-      "defaultExperimentName": "Disabled_RendererAllocatesImages",
+      "default_experiment_name": "Disabled_RendererAllocatesImages",
       "experiment": [
         {
           "name": "Disabled_RendererAllocatesImages",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "RendererAllocatesImages"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "122.*",
-        "maxVersion": "124.*",
+        "min_version": "122.*",
+        "max_version": "124.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1753,13 +1753,13 @@
     },
     {
       "name": "BraveAdsSiteVisitStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "SiteVisitFeature"
             ]
           },
@@ -1792,13 +1792,13 @@
     },
     {
       "name": "BraveAdsNewTabPageAdsStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "NewTabPageAds"
             ]
           },
@@ -1827,13 +1827,13 @@
     },
     {
       "name": "BraveAdsTextClassificationPageProbabilitiesStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "TextClassification"
             ]
           },
@@ -1862,13 +1862,13 @@
     },
     {
       "name": "BraveAds.CreativeAdModelBasedPredictorRecencyStudy",
-      "defaultExperimentName": "NoRecency",
+      "default_experiment_name": "NoRecency",
       "experiment": [
         {
           "name": "NoRecency",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "CreativeNotificationAdModelBasedPredictor",
               "CreativeNewTabPageAdModelBasedPredictor",
               "CreativeInlineContentAdModelBasedPredictor"
@@ -1887,7 +1887,7 @@
         }
       ],
       "filter": {
-        "maxVersion": "128.1.69.51",
+        "max_version": "128.1.69.51",
         "channel": [
           "CANARY",
           "BETA",
@@ -1904,13 +1904,13 @@
     },
     {
       "name": "PrivateNetworkAccessKillswitch",
-      "defaultExperimentName": "Disabled_PrivateNetworkAccessKillSwitch",
+      "default_experiment_name": "Disabled_PrivateNetworkAccessKillSwitch",
       "experiment": [
         {
           "name": "Disabled_PrivateNetworkAccessKillSwitch",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "PrivateNetworkAccessForNavigations",
               "PrivateNetworkAccessForNavigationsWarningOnly"
             ]
@@ -1918,8 +1918,8 @@
         }
       ],
       "filter": {
-        "minVersion": "123.*",
-        "maxVersion": "125.*",
+        "min_version": "123.*",
+        "max_version": "125.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1935,21 +1935,21 @@
     },
     {
       "name": "UseWritePixelsYUV",
-      "defaultExperimentName": "Disabled_UseWritePixelsYUV",
+      "default_experiment_name": "Disabled_UseWritePixelsYUV",
       "experiment": [
         {
           "name": "Disabled_UseWritePixelsYUV",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "UseWritePixelsYUV"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "123.*",
-        "maxVersion": "125.*",
+        "min_version": "123.*",
+        "max_version": "125.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1965,13 +1965,13 @@
     },
     {
       "name": "CanvasKillSwitches",
-      "defaultExperimentName": "Disabled_EmergencyKillSwitch",
+      "default_experiment_name": "Disabled_EmergencyKillSwitch",
       "experiment": [
         {
           "name": "Disabled_EmergencyKillSwitch",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "Canvas2DHibernation",
               "EvictionUnlocksResources"
             ]
@@ -1979,7 +1979,7 @@
         }
       ],
       "filter": {
-        "maxVersion": "125.*",
+        "max_version": "125.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -1995,20 +1995,20 @@
     },
     {
       "name": "BraveAdblockExperimentalListDefaultStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveAdblockExperimentalListDefault"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "123.1.66.53",
+        "min_version": "123.1.66.53",
         "channel": [
           "BETA",
           "CANARY"
@@ -2023,13 +2023,13 @@
     },
     {
       "name": "BraveFallbackDoHStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveFallbackDoHProvider"
             ]
           },
@@ -2055,20 +2055,20 @@
     },
     {
       "name": "ExtensionsManifestV2Study",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "ExtensionsManifestV2"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "125.1.68.25",
+        "min_version": "125.1.68.25",
         "channel": [
           "CANARY",
           "BETA"
@@ -2082,20 +2082,20 @@
     },
     {
       "name": "ExtensionsManifestV2StudyRelease",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "ExtensionsManifestV2"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "125.1.68.25",
+        "min_version": "125.1.68.25",
         "channel": [
           "STABLE"
         ],
@@ -2108,13 +2108,13 @@
     },
     {
       "name": "BraveAdsConversionsStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "Conversions"
             ]
           },
@@ -2143,13 +2143,13 @@
     },
     {
       "name": "BraveAdsExclusionRulesStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "ExclusionRules"
             ]
           },
@@ -2178,13 +2178,13 @@
     },
     {
       "name": "BraveAdsAdEventStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "AdEvent"
             ]
           },
@@ -2217,15 +2217,15 @@
     },
     {
       "name": "BraveWalletAnkrBalancesEnabled",
-      "defaultExperimentName": "Default",
+      "default_experiment_name": "Default",
       "experiment": [
         {
           "name": "Default",
-          "probabilityWeight": 100
+          "probability_weight": 100
         }
       ],
       "filter": {
-        "minVersion": "120.*",
+        "min_version": "120.*",
         "channel": [
           "CANARY",
           "BETA",
@@ -2240,13 +2240,13 @@
     },
     {
       "name": "BraveP3ANebulaNightlyBeta",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveP3ADifferentialSampling"
             ]
           }
@@ -2268,13 +2268,13 @@
     },
     {
       "name": "BraveP3AJSONOtherDeprecation",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveP3AOtherJSONDeprecation"
             ]
           }
@@ -2295,13 +2295,13 @@
     },
     {
       "name": "DefaultPlaylistStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "Playlist"
             ]
           }
@@ -2320,13 +2320,13 @@
     },
     {
       "name": "BraveP3ANebulaRelease",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveP3ADifferentialSampling"
             ]
           }
@@ -2347,13 +2347,13 @@
     },
     {
       "name": "NewiOSPlaylistUIStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "NewPlaylistUI"
             ]
           }
@@ -2371,20 +2371,20 @@
     },
     {
       "name": "UndecryptablePasswords",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "SkipUndecryptablePasswords"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "127.1.68.107",
+        "min_version": "127.1.68.107",
         "channel": [
           "CANARY",
           "BETA",
@@ -2399,20 +2399,20 @@
     },
     {
       "name": "WorkaroundNewWindowFlash",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveWorkaroundNewWindowFlash"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "127.1.70.49",
+        "min_version": "127.1.70.49",
         "channel": [
           "CANARY",
           "BETA"
@@ -2424,20 +2424,20 @@
     },
     {
       "name": "WorkaroundNewWindowFlash",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveWorkaroundNewWindowFlash"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "127.1.70.49",
+        "min_version": "127.1.70.49",
         "channel": [
           "STABLE"
         ],
@@ -2448,20 +2448,20 @@
     },
     {
       "name": "BraveWebcompatExceptionsServiceStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveWebcompatExceptionsService"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "128.1.70.66",
+        "min_version": "128.1.70.66",
         "channel": [
           "CANARY",
           "BETA"
@@ -2476,20 +2476,20 @@
     },
     {
       "name": "BraveWebcompatExceptionsServiceReleaseStudy",
-      "defaultExperimentName": "Enabled",
+      "default_experiment_name": "Enabled",
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "BraveWebcompatExceptionsService"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "128.1.69.150",
+        "min_version": "128.1.69.150",
         "channel": [
           "STABLE"
         ],
@@ -2503,20 +2503,20 @@
     },
     {
       "name": "BraveRoundTimeStampsStudy",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "BraveRoundTimeStamps"
             ]
           }
         }
       ],
       "filter": {
-        "minVersion": "125.*",
+        "min_version": "125.*",
         "channel": [
           "CANARY",
           "BETA"
@@ -2531,15 +2531,15 @@
     },
     {
       "name": "BraveRoundTimeStampsReleaseStudy",
-      "defaultExperimentName": "Default",
+      "default_experiment_name": "Default",
       "experiment": [
         {
           "name": "Default",
-          "probabilityWeight": 100
+          "probability_weight": 100
         }
       ],
       "filter": {
-        "minVersion": "125.*",
+        "min_version": "125.*",
         "channel": [
           "STABLE"
         ],

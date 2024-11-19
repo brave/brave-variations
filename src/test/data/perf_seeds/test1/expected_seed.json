@@ -1,16 +1,16 @@
 {
-  "serialNumber": "1",
+  "serial_number": "1",
   "study": [
     {
       "name": "TestStudy",
       "consistency": "PERMANENT",
-      "defaultExperimentName": "Disabled",
+      "default_experiment_name": "Disabled",
       "experiment": [
         {
           "name": "Disabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "disable_feature": [
               "TestFeature"
             ]
           }
@@ -29,7 +29,7 @@
           "PLATFORM_ANDROID"
         ]
       },
-      "activationType": "ACTIVATE_ON_STARTUP"
+      "activation_type": "ACTIVATE_ON_STARTUP"
     }
   ],
   "version": "1"

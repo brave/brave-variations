@@ -17,7 +17,9 @@ const compareProtobuf = (actual: Uint8Array, expectedFilename: string) => {
   if (fs_sync.existsSync(expectedFilename)) {
     expectedJson = fs_sync.readFileSync(expectedFilename, 'utf-8');
   }
-  const expected = VariationsSeed.fromJsonString(expectedJson);
+  const expected = VariationsSeed.fromJsonString(expectedJson, {
+    ignoreUnknownFields: false,
+  });
   const actualObj = VariationsSeed.fromBinary(actual);
   try {
     expect(actualObj).toEqual(expected);
@@ -25,7 +27,10 @@ const compareProtobuf = (actual: Uint8Array, expectedFilename: string) => {
     const failedFilename = expectedFilename + '.failed';
     fs_sync.writeFileSync(
       failedFilename,
-      VariationsSeed.toJsonString(actualObj, { prettySpaces: 2 }) + '\n',
+      VariationsSeed.toJsonString(actualObj, {
+        useProtoFieldName: true,
+        prettySpaces: 2,
+      }) + '\n',
     );
     throw error;
   }
