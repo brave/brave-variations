@@ -17,6 +17,8 @@ import diffStrings from '../utils/diff_strings';
 import * as file_utils from '../utils/file_utils';
 import * as seed_validation from '../utils/seed_validation';
 import * as study_json_utils from '../utils/study_json_utils';
+import { parseLegacySeedJson } from './legacy_json_to_seed';
+import { validateName } from './study_validation';
 
 export async function readStudiesToSeed(
   studiesDir: string,
@@ -71,20 +73,44 @@ async function readStudiesAtRevision(
 }> {
   const basePath = wsPath('//');
   studiesDir = path.relative(basePath, studiesDir);
-  const files = execSync(`git show "${revision}":"${studiesDir}"`, {
-    encoding: 'utf8',
-  }).split('\n');
 
-  const filesWithContent = [];
-  for (const file of files) {
-    if (!file.endsWith('.json5')) continue;
-    const content = execSync(`git show ${revision}:"${studiesDir}/${file}"`, {
-      encoding: 'utf8',
-    });
-    filesWithContent.push({ path: file, content });
+  // Validate revision format.
+  if (!/^[a-z0-9]+$/.test(revision) && revision !== 'HEAD') {
+    return {
+      studies: [],
+      studyFileBaseNameMap: new Map(),
+      errors: [`Invalid revision: ${revision}`],
+    };
   }
 
-  return await readStudies(filesWithContent, false);
+  try {
+    const files = execSync(`git show "${revision}":"${studiesDir}"`, {
+      encoding: 'utf8',
+    }).split('\n');
+
+    const filesWithContent = [];
+    for (const file of files) {
+      if (!file.endsWith('.json5')) continue;
+      if (!validateName(file, 'filename', [])) continue;
+
+      const content = execSync(`git show ${revision}:"${studiesDir}/${file}"`, {
+        encoding: 'utf8',
+      });
+      filesWithContent.push({ path: file, content });
+    }
+    return await readStudies(filesWithContent, false);
+  } catch {
+    console.log(`Failed to read studies ${revision}, use seed.json fallback:`);
+    const seedContent = execSync(`git show "${revision}":seed/seed.json`, {
+      encoding: 'utf8',
+    });
+    const { parsedSeed } = parseLegacySeedJson(seedContent);
+    return {
+      studies: parsedSeed.study,
+      studyFileBaseNameMap: new Map(),
+      errors: [],
+    };
+  }
 }
 
 async function readStudies(

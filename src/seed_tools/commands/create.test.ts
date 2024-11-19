@@ -17,7 +17,9 @@ const compareProtobuf = (actual: Uint8Array, expectedFilename: string) => {
   if (fs_sync.existsSync(expectedFilename)) {
     expectedJson = fs_sync.readFileSync(expectedFilename, 'utf-8');
   }
-  const expected = VariationsSeed.fromJsonString(expectedJson);
+  const expected = VariationsSeed.fromJsonString(expectedJson, {
+    ignoreUnknownFields: false,
+  });
   const actualObj = VariationsSeed.fromBinary(actual);
   try {
     expect(actualObj).toEqual(expected);
@@ -25,7 +27,10 @@ const compareProtobuf = (actual: Uint8Array, expectedFilename: string) => {
     const failedFilename = expectedFilename + '.failed';
     fs_sync.writeFileSync(
       failedFilename,
-      VariationsSeed.toJsonString(actualObj, { prettySpaces: 2 }) + '\n',
+      VariationsSeed.toJsonString(actualObj, {
+        useProtoFieldName: true,
+        prettySpaces: 2,
+      }) + '\n',
     );
     throw error;
   }
@@ -111,12 +116,14 @@ describe('create command', () => {
       expect(VariationsSeed.fromBinary(output).version).toEqual('1');
     };
 
-    fs_sync.readdirSync(validSeedsDir).forEach((testCase) => {
-      it(testCase, () => runTest(testCase, undefined));
+    it('test1', () => runTest('test1', undefined));
 
-      // Check creating seed using git history.
-      it(`${testCase}_old_revision`, () => runTest(testCase, 'HEAD'));
-    });
+    // Check creating seed using git history.
+    it('test1_git_revision', () => runTest('test1', 'HEAD'));
+
+    // Check creating seed using git history for legacy seed.json.
+    it('legacy_seed', () =>
+      runTest('legacy_seed', '3f3eb03e12eb7f37a315f66f735d3decb483a90d'));
   });
 
   test('set seed version', async () => {
@@ -203,6 +210,16 @@ describe('create command', () => {
             serialNumberPath,
           ]),
         ).rejects.toThrowError('process.exit(1)');
+
+        const expectedError = (
+          await fs.readFile(
+            path.join(testCaseDir, 'expected_errors.txt'),
+            'utf-8',
+          )
+        ).trim();
+        expect(errorMock).toHaveBeenCalledWith(
+          expect.stringContaining(expectedError),
+        );
       },
     );
   });

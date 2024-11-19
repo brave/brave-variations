@@ -5,9 +5,7 @@
 
 import { Command } from '@commander-js/extra-typings';
 import { promises as fs } from 'fs';
-import DefaultMap from '../../base/containers/default_map';
-import { type Study } from '../../proto/generated/study';
-import { VariationsSeed } from '../../proto/generated/variations_seed';
+import { parseLegacySeedJson } from '../utils/legacy_json_to_seed';
 import * as study_json_utils from '../utils/study_json_utils';
 
 export default function createCommand() {
@@ -19,21 +17,8 @@ export default function createCommand() {
 }
 
 async function main(seedPath: string, outputDir: string) {
-  const seedJson = preprocessSeedJson(
-    JSON.parse(await fs.readFile(seedPath, 'utf8')),
-  );
-
-  // Parse the seed as protobuf json representation. The parse will fail if any
-  // unknown fields or values are present in the json.
-  const parsedSeed = VariationsSeed.fromJson(seedJson, {
-    ignoreUnknownFields: false,
-  });
-
-  const studies = new DefaultMap<string, Study[]>(() => []);
-  for (const study of parsedSeed.study) {
-    studies.get(study.name).push(study);
-  }
-
+  const seedContent = await fs.readFile(seedPath, 'utf8');
+  const { studiesMap } = parseLegacySeedJson(seedContent);
   await fs.mkdir(outputDir, { recursive: true });
 
   // Remove all files in the output directory.
@@ -45,51 +30,10 @@ async function main(seedPath: string, outputDir: string) {
   }
 
   // Write study files.
-  for (const study of studies) {
+  for (const study of studiesMap) {
     const studyName = study[0];
     const studyArray = study[1];
     const studyFile = `${outputDir}/${studyName}.json5`;
     await study_json_utils.writeStudyFile(studyArray, studyFile);
   }
-}
-
-function preprocessSeedJson(json: any): any {
-  json.study = json.studies;
-  delete json.studies;
-
-  for (const study of json.study) {
-    if (study.experiments !== undefined) {
-      study.experiment = study.experiments;
-      delete study.experiments;
-    }
-    for (const experiment of study.experiment) {
-      if (experiment.parameters !== undefined) {
-        experiment.param = experiment.parameters;
-        delete experiment.parameters;
-      }
-    }
-    if (study.filter !== undefined) {
-      if (study.filter.channel !== undefined) {
-        study.filter.channel = study.filter.channel.map((channel: string) => {
-          switch (channel) {
-            case 'NIGHTLY':
-              return 'CANARY';
-            case 'RELEASE':
-              return 'STABLE';
-            default:
-              return channel;
-          }
-        });
-      }
-      if (study.filter.platform !== undefined) {
-        study.filter.platform = study.filter.platform.map(
-          (platform: string) => {
-            return 'PLATFORM_' + platform;
-          },
-        );
-      }
-    }
-  }
-
-  return json;
 }
