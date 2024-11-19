@@ -75,7 +75,7 @@ async function readStudiesAtRevision(
   studiesDir = path.relative(basePath, studiesDir);
 
   // Validate revision format.
-  if (!/[a-z0-9]+/.test(revision) && revision !== 'HEAD') {
+  if (!/^[a-z0-9]+$/.test(revision) && revision !== 'HEAD') {
     return {
       studies: [],
       studyFileBaseNameMap: new Map(),
