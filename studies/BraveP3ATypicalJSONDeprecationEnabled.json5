@@ -27,6 +27,7 @@
         'MAC',
         'LINUX',
         'ANDROID',
+        'IOS',
       ],
     },
   },
