@@ -4,14 +4,21 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { SeedType } from '../../core/base_types';
-import { getChannelName, getPlatfromName } from '../../core/serializers';
 import {
   type ProcessedStudy,
   type StudyFilter,
   type StudyPriority,
 } from '../../core/study_processor';
 import * as url_utils from '../../core/url_utils';
-import { Study_Filter } from '../../proto/generated/study';
+import {
+  Study_Channel,
+  Study_Filter,
+  Study_Platform,
+} from '../../proto/generated/study';
+import {
+  replaceChannels,
+  replacePlatforms,
+} from '../../seed_tools/utils/study_json_utils';
 import { ExperimentModel } from './experiment_model';
 
 export class StudyModel {
@@ -55,12 +62,20 @@ export class StudyModel {
   }
 
   platforms(): string[] | undefined {
-    return this.filter()?.platform?.map((p) => getPlatfromName(p));
+    const string_platforms = this.filter()?.platform?.map(
+      (p) => Study_Platform[p],
+    );
+    return replacePlatforms(string_platforms);
   }
 
   channels(): string[] | undefined {
-    const isBraveSeed = this.seedType !== SeedType.UPSTREAM;
-    return this.filter()?.channel?.map((c) => getChannelName(c, isBraveSeed));
+    const string_channels = this.filter()?.channel?.map(
+      (c) => Study_Channel[c],
+    );
+    return replaceChannels(
+      string_channels,
+      this.seedType === SeedType.UPSTREAM,
+    );
   }
 
   getConfigUrl(): string {

@@ -86,6 +86,29 @@ export function stringifyStudies(studies: Study[], options?: Options): string {
   );
 }
 
+export function replaceChannels(
+  channels: string[] | undefined,
+  isChromium: boolean,
+): string[] | undefined {
+  if (isChromium) return channels;
+
+  return channels?.map((channel) => {
+    switch (channel) {
+      case 'CANARY':
+        return 'NIGHTLY';
+      case 'STABLE':
+        return 'RELEASE';
+    }
+    return channel;
+  });
+}
+
+export function replacePlatforms(
+  platforms: string[] | undefined,
+): string[] | undefined {
+  return platforms?.map((platform) => platform.replace(/^PLATFORM_/, ''));
+}
+
 function jsonStudyReplacer(
   options: Options | undefined,
   key: string,
@@ -96,26 +119,12 @@ function jsonStudyReplacer(
     case 'end_date': {
       return new Date(value * 1000).toISOString();
     }
-    case 'channel':
-      if (options?.isChromium === true) {
-        return value;
-      }
-      return value.map((value: string): string => {
-        switch (value) {
-          case 'CANARY':
-            return 'NIGHTLY';
-          case 'STABLE':
-            return 'RELEASE';
-        }
-        return value;
-      });
-    case 'platform':
-      if (options?.isChromium === true) {
-        return value;
-      }
-      return value.map((value: string): string => {
-        return value.replace(/^PLATFORM_/, '');
-      });
+    case 'channel': {
+      return replaceChannels(value, options?.isChromium === true);
+    }
+    case 'platform': {
+      return replacePlatforms(value);
+    }
     default:
       return value;
   }
