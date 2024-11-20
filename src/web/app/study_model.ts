@@ -16,9 +16,9 @@ import {
   Study_Platform,
 } from '../../proto/generated/study';
 import {
-  replaceChannels,
-  replacePlatforms,
-} from '../../seed_tools/utils/study_json_utils';
+  channelToString,
+  platformToString,
+} from '../../seed_tools/utils/serializers';
 import { ExperimentModel } from './experiment_model';
 
 export class StudyModel {
@@ -62,19 +62,14 @@ export class StudyModel {
   }
 
   platforms(): string[] | undefined {
-    const string_platforms = this.filter()?.platform?.map(
-      (p) => Study_Platform[p],
+    return this.filter()?.platform?.map((p) =>
+      platformToString(Study_Platform[p]),
     );
-    return replacePlatforms(string_platforms);
   }
 
   channels(): string[] | undefined {
-    const string_channels = this.filter()?.channel?.map(
-      (c) => Study_Channel[c],
-    );
-    return replaceChannels(
-      string_channels,
-      this.seedType === SeedType.UPSTREAM,
+    return this.filter()?.channel?.map((c) =>
+      channelToString(Study_Channel[c], this.seedType === SeedType.UPSTREAM),
     );
   }
 

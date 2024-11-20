@@ -6,6 +6,7 @@
 import { promises as fs } from 'fs';
 import JSON5 from 'json5';
 import { Study } from '../../proto/generated/study';
+import { channelToString, platformToString } from './serializers';
 
 export interface Options {
   isChromium?: boolean;
@@ -50,7 +51,7 @@ export function parseStudies(
 ): Study[] {
   const jsonStudies = JSON5.parse(
     studyArrayString,
-    jsonStudyReviever.bind(null, options),
+    jsonStudyReviewer.bind(null, options),
   );
   if (!Array.isArray(jsonStudies)) {
     throw new Error('Root element must be an array');
@@ -86,29 +87,6 @@ export function stringifyStudies(studies: Study[], options?: Options): string {
   );
 }
 
-export function replaceChannels(
-  channels: string[] | undefined,
-  isChromium: boolean,
-): string[] | undefined {
-  if (isChromium) return channels;
-
-  return channels?.map((channel) => {
-    switch (channel) {
-      case 'CANARY':
-        return 'NIGHTLY';
-      case 'STABLE':
-        return 'RELEASE';
-    }
-    return channel;
-  });
-}
-
-export function replacePlatforms(
-  platforms: string[] | undefined,
-): string[] | undefined {
-  return platforms?.map((platform) => platform.replace(/^PLATFORM_/, ''));
-}
-
 function jsonStudyReplacer(
   options: Options | undefined,
   key: string,
@@ -120,17 +98,19 @@ function jsonStudyReplacer(
       return new Date(value * 1000).toISOString();
     }
     case 'channel': {
-      return replaceChannels(value, options?.isChromium === true);
+      return value.map((c: string) =>
+        channelToString(c, options?.isChromium === true),
+      );
     }
     case 'platform': {
-      return replacePlatforms(value);
+      return value.map((p: string) => platformToString(p));
     }
     default:
       return value;
   }
 }
 
-function jsonStudyReviever(
+function jsonStudyReviewer(
   options: Options | undefined,
   key: string,
   value: any,
