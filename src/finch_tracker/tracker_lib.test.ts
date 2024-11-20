@@ -7,13 +7,13 @@ import * as fs from 'fs';
 import * as os from 'os';
 
 import { describe, expect, test } from '@jest/globals';
+import JSON5 from 'json5';
 import path from 'path';
 import { StudyPriority } from '../core/study_processor';
 import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
 import { Study, Study_Channel, Study_Platform } from '../proto/generated/study';
 import { VariationsSeed } from '../proto/generated/variations_seed';
 import { storeDataToDirectory } from './tracker_lib';
-import JSON5 from 'json5';
 
 function readDirectory(dir: string): Record<string, any> {
   const files = fs
@@ -40,10 +40,9 @@ test('seed serialization', async () => {
     isBraveSeed: true,
   });
 
-  const serializedOutput = JSON5.stringify(
-    readDirectory(path.join(tempDir)),
-    { space: 2 },
-  );
+  const serializedOutput = JSON5.stringify(readDirectory(path.join(tempDir)), {
+    space: 2,
+  });
   const serializedExpectations = fs
     .readFileSync('src/test/data/seed1.bin.processing_expectations')
     .toString();
