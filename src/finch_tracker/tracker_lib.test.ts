@@ -13,12 +13,13 @@ import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
 import { Study, Study_Channel, Study_Platform } from '../proto/generated/study';
 import { VariationsSeed } from '../proto/generated/variations_seed';
 import { storeDataToDirectory } from './tracker_lib';
+import JSON5 from 'json5';
 
-function readDirectory(dir: string): string {
+function readDirectory(dir: string): Record<string, any> {
   const files = fs
     .readdirSync(dir, { recursive: true, encoding: 'utf-8' })
     .sort();
-  let result = '';
+  const result: Record<string, string> = {};
 
   for (const file of files) {
     const filePath = path.join(dir, file);
@@ -26,8 +27,7 @@ function readDirectory(dir: string): string {
       continue;
     }
     const content = fs.readFileSync(filePath, 'utf-8');
-    if (result != '') result += '\n';
-    result += file + '\n' + content;
+    result[file] = JSON5.parse(content);
   }
   return result;
 }
@@ -40,7 +40,10 @@ test('seed serialization', async () => {
     isBraveSeed: true,
   });
 
-  const serializedOutput = readDirectory(path.join(tempDir));
+  const serializedOutput = JSON5.stringify(
+    readDirectory(path.join(tempDir)),
+    { space: 2 },
+  );
   const serializedExpectations = fs
     .readFileSync('src/test/data/seed1.bin.processing_expectations')
     .toString();
