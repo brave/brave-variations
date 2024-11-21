@@ -46,8 +46,11 @@ export function getStudyRawConfigUrl(
   study: string,
   seedType: SeedType,
 ): string {
-  if (seedType === SeedType.UPSTREAM)
-    return `${getGitHubStorageUrl()}/blob/main/study/all-by-name/${study}`;
+  if (seedType === SeedType.UPSTREAM) {
+    return (
+      getGitHubStorageUrl() + `/blob/main/study/all-by-name/${study}.json5`
+    );
+  }
   return (
     'https://github.com/search?type=code' +
     '&q=repo%3Abrave%2Fbrave-variations' +

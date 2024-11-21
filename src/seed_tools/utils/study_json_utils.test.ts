@@ -104,7 +104,7 @@ describe('stringifyStudies', () => {
     ]);
   });
 
-  it('chromium mode should not modify channel, platform values', () => {
+  it('chromium mode should use chromium channel names', () => {
     const startDate = new Date('2022-01-01T00:00:00Z');
     const study = Study.fromJson(
       {

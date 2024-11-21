@@ -33,8 +33,11 @@ export function groupStudies(
   const seed = VariationsSeed.fromBinary(seedData);
   const addStudy = (path: string, study: Study) => {
     const list = map[path];
-    if (list !== undefined) list.push(study);
-    else map[path] = [study];
+    if (list !== undefined) {
+      list.push(study);
+    } else {
+      map[path] = [study];
+    }
   };
 
   for (const study of seed.study) {
