@@ -51,7 +51,7 @@ export function parseStudies(
 ): Study[] {
   const jsonStudies = JSON5.parse(
     studyArrayString,
-    jsonStudyReviever.bind(null, options),
+    jsonStudyReviver.bind(null, options),
   );
   if (!Array.isArray(jsonStudies)) {
     throw new Error('Root element must be an array');
@@ -110,7 +110,7 @@ function jsonStudyReplacer(
   }
 }
 
-function jsonStudyReviever(
+function jsonStudyReviver(
   options: Options | undefined,
   key: string,
   value: any,
