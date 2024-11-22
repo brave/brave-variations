@@ -132,7 +132,9 @@ export function makeSummary(
 
     const oldStudy: ProcessedStudy[] = oldMap.get(key) ?? [];
     const newStudy: ProcessedStudy[] = newMap.get(key) ?? [];
-    const isChanged = JSON.stringify(oldStudy) !== JSON.stringify(newStudy);
+    const isEqual =
+      oldStudy.length == newStudy.length &&
+      oldStudy.every((v, i) => v.equals(newStudy[i]));
 
     const item = new SummaryItem();
     item.oldPriority = getOverallPriority(oldStudy);
@@ -170,7 +172,7 @@ export function makeSummary(
         item.action = ItemAction.Down;
       }
     } else {
-      if (isChanged) {
+      if (!isEqual) {
         item.action = ItemAction.Change;
       } else {
         return;
