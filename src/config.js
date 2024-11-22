@@ -31,6 +31,8 @@ module.exports = {
     'VulkanVMALargeHeapBlockSizeExperiment',
   ],
 
+  channelId: 'C05S50MFHPE', // #finch-updates
+
   // Add your slack ID to get notifications about new kill switches.
   // To retrive it use Slack profile => Copy Member ID.
   killSwitchNotificationIds: [

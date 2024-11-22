@@ -361,6 +361,7 @@ export function summaryToJson(
     );
   }
   return `{
+    "channel" : "${config.channelId}",
     "text": "New finch changes detected",
     "blocks": [
       ${output.toString()}
