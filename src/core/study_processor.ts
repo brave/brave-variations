@@ -106,6 +106,17 @@ export class ProcessedStudy {
     this.postProcessStudy(options);
   }
 
+  equals(other: ProcessedStudy): boolean {
+    const jsonEquals = (a: unknown, b: unknown) =>
+      JSON.stringify(a) === JSON.stringify(b);
+
+    return (
+      Study.equals(this.study, other.study) &&
+      jsonEquals(this.studyDetails, other.studyDetails) &&
+      jsonEquals(this.affectedFeatures, other.affectedFeatures)
+    );
+  }
+
   getPriority(): StudyPriority {
     return this.studyDetails.getPriority();
   }
