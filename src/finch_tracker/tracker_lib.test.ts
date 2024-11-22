@@ -62,6 +62,8 @@ describe('summary', () => {
     filter: {
       channel: [Study_Channel.STABLE],
       platform: [Study_Platform.WINDOWS],
+      start_date: BigInt(Math.floor(new Date().getTime() / 1000) - 1000),
+      end_date: BigInt(Math.floor(new Date().getTime() / 1000) + 1000),
     },
   };
   const oldStudy = Study.create({
