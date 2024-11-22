@@ -6,7 +6,7 @@
 import { promises as fs } from 'fs';
 import JSON5 from 'json5';
 import { Study } from '../../proto/generated/study';
-import { channelToString, platformToString } from './serializers';
+import * as converters from './converters';
 
 export interface Options {
   isChromium?: boolean;
@@ -99,11 +99,11 @@ function jsonStudyReplacer(
     }
     case 'channel': {
       return value.map((c: string) =>
-        channelToString(c, options?.isChromium === true),
+        converters.channelToString(c, options?.isChromium === true),
       );
     }
     case 'platform': {
-      return value.map((p: string) => platformToString(p));
+      return value.map(converters.platformToString);
     }
     default:
       return value;
@@ -132,22 +132,12 @@ function jsonStudyReviver(
       if (options?.isChromium === true) {
         return value;
       }
-      return value.map((value: string): string => {
-        switch (value) {
-          case 'NIGHTLY':
-            return 'CANARY';
-          case 'RELEASE':
-            return 'STABLE';
-        }
-        return value;
-      });
+      return value.map(converters.stringToChannel);
     case 'platform':
       if (options?.isChromium === true) {
         return value;
       }
-      return value.map((value: string): string => {
-        return `PLATFORM_${value}`;
-      });
+      return value.map(converters.stringToPlatform);
     default:
       return value;
   }

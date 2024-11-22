@@ -18,3 +18,17 @@ export function channelToString(channel: string, isChromium: boolean): string {
 export function platformToString(platform: string): string {
   return platform.replace(/^PLATFORM_/, '');
 }
+
+export function stringToChannel(channel: string): string {
+  switch (channel) {
+    case 'NIGHTLY':
+      return 'CANARY';
+    case 'RELEASE':
+      return 'STABLE';
+  }
+  return channel;
+}
+
+export function stringToPlatform(platform: string): string {
+  return `PLATFORM_${platform}`;
+}

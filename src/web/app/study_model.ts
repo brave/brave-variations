@@ -18,7 +18,7 @@ import {
 import {
   channelToString,
   platformToString,
-} from '../../seed_tools/utils/serializers';
+} from '../../seed_tools/utils/converters';
 import { ExperimentModel } from './experiment_model';
 
 export class StudyModel {
