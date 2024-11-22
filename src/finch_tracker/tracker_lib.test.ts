@@ -4,31 +4,45 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import * as fs from 'fs';
+import * as os from 'os';
 
 import { describe, expect, test } from '@jest/globals';
+import JSON5 from 'json5';
+import path from 'path';
 import { StudyPriority } from '../core/study_processor';
 import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
-import { variations as proto } from '../proto/generated/proto_bundle';
-import { serializeStudies } from './tracker_lib';
+import { Study, Study_Channel, Study_Platform } from '../proto/generated/study';
+import { VariationsSeed } from '../proto/generated/variations_seed';
+import { storeDataToDirectory } from './tracker_lib';
 
-function serialize(json: Record<string, any>) {
-  const ordered = Object.keys(json)
-    .sort()
-    .reduce((res: Record<string, any>, key) => {
-      res[key] = json[key];
-      return res;
-    }, {});
-  return JSON.stringify(ordered, undefined, 2);
+function readDirectory(dir: string): Record<string, any> {
+  const files = fs
+    .readdirSync(dir, { recursive: true, encoding: 'utf-8' })
+    .sort();
+  const result: Record<string, string> = {};
+
+  for (const file of files) {
+    const filePath = path.join(dir, file);
+    if (!file.endsWith('.json5')) {
+      continue;
+    }
+    const content = fs.readFileSync(filePath, 'utf-8');
+    result[file] = JSON5.parse(content);
+  }
+  return result;
 }
 
-test('seed serialization', () => {
+test('seed serialization', async () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'tracker-'));
   const data = fs.readFileSync('src/test/data/seed1.bin');
-  const map = serializeStudies(data, {
+  await storeDataToDirectory(data, tempDir, {
     minMajorVersion: 116,
     isBraveSeed: true,
   });
-  const serializedOutput = serialize(map);
 
+  const serializedOutput = JSON5.stringify(readDirectory(path.join(tempDir)), {
+    space: 2,
+  });
   const serializedExpectations = fs
     .readFileSync('src/test/data/seed1.bin.processing_expectations')
     .toString();
@@ -46,11 +60,11 @@ describe('summary', () => {
   const common = {
     name: 'TestStudy',
     filter: {
-      channel: [proto.Study.Channel.STABLE],
-      platform: [proto.Study.Platform.PLATFORM_WINDOWS],
+      channel: [Study_Channel.STABLE],
+      platform: [Study_Platform.WINDOWS],
     },
   };
-  const oldStudy = new proto.Study({
+  const oldStudy = Study.create({
     ...common,
     experiment: [
       {
@@ -65,7 +79,7 @@ describe('summary', () => {
     ],
   });
 
-  const newStudy = new proto.Study({
+  const newStudy = Study.create({
     ...common,
     experiment: [
       {
@@ -84,8 +98,8 @@ describe('summary', () => {
       },
     ],
   });
-  const oldSeed = new proto.VariationsSeed({ study: [oldStudy] });
-  const newSeed = new proto.VariationsSeed({ study: [newStudy] });
+  const oldSeed = VariationsSeed.create({ study: [oldStudy] });
+  const newSeed = VariationsSeed.create({ study: [newStudy] });
 
   const summary = makeSummary(
     oldSeed,

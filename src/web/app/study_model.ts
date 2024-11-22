@@ -4,14 +4,21 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { SeedType } from '../../core/base_types';
-import { getChannelName, getPlatfromName } from '../../core/serializers';
 import {
   type ProcessedStudy,
   type StudyFilter,
   type StudyPriority,
 } from '../../core/study_processor';
 import * as url_utils from '../../core/url_utils';
-import { type variations as proto } from '../../proto/generated/proto_bundle';
+import {
+  Study_Channel,
+  Study_Filter,
+  Study_Platform,
+} from '../../proto/generated/study';
+import {
+  channelToString,
+  platformToString,
+} from '../../seed_tools/utils/converters';
 import { ExperimentModel } from './experiment_model';
 
 export class StudyModel {
@@ -25,7 +32,7 @@ export class StudyModel {
     this.id = id;
   }
 
-  filter(): proto.Study.IFilter | undefined {
+  filter(): Study_Filter | undefined {
     return this.processedStudy.study.filter ?? undefined;
   }
 
@@ -42,7 +49,11 @@ export class StudyModel {
     if (study.experiment == null) return [];
     const models: ExperimentModel[] = [];
     for (const e of study.experiment) {
-      if (e.probability_weight > 0 || f === undefined || f.showEmptyGroups) {
+      if (
+        (e.probability_weight ?? 0) > 0 ||
+        f === undefined ||
+        f.showEmptyGroups
+      ) {
         const model = new ExperimentModel(e, this);
         models.push(model);
       }
@@ -51,12 +62,15 @@ export class StudyModel {
   }
 
   platforms(): string[] | undefined {
-    return this.filter()?.platform?.map((p) => getPlatfromName(p));
+    return this.filter()?.platform?.map((p) =>
+      platformToString(Study_Platform[p]),
+    );
   }
 
   channels(): string[] | undefined {
-    const isBraveSeed = this.seedType !== SeedType.UPSTREAM;
-    return this.filter()?.channel?.map((c) => getChannelName(c, isBraveSeed));
+    return this.filter()?.channel?.map((c) =>
+      channelToString(Study_Channel[c], this.seedType === SeedType.UPSTREAM),
+    );
   }
 
   getConfigUrl(): string {

@@ -4,7 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import * as url_utils from '../../core/url_utils';
-import { type variations as proto } from '../../proto/generated/proto_bundle';
+import { Study_Experiment } from '../../proto/generated/study';
 import { type StudyModel } from './study_model';
 
 export class FeatureModel {
@@ -13,10 +13,10 @@ export class FeatureModel {
 }
 
 export class ExperimentModel {
-  private readonly experiment: proto.Study.IExperiment;
+  private readonly experiment: Study_Experiment;
   private readonly studyModel: StudyModel;
 
-  constructor(experiment: proto.Study.IExperiment, studyModel: StudyModel) {
+  constructor(experiment: Study_Experiment, studyModel: StudyModel) {
     this.experiment = experiment;
     this.studyModel = studyModel;
   }
@@ -58,7 +58,7 @@ export class ExperimentModel {
   weight(): number {
     const totalWeight = this.studyModel.processedStudy.studyDetails.totalWeight;
     if (totalWeight === 0) return 0;
-    return (this.experiment.probability_weight / totalWeight) * 100;
+    return ((this.experiment.probability_weight ?? 0) / totalWeight) * 100;
   }
 
   isMajorGroup(): boolean {

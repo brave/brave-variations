@@ -104,7 +104,7 @@ describe('stringifyStudies', () => {
     ]);
   });
 
-  it('chromium mode should not modify channel, platform values', () => {
+  it('chromium mode should use chromium channel names', () => {
     const startDate = new Date('2022-01-01T00:00:00Z');
     const study = Study.fromJson(
       {
@@ -112,7 +112,7 @@ describe('stringifyStudies', () => {
         filter: {
           start_date: Math.floor(startDate.getTime() / 1000),
           channel: ['CANARY', 'BETA', 'STABLE'],
-          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
+          platform: ['LINUX', 'MAC'],
         },
       },
       { ignoreUnknownFields: false },
@@ -127,7 +127,7 @@ describe('stringifyStudies', () => {
         filter: {
           start_date: startDate.toISOString(),
           channel: ['CANARY', 'BETA', 'STABLE'],
-          platform: ['PLATFORM_LINUX', 'PLATFORM_MAC'],
+          platform: ['LINUX', 'MAC'],
         },
       },
     ]);

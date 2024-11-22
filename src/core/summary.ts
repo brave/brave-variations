@@ -4,7 +4,6 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import { createHash } from 'node:crypto';
 
-import { type variations as proto } from '../proto/generated/proto_bundle';
 import { SeedType, type ProcessingOptions } from './base_types';
 import {
   StudyPriority,
@@ -14,6 +13,7 @@ import {
 } from './study_processor';
 
 import * as config from '../config';
+import { VariationsSeed } from '../proto/generated/variations_seed';
 import * as url_utils from './url_utils';
 
 export enum ItemAction {
@@ -115,8 +115,8 @@ function getOverallAudience(
 }
 
 export function makeSummary(
-  oldSeed: proto.VariationsSeed,
-  newSeed: proto.VariationsSeed,
+  oldSeed: VariationsSeed,
+  newSeed: VariationsSeed,
   options: ProcessingOptions,
   minPriority: StudyPriority,
 ): Map<StudyPriority, SummaryItem[]> {
@@ -215,7 +215,7 @@ function getGitHubDiffUrl(
   oldPriority: StudyPriority,
   commit: string,
 ): string {
-  const path = `study/all-by-name/${study}`;
+  const path = `study/all-by-name/${study}.json5`;
   const pathHash = sha256(path);
   return `${url_utils.getGitHubStorageUrl()}/commit/${commit}#diff-${pathHash}`;
 }

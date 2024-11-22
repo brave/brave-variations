@@ -46,13 +46,15 @@ export function getStudyRawConfigUrl(
   study: string,
   seedType: SeedType,
 ): string {
-  if (seedType === SeedType.UPSTREAM)
-    return `${getGitHubStorageUrl()}/blob/main/study/all-by-name/${study}`;
+  if (seedType === SeedType.UPSTREAM) {
+    return (
+      getGitHubStorageUrl() + `/blob/main/study/all-by-name/${study}.json5`
+    );
+  }
   return (
     'https://github.com/search?type=code' +
     '&q=repo%3Abrave%2Fbrave-variations' +
-    '+path%3A%2F%5Eseed%5C%2Fseed.json%7C%5Estudies%5C%2F*.json5%2F+' +
-    `"%5C"name%5C"%3A+%5C"${encodeURIComponent(study)}%5C""`
+    `+path%3Astudies%2F+%22name%3A+%27${encodeURIComponent(study)}%27%22`
   );
 }
 

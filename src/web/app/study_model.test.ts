@@ -4,17 +4,22 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import { describe, expect, test } from '@jest/globals';
+import { PartialMessage } from '@protobuf-ts/runtime';
 import { SeedType } from '../../core/base_types';
 import {
   ProcessedStudy,
   StudyFilter,
   StudyPriority,
 } from '../../core/study_processor';
-import { variations as proto } from '../../proto/generated/proto_bundle';
+import {
+  Study,
+  Study_Channel,
+  Study_Platform,
+} from '../../proto/generated/study';
 import { StudyListModel, StudyModel } from './study_model';
 
-function makeStudyModel(properties: proto.IStudy) {
-  const study = new proto.Study(properties);
+function makeStudyModel(properties: PartialMessage<Study>) {
+  const study = Study.create(properties);
   const processed = new ProcessedStudy(study, {
     minMajorVersion: 116,
     isBraveSeed: true,
@@ -46,11 +51,8 @@ describe('models', () => {
       },
     ],
     filter: {
-      channel: [proto.Study.Channel.STABLE, proto.Study.Channel.CANARY],
-      platform: [
-        proto.Study.Platform.PLATFORM_WINDOWS,
-        proto.Study.Platform.PLATFORM_IOS,
-      ],
+      channel: [Study_Channel.STABLE, Study_Channel.CANARY],
+      platform: [Study_Platform.WINDOWS, Study_Platform.IOS],
     },
   });
 
@@ -63,8 +65,8 @@ describe('models', () => {
       },
     ],
     filter: {
-      channel: [proto.Study.Channel.STABLE, proto.Study.Channel.CANARY],
-      platform: [proto.Study.Platform.PLATFORM_WINDOWS],
+      channel: [Study_Channel.STABLE, Study_Channel.CANARY],
+      platform: [Study_Platform.WINDOWS],
       max_version: '110.0.0.0',
     },
   });
@@ -78,8 +80,8 @@ describe('models', () => {
       },
     ],
     filter: {
-      channel: [proto.Study.Channel.BETA],
-      platform: [proto.Study.Platform.PLATFORM_WINDOWS],
+      channel: [Study_Channel.BETA],
+      platform: [Study_Platform.WINDOWS],
     },
   });
 
