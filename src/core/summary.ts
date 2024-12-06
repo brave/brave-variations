@@ -270,14 +270,21 @@ class MrkdwnMessage {
   }
 }
 
+class Alert {
+  description: string;
+  ids: string[];
+  killSwitch?: boolean;
+  processingError?: boolean;
+  features?: string[];
+}
+
 export function summaryToJson(
   summary: Map<StudyPriority, SummaryItem[]>,
   newGitSha1?: string,
 ): string | undefined {
   const output = new MrkdwnMessage();
-  let hasKillSwitchImportantUpdate = false;
-  let hasBadStudies = false;
-  let gpuRelatedFeaturesDetected = false;
+
+  const alerts = new Set<Alert>();
 
   // From the highest to the lowest priority:
   const priorityList = Object.values(StudyPriority)
@@ -296,13 +303,21 @@ export function summaryToJson(
     itemList.sort((a, b) => a.action - b.action);
     for (const e of itemList) {
       for (const f of e.affectedFeatures) {
-        if (config.gpuRelatedFeatures.includes(f)) {
-          gpuRelatedFeaturesDetected = true;
-          break;
-        }
+        config.alerts.forEach((alert) => {
+          if (alert.features?.includes(f)) {
+            alerts.add(alert);
+          }
+        });
       }
-      hasKillSwitchImportantUpdate ||= e.isKillSwitchImportantUpdate();
-      hasBadStudies ||= e.hasBadStudies;
+      config.alerts.forEach((alert) => {
+        if (alert.killSwitch && e.isKillSwitchImportantUpdate()) {
+          alerts.add(alert);
+        }
+        if (alert.processingError && e.hasBadStudies) {
+          alerts.add(alert);
+        }
+      });
+
       const block = new TextBlock(e.actionToText());
       block.addLink(url_utils.getGriffinUiUrl(e.studyName), e.studyName);
       block.addLink(
@@ -337,31 +352,13 @@ export function summaryToJson(
   }
   if (output.toString() === '') return undefined;
 
-  if (gpuRelatedFeaturesDetected) {
+  alerts.forEach((alert) => {
     output.addBlockToTop(
       new TextBlock(
-        'GPU related changes detected, cc ' +
-          config.gpuRelatedNotificationIds.map((i) => `<@${i}>`).join(),
+        alert.description + ', cc ' + alert.ids.map((i) => `<@${i}>`).join(),
       ),
     );
-  }
-
-  if (hasKillSwitchImportantUpdate) {
-    output.addBlockToTop(
-      new TextBlock(
-        'Kill switches changes detected, cc ' +
-          config.killSwitchNotificationIds.map((i) => `<@${i}>`).join(),
-      ),
-    );
-  }
-  if (hasBadStudies) {
-    output.addBlock(
-      new TextBlock(
-        ':x: Processing ERRORS detected.\\n cc ' +
-          config.processingErrorNotificationIds.map((i) => `<@${i}>`).join(),
-      ),
-    );
-  }
+  });
   return `{
     "channel" : "${config.channelId}",
     "text": "New finch changes detected",

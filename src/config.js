@@ -33,18 +33,49 @@ module.exports = {
 
   channelId: 'C05S50MFHPE', // #finch-updates
 
-  // Add your slack ID to get notifications about new kill switches.
+  // Add your slack ID to get alerts about changing features.
+  // Please note that alerts are only sent for changes in stable channel,
+  // not in beta or dev.
   // To retrive it use Slack profile => Copy Member ID.
-  killSwitchNotificationIds: [
-    'U02DG0ATML3', // @matuchin
-    'UE87NRK2A', // @iefremov
-    'UB9PF4X5K', // @Terry
-  ],
-  processingErrorNotificationIds: [
-    'U02DG0ATML3', // @matuchin
-    'UE87NRK2A', // @iefremov
-  ],
-  gpuRelatedNotificationIds: [
-    'U0D73ULKD', // @serg
+  alerts: [
+    {
+      description: 'Kill switches changes detected',
+      killSwitch: true, // matches to any kill switch change
+      ids: [
+        'U02DG0ATML3', // @matuchin
+        'UE87NRK2A', // @iefremov
+        'UB9PF4X5K', // @Terry
+      ],
+    },
+    {
+      description: ':x: Processing errors detected',
+      processingError: true, // matches to any processing error
+      ids: [
+        'U02DG0ATML3', // @matuchin
+        'UE87NRK2A', // @iefremov
+      ],
+    },
+    {
+      description: 'GPU related changes detected',
+      features: [
+        'DefaultANGLEVulkan',
+        'DefaultPassthroughCommandDecoder',
+        'EnableDrDcVulkan',
+        'Vulkan',
+        'VulkanFromANGLE',
+        'VulkanV2',
+        'VulkanVMALargeHeapBlockSizeExperiment',
+      ],
+      ids: [
+        'U0D73ULKD', // @serg
+      ],
+    },
+    {
+      description: 'WebUSBBlocklist changes detected',
+      features: ['WebUSBBlocklist'],
+      ids: [
+        'U02031KK8SY', // @shivan
+      ],
+    },
   ],
 };

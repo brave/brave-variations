@@ -57,8 +57,7 @@ test('seed serialization', async () => {
 });
 
 describe('summary', () => {
-  const common = {
-    name: 'TestStudy',
+  const commonFilters = {
     filter: {
       channel: [Study_Channel.STABLE],
       platform: [Study_Platform.WINDOWS],
@@ -67,7 +66,7 @@ describe('summary', () => {
     },
   };
   const oldStudy = Study.create({
-    ...common,
+    name: 'TestStudy',
     experiment: [
       {
         name: 'Enabled',
@@ -79,10 +78,11 @@ describe('summary', () => {
         probability_weight: 80,
       },
     ],
+    ...commonFilters,
   });
 
   const newStudy = Study.create({
-    ...common,
+    name: 'TestStudy',
     experiment: [
       {
         name: 'Enabled',
@@ -92,16 +92,28 @@ describe('summary', () => {
       {
         name: 'DisableAnother',
         probability_weight: 70,
-        feature_association: { disable_feature: ['BadFeature'] },
+        feature_association: { disable_feature: ['WebUSBBlocklist'] },
       },
       {
         name: 'Default',
         probability_weight: 10,
       },
     ],
+    ...commonFilters,
+  });
+  const killSwitchStudy = Study.create({
+    name: 'StudyBrokenFeature_KillSwitch',
+    experiment: [
+      {
+        name: 'BrokenFeature_KillSwitch',
+        probability_weight: 100,
+        feature_association: { disable_feature: ['BrokenFeature'] },
+      },
+    ],
+    ...commonFilters,
   });
   const oldSeed = VariationsSeed.create({ study: [oldStudy] });
-  const newSeed = VariationsSeed.create({ study: [newStudy] });
+  const newSeed = VariationsSeed.create({ study: [newStudy, killSwitchStudy] });
 
   const summary = makeSummary(
     oldSeed,
@@ -111,7 +123,7 @@ describe('summary', () => {
   );
 
   test('verify content', () => {
-    expect(summary.size).toBe(1);
+    expect(summary.size).toBe(2);
     const itemList = summary.get(StudyPriority.STABLE_ALL);
     expect(itemList?.length).toBe(1);
     const item = itemList?.at(0);
@@ -127,16 +139,34 @@ describe('summary', () => {
 
     expect(item?.affectedFeatures.size).toBe(2);
     expect(item?.affectedFeatures).toContain('GoodFeature');
-    expect(item?.affectedFeatures).toContain('BadFeature');
+    expect(item?.affectedFeatures).toContain('WebUSBBlocklist');
+
+    const killSwitchItemList = summary.get(
+      StudyPriority.STABLE_EMERGENCY_KILL_SWITCH,
+    );
+    expect(killSwitchItemList?.length).toBe(1);
+    const killSwitchItem = killSwitchItemList?.at(0);
+
+    expect(killSwitchItem?.studyName).toBe('StudyBrokenFeature_KillSwitch');
+    expect(killSwitchItem?.affectedFeatures.size).toBe(1);
+    expect(killSwitchItem?.affectedFeatures).toContain('BrokenFeature');
+    expect(killSwitchItem?.newPriority).toBe(
+      StudyPriority.STABLE_EMERGENCY_KILL_SWITCH,
+    );
+    expect(killSwitchItem?.action).toBe(ItemAction.New);
   });
 
-  test('serialization', () => {
-    const payloadJSON = summaryToJson(summary, undefined);
-    expect(payloadJSON).toBeDefined();
-    const payload =
-      payloadJSON !== undefined ? JSON.parse(payloadJSON) : undefined;
+  test('summaryToSlackJson', () => {
+    const payloadString = summaryToJson(summary, undefined);
+    expect(payloadString).toBeDefined();
+
+    expect(payloadString).toContain(
+      'Kill switches changes detected, cc <@U02DG0ATML3>',
+    );
+
+    expect(payloadString).toContain('WebUSBBlocklist changes detected');
 
     // Check that payload is valid JSON.
-    expect(payload).toBeInstanceOf(Object);
+    expect(JSON.parse(payloadString!)).toBeInstanceOf(Object);
   });
 });
