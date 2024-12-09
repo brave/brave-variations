@@ -1,6 +1,6 @@
 [
   {
-    name: 'BraveSearchPromotionBannerStudy',
+    name: 'BraveSearchPromotionBannerStudyOnNightly',
     experiment: [
       {
         name: 'banner_type_B',
@@ -51,7 +51,7 @@
     filter: {
       min_version: '117.1.60.41',
       channel: [
-        'BETA',
+        'NIGHTLY',
       ],
       platform: [
         'WINDOWS',
@@ -59,10 +59,8 @@
         'LINUX',
       ],
       country: [
-        'CA',
         'DE',
         'FR',
-        'GB',
         'US',
         'AT',
         'ES',
