@@ -4,6 +4,33 @@
     experiment: [
       {
         name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'NewAndroidOnboarding',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'AndroidOnboardingStudy',
+    experiment: [
+      {
+        name: 'Enabled',
         probability_weight: 25,
         feature_association: {
           enable_feature: [
@@ -18,8 +45,6 @@
     ],
     filter: {
       channel: [
-        'NIGHTLY',
-        'BETA',
         'RELEASE',
       ],
       platform: [
