@@ -9,6 +9,7 @@ import * as os from 'os';
 import { describe, expect, test } from '@jest/globals';
 import JSON5 from 'json5';
 import path from 'path';
+import { asPosix } from '../base/path_utils';
 import { StudyPriority } from '../core/study_processor';
 import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
 import { Study, Study_Channel, Study_Platform } from '../proto/generated/study';
@@ -18,11 +19,12 @@ import { storeDataToDirectory } from './tracker_lib';
 function readDirectory(dir: string): Record<string, any> {
   const files = fs
     .readdirSync(dir, { recursive: true, encoding: 'utf-8' })
-    .sort();
+    .sort()
+    .map(asPosix);
   const result: Record<string, string> = {};
 
   for (const file of files) {
-    const filePath = path.join(dir, file);
+    const filePath = `${dir}/${file}`;
     if (!file.endsWith('.json5')) {
       continue;
     }
