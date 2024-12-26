@@ -21,6 +21,7 @@ export function getStudyErrors(study: Study, fileBaseName: string): string[] {
     checkVersionRange,
     checkOsVersionRange,
     checkChannelAndPlatform,
+    checkCountry,
   ];
   for (const validator of validators) {
     try {
@@ -342,4 +343,28 @@ export function validateName(
     return false;
   }
   return true;
+}
+
+function checkCountry(study: Study): string[] {
+  const errors: string[] = [];
+  if (study.filter === undefined) {
+    return errors;
+  }
+
+  // check if country in uppercase also exists in lowercase
+  const checkCountriesCase = (countries: string[]) => {
+    const countrySet = new Set(countries);
+    for (const country of countries) {
+      if (!countrySet.has(country.toLowerCase())) {
+        errors.push(
+          `Country ${country} in lowercase is required for study ${study.name}`,
+        );
+      }
+    }
+  };
+
+  checkCountriesCase(study.filter.country);
+  checkCountriesCase(study.filter.exclude_country);
+
+  return errors;
 }
