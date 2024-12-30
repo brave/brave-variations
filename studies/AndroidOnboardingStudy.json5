@@ -31,7 +31,7 @@
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 50,
+        probability_weight: 100,
         feature_association: {
           enable_feature: [
             'NewAndroidOnboarding',
@@ -40,7 +40,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 50,
+        probability_weight: 0,
       },
     ],
     filter: {
