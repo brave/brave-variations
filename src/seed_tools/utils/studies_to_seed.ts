@@ -6,7 +6,7 @@
 import { execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import * as path from 'path';
-import { wsPath } from 'src/base/path_utils';
+import { asPosix, wsPath } from 'src/base/path_utils';
 import {
   Study_ActivationType,
   Study_Consistency,
@@ -35,6 +35,10 @@ export async function readStudiesToSeed(
     study: studies,
     layers: [],
   };
+
+  // Keep country filters in both uppercase and lowercase. This is a workaround
+  // to support x-country header returning uppercase values.
+  duplicateCountriesAsLowercase(variationsSeed);
 
   errors.push(
     ...seed_validation.getSeedErrors(variationsSeed, studyFileBaseNameMap),
@@ -72,7 +76,7 @@ async function readStudiesAtRevision(
   errors: string[];
 }> {
   const basePath = wsPath('//');
-  studiesDir = path.relative(basePath, studiesDir);
+  studiesDir = asPosix(path.relative(basePath, studiesDir));
 
   // Validate revision format.
   if (!/^[a-z0-9]+$/.test(revision) && revision !== 'HEAD') {
@@ -188,5 +192,28 @@ function setStudyDefaultParameters(study: Study) {
   }
   if (study.consistency === undefined) {
     study.consistency = Study_Consistency.PERMANENT;
+  }
+}
+
+function duplicateCountriesAsLowercase(variationsSeed: VariationsSeed) {
+  // For now duplicate the country filters to lowercase.
+  const duplicate = (countries: string[]) => {
+    const allCountries = [...countries];
+    const countrySet = new Set(countries);
+    for (const country of countries) {
+      const lowerCaseCountry = country.toLowerCase();
+      if (!countrySet.has(lowerCaseCountry)) {
+        allCountries.push(lowerCaseCountry);
+        countrySet.add(lowerCaseCountry);
+      }
+    }
+    return allCountries;
+  };
+  for (const study of variationsSeed.study) {
+    if (study.filter === undefined) {
+      continue;
+    }
+    study.filter.country = duplicate(study.filter.country);
+    study.filter.exclude_country = duplicate(study.filter.exclude_country);
   }
 }
