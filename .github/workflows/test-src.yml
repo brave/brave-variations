@@ -12,8 +12,8 @@ jobs:
         with:
           fetch-depth: '0' # Used to test `seed_tools create --revision <sha1>`
 
-      - name: npm install
-        run: npm install
+      - name: npm ci
+        run: npm ci
 
       - name: typecheck
         run: npm run typecheck
