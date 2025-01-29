@@ -6,7 +6,6 @@
 import { program } from '@commander-js/extra-typings';
 import { execSync, spawnSync } from 'child_process';
 
-// @ts-expect-error lint-staged is not typed.
 import lintStaged from 'lint-staged';
 
 program
