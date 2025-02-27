@@ -42,7 +42,7 @@ Deploying a variation that should only be applied to a new version of the browse
 ## Some Notes on using variations in the Browser
 
 - Studies only take effect after restarting the browser.
-- Pull from staging endpoint with `--variations-server-url=https://dev.ray.nor2.io/v1/variations/seed`.
+- Pull from staging endpoint with `--variations-server-url=https://dev.ray.heim.dev/v1/variations/seed`.
 - Precedence rules for feature overrides (starting with highest precedence):
     - Flags via `chrome://flags`
     - CLI overrides with `--disable-features="..." --enable-features="..."`, e.g. enable feature `FooBar` with parameters `param1=2` and `param3=4` via `--enable-features=FooBar:param1/2/param3/4`
@@ -56,7 +56,7 @@ Deploying a variation that should only be applied to a new version of the browse
 
 ## Overview
 
-A continuous integration server (CI) serializes and signs the updated seed file before publishing it to a CDN endpoint at [https://dev.ray.nor2.io/v1/variations/seed](https://dev.ray.nor2.io/v1/variations/seed). The repo is organized as follows:
+A continuous integration server (CI) serializes and signs the updated seed file before publishing it to a CDN endpoint at [https://dev.ray.heim.dev/v1/variations/seed](https://dev.ray.nor2.io/v1/variations/seed). The repo is organized as follows:
 
 - `/crypto` contains a util to create key pairs and sign the seed file.
 - `/seed` contains a deprecated JSON seed definition and serialisation code.
