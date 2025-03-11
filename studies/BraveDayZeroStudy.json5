@@ -125,4 +125,38 @@
       ],
     },
   },
+  {
+    name: 'BraveDayZeroStudy_DesktopTest',
+    experiment: [
+      {
+        name: 'EnabledJ',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'j',
+          },
+        ],
+      },
+    ],
+    filter: {
+      min_version: '133.1.75.176',
+      channel: [
+        'DEV',
+      ],
+      platform: [
+        'LINUX',
+      ],
+      country: [
+        'US',
+        'GB',
+        'CA',
+      ],
+    },
+  },
 ]
