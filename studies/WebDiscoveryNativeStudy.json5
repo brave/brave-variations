@@ -1,6 +1,6 @@
 [
   {
-    name: 'WebDiscoveryNativeStudy_AndroidNightlyBeta',
+    name: 'WebDiscoveryNativeStudy_AndroidNightly',
     experiment: [
       {
         name: 'Enabled',
@@ -23,8 +23,41 @@
       },
     ],
     filter: {
+      min_version: '134.1.78.42',
       channel: [
         'NIGHTLY',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'WebDiscoveryNativeStudy_AndroidBeta',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveWebDiscoveryNative',
+          ],
+        },
+        param: [
+          {
+            name: 'patterns_path',
+            value: 'patterns-android.gz',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '134.1.77.82',
+      channel: [
         'BETA',
       ],
       platform: [
