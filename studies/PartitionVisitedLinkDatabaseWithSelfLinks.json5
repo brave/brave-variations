@@ -20,7 +20,7 @@
       min_version: '134.1.77.83',
       channel: [
         'NIGHTLY',
-        'BETA'
+        'BETA',
       ],
       platform: [
         'WINDOWS',
