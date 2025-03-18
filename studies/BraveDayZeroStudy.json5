@@ -123,6 +123,11 @@
       platform: [
         'WINDOWS',
       ],
+      country: [
+        'US',
+        'GB',
+        'CA',
+      ],
     },
   },
 ]
