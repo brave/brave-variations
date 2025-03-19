@@ -29,4 +29,33 @@
       ],
     },
   },
+  {
+    name: 'BraveSplitViewStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 15,
+        feature_association: {
+          enable_feature: [
+            'BraveSplitView',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 85,
+      },
+    ],
+    filter: {
+      min_version: '134.1.76.80',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
 ]
