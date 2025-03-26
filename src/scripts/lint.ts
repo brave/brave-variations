@@ -13,13 +13,11 @@ program
       'types, and runs the corresponding linters. Use this command to ensure code\n' +
       'quality before committing or pushing changes.',
   )
-  .option('-a, --all', 'lint all files in the repository')
   .option('-f, --fix', 'automatically fix problems')
   .action(main)
   .parse();
 
 interface Options {
-  all?: true;
   fix?: true;
 }
 
