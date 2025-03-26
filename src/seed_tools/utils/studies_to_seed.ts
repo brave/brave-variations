@@ -47,7 +47,7 @@ export async function readStudiesToSeed(
   return { variationsSeed, errors };
 }
 
-async function readStudiesFromDirectory(
+export async function readStudiesFromDirectory(
   studiesDir: string,
   fix: boolean,
 ): Promise<{

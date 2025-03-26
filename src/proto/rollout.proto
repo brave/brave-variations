@@ -1,0 +1,24 @@
+// Copyright 2025
+
+syntax = "proto2";
+
+package variations;
+
+import "study.proto";
+import "layer.proto";
+
+message TargetExperiment {
+  optional string name = 1;
+  optional uint32 weight = 2;
+}
+
+message Stage {
+  optional Study.Channel channel = 1;
+  optional uint32 increase_per_day = 2;
+}
+
+message RolloutConfig {
+  repeated TargetExperiment target_experiments = 1;
+
+  repeated Stage stages = 2;
+}
