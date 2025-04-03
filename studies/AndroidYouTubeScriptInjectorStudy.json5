@@ -1,6 +1,6 @@
 [
   {
-    name: 'AndroidYouTubeScriptInjectorStudy',
+    name: 'AndroidYouTubeScriptInjectorStudy_Component',
     experiment: [
       {
         name: 'Enabled',
