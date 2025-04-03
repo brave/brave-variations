@@ -187,12 +187,8 @@ async function checkAndOptionallyFixFormat(
 }
 
 function setStudyDefaultParameters(study: Study) {
-  if (study.activation_type === undefined) {
-    study.activation_type = Study_ActivationType.ACTIVATE_ON_STARTUP;
-  }
-  if (study.consistency === undefined) {
-    study.consistency = Study_Consistency.PERMANENT;
-  }
+  study.activation_type ??= Study_ActivationType.ACTIVATE_ON_STARTUP;
+  study.consistency ??= Study_Consistency.PERMANENT;
 }
 
 function duplicateCountriesAsLowercase(variationsSeed: VariationsSeed) {
