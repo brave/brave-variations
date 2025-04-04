@@ -102,6 +102,7 @@
       },
     ],
     filter: {
+      min_version: '135.*',
       channel: [
         'RELEASE',
       ],
