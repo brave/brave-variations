@@ -84,4 +84,31 @@
       ],
     },
   },
+  {
+    name: 'BraveRewardsNewRewardsUIStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 15,
+        feature_association: {
+          enable_feature: [
+            'BraveRewardsNewRewardsUI',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 85,
+      },
+    ],
+    filter: {
+      min_version: '135.1.77.95',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
 ]
