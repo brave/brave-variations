@@ -102,7 +102,7 @@
       },
     ],
     filter: {
-      min_version: '135.*',
+      min_version: '135.1.77.95',
       channel: [
         'RELEASE',
       ],
