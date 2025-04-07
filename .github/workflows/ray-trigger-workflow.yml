@@ -12,7 +12,7 @@ jobs:
       - name: Trigger deployment workflow from the ray-backend repository
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
           repository: raybrowser/ray-backend
           event-type: variations-cross-repo-trigger
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "source_repo": "${{ github.repository }}"}'
