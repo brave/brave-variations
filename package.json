@@ -22,7 +22,7 @@
     "@protobuf-ts/plugin": "2.9.6",
     "@types/diff": "5.2.3",
     "@types/jest": "29.5.14",
-    "@types/node": "20.17.29",
+    "@types/node": "22.14.0",
     "@types/react": "18.3.20",
     "@types/react-dom": "18.3.5",
     "@typescript-eslint/eslint-plugin": "8.29.0",
