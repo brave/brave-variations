@@ -1,6 +1,6 @@
 [
   {
-    name: 'BraveAIChatDefaultModelStudyOlderVersions',
+    name: 'BraveAIChatDefaultModelStudy_OlderVersions',
     experiment: [
       {
         name: 'DefaultLlama',
@@ -44,7 +44,7 @@
     },
   },
   {
-    name: 'BraveAIChatDefaultModelStudy',
+    name: 'BraveAIChatDefaultModelStudy_Qwen',
     experiment: [
       {
         name: 'DefaultLlama',
