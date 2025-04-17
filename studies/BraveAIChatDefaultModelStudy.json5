@@ -63,7 +63,7 @@
       },
       {
         name: 'DefaultQwen',
-        probability_weight: 90,
+        probability_weight: 10,
         feature_association: {
           enable_feature: [
             'AIChat',
