@@ -23,6 +23,7 @@
       },
     ],
     filter: {
+      max_version: '137.1.79.51',
       channel: [
         'NIGHTLY',
         'BETA',

@@ -27,6 +27,7 @@
       },
     ],
     filter: {
+      max_version: '127.1.68.26',
       channel: [
         'NIGHTLY',
         'BETA',

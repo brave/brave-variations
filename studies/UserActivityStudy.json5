@@ -23,10 +23,6 @@
             name: 'threshold',
             value: '0.5',
           },
-          {
-            name: 'idle_time_threshold',
-            value: '5s',
-          },
         ],
       },
       {
