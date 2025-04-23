@@ -1,0 +1,81 @@
+[
+  {
+    name: 'BraveDayZeroStudy_Android',
+    experiment: [
+      {
+        name: 'EnabledA',
+        probability_weight: 3,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'a',
+          },
+        ],
+      },
+      {
+        name: 'EnabledB',
+        probability_weight: 3,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'b',
+          },
+        ],
+      },
+      {
+        name: 'EnabledC',
+        probability_weight: 3,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'c',
+          },
+        ],
+      },
+      {
+        name: 'EnabledD',
+        probability_weight: 3,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'd',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 88,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+        'BETA',
+        'NIGHTLY',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+]
