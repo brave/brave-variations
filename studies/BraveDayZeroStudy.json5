@@ -3,8 +3,23 @@
     name: 'BraveDayZeroStudy_Android_Staging',
     experiment: [
       {
+        name: 'EnabledA',
+        probability_weight: 20,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'a',
+          },
+        ],
+      },
+      {
         name: 'EnabledB',
-        probability_weight: 25,
+        probability_weight: 20,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
@@ -19,7 +34,7 @@
       },
       {
         name: 'EnabledC',
-        probability_weight: 25,
+        probability_weight: 20,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
@@ -34,7 +49,7 @@
       },
       {
         name: 'EnabledD',
-        probability_weight: 25,
+        probability_weight: 20,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
@@ -49,7 +64,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 25,
+        probability_weight: 20,
       },
     ],
     filter: {
