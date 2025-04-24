@@ -68,6 +68,7 @@
       },
     ],
     filter: {
+      min_version: '136.0.7103.48',
       channel: [
         'RELEASE',
         'BETA',
