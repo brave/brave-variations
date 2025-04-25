@@ -31,7 +31,7 @@
     },
   },
   {
-    name: 'PartitionVisitedLinkDatabaseWithSelfLinksRelease',
+    name: 'PartitionVisitedLinkDatabaseWithSelfLinks_Release',
     experiment: [
       {
         name: 'Enabled',
