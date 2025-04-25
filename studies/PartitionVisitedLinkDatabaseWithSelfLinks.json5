@@ -30,4 +30,34 @@
       ],
     },
   },
+  {
+    name: 'PartitionVisitedLinkDatabaseWithSelfLinksRelease',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'PartitionVisitedLinkDatabaseWithSelfLinks',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      min_version: '134.1.77.83',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
 ]
