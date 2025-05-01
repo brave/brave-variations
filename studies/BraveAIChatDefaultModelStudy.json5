@@ -1,6 +1,6 @@
 [
   {
-    name: 'BraveAIChatDefaultModelStudy',
+    name: 'BraveAIChatDefaultModelStudy_OlderVersions',
     experiment: [
       {
         name: 'DefaultLlama',
@@ -29,6 +29,57 @@
     ],
     filter: {
       min_version: '122.1.63.161',
+      max_version: '133.1.77.18',
+      channel: [
+        'RELEASE',
+        'BETA',
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
+  {
+    name: 'BraveAIChatDefaultModelStudy_Qwen',
+    experiment: [
+      {
+        name: 'DefaultLlama',
+        probability_weight: 90,
+        feature_association: {
+          enable_feature: [
+            'AIChat',
+          ],
+        },
+        param: [
+          {
+            name: 'default_model',
+            value: 'chat-basic',
+          },
+        ],
+      },
+      {
+        name: 'DefaultQwen',
+        probability_weight: 10,
+        feature_association: {
+          enable_feature: [
+            'AIChat',
+          ],
+        },
+        param: [
+          {
+            name: 'default_model',
+            value: 'chat-qwen',
+          },
+        ],
+      },
+    ],
+    filter: {
+      min_version: '133.1.77.19',
       channel: [
         'RELEASE',
         'BETA',
