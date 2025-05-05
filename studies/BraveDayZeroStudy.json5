@@ -68,7 +68,7 @@
       },
     ],
     filter: {
-      min_version: '136.0.7103.48',
+      min_version: '136.1.78.94',
       channel: [
         'RELEASE',
         'BETA',
@@ -76,6 +76,56 @@
       ],
       platform: [
         'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'BraveDayZeroStudy_Desktop',
+    experiment: [
+      {
+        name: 'EnabledC',
+        probability_weight: 18,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'c',
+          },
+        ],
+      },
+      {
+        name: 'EnabledD',
+        probability_weight: 18,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'd',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 64,
+      },
+    ],
+    filter: {
+      min_version: '136.1.78.94',
+      channel: [
+        'RELEASE',
+        'BETA',
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
       ],
     },
   },
