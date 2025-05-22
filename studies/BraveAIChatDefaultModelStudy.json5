@@ -1,6 +1,6 @@
 [
   {
-    name: 'BraveAIChatDefaultModelStudy_OlderVersions',
+    name: 'BraveAIChatDefaultModelStudy_OlderVersions_WithoutSonnet',
     experiment: [
       {
         name: 'DefaultLlama',
@@ -15,20 +15,55 @@
             name: 'default_model',
             value: 'chat-basic',
           },
+          {
+            name: 'default_premium_model',
+            value: 'chat-basic',
+          },
         ],
       },
+    ],
+    filter: {
+      min_version: '122.1.63.161',
+      max_version: '124.1.67.55',
+      channel: [
+        'RELEASE',
+        'BETA',
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
+  {
+    name: 'BraveAIChatDefaultModelStudy_OlderVersions_WithSonnet',
+    experiment: [
       {
-        name: 'DefaultMixtral',
-        probability_weight: 0,
+        name: 'DefaultLlamaSonnet',
+        probability_weight: 100,
         feature_association: {
           enable_feature: [
             'AIChat',
           ],
         },
+        param: [
+          {
+            name: 'default_model',
+            value: 'chat-basic',
+          },
+          {
+            name: 'default_premium_model',
+            value: 'chat-claude-sonnet',
+          },
+        ],
       },
     ],
     filter: {
-      min_version: '122.1.63.161',
+      min_version: '124.1.67.56',
       max_version: '133.1.77.18',
       channel: [
         'RELEASE',
@@ -45,10 +80,10 @@
     },
   },
   {
-    name: 'BraveAIChatDefaultModelStudy_Qwen',
+    name: 'BraveAIChatDefaultModelStudy_QwenSonnet',
     experiment: [
       {
-        name: 'DefaultLlama',
+        name: 'DefaultLlamaSonnet',
         probability_weight: 90,
         feature_association: {
           enable_feature: [
@@ -60,10 +95,14 @@
             name: 'default_model',
             value: 'chat-basic',
           },
+          {
+            name: 'default_premium_model',
+            value: 'chat-claude-sonnet',
+          },
         ],
       },
       {
-        name: 'DefaultQwen',
+        name: 'DefaultQwenSonnet',
         probability_weight: 10,
         feature_association: {
           enable_feature: [
@@ -75,11 +114,16 @@
             name: 'default_model',
             value: 'chat-qwen',
           },
+          {
+            name: 'default_premium_model',
+            value: 'chat-claude-sonnet',
+          },
         ],
       },
     ],
     filter: {
       min_version: '133.1.77.19',
+      max_version: '137.1.80.62',
       channel: [
         'RELEASE',
         'BETA',
@@ -90,6 +134,60 @@
         'MAC',
         'LINUX',
         'ANDROID',
+        'IOS',
+      ],
+    },
+  },
+  {
+    name: 'BraveAIChatDefaultModelStudy_QwenSonnet_iOS',
+    experiment: [
+      {
+        name: 'DefaultLlamaSonnet',
+        probability_weight: 90,
+        feature_association: {
+          enable_feature: [
+            'AIChat',
+          ],
+        },
+        param: [
+          {
+            name: 'default_model',
+            value: 'chat-basic',
+          },
+          {
+            name: 'default_premium_model',
+            value: 'chat-claude-sonnet',
+          },
+        ],
+      },
+      {
+        name: 'DefaultQwenSonnet',
+        probability_weight: 10,
+        feature_association: {
+          enable_feature: [
+            'AIChat',
+          ],
+        },
+        param: [
+          {
+            name: 'default_model',
+            value: 'chat-qwen',
+          },
+          {
+            name: 'default_premium_model',
+            value: 'chat-claude-sonnet',
+          },
+        ],
+      },
+    ],
+    filter: {
+      min_version: '137.1.80.63',
+      channel: [
+        'RELEASE',
+        'BETA',
+        'NIGHTLY',
+      ],
+      platform: [
         'IOS',
       ],
     },
