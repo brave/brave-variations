@@ -1,21 +1,15 @@
 [
   {
-    name: 'RayAccountStudy',
+    name: 'RayLegacyAccountStudy',
     experiment: [
       {
-        name: 'Enabled',
+        name: 'Disabled',
         probability_weight: 100,
         feature_association: {
-          enable_feature: [
+          disable_feature: [
             'RayAccount',
           ],
         },
-        param: [
-          {
-            name: 'ray-profile-base-url',
-            value: 'https://raybrowser.com/',
-          },
-        ],
       },
       {
         name: 'Default',
@@ -23,7 +17,7 @@
       },
     ],
     filter: {
-      min_version: '135.0.7049.72',
+      max_version: '135.0.7049.70',
       channel: [
         'RELEASE',
         'BETA',
