@@ -1,0 +1,63 @@
+[
+  {
+    name: 'V8StoreStoreEliminationKillSwitch',
+    experiment: [
+      {
+        name: 'Disabled_KillSwitch',
+        probability_weight: 50,
+        feature_association: {
+          disable_feature: [
+            'V8Flag_turbo_store_elimination',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      max_version: '138.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'V8StoreStoreEliminationKillSwitch',
+    experiment: [
+      {
+        name: 'Disabled_KillSwitch',
+        probability_weight: 5,
+        feature_association: {
+          disable_feature: [
+            'V8Flag_turbo_store_elimination',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 95,
+      },
+    ],
+    filter: {
+      max_version: '138.*',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]
