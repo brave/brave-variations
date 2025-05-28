@@ -23,7 +23,7 @@
     "@types/diff": "5.2.3",
     "@types/jest": "29.5.14",
     "@types/node": "22.15.21",
-    "@types/react": "18.3.21",
+    "@types/react": "18.3.22",
     "@types/react-dom": "18.3.7",
     "@typescript-eslint/eslint-plugin": "8.32.1",
     "commander": "13.1.0",
