@@ -4,16 +4,12 @@
     experiment: [
       {
         name: 'Disabled_KillSwitch',
-        probability_weight: 50,
+        probability_weight: 100,
         feature_association: {
           disable_feature: [
             'V8Flag_turbo_store_elimination',
           ],
         },
-      },
-      {
-        name: 'Default',
-        probability_weight: 50,
       },
     ],
     filter: {
@@ -35,7 +31,7 @@
     experiment: [
       {
         name: 'Disabled_KillSwitch',
-        probability_weight: 5,
+        probability_weight: 25,
         feature_association: {
           disable_feature: [
             'V8Flag_turbo_store_elimination',
@@ -44,7 +40,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 95,
+        probability_weight: 75,
       },
     ],
     filter: {
