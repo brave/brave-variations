@@ -1,7 +1,24 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>brave/renovate-config",
-    "group:allNonMajor"
-  ]
+    "local>brave/renovate-config"
+  ],
+  "packageRules": [
+    {
+      "groupName": "All non-breaking dependency updates",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "schedule": ["before 6am on tuesday"]
+    },
+    {
+      "groupName": "Major dependency updates",
+      "matchUpdateTypes": ["major"],
+      "schedule": ["before 6am on tuesday"]
+    }
+  ],
+  "schedule": ["before 6am on tuesday"],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "groupName": "Security updates",
+    "schedule": ["at any time"]
+  }
 }
