@@ -19,7 +19,7 @@
   "devDependencies": {
     "@commander-js/extra-typings": "13.1.0",
     "@jest/globals": "29.7.0",
-    "@protobuf-ts/plugin": "2.10.0",
+    "@protobuf-ts/plugin": "2.11.0",
     "@types/diff": "5.2.3",
     "@types/jest": "29.5.14",
     "@types/node": "22.15.21",
@@ -51,7 +51,7 @@
   "license": "MPL-2.0",
   "moduleResolution": "node",
   "dependencies": {
-    "@protobuf-ts/runtime": "2.10.0",
+    "@protobuf-ts/runtime": "2.11.0",
     "json5": "2.2.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
