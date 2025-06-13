@@ -12,8 +12,24 @@
         },
         param: [
           {
+            name: 'ray-api-url',
+            value: 'https://dev.ray.heim.dev/',
+          },
+          {
             name: 'ray-profile-base-url',
             value: 'https://raybrowser.com/',
+          },
+          {
+            name: 'ray-api-version',
+            value: 'v2/dev',
+          },
+          {
+            name: 'show-invite-friends',
+            value: 'true',
+          },
+          {
+            name: 'show-raybux-balance',
+            value: true,
           },
         ],
       },
@@ -26,9 +42,6 @@
       min_version: '135.0.7049.72',
       channel: [
         'RELEASE',
-        'BETA',
-        'NIGHTLY',
-        'DEV',
       ],
       platform: [
         'WINDOWS',
