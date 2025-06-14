@@ -31,6 +31,10 @@
             name: 'show-raybux-balance',
             value: 'true',
           },
+          {
+            name: 'ray-api-allowed-host', 
+            value: 'ray-website-git-feature-invites-ray-browser.vercel.app,raybrowser.com,www.raybrowser.com,portal.raybrowser.com',
+          }
         ],
       },
       {
