@@ -21,7 +21,7 @@
           },
           {
             name: 'ray-api-version',
-            value: 'v2/dev',
+            value: 'v2',
           },
           {
             name: 'show-invite-friends',
