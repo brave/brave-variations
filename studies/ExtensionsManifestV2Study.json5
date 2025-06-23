@@ -18,9 +18,39 @@
     ],
     filter: {
       min_version: '125.1.68.25',
+      max_version: '137.1.81.71',
       channel: [
         'NIGHTLY',
         'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+  {
+    name: 'ExtensionsManifestV2Study_NextStepPreparation',
+    experiment: [
+      {
+        name: 'Disabled',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'ExtensionsManifestV2',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '137.1.81.72',
+      channel: [
+        'NIGHTLY',
       ],
       platform: [
         'WINDOWS',
