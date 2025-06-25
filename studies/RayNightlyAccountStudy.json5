@@ -17,11 +17,11 @@
           },
           {
             name: 'ray-profile-base-url',
-            value: 'https://ray-website-git-feature-invites-ray-browser.vercel.app/',
+            value: 'https://ray-website-env-nightly-ray-browser.vercel.app/',
           },
           {
             name: 'ray-api-version',
-            value: 'v2/dev',
+            value: 'v2/nightly',
           },
           {
             name: 'show-invite-friends',
@@ -33,7 +33,7 @@
           },
           {
             name: 'ray-api-allowed-host',
-            value: 'ray-website-git-feature-invites-ray-browser.vercel.app,raybrowser.com,www.raybrowser.com,portal.raybrowser.com',
+            value: 'ray-website-env-nightly-ray-browser.vercel.app,raybrowser.com,www.raybrowser.com,portal.raybrowser.com',
           },
         ],
       },
