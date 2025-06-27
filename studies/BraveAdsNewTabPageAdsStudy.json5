@@ -54,6 +54,10 @@
             name: 'should_support_confirmations_for_non_rewards',
             value: 'true',
           },
+          {
+            name: 'should_frequency_cap_for_non_rewards',
+            value: 'true',
+          },
         ],
       },
       {
