@@ -1,0 +1,63 @@
+[
+  {
+    name: 'V8IgnitionElideRedundantTdzChecksKillSwitch',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'V8Flag_ignition_elide_redundant_tdz_checks',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '114.*',
+      max_version: '139.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+      policy_restriction: 'CRITICAL',
+    },
+  },
+  {
+    name: 'V8IgnitionElideRedundantTdzChecksKillSwitch',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 5,
+        feature_association: {
+          disable_feature: [
+            'V8Flag_ignition_elide_redundant_tdz_checks',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 95,
+      },
+    ],
+    filter: {
+      min_version: '114.*',
+      max_version: '139.*',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+      policy_restriction: 'CRITICAL',
+    },
+  },
+]
