@@ -80,41 +80,4 @@
       ],
     },
   },
-  {
-    name: 'BraveAdsNewTabPageAdsStudy',
-    experiment: [
-      {
-        name: 'Enabled',
-        probability_weight: 100,
-        feature_association: {
-          enable_feature: [
-            'NewTabPageAds',
-          ],
-        },
-        param: [
-          {
-            name: 'should_support_confirmations_for_non_rewards',
-            value: 'true',
-          },
-        ],
-      },
-      {
-        name: 'Default',
-        probability_weight: 0,
-      },
-    ],
-    filter: {
-      min_version: '137.1.79.125',
-      channel: [
-        'RELEASE',
-      ],
-      platform: [
-        'WINDOWS',
-        'MAC',
-        'LINUX',
-        'ANDROID',
-        'IOS',
-      ],
-    },
-  },
 ]
