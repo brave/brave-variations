@@ -28,8 +28,6 @@
         'WINDOWS',
         'MAC',
         'LINUX',
-        'ANDROID',
-        'IOS',
       ],
     },
   },
