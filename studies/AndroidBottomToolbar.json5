@@ -35,6 +35,10 @@
           ],
         },
       },
+      {
+        name: 'Default',
+        probability_weight: 90,
+      },
     ],
     filter: {
       min_version: '139.*',
