@@ -1,0 +1,26 @@
+[
+  {
+    name: 'AndroidBottomToolbar_Beta_Nigtly',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'AndroidBottomToolbar',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '139.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+]
