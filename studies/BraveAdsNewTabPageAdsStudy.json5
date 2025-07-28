@@ -85,7 +85,7 @@
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 50,
+        probability_weight: 15,
         feature_association: {
           enable_feature: [
             'NewTabPageAds',
@@ -100,11 +100,11 @@
       },
       {
         name: 'Default',
-        probability_weight: 50,
+        probability_weight: 85,
       },
     ],
     filter: {
-      min_version: '137.1.79.125',
+      min_version: '138.1.80.122',
       channel: [
         'RELEASE',
       ],
@@ -113,6 +113,38 @@
         'MAC',
         'LINUX',
         'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'BraveAdsNewTabPageAdsStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 15,
+        feature_association: {
+          enable_feature: [
+            'NewTabPageAds',
+          ],
+        },
+        param: [
+          {
+            name: 'should_support_confirmations_for_non_rewards',
+            value: 'true',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 85,
+      },
+    ],
+    filter: {
+      min_version: '138.1.80.121',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
         'IOS',
       ],
     },
