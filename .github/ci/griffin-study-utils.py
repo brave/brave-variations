@@ -1,20 +1,8 @@
 #!/usr/bin/env python3
-import json
 import sys
+from pathlib import Path
 
-
-def _load_studies(filename="seed/seed.json"):
-    with open(filename) as fh:
-        studies = json.load(fh)
-    return studies
-
-
-def _save_studies(studies, filename="seed/seed.json"):
-    with open(filename, "w") as fh:
-        json.dump(studies, fh, indent=4)
-        # Many editors such as GitHub Web add a newline at the end of the file.
-        # Append it here too to prevent this as a change in `git diff`.
-        fh.write("\n")
+import json5
 
 
 def _create_study(
@@ -27,7 +15,7 @@ def _create_study(
 ) -> dict:
     study = {
         "name": name,
-        "experiments": [
+        "experiment": [
             {
                 "name": "Enabled",
                 "probability_weight": probability_enabled,
@@ -45,6 +33,26 @@ def _create_study(
     return study
 
 
+def _load_study(filename):
+    with Path(filename).open() as fh:
+        return json5.load(fh)
+
+
+def _save_study(study, filename):
+    with Path(filename).open("w") as fh:
+        json5.dump(
+            study,
+            fh,
+            indent=2,
+            quote_keys=False,
+            trailing_commas=True,
+            quote_style="PREFER_SINGLE",
+        )
+        # Many editors such as GitHub Web add a newline at the end of the file.
+        # Append it here too to prevent this as a change in `git diff`.
+        fh.write("\n")
+
+
 def _upsert_study(
     name: str,
     enable_feature: str,
@@ -53,8 +61,11 @@ def _upsert_study(
     platform: list[str],
     min_version: str,
 ):
-    rawstudies = _load_studies()
-    studies: list[dict] = rawstudies["studies"]
+    basename = Path(name).name
+    if basename != name:
+        raise ValueError(
+            f"Invalid study name '{name}'. Only simple filenames are allowed."
+        )
     study_to_add = _create_study(
         name,
         enable_feature,
@@ -63,21 +74,32 @@ def _upsert_study(
         platform,
         min_version,
     )
-    existing_study = False
-    for idx, study in enumerate(studies):
-        if study["name"] == name:
-            existing_study = True
-            studies[idx] = study_to_add
-            # print(studies[idx])
-    if not existing_study:
-        studies.append(study_to_add)
-
-    _save_studies(rawstudies)
+    filename = f"studies/{basename}.json5"
+    _save_study(study_to_add, filename)
+    print(filename)
 
 
-def fmt():
-    studies = _load_studies()
-    _save_studies(studies)
+def fmt(filenames=None):
+    if filenames:
+        # Process specific files
+        study_files = []
+        for filename in filenames:
+            if filename.startswith("studies/") and filename.endswith(".json5"):
+                # Already a full path
+                study_files.append(filename)
+            else:
+                # Just a study name, add the path and extension
+                study_files.append(f"studies/{filename}.json5")
+    else:
+        # Find all .json5 files in the studies folder
+        study_files = [str(p) for p in Path("studies").glob("*.json5")]
+
+    for filename in study_files:
+        # Load the study
+        study = _load_study(filename)
+        # Save it (this will reformat it)
+        _save_study(study, filename)
+        print(f"Formatted: {filename}")
 
 
 if __name__ == "__main__":
@@ -89,7 +111,8 @@ if __name__ == "__main__":
             if len(args) < 7:
                 print("Insufficient arguments supplied! Needs:")
                 print(
-                    "name enable_feature probability_enabled channel platform [min_version]"
+                    "name enable_feature probability_enabled channel platform "
+                    "[min_version]"
                 )
                 sys.exit(1)
             name = args[2]
@@ -109,6 +132,8 @@ if __name__ == "__main__":
                 min_version=min_version,
             )
         case "fmt":
-            fmt()
+            # Pass any additional arguments as filenames
+            filenames = args[2:] if len(args) > 2 else None
+            fmt(filenames)
         case _:
             raise ValueError("Unrecognized function")
