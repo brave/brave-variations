@@ -90,9 +90,11 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@91efab103c0de0a537f72a35f6b8cda0ee76bf0a # v2.1.1
         with:
-          channel-id: 'C01LKMP6X36'
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             {
+              "channel": "C01LKMP6X36",
               "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR: <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>.",
               "blocks": [
                 {
@@ -104,5 +106,3 @@ jobs:
                 }
               ]
             }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
