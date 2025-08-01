@@ -81,7 +81,7 @@ jobs:
 
           pr_number=0
 
-          upsert_study main
+          upsert_study ${{ github.ref_name }}
           get_pr_number
           pr_main_number=${pr_number:?}
 
