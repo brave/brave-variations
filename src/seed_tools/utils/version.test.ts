@@ -3,6 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import { Version } from './version';
 
 describe('Version', () => {
@@ -42,20 +44,20 @@ describe('Version', () => {
       { input: '15.5.28.130162', components: [15, 5, 28, 130162] },
     ];
 
-    testCases.forEach((testCase) => {
+    for (const testCase of testCases) {
       it(`should ${testCase.components.length > 0 ? 'parse' : 'fail'} "${testCase.input}"`, () => {
         if (testCase.components.length > 0) {
           const version = new Version(testCase.input);
-          expect(
+          assert.doesNotThrow(
             () => new Version(testCase.input, { disallowWildcard: true }),
-          ).not.toThrow();
-          expect(version.components).toStrictEqual(testCase.components);
-          expect(version.isWildcard).toBe(false);
+          );
+          assert.deepStrictEqual(version.components, testCase.components);
+          assert.strictEqual(version.isWildcard, false);
         } else {
-          expect(() => new Version(testCase.input)).toThrowError();
+          assert.throws(() => new Version(testCase.input));
         }
       });
-    });
+    }
 
     describe('wildcard', () => {
       const testCases = [
@@ -71,51 +73,51 @@ describe('Version', () => {
         { version: '*.2', components: [] },
       ];
 
-      testCases.forEach((testCase) => {
+      for (const testCase of testCases) {
         it(`should ${testCase.components.length > 0 ? 'parse' : 'fail'} "${testCase.version}"`, () => {
           if (testCase.components.length > 0) {
             const version = new Version(testCase.version);
-            expect(version.components).toStrictEqual(testCase.components);
-            expect(version.isWildcard).toBe(true);
-            expect(
+            assert.deepStrictEqual(version.components, testCase.components);
+            assert.strictEqual(version.isWildcard, true);
+            assert.throws(
               () => new Version(testCase.version, { disallowWildcard: true }),
-            ).toThrowError();
+            );
           } else {
-            expect(() => new Version(testCase.version)).toThrowError();
-            expect(
+            assert.throws(() => new Version(testCase.version));
+            assert.throws(
               () => new Version(testCase.version, { disallowWildcard: true }),
-            ).toThrowError();
+            );
           }
         });
-      });
+      }
     });
 
     describe('leading zeroes', () => {
       describe('allowed', () => {
         it('should not allow in the first component', () => {
-          expect(() => new Version('01.1')).toThrowError();
+          assert.throws(() => new Version('01.1'));
         });
 
         it('should allow in subsequent components and ignore them', () => {
           const v1 = new Version('1.01');
-          expect(v1.toString()).toEqual('1.1');
+          assert.strictEqual(v1.toString(), '1.1');
           const v2 = new Version('1.1');
-          expect(v1).toEqual(v2);
+          assert.deepStrictEqual(v1, v2);
         });
 
         it('should compare versions correctly when leading zeros are ignored', () => {
-          expect(new Version('1.02').gt(new Version('1.1'))).toBe(true);
+          assert.strictEqual(new Version('1.02').gt(new Version('1.1')), true);
         });
       });
 
       describe('disallow', () => {
         it('should not allow leading zeroes everywhere', () => {
           const testCases = ['01.1', '1.01'];
-          testCases.forEach((testCase) => {
-            expect(
+          for (const testCase of testCases) {
+            assert.throws(
               () => new Version(testCase, { disallowLeadingZeros: true }),
-            ).toThrowError();
-          });
+            );
+          }
         });
       });
     });
@@ -139,44 +141,44 @@ describe('Version', () => {
     ];
 
     function expectCompare(lhs: Version, rhs: Version, expected: number) {
-      expect(lhs.compare(rhs)).toBe(expected);
-      expect(rhs.compare(lhs)).toBe(-expected + 0);
+      assert.strictEqual(lhs.compare(rhs), expected);
+      assert.strictEqual(rhs.compare(lhs), expected === 0 ? 0 : -expected);
 
       switch (expected) {
         case -1:
-          expect(lhs.lt(rhs));
-          expect(lhs.lte(rhs));
-          expect(!lhs.eq(rhs));
-          expect(lhs.compare(rhs)).not.toBe(0);
-          expect(!lhs.gte(rhs));
-          expect(!lhs.gt(rhs));
+          assert.ok(lhs.lt(rhs));
+          assert.ok(lhs.lte(rhs));
+          assert.ok(!lhs.eq(rhs));
+          assert.notStrictEqual(lhs.compare(rhs), 0);
+          assert.ok(!lhs.gte(rhs));
+          assert.ok(!lhs.gt(rhs));
           break;
         case 0:
-          expect(!lhs.lt(rhs));
-          expect(!lhs.lte(rhs));
-          expect(lhs.eq(rhs));
-          expect(lhs.compare(rhs)).toBe(0);
-          expect(!lhs.gte(rhs));
-          expect(!lhs.gt(rhs));
+          assert.ok(!lhs.lt(rhs));
+          assert.ok(lhs.lte(rhs));
+          assert.ok(lhs.eq(rhs));
+          assert.strictEqual(lhs.compare(rhs), 0);
+          assert.ok(lhs.gte(rhs));
+          assert.ok(!lhs.gt(rhs));
           break;
         case 1:
-          expect(!lhs.lt(rhs));
-          expect(!lhs.lte(rhs));
-          expect(!lhs.eq(rhs));
-          expect(lhs.compare(rhs)).not.toBe(0);
-          expect(lhs.gte(rhs));
-          expect(lhs.gt(rhs));
+          assert.ok(!lhs.lt(rhs));
+          assert.ok(!lhs.lte(rhs));
+          assert.ok(!lhs.eq(rhs));
+          assert.notStrictEqual(lhs.compare(rhs), 0);
+          assert.ok(lhs.gte(rhs));
+          assert.ok(lhs.gt(rhs));
           break;
       }
     }
 
-    testCases.forEach((testCase) => {
+    for (const testCase of testCases) {
       it(`should compare ${testCase.lhs} and ${testCase.rhs}`, () => {
         const lhs = new Version(testCase.lhs);
         const rhs = new Version(testCase.rhs);
         expectCompare(lhs, rhs, testCase.expected);
       });
-    });
+    }
 
     describe('wildcard', () => {
       const testCases = [
@@ -195,30 +197,30 @@ describe('Version', () => {
         { lhs: '1.2.0.0.0.0', rhs: '1.2.*', expected: 0 },
       ];
 
-      testCases.forEach((testCase) => {
+      for (const testCase of testCases) {
         it(`should compare ${testCase.lhs} and ${testCase.rhs}`, () => {
           const lhs = new Version(testCase.lhs);
           const rhs = new Version(testCase.rhs);
           expectCompare(lhs, rhs, testCase.expected);
         });
-      });
+      }
     });
   });
 
   describe('toString', () => {
     const testCases = ['1', '1.0', '0.0.1.0', '1.2.3.4.5.6'];
 
-    testCases.forEach((testCase) => {
+    for (const testCase of testCases) {
       it(`should return "${testCase}" for "${testCase}"`, () => {
         const v = new Version(testCase);
-        expect(v.toString()).toBe(testCase);
+        assert.strictEqual(v.toString(), testCase);
       });
 
       const wildcardTestCase = testCase + '.*';
       it(`should return "${wildcardTestCase}" for "${wildcardTestCase}"`, () => {
         const v = new Version(wildcardTestCase);
-        expect(v.toString()).toBe(wildcardTestCase);
+        assert.strictEqual(v.toString(), wildcardTestCase);
       });
-    });
+    }
   });
 });

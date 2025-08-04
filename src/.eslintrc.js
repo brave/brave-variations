@@ -33,6 +33,12 @@ module.exports = {
       extends: ['plugin:@typescript-eslint/disable-type-checked'],
       files: ['**/*.js'],
     },
+    {
+      files: ['**/*.test.ts'],
+      rules: {
+        '@typescript-eslint/no-floating-promises': 'off',
+      },
+    },
   ],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',

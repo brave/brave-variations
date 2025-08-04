@@ -3,6 +3,9 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import assert from 'node:assert';
+import { afterEach, beforeEach, describe, it, mock, test } from 'node:test';
+
 import * as fs_sync from 'fs';
 import { promises as fs } from 'fs';
 import * as os from 'os';
@@ -22,7 +25,7 @@ const compareProtobuf = (actual: Uint8Array, expectedFilename: string) => {
   });
   const actualObj = VariationsSeed.fromBinary(actual);
   try {
-    expect(actualObj).toEqual(expected);
+    assert.deepStrictEqual(actualObj, expected);
   } catch (error) {
     const failedFilename = expectedFilename + '.failed';
     fs_sync.writeFileSync(
@@ -40,31 +43,29 @@ describe('create command', () => {
   const testDataDir = wsPath('//src/test/data');
 
   let tempDir: string;
-  let logMock: jest.SpyInstance;
-  let exitMock: jest.SpyInstance;
-  let errorMock: jest.SpyInstance;
+  let errorOutput: string;
 
   beforeEach(async () => {
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'create_seed-'));
-    exitMock = jest.spyOn(process, 'exit').mockImplementation((code) => {
+    mock.method(process, 'exit', (code?: number) => {
       throw new Error(`process.exit(${code})`);
     });
-    logMock = jest.spyOn(console, 'log').mockImplementation();
-    errorMock = jest.spyOn(console, 'error').mockImplementation();
+    errorOutput = '';
+    mock.method(console, 'error', (...args: any[]) => {
+      errorOutput += args.join(' ');
+    });
   });
 
   afterEach(async () => {
     await fs.rm(tempDir, { recursive: true, force: true });
-    logMock.mockRestore();
-    exitMock.mockRestore();
-    errorMock.mockRestore();
+    mock.restoreAll();
   });
 
-  describe('valid seeds', () => {
+  describe('valid seeds', async () => {
     const validSeedsDir = path.join(testDataDir, 'valid_seeds');
-    it.each(fs_sync.readdirSync(validSeedsDir))(
-      'correctly creates %s',
-      async (testCase) => {
+
+    for (const testCase of fs_sync.readdirSync(validSeedsDir)) {
+      await it(`correctly creates ${testCase}`, async () => {
         const testCaseDir = path.join(validSeedsDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
         const outputFile = path.join(tempDir, 'output.bin');
@@ -81,17 +82,20 @@ describe('create command', () => {
           serialNumberPath,
         ]);
 
-        const output = await fs.readFile(outputFile);
+        const output = fs_sync.readFileSync(outputFile);
         compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
 
-        const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
-        expect(outputSerialNumber).toEqual('1');
-        expect(VariationsSeed.fromBinary(output).version).toEqual('1');
-      },
-    );
+        const outputSerialNumber = fs_sync.readFileSync(
+          serialNumberPath,
+          'utf-8',
+        );
+        assert.strictEqual(outputSerialNumber, '1');
+        assert.strictEqual(VariationsSeed.fromBinary(output).version, '1');
+      });
+    }
   });
 
-  describe('perf seeds', () => {
+  describe('perf seeds', async () => {
     const validSeedsDir = path.join(testDataDir, 'perf_seeds');
     const runTest = async (testCase: string, revision?: string) => {
       const testCaseDir = path.join(validSeedsDir, testCase);
@@ -110,20 +114,20 @@ describe('create command', () => {
       args.push(...(revision ? ['--revision', revision] : []));
       await create().parseAsync(args);
 
-      const output = await fs.readFile(outputFile);
+      const output = fs_sync.readFileSync(outputFile);
       compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
 
-      expect(VariationsSeed.fromBinary(output).version).toEqual('1');
+      assert.strictEqual(VariationsSeed.fromBinary(output).version, '1');
     };
 
-    it('test1', () => runTest('test1', undefined));
+    await it('test1', async () => await runTest('test1', undefined));
 
     // Check creating seed using git history.
-    it('test1_git_revision', () => runTest('test1', 'HEAD'));
+    await it('test1_git_revision', async () => await runTest('test1', 'HEAD'));
 
     // Check creating seed using git history for legacy seed.json.
-    it('legacy_seed', () =>
-      runTest('legacy_seed', '3f3eb03e12eb7f37a315f66f735d3decb483a90d'));
+    await it('legacy_seed', async () =>
+      await runTest('legacy_seed', '3f3eb03e12eb7f37a315f66f735d3decb483a90d'));
   });
 
   test('set seed version', async () => {
@@ -145,27 +149,27 @@ describe('create command', () => {
       serialNumberPath,
     ]);
 
-    const output = await fs.readFile(outputFile);
+    const output = fs_sync.readFileSync(outputFile);
     compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
 
     // Check the binary output is the same as the expected output.
-    const expectedOutput = await fs.readFile(
+    const expectedOutput = fs_sync.readFileSync(
       path.join(testCaseDir, 'expected_seed.bin'),
     );
-    expect(output).toEqual(expectedOutput);
+    assert.deepStrictEqual(output, expectedOutput);
 
-    const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
-    expect(outputSerialNumber).toEqual('1');
-    expect(VariationsSeed.fromBinary(output).version).toEqual(
+    const outputSerialNumber = fs_sync.readFileSync(serialNumberPath, 'utf-8');
+    assert.strictEqual(outputSerialNumber, '1');
+    assert.strictEqual(
+      VariationsSeed.fromBinary(output).version,
       'test version value',
     );
   });
 
-  describe('serial number is equal in the seed and in the generated file', () => {
+  describe('serial number is equal in the seed and in the generated file', async () => {
     const validSeedsDir = path.join(testDataDir, 'valid_seeds');
-    it.each(fs_sync.readdirSync(validSeedsDir))(
-      'correctly creates %s',
-      async (testCase) => {
+    for (const testCase of fs_sync.readdirSync(validSeedsDir)) {
+      await it(`correctly creates ${testCase}`, async () => {
         const testCaseDir = path.join(validSeedsDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
         const outputFile = path.join(tempDir, 'output.bin');
@@ -180,27 +184,31 @@ describe('create command', () => {
           serialNumberPath,
         ]);
 
-        const output = await fs.readFile(outputFile);
-        const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
-        expect(outputSerialNumber).not.toEqual('1');
-        expect(VariationsSeed.fromBinary(output).serial_number).toEqual(
+        const output = fs_sync.readFileSync(outputFile);
+        const outputSerialNumber = fs_sync.readFileSync(
+          serialNumberPath,
+          'utf-8',
+        );
+        assert.notStrictEqual(outputSerialNumber, '1');
+        assert.strictEqual(
+          VariationsSeed.fromBinary(output).serial_number,
           outputSerialNumber,
         );
-      },
-    );
+      });
+    }
   });
 
-  describe('invalid studies', () => {
+  describe('invalid studies', async () => {
     const invalidStudiesDir = path.join(testDataDir, 'invalid_studies');
-    it.each(fs_sync.readdirSync(invalidStudiesDir))(
-      'correctly fails %s',
-      async (testCase) => {
+
+    for (const testCase of fs_sync.readdirSync(invalidStudiesDir)) {
+      await it(`correctly fails ${testCase}`, async () => {
         const testCaseDir = path.join(invalidStudiesDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
         const outputFile = path.join(tempDir, 'output.bin');
         const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
-        await expect(
+        await assert.rejects(
           create().parseAsync([
             'node',
             'create',
@@ -209,7 +217,14 @@ describe('create command', () => {
             '--output_serial_number_file',
             serialNumberPath,
           ]),
-        ).rejects.toThrowError('process.exit(1)');
+          (err: any) => {
+            assert.ok(
+              err.message.includes('process.exit(1)'),
+              'Expected create to fail with exit code 1',
+            );
+            return true;
+          },
+        );
 
         const expectedError = (
           await fs.readFile(
@@ -217,24 +232,24 @@ describe('create command', () => {
             'utf-8',
           )
         ).trim();
-        expect(errorMock).toHaveBeenCalledWith(
-          expect.stringContaining(expectedError),
+        assert.ok(
+          errorOutput.includes(expectedError),
+          `Expected error output to contain: ${expectedError}, but got: ${errorOutput}`,
         );
-      },
-    );
+      });
+    }
   });
 
-  describe('invalid seeds', () => {
+  describe('invalid seeds', async () => {
     const invalidSeedsDir = path.join(testDataDir, 'invalid_seeds');
-    it.each(fs_sync.readdirSync(invalidSeedsDir))(
-      'correctly fails %s',
-      async (testCase) => {
+    for (const testCase of fs_sync.readdirSync(invalidSeedsDir)) {
+      await it(`correctly fails ${testCase}`, async () => {
         const testCaseDir = path.join(invalidSeedsDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
         const outputFile = path.join(tempDir, 'output.bin');
         const serialNumberPath = path.join(tempDir, 'serial_number.txt');
 
-        await expect(
+        await assert.rejects(
           create().parseAsync([
             'node',
             'create',
@@ -243,7 +258,14 @@ describe('create command', () => {
             '--output_serial_number_file',
             serialNumberPath,
           ]),
-        ).rejects.toThrowError('process.exit(1)');
+          (err: any) => {
+            assert.ok(
+              err.message.includes('process.exit(1)'),
+              'Expected create to fail with exit code 1',
+            );
+            return true;
+          },
+        );
 
         const expectedError = (
           await fs.readFile(
@@ -251,56 +273,65 @@ describe('create command', () => {
             'utf-8',
           )
         ).trim();
-        expect(errorMock).toHaveBeenCalledWith(
-          expect.stringContaining(expectedError),
-        );
-      },
-    );
+        assert.ok(errorOutput.includes(expectedError));
+      });
+    }
   });
 
-  describe('unformatted studies', () => {
+  describe('unformatted studies', async () => {
     const unformattedStudiesDir = path.join(testDataDir, 'unformatted_studies');
-
-    it.each(fs_sync.readdirSync(unformattedStudiesDir))(
-      'correctly lints %s',
-      async (testCase) => {
+    for (const testCase of fs_sync.readdirSync(unformattedStudiesDir)) {
+      await it(`correctly lints ${testCase}`, async () => {
         const testCaseDir = path.join(unformattedStudiesDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
         const outputFile = path.join(tempDir, 'output.bin');
 
-        await expect(
+        await assert.rejects(
           create().parseAsync(['node', 'create', studiesDir, outputFile]),
-        ).rejects.toThrowError('process.exit(1)');
-
+          (err: any) => {
+            assert.ok(
+              err.message.includes('process.exit(1)'),
+              'Expected create to fail with exit code 1',
+            );
+            return true;
+          },
+        );
         const expectedOutput = await fs.readFile(
           path.join(testCaseDir, 'expected_output.txt'),
           'utf-8',
         );
-        expect(errorMock).toHaveBeenCalledWith(
-          expect.stringContaining(expectedOutput),
+        assert.ok(
+          errorOutput.includes(expectedOutput),
+          `Expected error output to contain: ${expectedOutput}, but got: ${errorOutput}`,
         );
-      },
-    );
+      });
+    }
   });
 
-  describe('studies should be valid in invalid_seed test dir', () => {
+  describe('studies should be valid in invalid_seed test dir', async () => {
     const invalidSeedsDir = path.join(testDataDir, 'invalid_seeds');
 
-    it.each(fs_sync.readdirSync(invalidSeedsDir))(
-      'correctly lints %s',
-      async (testCase) => {
+    for (const testCase of fs_sync.readdirSync(invalidSeedsDir)) {
+      await it(`correctly lints ${testCase}`, async () => {
         const testCaseDir = path.join(invalidSeedsDir, testCase);
         const outputFile = path.join(tempDir, 'output.bin');
 
-        await expect(
+        await assert.rejects(
           create().parseAsync([
             'node',
             'create',
             path.join(testCaseDir, 'studies'),
             outputFile,
           ]),
-        ).rejects.toThrowError('process.exit(1)');
-      },
-    );
+          (err: any) => {
+            assert.ok(
+              err.message.includes('process.exit(1)'),
+              'Expected create to fail with exit code 1',
+            );
+            return true;
+          },
+        );
+      });
+    }
   });
 });
