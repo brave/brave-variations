@@ -625,7 +625,7 @@ describe('getStudyErrors', () => {
             probability_weight: 100,
           },
         ],
-        filter,
+        filter: filter as any,
       });
 
       const errors = study_validation.getStudyErrors(study, studyFileBaseName);
@@ -638,9 +638,9 @@ describe('getStudyErrors', () => {
   }
 
   const braveVersions = [
-    { min_version: '130.1.70.0' },
-    { max_version: '135.1.91.0' },
-    { min_version: '80.1.8.1' },
+    { min_version: '130.1.70.0', max_version: null },
+    { min_version: null, max_version: '135.1.91.0' },
+    { min_version: '80.1.8.1', max_version: null },
   ];
   for (const filter of braveVersions) {
     it(`should not error if version is Brave ${JSON.stringify(filter)}`, () => {
@@ -703,7 +703,7 @@ describe('getStudyErrors', () => {
   });
 
   const invalidChannelFilters = [
-    {},
+    { channel: null },
     { channel: [] },
     { channel: ['BETA', 'BETA'] },
   ];
@@ -726,7 +726,7 @@ describe('getStudyErrors', () => {
   }
 
   const invalidPlatformFilters = [
-    {},
+    { platform: null },
     { platform: [] },
     { platform: ['PLATFORM_LINUX', 'PLATFORM_LINUX'] },
   ];
