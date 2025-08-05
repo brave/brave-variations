@@ -82,13 +82,10 @@ describe('create command', () => {
           serialNumberPath,
         ]);
 
-        const output = fs_sync.readFileSync(outputFile);
+        const output = await fs.readFile(outputFile);
         compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
 
-        const outputSerialNumber = fs_sync.readFileSync(
-          serialNumberPath,
-          'utf-8',
-        );
+        const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
         assert.strictEqual(outputSerialNumber, '1');
         assert.strictEqual(VariationsSeed.fromBinary(output).version, '1');
       });
@@ -114,7 +111,7 @@ describe('create command', () => {
       args.push(...(revision ? ['--revision', revision] : []));
       await create().parseAsync(args);
 
-      const output = fs_sync.readFileSync(outputFile);
+      const output = await fs.readFile(outputFile);
       compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
 
       assert.strictEqual(VariationsSeed.fromBinary(output).version, '1');
@@ -149,16 +146,16 @@ describe('create command', () => {
       serialNumberPath,
     ]);
 
-    const output = fs_sync.readFileSync(outputFile);
+    const output = await fs.readFile(outputFile);
     compareProtobuf(output, path.join(testCaseDir, 'expected_seed.json'));
 
     // Check the binary output is the same as the expected output.
-    const expectedOutput = fs_sync.readFileSync(
+    const expectedOutput = await fs.readFile(
       path.join(testCaseDir, 'expected_seed.bin'),
     );
     assert.deepStrictEqual(output, expectedOutput);
 
-    const outputSerialNumber = fs_sync.readFileSync(serialNumberPath, 'utf-8');
+    const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
     assert.strictEqual(outputSerialNumber, '1');
     assert.strictEqual(
       VariationsSeed.fromBinary(output).version,
@@ -184,11 +181,8 @@ describe('create command', () => {
           serialNumberPath,
         ]);
 
-        const output = fs_sync.readFileSync(outputFile);
-        const outputSerialNumber = fs_sync.readFileSync(
-          serialNumberPath,
-          'utf-8',
-        );
+        const output = await fs.readFile(outputFile);
+        const outputSerialNumber = await fs.readFile(serialNumberPath, 'utf-8');
         assert.notStrictEqual(outputSerialNumber, '1');
         assert.strictEqual(
           VariationsSeed.fromBinary(output).serial_number,
