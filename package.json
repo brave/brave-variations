@@ -11,7 +11,7 @@
     "postinstall": "npm run typecheck:scripts && npm run build:proto",
     "seed_tools": "tsx src/seed_tools/seed_tools.ts",
     "serve:dev": "webpack serve -c src/web/webpack.config.js --hot --mode=development",
-    "test": "node src/test/test_runner.mjs",
+    "test": "node --import tsx --test **/*.test.ts",
     "tracker": "tsx src/finch_tracker/main.ts",
     "typecheck": "tsc --noEmit",
     "typecheck:scripts": "tsc --noEmit --project src/scripts"
