@@ -4,6 +4,8 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import JSON5 from 'json5';
+import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import {
   Study,
   Study_Channel,
@@ -27,7 +29,7 @@ describe('stringifyStudies', () => {
     );
 
     const stringifiedStudyArray = stringifyStudies([study]);
-    expect(JSON5.parse(stringifiedStudyArray)).toEqual([
+    assert.deepStrictEqual(JSON5.parse(stringifiedStudyArray), [
       {
         name: 'study',
         filter: {
@@ -51,7 +53,7 @@ describe('stringifyStudies', () => {
     );
 
     const stringifiedStudyArray = stringifyStudies([study]);
-    expect(JSON5.parse(stringifiedStudyArray)).toEqual([
+    assert.deepStrictEqual(JSON5.parse(stringifiedStudyArray), [
       {
         name: 'study',
         filter: {
@@ -84,7 +86,7 @@ describe('stringifyStudies', () => {
     );
 
     const stringifiedStudyArray = stringifyStudies([study]);
-    expect(JSON5.parse(stringifiedStudyArray)).toEqual([
+    assert.deepStrictEqual(JSON5.parse(stringifiedStudyArray), [
       {
         name: 'BraveHorizontalTabsUpdateEnabledStudy',
         experiment: [
@@ -121,7 +123,7 @@ describe('stringifyStudies', () => {
     const stringifiedStudyArray = stringifyStudies([study], {
       isChromium: true,
     });
-    expect(JSON5.parse(stringifiedStudyArray)).toEqual([
+    assert.deepStrictEqual(JSON5.parse(stringifiedStudyArray), [
       {
         name: 'study',
         filter: {
@@ -150,10 +152,12 @@ describe('parseStudies', () => {
     ]);
 
     const parsedStudyArray = parseStudies(study);
-    expect(parsedStudyArray[0].filter?.start_date).toEqual(
+    assert.deepStrictEqual(
+      parsedStudyArray[0].filter?.start_date,
       BigInt(Math.floor(new Date(startDate).getTime() / 1000)),
     );
-    expect(parsedStudyArray[0].filter?.end_date).toEqual(
+    assert.deepStrictEqual(
+      parsedStudyArray[0].filter?.end_date,
       BigInt(Math.floor(new Date(endDate).getTime() / 1000)),
     );
   });
@@ -170,14 +174,14 @@ describe('parseStudies', () => {
       );
     };
 
-    expect(() =>
-      parseStudyWithFilter({ start_date: '2022-01-01' }),
-    ).toThrowError(
-      'Invalid start_date value "2022-01-01", only ISO format with Z timezone is supported',
+    assert.throws(
+      () => parseStudyWithFilter({ start_date: '2022-01-01' }),
+      /Invalid start_date value "2022-01-01", only ISO format with Z timezone is supported/,
     );
 
-    expect(() => parseStudyWithFilter({ end_date: '2022-01-01' })).toThrowError(
-      'Invalid end_date value "2022-01-01", only ISO format with Z timezone is supported',
+    assert.throws(
+      () => parseStudyWithFilter({ end_date: '2022-01-01' }),
+      /Invalid end_date value "2022-01-01", only ISO format with Z timezone is supported/,
     );
   });
 
@@ -192,7 +196,7 @@ describe('parseStudies', () => {
     ]);
 
     const parsedStudyArray = parseStudies(study);
-    expect(parsedStudyArray[0].filter?.channel).toEqual([
+    assert.deepStrictEqual(parsedStudyArray[0].filter?.channel, [
       Study_Channel.CANARY,
       Study_Channel.BETA,
       Study_Channel.STABLE,
@@ -211,12 +215,12 @@ describe('parseStudies', () => {
     ]);
 
     const parsedStudyArray = parseStudies(study);
-    expect(parsedStudyArray[0].filter?.channel).toEqual([
+    assert.deepStrictEqual(parsedStudyArray[0].filter?.channel, [
       Study_Channel.STABLE,
       Study_Channel.BETA,
       Study_Channel.CANARY,
     ]);
-    expect(parsedStudyArray[0].filter?.platform).toEqual([
+    assert.deepStrictEqual(parsedStudyArray[0].filter?.platform, [
       Study_Platform.WINDOWS,
       Study_Platform.MAC,
     ]);
@@ -230,38 +234,42 @@ describe('parseStudies', () => {
     ];
 
     const result = parseStudies(studyArrayString);
-    expect(result).toEqual(expectedStudyArray);
+    assert.deepStrictEqual(result, expectedStudyArray);
   });
 
   it('should throw an error if the study is not array', () => {
     const invalidStudyArrayString = '{}';
 
-    expect(() => parseStudies(invalidStudyArrayString)).toThrowError(
-      'Root element must be an array',
+    assert.throws(
+      () => parseStudies(invalidStudyArrayString),
+      /Root element must be an array/,
     );
   });
 
   it('should throw an error if the study array string is invalid', () => {
     const invalidStudyArrayString = 'invalid';
 
-    expect(() => parseStudies(invalidStudyArrayString)).toThrowError(
-      'invalid character',
+    assert.throws(
+      () => parseStudies(invalidStudyArrayString),
+      /invalid character/,
     );
   });
 
   it('should throw on unknown fields when parsing studies', () => {
     const studyArrayString = '[{"name":"Study 1","unknownField":"value"}]';
 
-    expect(() => parseStudies(studyArrayString)).toThrowError(
-      'Found unknown field while reading variations.Study from JSON format. JSON key: unknownField',
+    assert.throws(
+      () => parseStudies(studyArrayString),
+      /Found unknown field while reading variations.Study from JSON format. JSON key: unknownField/,
     );
   });
 
   it('should throw on invalid field types when parsing studies', () => {
     const studyArrayString = '[{"name":"Study 1","experiment":"value"}]';
 
-    expect(() => parseStudies(studyArrayString)).toThrowError(
-      'Cannot parse JSON string for variations.Study#experiment',
+    assert.throws(
+      () => parseStudies(studyArrayString),
+      /Cannot parse JSON string for variations.Study#experiment/,
     );
   });
 
@@ -269,8 +277,9 @@ describe('parseStudies', () => {
     const studyArrayString =
       '[{"name":"Study 1","experiment":[{"probability_weight":"abc"}]}]';
 
-    expect(() => parseStudies(studyArrayString)).toThrowError(
-      'Cannot parse JSON string for variations.Study.Experiment#probability_weight - invalid uint 32: NaN',
+    assert.throws(
+      () => parseStudies(studyArrayString),
+      /Cannot parse JSON string for variations.Study.Experiment#probability_weight - invalid uint 32: NaN/,
     );
   });
 
@@ -285,7 +294,7 @@ describe('parseStudies', () => {
     ]);
 
     const parsedStudyArray = parseStudies(study, { isChromium: true });
-    expect(parsedStudyArray[0].filter?.channel).toEqual([
+    assert.deepStrictEqual(parsedStudyArray[0].filter?.channel, [
       Study_Channel.CANARY,
       Study_Channel.BETA,
       Study_Channel.STABLE,

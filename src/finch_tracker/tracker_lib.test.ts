@@ -6,8 +6,9 @@
 import * as fs from 'fs';
 import * as os from 'os';
 
-import { describe, expect, test } from '@jest/globals';
 import JSON5 from 'json5';
+import assert from 'node:assert';
+import { describe, test } from 'node:test';
 import path from 'path';
 import { asPosix } from '../base/path_utils';
 import { StudyPriority } from '../core/study_processor';
@@ -55,10 +56,10 @@ test('seed serialization', async () => {
     fs.writeFileSync(fileName, serializedOutput);
   }
 
-  expect(serializedOutput).toBe(serializedExpectations);
+  assert.strictEqual(serializedOutput, serializedExpectations);
 });
 
-describe('summary', () => {
+describe('summary', async () => {
   const commonFilters = {
     filter: {
       channel: [Study_Channel.STABLE],
@@ -124,51 +125,57 @@ describe('summary', () => {
     StudyPriority.STABLE_MIN,
   );
 
-  test('verify content', () => {
-    expect(summary.size).toBe(2);
+  await test('verify content', () => {
+    assert.strictEqual(summary.size, 2);
     const itemList = summary.get(StudyPriority.STABLE_ALL);
-    expect(itemList?.length).toBe(1);
+    assert.strictEqual(itemList?.length, 1);
     const item = itemList?.at(0);
 
-    expect(item?.studyName).toBe('TestStudy');
+    assert.strictEqual(item?.studyName, 'TestStudy');
 
-    expect(item?.oldPriority).toBe(StudyPriority.STABLE_MIN);
-    expect(item?.newPriority).toBe(StudyPriority.STABLE_ALL);
-    expect(item?.action).toBe(ItemAction.Up);
+    assert.strictEqual(item?.oldPriority, StudyPriority.STABLE_MIN);
+    assert.strictEqual(item?.newPriority, StudyPriority.STABLE_ALL);
+    assert.strictEqual(item?.action, ItemAction.Up);
 
-    expect(item?.oldAudience).toBe(0.2);
-    expect(item?.newAudience).toBe(0.9);
+    assert.strictEqual(item?.oldAudience, 0.2);
+    assert.strictEqual(item?.newAudience, 0.9);
 
-    expect(item?.affectedFeatures.size).toBe(2);
-    expect(item?.affectedFeatures).toContain('GoodFeature');
-    expect(item?.affectedFeatures).toContain('WebUSBBlocklist');
+    assert.strictEqual(item?.affectedFeatures.size, 2);
+    assert.ok(item?.affectedFeatures.has('GoodFeature'));
+    assert.ok(item?.affectedFeatures.has('WebUSBBlocklist'));
 
     const killSwitchItemList = summary.get(
       StudyPriority.STABLE_EMERGENCY_KILL_SWITCH,
     );
-    expect(killSwitchItemList?.length).toBe(1);
+    assert.strictEqual(killSwitchItemList?.length, 1);
     const killSwitchItem = killSwitchItemList?.at(0);
 
-    expect(killSwitchItem?.studyName).toBe('StudyBrokenFeature_KillSwitch');
-    expect(killSwitchItem?.affectedFeatures.size).toBe(1);
-    expect(killSwitchItem?.affectedFeatures).toContain('BrokenFeature');
-    expect(killSwitchItem?.newPriority).toBe(
+    assert.strictEqual(
+      killSwitchItem?.studyName,
+      'StudyBrokenFeature_KillSwitch',
+    );
+    assert.strictEqual(killSwitchItem?.affectedFeatures.size, 1);
+    assert.ok(killSwitchItem?.affectedFeatures.has('BrokenFeature'));
+    assert.strictEqual(
+      killSwitchItem?.newPriority,
       StudyPriority.STABLE_EMERGENCY_KILL_SWITCH,
     );
-    expect(killSwitchItem?.action).toBe(ItemAction.New);
+    assert.strictEqual(killSwitchItem?.action, ItemAction.New);
   });
 
-  test('summaryToSlackJson', () => {
+  await test('summaryToSlackJson', () => {
     const payloadString = summaryToJson(summary, undefined);
-    expect(payloadString).toBeDefined();
+    assert.ok(payloadString !== undefined);
 
-    expect(payloadString).toContain(
-      'Kill switches changes detected, cc <@U02DG0ATML3>',
+    assert.ok(
+      payloadString.includes(
+        'Kill switches changes detected, cc <@U02DG0ATML3>',
+      ),
     );
 
-    expect(payloadString).toContain('WebUSBBlocklist changes detected');
+    assert.ok(payloadString.includes('WebUSBBlocklist changes detected'));
 
     // Check that payload is valid JSON.
-    expect(JSON.parse(payloadString!)).toBeInstanceOf(Object);
+    assert.ok(JSON.parse(payloadString) instanceof Object);
   });
 });
