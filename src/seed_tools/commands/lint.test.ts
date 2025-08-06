@@ -5,82 +5,90 @@
 
 import * as fs_sync from 'fs';
 import { promises as fs } from 'fs';
+import assert from 'node:assert';
+import { afterEach, beforeEach, mock, test } from 'node:test';
 import * as os from 'os';
 import * as path from 'path';
 import { wsPath } from '../../base/path_utils';
 import create from './create';
 import lint from './lint';
 
-describe('lint command', () => {
+test('lint command', async () => {
   const testDataDir = wsPath('//src/test/data');
 
   let tempDir: string;
-  let exitMock: jest.SpyInstance;
-  let logMock: jest.SpyInstance;
-  let errorMock: jest.SpyInstance;
+  let errorOutput: string;
 
   beforeEach(async () => {
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'create_seed-'));
-    exitMock = jest.spyOn(process, 'exit').mockImplementation((code) => {
+
+    mock.method(process, 'exit', (code?: number) => {
       throw new Error(`process.exit(${code})`);
     });
-    logMock = jest.spyOn(console, 'log').mockImplementation();
-    errorMock = jest.spyOn(console, 'error').mockImplementation();
+
+    errorOutput = '';
+    mock.method(console, 'error', (...args: any[]) => {
+      errorOutput += args.join(' ');
+    });
   });
 
   afterEach(async () => {
     await fs.rm(tempDir, { recursive: true, force: true });
-    logMock.mockRestore();
-    exitMock.mockRestore();
-    errorMock.mockRestore();
+    mock.restoreAll();
   });
 
-  describe('lint valid studies', () => {
+  await test('lint valid studies', async () => {
     const unformattedStudiesDir = path.join(testDataDir, 'valid_seeds');
 
-    it.each(fs_sync.readdirSync(unformattedStudiesDir))(
-      'correctly lints %s',
-      async (testCase) => {
+    for (const testCase of fs_sync.readdirSync(unformattedStudiesDir)) {
+      await test(`correctly lints ${testCase}`, async () => {
         const testCaseDir = path.join(unformattedStudiesDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
 
         await lint().parseAsync(['node', 'lint', studiesDir]);
 
-        expect(errorMock).toHaveBeenCalledTimes(0);
-      },
-    );
+        assert.strictEqual(errorOutput, '');
+      });
+    }
   });
 
-  describe('lint unformatted studies', () => {
+  await test('lint unformatted studies', async () => {
     const unformattedStudiesDir = path.join(testDataDir, 'unformatted_studies');
 
-    it.each(fs_sync.readdirSync(unformattedStudiesDir))(
-      'correctly lints %s',
-      async (testCase) => {
+    for (const testCase of fs_sync.readdirSync(unformattedStudiesDir)) {
+      await test(`correctly lints ${testCase}`, async () => {
         const testCaseDir = path.join(unformattedStudiesDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
 
-        await expect(
+        await assert.rejects(
           lint().parseAsync(['node', 'lint', studiesDir]),
-        ).rejects.toThrowError('process.exit(1)');
+          (err: any) => {
+            assert.ok(
+              err.message.includes('process.exit(1)'),
+              'Expected lint to fail with exit code 1',
+            );
+            return true;
+          },
+        );
 
-        const expectedOutput = await fs.readFile(
+        const expectedOutput = fs_sync.readFileSync(
           path.join(testCaseDir, 'expected_output.txt'),
           'utf-8',
         );
-        expect(errorMock).toHaveBeenCalledWith(
-          expect.stringContaining(expectedOutput),
+
+        assert.ok(
+          errorOutput.includes(expectedOutput),
+          `Expected error output to contain: ${expectedOutput}, but got: ${errorOutput}`,
         );
-      },
-    );
+      });
+    }
   });
 
-  describe('fix unformatted studies', () => {
+  await test('fix unformatted studies', async () => {
     const unformattedStudiesDir = path.join(testDataDir, 'unformatted_studies');
 
-    it.each(fs_sync.readdirSync(unformattedStudiesDir))(
-      'correctly fixes %s',
-      async (testCase) => {
+    for (const testCase of fs_sync.readdirSync(unformattedStudiesDir)) {
+      await test(`correctly fixes ${testCase}`, async () => {
         const testCaseDir = path.join(unformattedStudiesDir, testCase);
         const studiesDir = path.join(testCaseDir, 'studies');
         const tempStudiesDir = path.join(tempDir, 'studies');
@@ -94,9 +102,16 @@ describe('lint command', () => {
         );
 
         // lint should fail.
-        await expect(
+        await assert.rejects(
           lint().parseAsync(['node', 'lint', tempStudiesDir]),
-        ).rejects.toThrowError('process.exit(1)');
+          (err: any) => {
+            assert.ok(
+              err.message.includes('process.exit(1)'),
+              'Expected lint to fail before fix',
+            );
+            return true;
+          },
+        );
 
         // Fix studies.
         await lint().parseAsync(['node', 'lint', tempStudiesDir, '--fix']);
@@ -111,7 +126,7 @@ describe('lint command', () => {
           tempStudiesDir,
           outputFile,
         ]);
-      },
-    );
+      });
+    }
   });
 });

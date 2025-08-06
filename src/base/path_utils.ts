@@ -4,12 +4,19 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import * as fs from 'fs';
 import * as path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-// Use fs.realpathSync to normalize the path(__dirname could be c:\.. or C:\..).
 const isWin32 = process.platform === 'win32';
-const dirName = isWin32 ? fs.realpathSync.native(__dirname) : __dirname;
 
-export const rootDir = path.normalize(path.join(dirName, '../../'));
+const getCurrentDir = (): string => {
+  const __filename = fileURLToPath(import.meta.url);
+  const dir = dirname(__filename);
+  // Use fs.realpathSync to normalize the path(it could be c:\.. or C:\..).
+  return isWin32 ? fs.realpathSync.native(dir) : dir;
+};
+
+export const rootDir = path.normalize(path.join(getCurrentDir(), '../../'));
 
 // Returns path in the workspace if starts with `//`. Workspace is the root
 // directory containing `package.json`.
