@@ -31,4 +31,35 @@
       ],
     },
   },
+  {
+    name: 'BraveNTPBrandedWallpaperSurveyPanelistStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'BraveNTPBrandedWallpaperSurveyPanelist',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      min_version: '138.1.81.80',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
 ]
