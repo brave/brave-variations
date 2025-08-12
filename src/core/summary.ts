@@ -12,7 +12,7 @@ import {
   type ProcessedStudy,
 } from './study_processor';
 
-import * as config from '../config';
+import config from '../config';
 import { VariationsSeed } from '../proto/generated/variations_seed';
 import * as url_utils from './url_utils';
 
