@@ -9,6 +9,7 @@ import compare_seeds from './commands/compare_seeds';
 import create from './commands/create';
 import lint from './commands/lint';
 import split_seed_json from './commands/split_seed_json';
+import upsert_study from './commands/upsert_study';
 
 program
   .name('seed_tools')
@@ -17,4 +18,5 @@ program
   .addCommand(create())
   .addCommand(lint())
   .addCommand(split_seed_json())
+  .addCommand(upsert_study())
   .parse();
