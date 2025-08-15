@@ -1,0 +1,32 @@
+[
+  {
+    name: 'EmptySpaceContextMenuPhoneKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_ContextMenuEmptySpace',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'ContextMenuEmptySpace',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '139.*',
+      max_version: '140.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+      form_factor: [
+        'PHONE',
+      ],
+    },
+  },
+]
