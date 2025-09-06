@@ -3,23 +3,8 @@
     name: 'BraveFallbackDoHStudy',
     experiment: [
       {
-        name: 'Quad9',
-        probability_weight: 50,
-        feature_association: {
-          enable_feature: [
-            'BraveFallbackDoHProvider',
-          ],
-        },
-        param: [
-          {
-            name: 'BraveFallbackDoHProviderEndpoint',
-            value: 'quad9',
-          },
-        ],
-      },
-      {
         name: 'Cloudflare',
-        probability_weight: 50,
+        probability_weight: 100,
         feature_association: {
           enable_feature: [
             'BraveFallbackDoHProvider',
@@ -36,6 +21,7 @@
     filter: {
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'WINDOWS',
