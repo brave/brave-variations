@@ -34,7 +34,7 @@
     experiment: [
       {
         name: 'Disabled_ClipElementVisibleBoundsInLocalRootKillSwitch',
-        probability_weight: 5,
+        probability_weight: 25,
         feature_association: {
           disable_feature: [
             'ClipElementVisibleBoundsInLocalRoot',
@@ -43,7 +43,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 95,
+        probability_weight: 75,
       },
     ],
     filter: {
