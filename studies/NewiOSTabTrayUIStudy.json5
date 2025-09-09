@@ -18,6 +18,7 @@
     ],
     filter: {
       channel: [
+        'RELEASE',
         'BETA',
         'NIGHTLY',
       ],
