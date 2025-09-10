@@ -45,4 +45,35 @@
       ],
     },
   },
+  {
+    name: 'BraveFallbackDoHStudy_Beta',
+    experiment: [
+      {
+        name: 'Cloudflare',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveFallbackDoHProvider',
+          ],
+        },
+        param: [
+          {
+            name: 'BraveFallbackDoHProviderEndpoint',
+            value: 'cloudflare',
+          },
+        ],
+      },
+    ],
+    filter: {
+      channel: [
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
 ]
