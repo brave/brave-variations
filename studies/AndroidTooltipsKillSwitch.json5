@@ -1,0 +1,29 @@
+[
+  {
+    name: 'AndroidTooltipsKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_Tooltips',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'Tooltips',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '140.*',
+      max_version: '142.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+]
