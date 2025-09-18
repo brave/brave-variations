@@ -26,6 +26,7 @@
       min_version: '140.*',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'WINDOWS',
