@@ -1,0 +1,44 @@
+[
+  {
+    name: 'BuiltInAIAPIsDisabledStudy',
+    experiment: [
+      {
+        name: 'Disabled',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'BuiltInAIAPI',
+            'AIPromptAPI',
+            'AIPromptAPIMultimodalInput',
+            'AIRewriterAPI',
+            'AISummarizationAPI',
+            'AIWriterAPI',
+            'LanguageDetectionAPI',
+            'TranslationAPI',
+            'AIProofreadingAPI',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '130.1.70.0',
+      channel: [
+        'RELEASE',
+        'BETA',
+        'DEV',
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
+]
