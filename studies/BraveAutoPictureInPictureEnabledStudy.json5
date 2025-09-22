@@ -1,0 +1,33 @@
+[
+  {
+    name: 'BraveAutoPictureInPictureEnabledStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'AutoPictureInPictureForVideoPlayback',
+            'AutoPictureInPictureVideoHeuristics',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '130.1.70.0',
+      channel: [
+        'DEV',
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]
