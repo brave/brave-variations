@@ -65,7 +65,6 @@
     filter: {
       channel: [
         'BETA',
-        'DEV',
         'NIGHTLY',
       ],
       platform: [
