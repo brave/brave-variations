@@ -1,0 +1,61 @@
+[
+  {
+    name: 'LocalNetworkAccessChecksKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_PrivateNetworkAccessKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'LocalNetworkAccessChecks',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '141.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'LocalNetworkAccessChecksKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_PrivateNetworkAccessKillSwitch',
+        probability_weight: 5,
+        feature_association: {
+          disable_feature: [
+            'LocalNetworkAccessChecks',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 95,
+      },
+    ],
+    filter: {
+      min_version: '141.*',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]
