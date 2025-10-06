@@ -4,7 +4,7 @@
     experiment: [
       {
         name: 'Disabled',
-        probability_weight: 15,
+        probability_weight: 50,
         feature_association: {
           disable_feature: [
             'BuiltInAIAPI',
@@ -21,7 +21,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 85,
+        probability_weight: 50,
       },
     ],
     filter: {
