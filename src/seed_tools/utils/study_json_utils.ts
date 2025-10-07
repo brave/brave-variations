@@ -6,6 +6,7 @@
 import { promises as fs } from 'fs';
 import JSON5 from 'json5';
 import { Study } from '../../proto/generated/study';
+import * as converters from './converters';
 
 export interface Options {
   isChromium?: boolean;
@@ -50,7 +51,7 @@ export function parseStudies(
 ): Study[] {
   const jsonStudies = JSON5.parse(
     studyArrayString,
-    jsonStudyReviever.bind(null, options),
+    jsonStudyReviver.bind(null, options),
   );
   if (!Array.isArray(jsonStudies)) {
     throw new Error('Root element must be an array');
@@ -96,32 +97,20 @@ function jsonStudyReplacer(
     case 'end_date': {
       return new Date(value * 1000).toISOString();
     }
-    case 'channel':
-      if (options?.isChromium === true) {
-        return value;
-      }
-      return value.map((value: string): string => {
-        switch (value) {
-          case 'CANARY':
-            return 'NIGHTLY';
-          case 'STABLE':
-            return 'RELEASE';
-        }
-        return value;
-      });
-    case 'platform':
-      if (options?.isChromium === true) {
-        return value;
-      }
-      return value.map((value: string): string => {
-        return value.replace(/^PLATFORM_/, '');
-      });
+    case 'channel': {
+      return value.map((c: string) =>
+        converters.channelToString(c, options?.isChromium === true),
+      );
+    }
+    case 'platform': {
+      return value.map(converters.platformToString);
+    }
     default:
       return value;
   }
 }
 
-function jsonStudyReviever(
+function jsonStudyReviver(
   options: Options | undefined,
   key: string,
   value: any,
@@ -143,22 +132,12 @@ function jsonStudyReviever(
       if (options?.isChromium === true) {
         return value;
       }
-      return value.map((value: string): string => {
-        switch (value) {
-          case 'NIGHTLY':
-            return 'CANARY';
-          case 'RELEASE':
-            return 'STABLE';
-        }
-        return value;
-      });
+      return value.map(converters.stringToChannel);
     case 'platform':
       if (options?.isChromium === true) {
         return value;
       }
-      return value.map((value: string): string => {
-        return `PLATFORM_${value}`;
-      });
+      return value.map(converters.stringToPlatform);
     default:
       return value;
   }

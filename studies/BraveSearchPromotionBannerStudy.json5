@@ -60,10 +60,8 @@
         'LINUX',
       ],
       country: [
-        'CA',
         'DE',
         'FR',
-        'GB',
         'US',
         'AT',
         'ES',

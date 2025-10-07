@@ -1,0 +1,19 @@
+[
+  {
+    name: 'study',
+    experiment: [
+      {
+        name: 'Default',
+        probability_weight: 100,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'MAC',
+      ],
+    },
+  },
+]

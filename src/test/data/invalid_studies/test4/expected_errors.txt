@@ -1,0 +1,1 @@
+Invalid filename name: study_with_bad_filename_& (use only 0-9,a-z,A-Z,_,-)

@@ -6,7 +6,7 @@
 import { execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import * as path from 'path';
-import { wsPath } from 'src/base/path_utils';
+import { asPosix, wsPath } from 'src/base/path_utils';
 import {
   Study_ActivationType,
   Study_Consistency,
@@ -17,6 +17,8 @@ import diffStrings from '../utils/diff_strings';
 import * as file_utils from '../utils/file_utils';
 import * as seed_validation from '../utils/seed_validation';
 import * as study_json_utils from '../utils/study_json_utils';
+import { parseLegacySeedJson } from './legacy_json_to_seed';
+import { validateName } from './study_validation';
 
 export async function readStudiesToSeed(
   studiesDir: string,
@@ -33,6 +35,10 @@ export async function readStudiesToSeed(
     study: studies,
     layers: [],
   };
+
+  // Keep country filters in both uppercase and lowercase. This is a workaround
+  // to support x-country header returning uppercase values.
+  duplicateCountriesAsLowercase(variationsSeed);
 
   errors.push(
     ...seed_validation.getSeedErrors(variationsSeed, studyFileBaseNameMap),
@@ -70,21 +76,45 @@ async function readStudiesAtRevision(
   errors: string[];
 }> {
   const basePath = wsPath('//');
-  studiesDir = path.relative(basePath, studiesDir);
-  const files = execSync(`git show "${revision}":"${studiesDir}"`, {
-    encoding: 'utf8',
-  }).split('\n');
+  studiesDir = asPosix(path.relative(basePath, studiesDir));
 
-  const filesWithContent = [];
-  for (const file of files) {
-    if (!file.endsWith('.json5')) continue;
-    const content = execSync(`git show ${revision}:"${studiesDir}/${file}"`, {
-      encoding: 'utf8',
-    });
-    filesWithContent.push({ path: file, content });
+  // Validate revision format.
+  if (!/^[a-z0-9]+$/.test(revision) && revision !== 'HEAD') {
+    return {
+      studies: [],
+      studyFileBaseNameMap: new Map(),
+      errors: [`Invalid revision: ${revision}`],
+    };
   }
 
-  return await readStudies(filesWithContent, false);
+  try {
+    const files = execSync(`git show "${revision}":"${studiesDir}"`, {
+      encoding: 'utf8',
+    }).split('\n');
+
+    const filesWithContent = [];
+    for (const file of files) {
+      if (!file.endsWith('.json5')) continue;
+      if (!validateName(file, 'filename', [])) continue;
+
+      const content = execSync(`git show ${revision}:"${studiesDir}/${file}"`, {
+        encoding: 'utf8',
+      });
+      filesWithContent.push({ path: file, content });
+    }
+    return await readStudies(filesWithContent, false);
+  } catch {
+    console.log(`Failed to read studies ${revision}, use seed.json fallback:`);
+    const seedContent = execSync(`git show "${revision}":seed/seed.json`, {
+      encoding: 'utf8',
+    });
+    const { parsedSeed } = parseLegacySeedJson(seedContent);
+    return {
+      studies: parsedSeed.study,
+      studyFileBaseNameMap: new Map(),
+      errors: [],
+    };
+  }
 }
 
 async function readStudies(
@@ -157,10 +187,29 @@ async function checkAndOptionallyFixFormat(
 }
 
 function setStudyDefaultParameters(study: Study) {
-  if (study.activation_type === undefined) {
-    study.activation_type = Study_ActivationType.ACTIVATE_ON_STARTUP;
-  }
-  if (study.consistency === undefined) {
-    study.consistency = Study_Consistency.PERMANENT;
+  study.activation_type ??= Study_ActivationType.ACTIVATE_ON_STARTUP;
+  study.consistency ??= Study_Consistency.PERMANENT;
+}
+
+function duplicateCountriesAsLowercase(variationsSeed: VariationsSeed) {
+  // For now duplicate the country filters to lowercase.
+  const duplicate = (countries: string[]) => {
+    const allCountries = [...countries];
+    const countrySet = new Set(countries);
+    for (const country of countries) {
+      const lowerCaseCountry = country.toLowerCase();
+      if (!countrySet.has(lowerCaseCountry)) {
+        allCountries.push(lowerCaseCountry);
+        countrySet.add(lowerCaseCountry);
+      }
+    }
+    return allCountries;
+  };
+  for (const study of variationsSeed.study) {
+    if (study.filter === undefined) {
+      continue;
+    }
+    study.filter.country = duplicate(study.filter.country);
+    study.filter.exclude_country = duplicate(study.filter.exclude_country);
   }
 }

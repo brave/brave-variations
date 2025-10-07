@@ -4,31 +4,48 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import * as fs from 'fs';
+import * as os from 'os';
 
-import { describe, expect, test } from '@jest/globals';
+import JSON5 from 'json5';
+import assert from 'node:assert';
+import { describe, test } from 'node:test';
+import path from 'path';
+import { asPosix } from '../base/path_utils';
 import { StudyPriority } from '../core/study_processor';
 import { ItemAction, makeSummary, summaryToJson } from '../core/summary';
-import { variations as proto } from '../proto/generated/proto_bundle';
-import { serializeStudies } from './tracker_lib';
+import { Study, Study_Channel, Study_Platform } from '../proto/generated/study';
+import { VariationsSeed } from '../proto/generated/variations_seed';
+import { storeDataToDirectory } from './tracker_lib';
 
-function serialize(json: Record<string, any>) {
-  const ordered = Object.keys(json)
+function readDirectory(dir: string): Record<string, any> {
+  const files = fs
+    .readdirSync(dir, { recursive: true, encoding: 'utf-8' })
     .sort()
-    .reduce((res: Record<string, any>, key) => {
-      res[key] = json[key];
-      return res;
-    }, {});
-  return JSON.stringify(ordered, undefined, 2);
+    .map(asPosix);
+  const result: Record<string, string> = {};
+
+  for (const file of files) {
+    const filePath = `${dir}/${file}`;
+    if (!file.endsWith('.json5')) {
+      continue;
+    }
+    const content = fs.readFileSync(filePath, 'utf-8');
+    result[file] = JSON5.parse(content);
+  }
+  return result;
 }
 
-test('seed serialization', () => {
+test('seed serialization', async () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'tracker-'));
   const data = fs.readFileSync('src/test/data/seed1.bin');
-  const map = serializeStudies(data, {
+  await storeDataToDirectory(data, tempDir, {
     minMajorVersion: 116,
     isBraveSeed: true,
   });
-  const serializedOutput = serialize(map);
 
+  const serializedOutput = JSON5.stringify(readDirectory(path.join(tempDir)), {
+    space: 2,
+  });
   const serializedExpectations = fs
     .readFileSync('src/test/data/seed1.bin.processing_expectations')
     .toString();
@@ -39,19 +56,20 @@ test('seed serialization', () => {
     fs.writeFileSync(fileName, serializedOutput);
   }
 
-  expect(serializedOutput).toBe(serializedExpectations);
+  assert.strictEqual(serializedOutput, serializedExpectations);
 });
 
-describe('summary', () => {
-  const common = {
-    name: 'TestStudy',
+describe('summary', async () => {
+  const commonFilters = {
     filter: {
-      channel: [proto.Study.Channel.STABLE],
-      platform: [proto.Study.Platform.PLATFORM_WINDOWS],
+      channel: [Study_Channel.STABLE],
+      platform: [Study_Platform.WINDOWS],
+      start_date: BigInt(Math.floor(new Date().getTime() / 1000) - 1000),
+      end_date: BigInt(Math.floor(new Date().getTime() / 1000) + 1000),
     },
   };
-  const oldStudy = new proto.Study({
-    ...common,
+  const oldStudy = Study.create({
+    name: 'TestStudy',
     experiment: [
       {
         name: 'Enabled',
@@ -63,10 +81,11 @@ describe('summary', () => {
         probability_weight: 80,
       },
     ],
+    ...commonFilters,
   });
 
-  const newStudy = new proto.Study({
-    ...common,
+  const newStudy = Study.create({
+    name: 'TestStudy',
     experiment: [
       {
         name: 'Enabled',
@@ -76,16 +95,28 @@ describe('summary', () => {
       {
         name: 'DisableAnother',
         probability_weight: 70,
-        feature_association: { disable_feature: ['BadFeature'] },
+        feature_association: { disable_feature: ['WebUSBBlocklist'] },
       },
       {
         name: 'Default',
         probability_weight: 10,
       },
     ],
+    ...commonFilters,
   });
-  const oldSeed = new proto.VariationsSeed({ study: [oldStudy] });
-  const newSeed = new proto.VariationsSeed({ study: [newStudy] });
+  const killSwitchStudy = Study.create({
+    name: 'StudyBrokenFeature_KillSwitch',
+    experiment: [
+      {
+        name: 'BrokenFeature_KillSwitch',
+        probability_weight: 100,
+        feature_association: { disable_feature: ['BrokenFeature'] },
+      },
+    ],
+    ...commonFilters,
+  });
+  const oldSeed = VariationsSeed.create({ study: [oldStudy] });
+  const newSeed = VariationsSeed.create({ study: [newStudy, killSwitchStudy] });
 
   const summary = makeSummary(
     oldSeed,
@@ -94,33 +125,57 @@ describe('summary', () => {
     StudyPriority.STABLE_MIN,
   );
 
-  test('verify content', () => {
-    expect(summary.size).toBe(1);
+  await test('verify content', () => {
+    assert.strictEqual(summary.size, 2);
     const itemList = summary.get(StudyPriority.STABLE_ALL);
-    expect(itemList?.length).toBe(1);
+    assert.strictEqual(itemList?.length, 1);
     const item = itemList?.at(0);
 
-    expect(item?.studyName).toBe('TestStudy');
+    assert.strictEqual(item?.studyName, 'TestStudy');
 
-    expect(item?.oldPriority).toBe(StudyPriority.STABLE_MIN);
-    expect(item?.newPriority).toBe(StudyPriority.STABLE_ALL);
-    expect(item?.action).toBe(ItemAction.Up);
+    assert.strictEqual(item?.oldPriority, StudyPriority.STABLE_MIN);
+    assert.strictEqual(item?.newPriority, StudyPriority.STABLE_ALL);
+    assert.strictEqual(item?.action, ItemAction.Up);
 
-    expect(item?.oldAudience).toBe(0.2);
-    expect(item?.newAudience).toBe(0.9);
+    assert.strictEqual(item?.oldAudience, 0.2);
+    assert.strictEqual(item?.newAudience, 0.9);
 
-    expect(item?.affectedFeatures.size).toBe(2);
-    expect(item?.affectedFeatures).toContain('GoodFeature');
-    expect(item?.affectedFeatures).toContain('BadFeature');
+    assert.strictEqual(item?.affectedFeatures.size, 2);
+    assert.ok(item?.affectedFeatures.has('GoodFeature'));
+    assert.ok(item?.affectedFeatures.has('WebUSBBlocklist'));
+
+    const killSwitchItemList = summary.get(
+      StudyPriority.STABLE_EMERGENCY_KILL_SWITCH,
+    );
+    assert.strictEqual(killSwitchItemList?.length, 1);
+    const killSwitchItem = killSwitchItemList?.at(0);
+
+    assert.strictEqual(
+      killSwitchItem?.studyName,
+      'StudyBrokenFeature_KillSwitch',
+    );
+    assert.strictEqual(killSwitchItem?.affectedFeatures.size, 1);
+    assert.ok(killSwitchItem?.affectedFeatures.has('BrokenFeature'));
+    assert.strictEqual(
+      killSwitchItem?.newPriority,
+      StudyPriority.STABLE_EMERGENCY_KILL_SWITCH,
+    );
+    assert.strictEqual(killSwitchItem?.action, ItemAction.New);
   });
 
-  test('serialization', () => {
-    const payloadJSON = summaryToJson(summary, undefined);
-    expect(payloadJSON).toBeDefined();
-    const payload =
-      payloadJSON !== undefined ? JSON.parse(payloadJSON) : undefined;
+  await test('summaryToSlackJson', () => {
+    const payloadString = summaryToJson(summary, undefined);
+    assert.ok(payloadString !== undefined);
+
+    assert.ok(
+      payloadString.includes(
+        'Kill switches changes detected, cc <@U02DG0ATML3>',
+      ),
+    );
+
+    assert.ok(payloadString.includes('WebUSBBlocklist changes detected'));
 
     // Check that payload is valid JSON.
-    expect(payload).toBeInstanceOf(Object);
+    assert.ok(JSON.parse(payloadString) instanceof Object);
   });
 });

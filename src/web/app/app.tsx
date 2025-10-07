@@ -12,7 +12,10 @@ import {
   priorityToText,
   type StudyFilter,
 } from '../../core/study_processor';
-import { variations as proto } from '../../proto/generated/proto_bundle';
+import {
+  Study_CpuArchitecture,
+  Study_FormFactor,
+} from '../../proto/generated/study';
 import { type ExperimentModel, type FeatureModel } from './experiment_model';
 import { SearchParamManager } from './search_param_manager';
 import { loadSeedDataAsync } from './seed_loader';
@@ -216,18 +219,16 @@ export function StudyItem(props: { study: StudyModel; filter: StudyFilter }) {
         />
         <IncludeExcludeList
           caption="Form factor"
-          include={filter?.form_factor?.map((e) => proto.Study.FormFactor[e])}
-          exclude={filter?.exclude_form_factor?.map(
-            (e) => proto.Study.FormFactor[e],
-          )}
+          include={filter?.form_factor?.map((e) => Study_FormFactor[e])}
+          exclude={filter?.exclude_form_factor?.map((e) => Study_FormFactor[e])}
         />
         <IncludeExcludeList
           caption="CPU architecture"
           include={filter?.cpu_architecture?.map(
-            (e) => proto.Study.CpuArchitecture[e],
+            (e) => Study_CpuArchitecture[e],
           )}
           exclude={filter?.exclude_cpu_architecture?.map(
-            (e) => proto.Study.CpuArchitecture[e],
+            (e) => Study_CpuArchitecture[e],
           )}
         />
         {filter != null &&

@@ -3,6 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import { Study } from '../../proto/generated/study';
 import { type VariationsSeed } from '../../proto/generated/variations_seed';
 import { getSeedErrors } from './seed_validation';
@@ -403,7 +405,7 @@ describe('getSeedErrors', () => {
       },
     ];
 
-    testCases.forEach((testCase) => {
+    for (const testCase of testCases) {
       it(`${JSON.stringify([testCase.filter1, testCase.filter2])}`, () => {
         const seed: VariationsSeed = {
           study: [
@@ -414,13 +416,13 @@ describe('getSeedErrors', () => {
 
         const errors: string[] = getSeedErrors(seed);
         if (testCase.expectedOverlapped) {
-          expect(errors).toContainEqual(
-            expect.stringContaining('overlaps in studies'),
+          assert.ok(
+            errors.some((error) => error.includes('overlaps in studies')),
           );
         } else {
-          expect(errors).toEqual([]);
+          assert.deepStrictEqual(errors, []);
         }
       });
-    });
+    }
   });
 });

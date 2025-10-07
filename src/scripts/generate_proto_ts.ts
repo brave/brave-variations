@@ -36,7 +36,6 @@ function main(options: Options) {
   }
 
   removeGeneratedFiles();
-  generateProtobufJsWithTypeInfo();
   generateProtobufTs();
 }
 
@@ -47,33 +46,6 @@ function removeGeneratedFiles() {
       fs.unlinkSync(`${protoGeneratedDir}/${file}`);
     }
   });
-}
-
-function generateProtobufJsWithTypeInfo() {
-  execSync(
-    [
-      'npx',
-      '--',
-      'pbjs',
-      '--t',
-      'static-module',
-      '--keep-case',
-      ...protoFiles,
-      '-o',
-      `${protoGeneratedDir}/proto_bundle.js`,
-    ].join(' '),
-  );
-
-  execSync(
-    [
-      'npx',
-      '--',
-      'pbts',
-      '-o',
-      `${protoGeneratedDir}/proto_bundle.d.ts`,
-      `${protoGeneratedDir}/proto_bundle.js`,
-    ].join(' '),
-  );
 }
 
 function generateProtobufTs() {

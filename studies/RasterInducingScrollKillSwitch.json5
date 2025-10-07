@@ -1,0 +1,29 @@
+[
+  {
+    name: 'RasterInducingScrollKillSwitch',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'RasterInducingScroll',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '131.*',
+      max_version: '137.*',
+      channel: [
+        'BETA',
+        'NIGHTLY',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'LINUX',
+      ],
+    },
+  },
+]

@@ -7,8 +7,7 @@ import { type Study, type Study_Experiment } from '../../proto/generated/study';
 import * as study_filter_utils from './study_filter_utils';
 import { Version } from './version';
 
-const invalidFeatureOrFieldTrialNameChars = ',<*';
-const invalidExperimentNameChars = '<*';
+const allowedNameRegex = /^[0-9a-zA-Z ._-]+$/;
 
 // Validate a study for common errors. Returns an array of error messages.
 export function getStudyErrors(study: Study, fileBaseName: string): string[] {
@@ -22,6 +21,7 @@ export function getStudyErrors(study: Study, fileBaseName: string): string[] {
     checkVersionRange,
     checkOsVersionRange,
     checkChannelAndPlatform,
+    checkCountry,
   ];
   for (const validator of validators) {
     try {
@@ -41,6 +41,8 @@ export function getStudyErrors(study: Study, fileBaseName: string): string[] {
 // Check that study name matches the file name.
 function checkName(study: Study, fileBaseName: string): string[] {
   const errors: string[] = [];
+  validateName(fileBaseName, 'filename', errors);
+
   if (
     study.name !== fileBaseName &&
     !study.name.startsWith(`${fileBaseName}_`)
@@ -49,13 +51,7 @@ function checkName(study: Study, fileBaseName: string): string[] {
       `Study name ${study.name} does not match file name (expected ${fileBaseName} or ${fileBaseName}_<something>)`,
     );
   }
-  if (
-    !isStringASCIIWithoutChars(study.name, invalidFeatureOrFieldTrialNameChars)
-  ) {
-    errors.push(
-      `Invalid study name: ${study.name} (expected ASCII without "${invalidFeatureOrFieldTrialNameChars}" chars)`,
-    );
-  }
+  validateName(study.name, 'study', errors);
   return errors;
 }
 
@@ -123,9 +119,9 @@ function checkExperiments(study: Study): string[] {
 
     // Validate forcing flag.
     if (experiment.forcing_flag !== undefined) {
+      validateName(experiment.forcing_flag, 'forcing_flag', errors);
       if (
         experiment.forcing_flag === '' ||
-        !isStringASCIIWithoutChars(experiment.forcing_flag, '') ||
         experiment.forcing_flag !== experiment.forcing_flag.toLowerCase()
       ) {
         errors.push(
@@ -319,11 +315,7 @@ function checkExperimentName(
   if (experimentName === '') {
     errors.push(`Experiment name is not defined for study: ${study.name}`);
   }
-  if (!isStringASCIIWithoutChars(experimentName, invalidExperimentNameChars)) {
-    errors.push(
-      `Invalid experiment name: ${experimentName} (expected ASCII without "${invalidExperimentNameChars}" chars)`,
-    );
-  }
+  validateName(experimentName, 'experiment', errors);
 }
 
 function checkFeatureName(
@@ -336,27 +328,43 @@ function checkFeatureName(
       `Feature name is not defined for experiment: ${experiment.name}`,
     );
   }
-  if (
-    !isStringASCIIWithoutChars(featureName, invalidFeatureOrFieldTrialNameChars)
-  ) {
-    errors.push(
-      `Invalid feature name for experiment ${experiment.name}: ${featureName} (expected ASCII without "${invalidFeatureOrFieldTrialNameChars}" chars)`,
-    );
-  }
+  validateName(featureName, 'feature', errors);
 }
 
-function isStringASCIIWithoutChars(
-  str: string,
-  charsToExclude: string,
-): boolean {
-  // Check if every character in the string is within the ASCII range (0-127).
-  for (let i = 0; i < str.length; i++) {
-    if (str.charCodeAt(i) > 127) {
-      return false;
-    }
-    if (charsToExclude !== '' && charsToExclude.includes(str[i])) {
-      return false;
-    }
+export function validateName(
+  name: string,
+  description: string,
+  errors: string[],
+) {
+  if (!allowedNameRegex.test(name)) {
+    errors.push(
+      `Invalid ${description} name: ${name} (use only 0-9,a-z,A-Z,_,-)`,
+    );
+    return false;
   }
   return true;
+}
+
+function checkCountry(study: Study): string[] {
+  const errors: string[] = [];
+  if (study.filter === undefined) {
+    return errors;
+  }
+
+  // check if country in uppercase also exists in lowercase
+  const checkCountriesCase = (countries: string[]) => {
+    const countrySet = new Set(countries);
+    for (const country of countries) {
+      if (!countrySet.has(country.toLowerCase())) {
+        errors.push(
+          `Country ${country} in lowercase is required for study ${study.name}`,
+        );
+      }
+    }
+  };
+
+  checkCountriesCase(study.filter.country);
+  checkCountriesCase(study.filter.exclude_country);
+
+  return errors;
 }

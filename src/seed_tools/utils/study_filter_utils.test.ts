@@ -3,6 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import { Study } from '../../proto/generated/study';
 import * as study_filter_utils from './study_filter_utils';
 import { Version } from './version';
@@ -18,7 +20,7 @@ describe('getStudyDateRange', () => {
 
     const result = study_filter_utils.getStudyDateRange(study);
 
-    expect(result).toEqual([
+    assert.deepStrictEqual(result, [
       BigInt(Math.floor(new Date('2022-01-01').getTime() / 1000)),
       BigInt(Math.floor(new Date('2022-12-31').getTime() / 1000)),
     ]);
@@ -33,7 +35,7 @@ describe('getStudyDateRange', () => {
 
     const result = study_filter_utils.getStudyDateRange(study);
 
-    expect(result).toEqual([
+    assert.deepStrictEqual(result, [
       BigInt(Math.floor(new Date('2022-01-01').getTime() / 1000)),
       undefined,
     ]);
@@ -46,7 +48,7 @@ describe('getStudyDateRange', () => {
 
     const result = study_filter_utils.getStudyDateRange(study);
 
-    expect(result).toEqual([undefined, undefined]);
+    assert.deepStrictEqual(result, [undefined, undefined]);
   });
 });
 
@@ -61,7 +63,10 @@ describe('getStudyVersionRange', () => {
 
     const result = study_filter_utils.getStudyVersionRange(study);
 
-    expect(result).toEqual([new Version('1.0.0'), new Version('2.0.0')]);
+    assert.deepStrictEqual(result, [
+      new Version('1.0.0'),
+      new Version('2.0.0'),
+    ]);
   });
 
   it('should return undefined for missing min_version or max_version', () => {
@@ -73,7 +78,7 @@ describe('getStudyVersionRange', () => {
 
     const result = study_filter_utils.getStudyVersionRange(study);
 
-    expect(result).toEqual([new Version('1.0.0'), undefined]);
+    assert.deepStrictEqual(result, [new Version('1.0.0'), undefined]);
   });
 
   it('should return undefined for undefined min_version and max_version', () => {
@@ -83,7 +88,7 @@ describe('getStudyVersionRange', () => {
 
     const result = study_filter_utils.getStudyVersionRange(study);
 
-    expect(result).toEqual([undefined, undefined]);
+    assert.deepStrictEqual(result, [undefined, undefined]);
   });
 });
 
@@ -98,7 +103,10 @@ describe('getStudyOsVersionRange', () => {
 
     const result = study_filter_utils.getStudyOsVersionRange(study);
 
-    expect(result).toEqual([new Version('10.0.0'), new Version('11.0.0')]);
+    assert.deepStrictEqual(result, [
+      new Version('10.0.0'),
+      new Version('11.0.0'),
+    ]);
   });
 
   it('should return undefined for missing min_os_version or max_os_version', () => {
@@ -110,7 +118,7 @@ describe('getStudyOsVersionRange', () => {
 
     const result = study_filter_utils.getStudyOsVersionRange(study);
 
-    expect(result).toEqual([new Version('10.0.0'), undefined]);
+    assert.deepStrictEqual(result, [new Version('10.0.0'), undefined]);
   });
 
   it('should return undefined for undefined min_os_version and max_os_version', () => {
@@ -120,6 +128,6 @@ describe('getStudyOsVersionRange', () => {
 
     const result = study_filter_utils.getStudyOsVersionRange(study);
 
-    expect(result).toEqual([undefined, undefined]);
+    assert.deepStrictEqual(result, [undefined, undefined]);
   });
 });

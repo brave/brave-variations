@@ -1,5 +1,5 @@
 {
-  "serialNumber": "1",
+  "serial_number": "1",
   "study": [
     {
       "name": "TestStudy",
@@ -7,29 +7,29 @@
       "experiment": [
         {
           "name": "Enabled",
-          "probabilityWeight": 100,
-          "featureAssociation": {
-            "enableFeature": [
+          "probability_weight": 100,
+          "feature_association": {
+            "enable_feature": [
               "TestFeature"
             ]
           }
         },
         {
           "name": "Disabled",
-          "probabilityWeight": 0,
-          "featureAssociation": {
-            "disableFeature": [
+          "probability_weight": 0,
+          "feature_association": {
+            "disable_feature": [
               "TestFeature"
             ]
           }
         },
         {
           "name": "Default",
-          "probabilityWeight": 0
+          "probability_weight": 0
         }
       ],
       "filter": {
-        "minVersion": "92.1.30.57",
+        "min_version": "92.1.30.57",
         "channel": [
           "CANARY",
           "BETA",
@@ -42,7 +42,7 @@
           "PLATFORM_ANDROID"
         ]
       },
-      "activationType": "ACTIVATE_ON_STARTUP"
+      "activation_type": "ACTIVATE_ON_STARTUP"
     }
   ],
   "version": "1"

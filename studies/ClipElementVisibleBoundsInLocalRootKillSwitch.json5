@@ -1,0 +1,32 @@
+[
+  {
+    name: 'ClipElementVisibleBoundsInLocalRootKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_ClipElementVisibleBoundsInLocalRootKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'ClipElementVisibleBoundsInLocalRoot',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '139.*',
+      max_version: '141.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]

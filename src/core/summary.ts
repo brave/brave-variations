@@ -4,7 +4,6 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 import { createHash } from 'node:crypto';
 
-import { type variations as proto } from '../proto/generated/proto_bundle';
 import { SeedType, type ProcessingOptions } from './base_types';
 import {
   StudyPriority,
@@ -13,7 +12,8 @@ import {
   type ProcessedStudy,
 } from './study_processor';
 
-import * as config from '../config';
+import config from '../config';
+import { VariationsSeed } from '../proto/generated/variations_seed';
 import * as url_utils from './url_utils';
 
 export enum ItemAction {
@@ -115,8 +115,8 @@ function getOverallAudience(
 }
 
 export function makeSummary(
-  oldSeed: proto.VariationsSeed,
-  newSeed: proto.VariationsSeed,
+  oldSeed: VariationsSeed,
+  newSeed: VariationsSeed,
   options: ProcessingOptions,
   minPriority: StudyPriority,
 ): Map<StudyPriority, SummaryItem[]> {
@@ -132,7 +132,9 @@ export function makeSummary(
 
     const oldStudy: ProcessedStudy[] = oldMap.get(key) ?? [];
     const newStudy: ProcessedStudy[] = newMap.get(key) ?? [];
-    const isChanged = JSON.stringify(oldStudy) !== JSON.stringify(newStudy);
+    const isEqual =
+      oldStudy.length == newStudy.length &&
+      oldStudy.every((v, i) => v.equals(newStudy[i]));
 
     const item = new SummaryItem();
     item.oldPriority = getOverallPriority(oldStudy);
@@ -170,7 +172,7 @@ export function makeSummary(
         item.action = ItemAction.Down;
       }
     } else {
-      if (isChanged) {
+      if (!isEqual) {
         item.action = ItemAction.Change;
       } else {
         return;
@@ -215,7 +217,7 @@ function getGitHubDiffUrl(
   oldPriority: StudyPriority,
   commit: string,
 ): string {
-  const path = `study/all-by-name/${study}`;
+  const path = `study/all-by-name/${study}.json5`;
   const pathHash = sha256(path);
   return `${url_utils.getGitHubStorageUrl()}/commit/${commit}#diff-${pathHash}`;
 }
@@ -268,14 +270,21 @@ class MrkdwnMessage {
   }
 }
 
+class Alert {
+  description: string;
+  ids: string[];
+  killSwitch?: boolean;
+  processingError?: boolean;
+  features?: string[];
+}
+
 export function summaryToJson(
   summary: Map<StudyPriority, SummaryItem[]>,
   newGitSha1?: string,
 ): string | undefined {
   const output = new MrkdwnMessage();
-  let hasKillSwitchImportantUpdate = false;
-  let hasBadStudies = false;
-  let gpuRelatedFeaturesDetected = false;
+
+  const alerts = new Set<Alert>();
 
   // From the highest to the lowest priority:
   const priorityList = Object.values(StudyPriority)
@@ -294,13 +303,21 @@ export function summaryToJson(
     itemList.sort((a, b) => a.action - b.action);
     for (const e of itemList) {
       for (const f of e.affectedFeatures) {
-        if (config.gpuRelatedFeatures.includes(f)) {
-          gpuRelatedFeaturesDetected = true;
-          break;
-        }
+        config.alerts.forEach((alert) => {
+          if (alert.features?.includes(f)) {
+            alerts.add(alert);
+          }
+        });
       }
-      hasKillSwitchImportantUpdate ||= e.isKillSwitchImportantUpdate();
-      hasBadStudies ||= e.hasBadStudies;
+      config.alerts.forEach((alert) => {
+        if (alert.killSwitch && e.isKillSwitchImportantUpdate()) {
+          alerts.add(alert);
+        }
+        if (alert.processingError && e.hasBadStudies) {
+          alerts.add(alert);
+        }
+      });
+
       const block = new TextBlock(e.actionToText());
       block.addLink(url_utils.getGriffinUiUrl(e.studyName), e.studyName);
       block.addLink(
@@ -335,32 +352,15 @@ export function summaryToJson(
   }
   if (output.toString() === '') return undefined;
 
-  if (gpuRelatedFeaturesDetected) {
+  alerts.forEach((alert) => {
     output.addBlockToTop(
       new TextBlock(
-        'GPU related changes detected, cc ' +
-          config.gpuRelatedNotificationIds.map((i) => `<@${i}>`).join(),
+        alert.description + ', cc ' + alert.ids.map((i) => `<@${i}>`).join(),
       ),
     );
-  }
-
-  if (hasKillSwitchImportantUpdate) {
-    output.addBlockToTop(
-      new TextBlock(
-        'Kill switches changes detected, cc ' +
-          config.killSwitchNotificationIds.map((i) => `<@${i}>`).join(),
-      ),
-    );
-  }
-  if (hasBadStudies) {
-    output.addBlock(
-      new TextBlock(
-        ':x: Processing ERRORS detected.\\n cc ' +
-          config.processingErrorNotificationIds.map((i) => `<@${i}>`).join(),
-      ),
-    );
-  }
+  });
   return `{
+    "channel" : "${config.channelId}",
     "text": "New finch changes detected",
     "blocks": [
       ${output.toString()}
