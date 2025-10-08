@@ -6,7 +6,7 @@
         name: 'EnabledWithShielding',
         probability_weight: 100,
         feature_association: {
-          disable_feature: [
+          enable_feature: [
             'BraveWalletZCash',
           ],
         },
