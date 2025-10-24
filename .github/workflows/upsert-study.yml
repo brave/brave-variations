@@ -46,9 +46,12 @@ jobs:
         with:
           fetch-depth: '0'
 
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          python-version: '3.13'
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
 
       - name: upsert-study
         id: upsert
@@ -65,8 +68,8 @@ jobs:
             branch_name=pr-"${1}"-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}
             git switch "${1}"
             git switch -c "${branch_name}"
-            .github/ci/griffin-study-utils.py upsert_study "${{ inputs.name }}" "${{ inputs.enable_feature }}" "${{ inputs.probability_enabled }}" "${{ inputs.channel }}" "${{ inputs.platform }}" "${{ inputs.min_version }}"
-            git add seed/seed.json
+            new_study_file=$(npm run --silent seed_tools -- upsert_study "${{ inputs.name }}" "${{ inputs.enable_feature }}" "${{ inputs.probability_enabled }}" "${{ inputs.channel }}" "${{ inputs.platform }}" "${{ inputs.min_version }}")
+            git add "${new_study_file}"
             git commit -m "Upsert study ${{ inputs.name }}"
             git push -u origin "${branch_name}"
             gh pr create --base "${1}" -f -t "Study ${{ inputs.name }}"
@@ -88,9 +91,11 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@91efab103c0de0a537f72a35f6b8cda0ee76bf0a # v2.1.1
         with:
-          channel-id: 'C01LKMP6X36'
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             {
+              "channel": "C01LKMP6X36",
               "text": "${{ github.actor }} is requesting that we set the `${{ inputs.enable_feature }}` feature on channels `${{ inputs.channel }}` to `${{ inputs.probability_enabled }}%` on platforms `${{ inputs.platform }}` via the `${{ inputs.name }}` Griffin study using the following PR: <https://github.com/brave/brave-variations/pull/${{ steps.upsert.outputs.pr_main_number }}|${{ steps.upsert.outputs.pr_main_number }}>.",
               "blocks": [
                 {
@@ -102,5 +107,3 @@ jobs:
                 }
               ]
             }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

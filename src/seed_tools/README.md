@@ -21,6 +21,10 @@ Lints study files.
 
 Splits a legacy `seed.json` file into individual study files.
 
+### `upsert_study`
+
+Creates or updates a single study file.
+
 ## Tools help
 
 Run to get available arguments and options:
