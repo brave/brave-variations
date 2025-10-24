@@ -21,4 +21,27 @@
       ],
     },
   },
+  {
+    name: 'AdaptiveButtonInTopToolbarCustomizationV2_Beta',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'AdaptiveButtonInTopToolbarCustomizationV2',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '142.1.85.87',
+      channel: [
+        'BETA',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
 ]
