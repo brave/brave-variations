@@ -42,17 +42,17 @@ module.exports = {
       description: 'Kill switches changes detected',
       killSwitch: true, // matches to any kill switch change
       ids: [
-        'U02DG0ATML3', // @matuchin
-        'UE87NRK2A', // @iefremov
-        'UB9PF4X5K', // @Terry
+        'U02DG0ATML3', // matuchin
+        'D02NL528E2Y', // clifton
+        'UB9PF4X5K', // Terry
       ],
     },
     {
       description: ':x: Processing errors detected',
       processingError: true, // matches to any processing error
       ids: [
-        'U02DG0ATML3', // @matuchin
-        'UE87NRK2A', // @iefremov
+        'U02DG0ATML3', // atuchin
+        'D02NL528E2Y', // clifton
       ],
     },
     {
@@ -67,14 +67,14 @@ module.exports = {
         'VulkanVMALargeHeapBlockSizeExperiment',
       ],
       ids: [
-        'U0D73ULKD', // @serg
+        'U0D73ULKD', // serg
       ],
     },
     {
       description: 'WebUSBBlocklist changes detected',
       features: ['WebUSBBlocklist'],
       ids: [
-        'U02031KK8SY', // @shivan
+        'U02031KK8SY', // shivan
       ],
     },
   ],
