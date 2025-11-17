@@ -6,6 +6,10 @@ on:
       - '.github/workflows/generate-test-seed.yml'
       - 'studies/**'
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
