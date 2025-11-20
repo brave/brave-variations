@@ -1,0 +1,36 @@
+[
+  {
+    name: 'RenderDocument',
+    experiment: [
+      {
+        name: 'Level_Subframe',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'RenderDocument',
+          ],
+        },
+        param: [
+          {
+            name: 'level',
+            value: 'subframe',
+          },
+        ],
+      },
+    ],
+    filter: {
+      min_version: '142.1.84.141',
+      channel: [
+        'RELEASE',
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]
