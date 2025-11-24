@@ -1,55 +1,46 @@
 [
   {
-    name: 'NewiOSTabTrayUIStudy',
+    name: 'AdaptiveButtonInTopToolbarCustomizationV2_Nightly',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'ModernTabTrayEnabled',
+            'AdaptiveButtonInTopToolbarCustomizationV2',
           ],
         },
-      },
-      {
-        name: 'Default',
-        probability_weight: 0,
       },
     ],
     filter: {
       channel: [
-        'BETA',
         'NIGHTLY',
       ],
       platform: [
-        'IOS',
+        'ANDROID',
       ],
     },
   },
   {
-    name: 'NewiOSTabTrayUIStudy',
+    name: 'AdaptiveButtonInTopToolbarCustomizationV2_Beta',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'ModernTabTrayEnabled',
+            'AdaptiveButtonInTopToolbarCustomizationV2',
           ],
         },
       },
-      {
-        name: 'Default',
-        probability_weight: 0,
-      },
     ],
     filter: {
-      min_version: '141.1.83.118',
+      min_version: '142.1.85.87',
       channel: [
-        'RELEASE',
+        'BETA',
       ],
       platform: [
-        'IOS',
+        'ANDROID',
       ],
     },
   },

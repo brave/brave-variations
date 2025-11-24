@@ -1,0 +1,72 @@
+[
+  {
+    name: 'ZCashStudy_EnabledWithShieldingOnNewVersions',
+    experiment: [
+      {
+        name: 'EnabledWithShielding',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveWalletZCash',
+          ],
+        },
+        param: [
+          {
+            name: 'zcash_shielded_transactions_enabled',
+            value: 'true',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '139.1.81.129',
+      channel: [
+        'RELEASE',
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'ZCashStudy_DisabledOnOldVersions',
+    experiment: [
+      {
+        name: 'Disabled',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'BraveWalletZCash',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      max_version: '139.1.81.128',
+      channel: [
+        'RELEASE',
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]

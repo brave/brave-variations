@@ -254,7 +254,7 @@ export class StudyDetails {
     }
 
     const filteredPlatforms = filterPlatforms(filter, options.isBraveSeed);
-    if (filteredPlatforms === undefined || filteredPlatforms.length === 0) {
+    if (filteredPlatforms?.length === 0) {
       this.hasNoSupportedPlatform = true;
     }
 

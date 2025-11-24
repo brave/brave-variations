@@ -1,33 +1,29 @@
 [
   {
-    name: 'BTMGoogleAuthWorkaround',
+    name: 'RenderDocument',
     experiment: [
       {
-        name: 'Enabled',
+        name: 'Level_Subframe',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'DIPS',
+            'RenderDocument',
           ],
         },
         param: [
           {
-            name: 'triggering_action',
-            value: 'none',
+            name: 'level',
+            value: 'subframe',
           },
         ],
       },
-      {
-        name: 'Default',
-        probability_weight: 0,
-      },
     ],
     filter: {
-      min_version: '140.*',
+      min_version: '142.1.84.141',
       channel: [
+        'RELEASE',
         'NIGHTLY',
         'BETA',
-        'RELEASE',
       ],
       platform: [
         'WINDOWS',
