@@ -24,7 +24,6 @@
     ],
     filter: {
       min_version: '140.*',
-      max_version: '142.*',
       channel: [
         'NIGHTLY',
         'BETA',
