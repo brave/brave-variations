@@ -20,6 +20,33 @@
       channel: [
         'NIGHTLY',
         'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+  {
+    name: 'DefaultBraveOmniboxMoreHistoryStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'HistoryMoreSearchResults',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      channel: [
         'RELEASE',
       ],
       platform: [
