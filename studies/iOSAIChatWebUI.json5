@@ -1,13 +1,13 @@
 [
   {
-    name: 'AIChatCodeExecutionTool',
+    name: 'iOSAIChatWebUI',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'AIChatCodeExecutionTool',
+            'AIChatWebUIEnabled',
           ],
         },
       },
@@ -17,13 +17,12 @@
       },
     ],
     filter: {
+      min_version: '143.1.87.63',
       channel: [
         'NIGHTLY',
       ],
       platform: [
-        'WINDOWS',
-        'MAC',
-        'LINUX',
+        'IOS',
       ],
     },
   },
