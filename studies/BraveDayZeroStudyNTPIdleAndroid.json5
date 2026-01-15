@@ -1,0 +1,68 @@
+[
+  {
+    name: 'BraveDayZeroStudyNTPIdleAndroid',
+    experiment: [
+      {
+        name: 'EnabledA',
+        probability_weight: 4,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+            'BraveFreshNtpAfterIdleExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'A',
+          },
+        ],
+      },
+      {
+        name: 'EnabledB',
+        probability_weight: 4,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+            'BraveFreshNtpAfterIdleExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'B',
+          },
+        ],
+      },
+      {
+        name: 'EnabledC',
+        probability_weight: 4,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+            'BraveFreshNtpAfterIdleExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'C',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 88,
+      },
+    ],
+    filter: {
+      min_version: '144.1.86.140',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+]
