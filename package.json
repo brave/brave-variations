@@ -19,7 +19,6 @@
   "devDependencies": {
     "@commander-js/extra-typings": "14.0.0",
     "@protobuf-ts/plugin": "2.11.1",
-    "@types/diff": "8.0.0",
     "@types/node": "25.0.9",
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
