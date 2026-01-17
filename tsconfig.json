@@ -5,7 +5,7 @@
     "module": "es2022",
     "target": "es2022",
     "allowJs": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types"],
     "jsx": "react-jsx",
