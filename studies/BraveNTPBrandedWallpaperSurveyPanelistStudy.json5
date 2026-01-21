@@ -18,6 +18,7 @@
     ],
     filter: {
       min_version: '138.1.81.80',
+      max_version: '141.1.83.77',
       channel: [
         'NIGHTLY',
         'BETA',
