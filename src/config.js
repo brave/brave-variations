@@ -43,7 +43,7 @@ module.exports = {
       killSwitch: true, // matches to any kill switch change
       ids: [
         'U02DG0ATML3', // matuchin
-        'D02NL528E2Y', // clifton
+        'U13AH4AJY', // clifton
         'UB9PF4X5K', // Terry
       ],
     },
@@ -52,7 +52,7 @@ module.exports = {
       processingError: true, // matches to any processing error
       ids: [
         'U02DG0ATML3', // atuchin
-        'D02NL528E2Y', // clifton
+        'U13AH4AJY', // clifton
       ],
     },
     {

@@ -1,32 +1,28 @@
 [
   {
-    name: 'CookieListDefaultStudy',
+    name: 'UseOmaha4Study',
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 100,
+        probability_weight: 25,
         feature_association: {
           enable_feature: [
-            'BraveAdblockCookieListDefault',
+            'BraveUseOmaha4',
           ],
         },
       },
       {
         name: 'Default',
-        probability_weight: 0,
+        probability_weight: 75,
       },
     ],
     filter: {
+      min_version: '143.1.87.77',
       channel: [
-        'RELEASE',
-        'BETA',
         'NIGHTLY',
       ],
       platform: [
-        'WINDOWS',
         'MAC',
-        'LINUX',
-        'ANDROID',
       ],
     },
   },
