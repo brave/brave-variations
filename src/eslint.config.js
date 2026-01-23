@@ -75,7 +75,11 @@ module.exports = defineConfig([
       ],
     },
   },
-  globalIgnores(['**/build/', 'proto/generated/', 'src/web/public/bundle/']),
+  globalIgnores([
+    '**/build/',
+    'src/proto/generated/',
+    'src/web/public/bundle/',
+  ]),
   {
     extends: compat.extends('plugin:@typescript-eslint/disable-type-checked'),
     files: ['**/*.js'],
