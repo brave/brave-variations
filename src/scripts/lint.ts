@@ -29,7 +29,7 @@ function main(options: Options) {
 function getLintAllCommands(options: Options): string[] {
   return [
     'prettier . --ignore-unknown' + (options.fix ? ' --write' : ' --check'),
-    'eslint . --config src/.eslintrc.js' + (options.fix ? ' --fix' : ''),
+    'eslint . --config src/eslint.config.js' + (options.fix ? ' --fix' : ''),
     'npm run seed_tools lint --' + (options.fix ? ' --fix' : ''),
   ];
 }
