@@ -17,9 +17,10 @@
       },
     ],
     filter: {
-      min_version: '143.1.87.63',
+      min_version: '146.1.88.121',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'IOS',
