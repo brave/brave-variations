@@ -1,13 +1,13 @@
 [
   {
-    name: 'CookieListDefaultStudy',
+    name: 'BraveShieldsContentSettingsIOS',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'BraveAdblockCookieListDefault',
+            'BraveShieldsContentSettingsIOS',
           ],
         },
       },
@@ -17,16 +17,12 @@
       },
     ],
     filter: {
+      min_version: '143.1.87.77',
       channel: [
-        'RELEASE',
-        'BETA',
         'NIGHTLY',
       ],
       platform: [
-        'WINDOWS',
-        'MAC',
-        'LINUX',
-        'ANDROID',
+        'IOS',
       ],
     },
   },
