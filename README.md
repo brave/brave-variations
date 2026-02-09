@@ -15,10 +15,10 @@ A continuous integration server (CI) serializes and signs the updated seed file 
 
 ## Git flow for `studies`
 
-1. Run `npm install` after checking out the repository.
+1. Run `pnpm install` after checking out the repository.
 2. Create or modify a study file in `studies` directory, following the protobuf
    schema in [`src/proto/study.proto`](/src/proto/study.proto).
-3. Run `npm run seed_tools lint -- --fix` and address found issues.
+3. Run `pnpm seed_tools lint -- --fix` and address found issues.
 4. Create a Pull Request targeting the `main` branch.
 5. Follow the PR instructions to verify that everything works as intended.
 
@@ -34,7 +34,7 @@ On initial deployment and subsequent key rotations a new key pair has to be gene
 
 The following steps are performed by CI to publish the updated seed file:
 
-1. Run `$ npm run seed_tools create` to compile the protobuf.
+1. Run `$ pnpm seed_tools create` to compile the protobuf.
 2. Sign the seed file with `$ go run /crypto/crypto_util.go sign`.
 3. Update the `X-Seed-Signature` response header.
 4. Update the ETAG header with the contents of `serialnumber`.
@@ -65,5 +65,5 @@ Constraints:
 
 To build the dashboard:
 
-1. Install dependencies `$ npm install`
-2. Bundle resources `$ npm run build`
+1. Install dependencies `$ pnpm install`
+2. Bundle resources `$ pnpm build`
