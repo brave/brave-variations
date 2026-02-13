@@ -1,0 +1,31 @@
+[
+  {
+    name: 'BraveIOSUserAgentTypeStudy',
+    experiment: [
+      {
+        name: 'BraveIOSUserAgentType',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'UseBraveUserAgent',
+          ],
+        },
+        param: [
+          {
+            name: 'default_user_agent',
+            value: '1',
+          },
+        ],
+      },
+    ],
+    filter: {
+      min_version: '147.1.89.52',
+      channel: [
+        'NIGHTLY',
+      ],
+      platform: [
+        'IOS',
+      ],
+    },
+  },
+]
