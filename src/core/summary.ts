@@ -12,11 +12,12 @@ import {
   type ProcessedStudy,
 } from './study_processor';
 
-import config from '../config';
+import { config } from '../config';
 import { VariationsSeed } from '../proto/generated/variations_seed';
 import * as url_utils from './url_utils';
 
 export enum ItemAction {
+  None,
   New,
   Up,
   Change,
@@ -24,18 +25,67 @@ export enum ItemAction {
   RemovedOrOutdated,
 }
 class SummaryItem {
-  studyName: string;
-  action: ItemAction;
-  affectedFeatures = new Set<string>();
+  readonly studyName: string;
+  readonly action: ItemAction = ItemAction.None;
+  readonly affectedFeatures = new Set<string>();
 
-  oldPriority: StudyPriority;
-  newPriority: StudyPriority;
+  readonly oldPriority: StudyPriority;
+  readonly newPriority: StudyPriority;
 
-  oldAudience: number;
-  newAudience: number;
+  readonly oldAudience: number;
+  readonly newAudience: number;
 
-  hasOnlyDisabledFeatures: boolean;
-  hasBadStudies: boolean;
+  readonly hasOnlyDisabledFeatures: boolean;
+  readonly hasBadStudies: boolean;
+
+  constructor(
+    key: string,
+    oldStudy: ProcessedStudy[],
+    newStudy: ProcessedStudy[],
+    minPriority: StudyPriority,
+  ) {
+    this.studyName = key;
+    this.oldPriority = getOverallPriority(oldStudy);
+    this.newPriority = getOverallPriority(newStudy);
+    this.oldAudience = getOverallAudience(
+      oldStudy,
+      Math.max(this.oldPriority, minPriority),
+    );
+    this.newAudience = getOverallAudience(
+      newStudy,
+      Math.max(this.newPriority, minPriority),
+    );
+    this.hasOnlyDisabledFeatures = hasOnlyDisabledFeatures(newStudy);
+    this.hasBadStudies =
+      newStudy.find((v) => v.studyDetails.isBadStudyFormat) !== undefined;
+
+    for (const study of oldStudy.concat(newStudy))
+      study.affectedFeatures.forEach((v) => this.affectedFeatures.add(v));
+
+    const changePriority = this.getChangePriority();
+    if (changePriority < minPriority) return;
+    const isEqual =
+      oldStudy.length == newStudy.length &&
+      oldStudy.every((v, i) => v.equals(newStudy[i]));
+
+    if (this.newPriority > this.oldPriority) {
+      if (this.oldPriority < minPriority) {
+        this.action = ItemAction.New;
+      } else {
+        this.action = ItemAction.Up;
+      }
+    } else if (this.newPriority < this.oldPriority) {
+      if (this.newPriority < minPriority) {
+        this.action = ItemAction.RemovedOrOutdated;
+      } else {
+        this.action = ItemAction.Down;
+      }
+    } else {
+      if (!isEqual) {
+        this.action = ItemAction.Change;
+      }
+    }
+  }
 
   getChangePriority(): StudyPriority {
     if (this.isKillSwitchImportantUpdate()) {
@@ -132,52 +182,11 @@ export function makeSummary(
 
     const oldStudy: ProcessedStudy[] = oldMap.get(key) ?? [];
     const newStudy: ProcessedStudy[] = newMap.get(key) ?? [];
-    const isEqual =
-      oldStudy.length == newStudy.length &&
-      oldStudy.every((v, i) => v.equals(newStudy[i]));
 
-    const item = new SummaryItem();
-    item.oldPriority = getOverallPriority(oldStudy);
-    item.newPriority = getOverallPriority(newStudy);
-    item.oldAudience = getOverallAudience(
-      oldStudy,
-      Math.max(item.oldPriority, minPriority),
-    );
-    item.newAudience = getOverallAudience(
-      newStudy,
-      Math.max(item.newPriority, minPriority),
-    );
+    const item = new SummaryItem(key, oldStudy, newStudy, minPriority);
 
-    item.hasOnlyDisabledFeatures = hasOnlyDisabledFeatures(newStudy);
-    item.hasBadStudies =
-      newStudy.find((v) => v.studyDetails.isBadStudyFormat) !== undefined;
-
+    if (item.action === ItemAction.None) return;
     const changePriority = item.getChangePriority();
-    if (changePriority < minPriority) return;
-
-    item.studyName = key;
-    for (const study of oldStudy.concat(newStudy))
-      study.affectedFeatures.forEach((v) => item.affectedFeatures.add(v));
-
-    if (item.newPriority > item.oldPriority) {
-      if (item.oldPriority < minPriority) {
-        item.action = ItemAction.New;
-      } else {
-        item.action = ItemAction.Up;
-      }
-    } else if (item.newPriority < item.oldPriority) {
-      if (item.newPriority < minPriority) {
-        item.action = ItemAction.RemovedOrOutdated;
-      } else {
-        item.action = ItemAction.Down;
-      }
-    } else {
-      if (!isEqual) {
-        item.action = ItemAction.Change;
-      } else {
-        return;
-      }
-    }
     let itemList = summary.get(changePriority);
     if (itemList === undefined) {
       itemList = [];
@@ -270,7 +279,7 @@ class MrkdwnMessage {
   }
 }
 
-class Alert {
+interface Alert {
   description: string;
   ids: string[];
   killSwitch?: boolean;

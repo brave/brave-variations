@@ -8,7 +8,7 @@ export enum SeedType {
   UPSTREAM, // Chrome seed (Finch)
 }
 
-export class ProcessingOptions {
+export interface ProcessingOptions {
   // The Chromium used by the current stable Brave (i.e. cr117). Usually is
   // taken from API.
   // Studies that target to older versions are considered as outdated.
