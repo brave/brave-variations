@@ -39,9 +39,14 @@ export default async function diffStrings(
       { encoding: 'utf8' },
     );
     return '';
-  } catch (error) {
+  } catch (error: unknown) {
     // Handle the case where git diff returns 1 due to differences.
-    if (error.code === 1) {
+    if (
+      error instanceof Error &&
+      'code' in error &&
+      error.code === 1 &&
+      'stdout' in error
+    ) {
       // Remove root forward slashes from the temporary file paths as git diff
       // does not include them.
       const result = (error.stdout as string)
