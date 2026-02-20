@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "description": "Brave Variations",
   "scripts": {
-    "build": "npm run build:proto && npm run build:web",
+    "build": "pnpm build:proto && pnpm build:web",
     "build:proto": "tsx src/scripts/generate_proto_ts.ts",
     "build:web": "webpack -c src/web/webpack.config.js --mode=production",
     "clean": "tsx src/scripts/clean.ts",
     "lint": "tsx src/scripts/lint.ts",
-    "postinstall": "npm run typecheck:scripts && npm run build:proto",
+    "postinstall": "pnpm typecheck:scripts && pnpm build:proto",
     "seed_tools": "tsx src/seed_tools/seed_tools.ts",
     "serve:dev": "webpack serve -c src/web/webpack.config.js --hot --mode=development",
     "test": "node --import tsx --test **/*.test.ts",
@@ -48,6 +48,7 @@
   "engines": {
     "node": ">=22.0.0"
   },
+  "packageManager": "pnpm@10.29.2+sha512.bef43fa759d91fd2da4b319a5a0d13ef7a45bb985a3d7342058470f9d2051a3ba8674e629672654686ef9443ad13a82da2beb9eeb3e0221c87b8154fff9d74b8",
   "type": "commonjs",
   "license": "MPL-2.0",
   "moduleResolution": "node",
