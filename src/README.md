@@ -16,10 +16,10 @@
 
 ## Commands and actions
 
-`npm run build` to build everything
-`npm run lint -- --fix` run lint and try to fix all the problems
-`npm run test` to run tests (also used in CI)
+`pnpm build` to build everything
+`pnpm lint -- --fix` run lint and try to fix all the problems
+`pnpm test` to run tests (also used in CI)
 
 [deploy-to-production](https://github.com/brave/brave-variations/actions/workflows/deploy-to-production.yml) GH action to deploy a new version of griffin.brave.com
 
-`npm run tracker -- <finch-data-private-checkout>` to run tracker app
+`pnpm tracker -- <finch-data-private-checkout>` to run tracker app
