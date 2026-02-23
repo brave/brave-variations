@@ -7,7 +7,7 @@ import * as url_utils from '../../core/url_utils';
 import { Study_Experiment } from '../../proto/generated/study';
 import { type StudyModel } from './study_model';
 
-export class FeatureModel {
+export interface FeatureModel {
   name: string;
   link: string;
 }

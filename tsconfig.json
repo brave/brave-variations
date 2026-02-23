@@ -1,19 +1,15 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "noImplicitAny": true,
     "module": "es2022",
-    "target": "es2022",
-    "allowJs": true,
+    "target": "es2024",
     "moduleResolution": "bundler",
     "baseUrl": ".",
-    "typeRoots": ["./node_modules/@types"],
     "jsx": "react-jsx",
     "outDir": "build",
     // optional
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "strictNullChecks": true,
+    "strict": true,
     // tsx-specific:
     "isolatedModules": true,
     "esModuleInterop": true

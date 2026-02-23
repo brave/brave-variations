@@ -24,12 +24,6 @@
       "schedule": [
         "before 6am on tuesday"
       ]
-    },
-    {
-      "matchPackageNames": [
-        "prettier"
-      ],
-      "allowedVersions": "<3.7"
     }
   ],
   "schedule": [
