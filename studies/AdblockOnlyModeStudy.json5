@@ -10,6 +10,12 @@
             'AdblockOnlyMode',
           ],
         },
+        param: [
+          {
+            name: 'prompt_after_shields_disabled_count',
+            value: '3',
+          },
+        ],
       },
       {
         name: 'Default',
