@@ -19,7 +19,7 @@
   "devDependencies": {
     "@commander-js/extra-typings": "14.0.0",
     "@eslint/eslintrc": "3.3.3",
-    "@eslint/js": "9.39.2",
+    "@eslint/js": "10.0.1",
     "@protobuf-ts/plugin": "2.11.1",
     "@types/node": "25.0.9",
     "@types/react": "19.2.8",
@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "8.53.1",
     "commander": "14.0.2",
     "css-loader": "7.1.2",
-    "eslint": "9.39.2",
+    "eslint": "10.0.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-licenses": "1.0.2",
     "eslint-plugin-react": "7.37.5",
