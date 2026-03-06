@@ -1,6 +1,6 @@
 # Seed tools
 
-`npm run seed_tools -- <tool> <parameters>`
+`pnpm seed_tools <tool> <parameters>`
 
 ## Tools
 
@@ -26,5 +26,5 @@ Splits a legacy `seed.json` file into individual study files.
 Run to get available arguments and options:
 
 ```bash
-npm run seed_tools -- <tool> --help
+pnpm seed_tools <tool> --help
 ```
