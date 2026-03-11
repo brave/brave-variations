@@ -10,6 +10,12 @@
             'AIChatCodeExecutionTool',
           ],
         },
+        param: [
+          {
+            name: 'charts',
+            value: 'true',
+          },
+        ],
       },
       {
         name: 'Default',
@@ -38,6 +44,12 @@
             'AIChatCodeExecutionTool',
           ],
         },
+        param: [
+          {
+            name: 'charts',
+            value: 'true',
+          },
+        ],
       },
       {
         name: 'Default',
