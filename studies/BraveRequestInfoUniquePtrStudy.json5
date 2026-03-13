@@ -1,13 +1,13 @@
 [
   {
-    name: 'iOSAIChatWebUI',
+    name: 'BraveRequestInfoUniquePtrStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'AIChatWebUIEnabled',
+            'BraveRequestInfoUniquePtr',
           ],
         },
       },
@@ -17,13 +17,14 @@
       },
     ],
     filter: {
-      min_version: '146.1.88.121',
       channel: [
         'NIGHTLY',
-        'BETA',
       ],
       platform: [
-        'IOS',
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
       ],
     },
   },
