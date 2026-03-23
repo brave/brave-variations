@@ -35,4 +35,39 @@
       ],
     },
   },
+  {
+    name: 'AdblockOnlyModeStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'AdblockOnlyMode',
+          ],
+        },
+        param: [
+          {
+            name: 'prompt_after_shields_disabled_count',
+            value: '3',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      min_version: '145.1.88.96',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
 ]
