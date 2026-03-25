@@ -27,4 +27,31 @@
       ],
     },
   },
+  {
+    name: 'BraveShieldsContentSettingsIOS_Release',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'BraveShieldsContentSettingsIOS',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      min_version: '143.1.87.77',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'IOS',
+      ],
+    },
+  },
 ]
