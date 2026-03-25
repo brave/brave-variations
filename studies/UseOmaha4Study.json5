@@ -4,7 +4,7 @@
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 50,
+        probability_weight: 100,
         feature_association: {
           enable_feature: [
             'BraveUseOmaha4',
@@ -13,13 +13,40 @@
       },
       {
         name: 'Default',
-        probability_weight: 50,
+        probability_weight: 0,
       },
     ],
     filter: {
       min_version: '143.1.87.77',
       channel: [
         'NIGHTLY',
+      ],
+      platform: [
+        'MAC',
+      ],
+    },
+  },
+  {
+    name: 'UseOmaha4Study',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'BraveUseOmaha4',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      min_version: '143.1.87.77',
+      channel: [
+        'BETA',
       ],
       platform: [
         'MAC',
