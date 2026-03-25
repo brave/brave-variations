@@ -7,8 +7,8 @@
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'BraveWalletWebUIIOS',
-            'BraveWalletCardanoFeature',
+            'BraveWalletWebUIFeature',
+            'BraveWalletCardano',
           ],
         },
       },
@@ -32,7 +32,7 @@
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'BraveWalletZCashFeature',
+            'BraveWalletZCash',
           ],
         },
         param: [
