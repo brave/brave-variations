@@ -10,7 +10,7 @@
             'BraveWalletWebUIIOS',
             'BraveWalletCardanoFeature',
           ],
-        },  
+        },
       },
     ],
     filter: {
