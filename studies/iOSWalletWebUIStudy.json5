@@ -12,6 +12,21 @@
           ],
         },  
       },
+    ],
+    filter: {
+      min_version: '146.1.89.116',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'IOS',
+      ],
+    },
+  },
+  {
+    name: 'iOSWalletWebUIStudy_ZcashEnabledWithShielding',
+    experiment: [
       {
         name: 'EnabledWithShielding',
         probability_weight: 100,
