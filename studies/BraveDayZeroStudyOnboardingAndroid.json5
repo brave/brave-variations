@@ -78,7 +78,7 @@
       },
     ],
     filter: {
-      min_version: '145.1.89.105',
+      min_version: '145.1.89.122',
       channel: [
         'BETA',
       ],
