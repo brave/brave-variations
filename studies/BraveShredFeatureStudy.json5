@@ -49,6 +49,7 @@
     filter: {
       min_version: '144.1.88.77',
       channel: [
+        'BETA',
         'NIGHTLY',
       ],
       platform: [
