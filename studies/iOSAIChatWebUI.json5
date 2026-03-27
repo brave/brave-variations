@@ -27,4 +27,31 @@
       ],
     },
   },
+  {
+    name: 'iOSAIChatWebUI',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'AIChatWebUIEnabled',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      min_version: '146.1.88.137',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'IOS',
+      ],
+    },
+  },
 ]
