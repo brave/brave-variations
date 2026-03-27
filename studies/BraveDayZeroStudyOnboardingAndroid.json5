@@ -34,7 +34,7 @@
       },
     ],
     filter: {
-      min_version: '145.1.90.5',
+      min_version: '146.1.90.5',
       channel: [
         'NIGHTLY',
       ],
@@ -78,7 +78,7 @@
       },
     ],
     filter: {
-      min_version: '145.1.89.122',
+      min_version: '146.1.89.122',
       channel: [
         'BETA',
       ],
