@@ -1,6 +1,6 @@
 [
   {
-    name: 'AIChatCodeExecutionTool_Desktop',
+    name: 'AIChatCodeExecutionTool_Nightly',
     experiment: [
       {
         name: 'Enabled',
@@ -30,11 +30,12 @@
         'WINDOWS',
         'MAC',
         'LINUX',
+        'ANDROID',
       ],
     },
   },
   {
-    name: 'AIChatCodeExecutionTool_Android',
+    name: 'AIChatCodeExecutionTool_Beta',
     experiment: [
       {
         name: 'Enabled',
@@ -47,7 +48,7 @@
         param: [
           {
             name: 'charts',
-            value: 'true',
+            value: 'false',
           },
         ],
       },
@@ -57,11 +58,48 @@
       },
     ],
     filter: {
-      min_version: '144.1.87.154',
       channel: [
-        'NIGHTLY',
+        'BETA',
       ],
       platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'AIChatCodeExecutionTool_Release',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'AIChatCodeExecutionTool',
+          ],
+        },
+        param: [
+          {
+            name: 'charts',
+            value: 'false',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
         'ANDROID',
       ],
     },
