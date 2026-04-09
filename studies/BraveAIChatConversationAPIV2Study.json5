@@ -58,7 +58,6 @@
         'MAC',
         'LINUX',
         'ANDROID',
-        'IOS',
       ],
     },
   },
