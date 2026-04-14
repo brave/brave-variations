@@ -86,7 +86,7 @@ jobs:
 
       - name: Report to slack
         id: slack
-        uses: slackapi/slack-github-action@91efab103c0de0a537f72a35f6b8cda0ee76bf0a # v2.1.1
+        uses: slackapi/slack-github-action@af78098f536edbc4de71162a307590698245be95 # v3.0.1
         with:
           channel-id: 'C01LKMP6X36'
           payload: |
