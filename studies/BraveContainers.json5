@@ -1,0 +1,40 @@
+[
+  {
+    name: 'BraveContainers',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'Containers',
+          ],
+        },
+      },
+      {
+        name: 'Disabled',
+        probability_weight: 50,
+        feature_association: {
+          disable_feature: [
+            'Containers',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '147.1.91.38',
+      channel: [
+        'NIGHTLY',
+      ],
+      platform: [
+        'LINUX',
+        'MAC',
+        'WINDOWS',
+      ],
+    },
+  },
+]
