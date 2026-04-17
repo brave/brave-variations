@@ -1,0 +1,30 @@
+[
+  {
+    name: 'ShouldCancelRequestsForUserAgentChange',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'ShouldCancelRequestsForUserAgentChange',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '147.1.91.65',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'IOS',
+      ],
+    },
+  },
+]
