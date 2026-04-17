@@ -1,42 +1,49 @@
 [
   {
-    name: 'BraveDayZeroStudyOnboardingAndroid',
+    name: 'BraveDayZeroStudyAndroid',
     experiment: [
       {
-        name: 'EnabledX',
-        probability_weight: 50,
+        name: 'EnabledA',
+        probability_weight: 16,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
+            'BraveFreshNtpAfterIdleExperiment',
           ],
         },
         param: [
           {
             name: 'variant',
-            value: 'X',
+            value: 'A',
           },
         ],
       },
       {
-        name: 'EnabledY',
-        probability_weight: 50,
+        name: 'EnabledB',
+        probability_weight: 16,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
+            'BraveFreshNtpAfterIdleExperiment',
           ],
         },
         param: [
           {
             name: 'variant',
-            value: 'Y',
+            value: 'B',
           },
         ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 68,
       },
     ],
     filter: {
-      min_version: '146.1.90.5',
+      min_version: '146.*',
+      max_version: '146.*',
       channel: [
-        'NIGHTLY',
+        'RELEASE',
       ],
       platform: [
         'ANDROID',
@@ -44,26 +51,43 @@
     },
   },
   {
-    name: 'BraveDayZeroStudyOnboardingAndroid',
+    name: 'BraveDayZeroStudyAndroid',
     experiment: [
       {
-        name: 'EnabledX',
-        probability_weight: 50,
+        name: 'EnabledA',
+        probability_weight: 16,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
+            'BraveFreshNtpAfterIdleExperiment',
           ],
         },
         param: [
           {
             name: 'variant',
-            value: 'X',
+            value: 'A',
+          },
+        ],
+      },
+      {
+        name: 'EnabledB',
+        probability_weight: 16,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+            'BraveFreshNtpAfterIdleExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'B',
           },
         ],
       },
       {
         name: 'EnabledY',
-        probability_weight: 50,
+        probability_weight: 10,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
@@ -76,11 +100,15 @@
           },
         ],
       },
+      {
+        name: 'Default',
+        probability_weight: 58,
+      },
     ],
     filter: {
-      min_version: '146.1.89.122',
+      min_version: '147.*',
       channel: [
-        'BETA',
+        'RELEASE',
       ],
       platform: [
         'ANDROID',
