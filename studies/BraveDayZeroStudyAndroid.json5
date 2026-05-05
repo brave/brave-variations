@@ -87,7 +87,7 @@
       },
       {
         name: 'EnabledY',
-        probability_weight: 40,
+        probability_weight: 68,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
@@ -102,7 +102,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 28,
+        probability_weight: 0,
       },
     ],
     filter: {
