@@ -1,13 +1,42 @@
 [
   {
-    name: 'BraveAIChatConversationAPIV2Study',
+    name: 'BraveShowAIChatInputOnNewTabPageStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 10,
+        feature_association: {
+          enable_feature: [
+            'ShowAIChatInputOnNewTabPage',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 90,
+      },
+    ],
+    filter: {
+      min_version: '148.1.90.0',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+  {
+    name: 'BraveShowAIChatInputOnNewTabPageStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'AIChatConversationAPIV2',
+            'ShowAIChatInputOnNewTabPage',
           ],
         },
       },
@@ -17,7 +46,6 @@
       },
     ],
     filter: {
-      min_version: '146.1.89.81',
       channel: [
         'BETA',
         'NIGHTLY',
@@ -26,39 +54,6 @@
         'WINDOWS',
         'MAC',
         'LINUX',
-        'ANDROID',
-        'IOS',
-      ],
-    },
-  },
-  {
-    name: 'BraveAIChatConversationAPIV2Study',
-    experiment: [
-      {
-        name: 'Enabled',
-        probability_weight: 100,
-        feature_association: {
-          enable_feature: [
-            'AIChatConversationAPIV2',
-          ],
-        },
-      },
-      {
-        name: 'Default',
-        probability_weight: 0,
-      },
-    ],
-    filter: {
-      min_version: '147.1.89.132',
-      channel: [
-        'RELEASE',
-      ],
-      platform: [
-        'WINDOWS',
-        'MAC',
-        'LINUX',
-        'ANDROID',
-        'IOS',
       ],
     },
   },
