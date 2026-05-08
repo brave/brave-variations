@@ -1,0 +1,31 @@
+[
+  {
+    name: 'EmailAliasesStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'EmailAliases',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '148.1.92.39',
+      channel: [
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]
