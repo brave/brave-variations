@@ -17,7 +17,7 @@
       },
     ],
     filter: {
-      min_version: '148.1.92.33',
+      min_version: '148.1.92.39',
       channel: [
         'NIGHTLY',
       ],
