@@ -1,0 +1,6 @@
+minimumReleaseAge: 10080 # 1 week
+
+overrides:
+  follow-redirects@<=1.15.11: '>=1.16.0'
+  postcss@<8.5.10: '>=8.5.10'
+  uuid@<14.0.0: '>=14.0.0'
