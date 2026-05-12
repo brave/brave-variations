@@ -24,7 +24,6 @@
     ],
     filter: {
       channel: [
-        'RELEASE',
         'BETA',
         'NIGHTLY',
       ],
@@ -58,7 +57,6 @@
     ],
     filter: {
       channel: [
-        'RELEASE',
         'BETA',
         'NIGHTLY',
       ],
@@ -92,7 +90,6 @@
     ],
     filter: {
       channel: [
-        'RELEASE',
         'BETA',
         'NIGHTLY',
       ],
@@ -126,7 +123,6 @@
     ],
     filter: {
       channel: [
-        'RELEASE',
         'BETA',
         'NIGHTLY',
       ],
