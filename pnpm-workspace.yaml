@@ -1,6 +1,9 @@
-minimumReleaseAge: 10080 # 1 week
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - fast-uri@3.1.2
 
 overrides:
+  fast-uri@<=3.1.1: '>=3.1.2'
   follow-redirects@<=1.15.11: '>=1.16.0'
   postcss@<8.5.10: '>=8.5.10'
   uuid@<14.0.0: '>=14.0.0'
