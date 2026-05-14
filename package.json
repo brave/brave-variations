@@ -19,7 +19,7 @@
   "devDependencies": {
     "@commander-js/extra-typings": "14.0.0",
     "@eslint/eslintrc": "3.3.3",
-    "@eslint/js": "9.39.2",
+    "@eslint/js": "10.0.1",
     "@protobuf-ts/plugin": "2.11.1",
     "@types/node": "25.0.9",
     "@types/react": "19.2.8",
@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "8.53.1",
     "commander": "14.0.2",
     "css-loader": "7.1.2",
-    "eslint": "9.39.2",
+    "eslint": "10.3.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-licenses": "2.0.0",
     "eslint-plugin-react": "7.37.5",
@@ -39,16 +39,16 @@
     "style-loader": "4.0.0",
     "ts-loader": "9.5.4",
     "tsx": "4.21.0",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "typescript-eslint": "8.53.1",
     "webpack": "5.104.1",
-    "webpack-cli": "6.0.1",
+    "webpack-cli": "7.0.2",
     "webpack-dev-server": "5.2.3"
   },
   "engines": {
     "node": ">=22.0.0"
   },
-  "packageManager": "pnpm@10.29.2+sha512.bef43fa759d91fd2da4b319a5a0d13ef7a45bb985a3d7342058470f9d2051a3ba8674e629672654686ef9443ad13a82da2beb9eeb3e0221c87b8154fff9d74b8",
+  "packageManager": "pnpm@11.0.8",
   "type": "commonjs",
   "license": "MPL-2.0",
   "moduleResolution": "node",
