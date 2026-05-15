@@ -3,23 +3,21 @@
     name: 'BraveWalletPolkadotStudy',
     experiment: [
       {
-        name: 'Enabled',
+        name: 'Disabled',
         probability_weight: 100,
         feature_association: {
-          enable_feature: [
+          disable_feature: [
             'BraveWalletPolkadot',
           ],
         },
-      },
-      {
-        name: 'Default',
-        probability_weight: 0,
       },
     ],
     filter: {
       min_version: '148.1.92.*',
       channel: [
-        'NIGHTLY',
+        'DEV',
+        'BETA',
+        'RELEASE',
       ],
       platform: [
         'WINDOWS',
