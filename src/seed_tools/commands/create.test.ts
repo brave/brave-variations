@@ -10,8 +10,8 @@ import * as fs_sync from 'fs';
 import { promises as fs } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import { VariationsSeed } from 'src/proto/generated/variations_seed';
 import { wsPath } from '../../base/path_utils';
+import { VariationsSeed } from '../../proto/generated/variations_seed';
 import create from './create';
 
 // Helper function to compare protobuf with expected json.
