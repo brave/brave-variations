@@ -19,7 +19,7 @@
   "devDependencies": {
     "@commander-js/extra-typings": "14.0.0",
     "@eslint/eslintrc": "3.3.3",
-    "@eslint/js": "9.39",
+    "@eslint/js": "9.39.4",
     "@protobuf-ts/plugin": "2.11.1",
     "@types/node": "25.0.9",
     "@types/react": "19.2.8",
