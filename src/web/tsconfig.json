@@ -2,6 +2,7 @@
   "extends": "../../tsconfig",
   "types": ["browser"],
   "compilerOptions": {
+    "rootDir": "..",
     "outDir": "build"
   },
   "include": ["./**/*"]
