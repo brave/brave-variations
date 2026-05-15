@@ -1,0 +1,29 @@
+[
+  {
+    name: 'BraveWalletPolkadotStudy',
+    experiment: [
+      {
+        name: 'Disabled',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'BraveWalletPolkadot',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '148.1.92.*',
+      channel: [
+        'DEV',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]
