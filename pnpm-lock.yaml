@@ -64,7 +64,7 @@ importers:
         specifier: 7.1.2
         version: 7.1.2(webpack@5.104.1)
       eslint:
-        specifier: '9.39'
+        specifier: 9.39.4
         version: 9.39.4
       eslint-config-prettier:
         specifier: 10.1.8
