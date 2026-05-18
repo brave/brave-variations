@@ -1,0 +1,33 @@
+[
+  {
+    name: 'WebGLBalancedFingerprintingProtection',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'WebGLBalancedFingerprintingProtection',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '148.0.7778.167',
+      channel: [
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
+]
