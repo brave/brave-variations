@@ -26,6 +26,7 @@
       channel: [
         'BETA',
         'NIGHTLY',
+        'RELEASE',
       ],
       platform: [
         'WINDOWS',
@@ -59,6 +60,7 @@
       channel: [
         'BETA',
         'NIGHTLY',
+        'RELEASE',
       ],
       platform: [
         'MAC',
@@ -92,6 +94,7 @@
       channel: [
         'BETA',
         'NIGHTLY',
+        'RELEASE',
       ],
       platform: [
         'LINUX',
@@ -125,6 +128,7 @@
       channel: [
         'BETA',
         'NIGHTLY',
+        'RELEASE',
       ],
       platform: [
         'ANDROID',
