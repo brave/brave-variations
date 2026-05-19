@@ -310,16 +310,20 @@ message Study {
     // be disabled, causing it to select its default group.
     optional int64 end_date = 13;
 
-    // The minimum Chrome version for this study, allowing a trailing '*'
-    // character for pattern matching. Inclusive. (To check for a match, iterate
-    // over each component checking >= until a * or end of string is reached.)
+    // The minimum version for this study, allowing a trailing '*'
+    // character for pattern matching. Inclusive.
+    // The version should follow CHROMIUM_MAJOR.BRAVE_MAJOR.BRAVE_MINOR.BRAVE_BUILD.
+    // (To check for a match, iterate over each component checking >= until
+    // a * or end of string is reached.)
     // Optional - if not specified, there is no minimum version.
     // Ex: "17.0.963.46", "17.0.963.*", "17.*"
     optional string min_version = 2;
 
-    // The maximum Chrome version for this study; same formatting as
-    // |min_version| above. Inclusive. (To check for a match, iterate over each
-    // component checking <= until a * or end of string is reached.)
+    // The maximum version for this study; same formatting as
+    // |min_version| above. Inclusive.
+    // The version should follow CHROMIUM_MAJOR.BRAVE_MAJOR.BRAVE_MINOR.BRAVE_BUILD.
+    // (To check for a match, iterate over each component checking <= until
+    // a * or end of string is reached.)
     // Optional - if not specified, there is no maximum version.
     // Ex: "19.*"
     optional string max_version = 3;
