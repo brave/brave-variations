@@ -53,6 +53,46 @@
     ],
     filter: {
       min_version: '125.*',
+      max_version: '147.*',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'DefaultPassthroughCommandDecoderStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 15,
+        feature_association: {
+          enable_feature: [
+            'DefaultPassthroughCommandDecoder',
+            'GpuPersistentCache',
+          ],
+        },
+        param: [
+          {
+            name: 'BlockListByModel',
+            value: 'SM-I610|SM-I610H|Robin XR',
+          },
+        ],
+      },
+      {
+        name: 'Disabled',
+        probability_weight: 85,
+        feature_association: {
+          disable_feature: [
+            'DefaultPassthroughCommandDecoder',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '148.*',
       channel: [
         'RELEASE',
       ],
