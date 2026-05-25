@@ -20,7 +20,7 @@
       },
       {
         name: 'EnabledB',
-        probability_weight: 16,
+        probability_weight: 50,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
@@ -36,77 +36,11 @@
       },
       {
         name: 'Default',
-        probability_weight: 68,
+        probability_weight: 34,
       },
     ],
     filter: {
       min_version: '146.*',
-      max_version: '146.*',
-      channel: [
-        'RELEASE',
-      ],
-      platform: [
-        'ANDROID',
-      ],
-    },
-  },
-  {
-    name: 'BraveDayZeroStudyAndroid',
-    experiment: [
-      {
-        name: 'EnabledA',
-        probability_weight: 16,
-        feature_association: {
-          enable_feature: [
-            'BraveDayZeroExperiment',
-            'BraveFreshNtpAfterIdleExperiment',
-          ],
-        },
-        param: [
-          {
-            name: 'variant',
-            value: 'A',
-          },
-        ],
-      },
-      {
-        name: 'EnabledB',
-        probability_weight: 16,
-        feature_association: {
-          enable_feature: [
-            'BraveDayZeroExperiment',
-            'BraveFreshNtpAfterIdleExperiment',
-          ],
-        },
-        param: [
-          {
-            name: 'variant',
-            value: 'B',
-          },
-        ],
-      },
-      {
-        name: 'EnabledY',
-        probability_weight: 68,
-        feature_association: {
-          enable_feature: [
-            'BraveDayZeroExperiment',
-          ],
-        },
-        param: [
-          {
-            name: 'variant',
-            value: 'Y',
-          },
-        ],
-      },
-      {
-        name: 'Default',
-        probability_weight: 0,
-      },
-    ],
-    filter: {
-      min_version: '147.*',
       channel: [
         'RELEASE',
       ],
