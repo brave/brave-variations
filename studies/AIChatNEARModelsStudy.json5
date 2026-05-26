@@ -10,6 +10,12 @@
             'AIChatNEARModels',
           ],
         },
+        param: [
+          {
+            name: 'encryption',
+            value: 'true',
+          },
+        ],
       },
       {
         name: 'Default',
