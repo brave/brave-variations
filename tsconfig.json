@@ -4,7 +4,7 @@
     "module": "es2022",
     "target": "es2024",
     "moduleResolution": "bundler",
-    "baseUrl": ".",
+    "rootDir": ".",
     "jsx": "react-jsx",
     "outDir": "build",
     // optional
@@ -12,7 +12,9 @@
     "strict": true,
     // tsx-specific:
     "isolatedModules": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "types": ["node"]
   },
   // This config should cover all files in the project, but exclude all build
   // outputs.

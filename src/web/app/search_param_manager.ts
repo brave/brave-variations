@@ -11,7 +11,7 @@ import { StudyFilter, StudyPriority } from '../../core/study_processor';
 function stringToSeedType(value: string): SeedType | undefined {
   const index = Object.values(SeedType).indexOf(value);
   if (index >= 0) {
-    return index as SeedType;
+    return index;
   }
   return undefined;
 }

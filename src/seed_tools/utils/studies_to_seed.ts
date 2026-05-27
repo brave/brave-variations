@@ -6,7 +6,7 @@
 import { execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import * as path from 'path';
-import { asPosix, wsPath } from 'src/base/path_utils';
+import { asPosix, wsPath } from '../../base/path_utils';
 import {
   Study_ActivationType,
   Study_Consistency,

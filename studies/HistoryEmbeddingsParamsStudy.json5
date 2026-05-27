@@ -1,0 +1,41 @@
+[
+  {
+    name: 'HistoryEmbeddingsParamsStudy',
+    experiment: [
+      {
+        name: 'Tuned',
+        probability_weight: 0,
+        feature_association: {
+          forcing_feature_on: 'HistoryEmbeddings',
+        },
+        param: [
+          {
+            name: 'WordMatchMinEmbeddingScore',
+            value: '0.4',
+          },
+          {
+            name: 'WordMatchRequiredTermRatio',
+            value: '0.8',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 100,
+      },
+    ],
+    filter: {
+      min_version: '147.1.91.110',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]

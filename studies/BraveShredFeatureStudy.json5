@@ -49,7 +49,35 @@
     filter: {
       min_version: '144.1.88.77',
       channel: [
+        'BETA',
         'NIGHTLY',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'BraveShredFeatureStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveShredFeature',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '147.1.89.133',
+      channel: [
+        'RELEASE',
       ],
       platform: [
         'ANDROID',

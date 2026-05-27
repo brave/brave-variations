@@ -1,18 +1,43 @@
 [
   {
-    name: 'AIChatCodeExecutionTool_Nightly',
+    name: 'iOSWalletWebUIStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'AIChatCodeExecutionTool',
+            'BraveWalletWebUIFeature',
+            'BraveWalletCardano',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '146.1.89.116',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'IOS',
+      ],
+    },
+  },
+  {
+    name: 'iOSWalletWebUIStudy_ZcashEnabledWithShielding',
+    experiment: [
+      {
+        name: 'EnabledWithShielding',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveWalletZCash',
           ],
         },
         param: [
           {
-            name: 'charts',
+            name: 'zcash_shielded_transactions_enabled',
             value: 'true',
           },
         ],
@@ -23,69 +48,28 @@
       },
     ],
     filter: {
+      min_version: '146.1.89.116',
       channel: [
         'NIGHTLY',
-      ],
-      platform: [
-        'WINDOWS',
-        'MAC',
-        'LINUX',
-        'ANDROID',
-      ],
-    },
-  },
-  {
-    name: 'AIChatCodeExecutionTool_Beta',
-    experiment: [
-      {
-        name: 'Enabled',
-        probability_weight: 100,
-        feature_association: {
-          enable_feature: [
-            'AIChatCodeExecutionTool',
-          ],
-        },
-        param: [
-          {
-            name: 'charts',
-            value: 'false',
-          },
-        ],
-      },
-      {
-        name: 'Default',
-        probability_weight: 0,
-      },
-    ],
-    filter: {
-      channel: [
         'BETA',
       ],
       platform: [
-        'WINDOWS',
-        'MAC',
-        'LINUX',
-        'ANDROID',
+        'IOS',
       ],
     },
   },
   {
-    name: 'AIChatCodeExecutionTool_Release',
+    name: 'iOSWalletWebUIStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'AIChatCodeExecutionTool',
+            'BraveWalletWebUIFeature',
+            'BraveWalletCardano',
           ],
         },
-        param: [
-          {
-            name: 'charts',
-            value: 'false',
-          },
-        ],
       },
       {
         name: 'Default',
@@ -93,14 +77,45 @@
       },
     ],
     filter: {
+      min_version: '147.1.89.144',
       channel: [
         'RELEASE',
       ],
       platform: [
-        'WINDOWS',
-        'MAC',
-        'LINUX',
-        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
+  {
+    name: 'iOSWalletWebUIStudy_ZcashEnabledWithShielding',
+    experiment: [
+      {
+        name: 'EnabledWithShielding',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'BraveWalletZCash',
+          ],
+        },
+        param: [
+          {
+            name: 'zcash_shielded_transactions_enabled',
+            value: 'true',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '147.1.89.144',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'IOS',
       ],
     },
   },

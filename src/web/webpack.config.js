@@ -6,11 +6,7 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require('path');
 
-function isDevMode(argv) {
-  return process.env.NODE_ENV === 'development' || argv.mode === 'development';
-}
-
-module.exports = (env, argv) => ({
+module.exports = () => ({
   entry: './src/web/app/index.tsx',
   output: {
     path: path.join(__dirname, 'public', 'bundle'),
@@ -51,9 +47,7 @@ module.exports = (env, argv) => ({
         use: [
           {
             loader: require.resolve('ts-loader'),
-            options: {
-              transpileOnly: isDevMode(argv),
-            },
+            options: {},
           },
         ],
         exclude: /node_modules/,

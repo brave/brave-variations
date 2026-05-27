@@ -61,6 +61,7 @@ export const config = {
         'DefaultANGLEVulkan',
         'DefaultPassthroughCommandDecoder',
         'EnableDrDcVulkan',
+        'GpuPersistentCache',
         'Vulkan',
         'VulkanFromANGLE',
         'VulkanV2',

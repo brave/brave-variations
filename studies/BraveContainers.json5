@@ -1,21 +1,24 @@
 [
   {
-    name: 'AdblockOnlyModeStudy',
+    name: 'BraveContainers',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'AdblockOnlyMode',
+            'Containers',
           ],
         },
-        param: [
-          {
-            name: 'prompt_after_shields_disabled_count',
-            value: '3',
-          },
-        ],
+      },
+      {
+        name: 'Disabled',
+        probability_weight: 0,
+        feature_association: {
+          disable_feature: [
+            'Containers',
+          ],
+        },
       },
       {
         name: 'Default',
@@ -23,35 +26,37 @@
       },
     ],
     filter: {
-      min_version: '143.1.86.96',
+      min_version: '147.1.91.38',
       channel: [
-        'BETA',
         'NIGHTLY',
       ],
       platform: [
-        'WINDOWS',
-        'MAC',
         'LINUX',
+        'MAC',
+        'WINDOWS',
       ],
     },
   },
   {
-    name: 'AdblockOnlyModeStudy',
+    name: 'BraveContainers',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'AdblockOnlyMode',
+            'Containers',
           ],
         },
-        param: [
-          {
-            name: 'prompt_after_shields_disabled_count',
-            value: '3',
-          },
-        ],
+      },
+      {
+        name: 'Disabled',
+        probability_weight: 0,
+        feature_association: {
+          disable_feature: [
+            'Containers',
+          ],
+        },
       },
       {
         name: 'Default',
@@ -59,14 +64,14 @@
       },
     ],
     filter: {
-      min_version: '145.1.88.96',
+      min_version: '148.1.91.38',
       channel: [
-        'RELEASE',
+        'BETA',
       ],
       platform: [
-        'WINDOWS',
-        'MAC',
         'LINUX',
+        'MAC',
+        'WINDOWS',
       ],
     },
   },
