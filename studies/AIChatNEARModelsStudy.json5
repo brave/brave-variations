@@ -15,6 +15,10 @@
             name: 'encryption',
             value: 'true',
           },
+          {
+            name: 'encryption_search',
+            value: 'true',
+          },
         ],
       },
       {
