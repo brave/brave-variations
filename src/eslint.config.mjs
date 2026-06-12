@@ -2,27 +2,28 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
-const { FlatCompat } = require('@eslint/eslintrc');
-const js = require('@eslint/js');
-const licenses = require('eslint-plugin-licenses');
-const react = require('eslint-plugin-react');
-const { defineConfig, globalIgnores } = require('eslint/config');
-const globals = require('globals');
+import eslintReact from '@eslint-react/eslint-plugin';
+import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import licenses from 'eslint-plugin-licenses';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
+export default defineConfig([
+  globalIgnores([
+    // Generated files
+    '**/build/',
+    'src/proto/generated/',
+    'src/web/public/bundle/',
+  ]),
 
-module.exports = defineConfig([
   {
     settings: {
       react: {
         version: 'detect',
       },
     },
-
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -31,21 +32,17 @@ module.exports = defineConfig([
 
       parserOptions: {
         project: '../tsconfig.json',
-        tsconfigRootDir: __dirname,
       },
     },
-
-    extends: compat.extends(
-      'eslint:recommended',
-      'plugin:@typescript-eslint/recommended-type-checked',
-      'plugin:@typescript-eslint/stylistic-type-checked',
-      'prettier',
-      'plugin:react/recommended',
-    ),
-
+  },
+  js.configs.recommended,
+  tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
+  eslintConfigPrettier,
+  eslintReact.configs.recommended,
+  {
     plugins: {
       licenses,
-      react,
     },
 
     rules: {
@@ -75,26 +72,14 @@ module.exports = defineConfig([
       ],
     },
   },
-  globalIgnores([
-    '**/build/',
-    'src/proto/generated/',
-    'src/web/public/bundle/',
-  ]),
   {
-    extends: compat.extends('plugin:@typescript-eslint/disable-type-checked'),
-    files: ['**/*.js'],
+    files: ['**/*.js', '**/*.mjs'],
+    ...tseslint.configs.disableTypeChecked,
   },
   {
     files: ['**/*.test.ts'],
-
     rules: {
       '@typescript-eslint/no-floating-promises': 'off',
-    },
-  },
-  {
-    files: ['src/eslint.config.js'],
-    rules: {
-      '@typescript-eslint/no-require-imports': 'off',
     },
   },
 ]);
