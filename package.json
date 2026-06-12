@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@commander-js/extra-typings": "14.0.0",
-    "@eslint-react/eslint-plugin": "^5.8.12",
+    "@eslint-react/eslint-plugin": "5.8.12",
     "@eslint/eslintrc": "3.3.3",
     "@eslint/js": "9.39.4",
     "@protobuf-ts/plugin": "2.11.1",
