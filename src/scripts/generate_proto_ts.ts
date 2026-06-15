@@ -55,8 +55,8 @@ function generateProtobufTs() {
     gitApplyStudyProtoPatch();
     execSync(
       [
-        'npx',
-        '--',
+        'pnpm',
+        'dlx',
         'protoc',
         '--ts_out',
         protoGeneratedDir,
