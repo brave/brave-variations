@@ -45,10 +45,18 @@
     "webpack-cli": "7.0.2",
     "webpack-dev-server": "5.2.4"
   },
-  "engines": {
-    "node": ">=22.0.0"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=10.29.2",
+      "onFail": "error"
+    }
   },
-  "packageManager": "pnpm@10.29.2+sha512.bef43fa759d91fd2da4b319a5a0d13ef7a45bb985a3d7342058470f9d2051a3ba8674e629672654686ef9443ad13a82da2beb9eeb3e0221c87b8154fff9d74b8",
   "type": "commonjs",
   "license": "MPL-2.0",
   "moduleResolution": "node",
@@ -57,7 +65,6 @@
     "json5": "2.2.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-router": "7.15.0",
-    "react-router-dom": "7.12.0"
+    "react-router": "7.15.0"
   }
 }
