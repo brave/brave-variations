@@ -14,7 +14,7 @@
         param: [
           {
             name: 'BlockListByModel',
-            value: 'SM-I610|SM-I610H|Robin XR',
+            value: 'SM-I610|SM-I610H|Robin XR|Android XR Puck|Aura',
           },
         ],
       },
@@ -67,7 +67,7 @@
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 60,
+        probability_weight: 90,
         feature_association: {
           enable_feature: [
             'DefaultPassthroughCommandDecoder',
@@ -77,13 +77,13 @@
         param: [
           {
             name: 'BlockListByModel',
-            value: 'SM-I610|SM-I610H|Robin XR',
+            value: 'SM-I610|SM-I610H|Robin XR|Android XR Puck|Aura',
           },
         ],
       },
       {
         name: 'Disabled',
-        probability_weight: 40,
+        probability_weight: 10,
         feature_association: {
           disable_feature: [
             'DefaultPassthroughCommandDecoder',
