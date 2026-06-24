@@ -18,7 +18,7 @@ A continuous integration server (CI) serializes and signs the updated seed file 
 1. Run `pnpm install` after checking out the repository.
 2. Create or modify a study file in `studies` directory, following the protobuf
    schema in [`src/proto/study.proto`](/src/proto/study.proto).
-3. Run `pnpm seed_tools lint -- --fix` and address found issues.
+3. Run `pnpm seed_tools lint --fix` and address found issues.
 4. Create a Pull Request targeting the `main` branch.
 5. Follow the PR instructions to verify that everything works as intended.
 
