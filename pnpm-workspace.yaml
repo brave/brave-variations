@@ -30,6 +30,10 @@ minimumReleaseAgeExclude:
   - '@esbuild/win32-ia32@0.28.1'
   - '@esbuild/win32-x64@0.28.1'
   - esbuild@0.28.1
+  # Renovate security update: react-router@7.15.1
+  - react-router@7.15.1
+  # Renovate security update: webpack-dev-server@5.2.5
+  - webpack-dev-server@5.2.5
 
 overrides:
   esbuild@<0.28.1: '>=0.28.1'
