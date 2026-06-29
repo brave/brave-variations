@@ -214,7 +214,7 @@ export class StudyDetails {
     }
 
     if (filter.end_date != null) {
-      let endDateSeconds = 0;
+      let endDateSeconds: number;
       if (typeof filter.end_date === 'number') {
         endDateSeconds = filter.end_date;
       } else {
