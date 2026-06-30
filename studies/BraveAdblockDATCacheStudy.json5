@@ -1,13 +1,13 @@
 [
   {
-    name: 'WebGLBalancedFingerprintingProtection',
+    name: 'BraveAdblockDATCacheStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'WebGLBalancedFingerprintingProtection',
+            'AdblockDATCache',
           ],
         },
       },
@@ -17,10 +17,10 @@
       },
     ],
     filter: {
-      min_version: '150.1.93.52',
+      min_version: '148.1.91.162',
       channel: [
-        'NIGHTLY',
         'BETA',
+        'NIGHTLY',
       ],
       platform: [
         'WINDOWS',
