@@ -17,9 +17,10 @@
       },
     ],
     filter: {
-      min_version: '148.1.92.72',
+      min_version: '150.1.93.52',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'WINDOWS',
