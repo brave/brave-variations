@@ -20,6 +20,7 @@
       min_version: '148.1.92.39',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'WINDOWS',

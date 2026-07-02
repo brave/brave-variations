@@ -13,6 +13,7 @@
     // tsx-specific:
     "isolatedModules": true,
     "esModuleInterop": true,
+    "strictNullChecks": true,
 
     "types": ["node"]
   },
