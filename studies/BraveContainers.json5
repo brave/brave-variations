@@ -75,4 +75,48 @@
       ],
     },
   },
+  {
+    name: 'BraveContainers',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'Containers',
+          ],
+        },
+        param: [
+          {
+            name: 'enabled_by_default',
+            value: 'false',
+          },
+        ],
+      },
+      {
+        name: 'Disabled',
+        probability_weight: 75,
+        feature_association: {
+          disable_feature: [
+            'Containers',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '150.1.92.130',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'LINUX',
+        'MAC',
+        'WINDOWS',
+      ],
+    },
+  },
 ]
