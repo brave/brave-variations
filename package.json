@@ -52,7 +52,7 @@
     },
     "packageManager": {
       "name": "pnpm",
-      "version": ">=10.29.2",
+      "version": ">=11.7.0",
       "onFail": "error"
     }
   },
