@@ -42,3 +42,5 @@ overrides:
   postcss@<8.5.10: '>=8.5.10'
   shell-quote@<1.8.4: '>=1.8.4'
   uuid@<14.0.0: '>=14.0.0'
+
+pmOnFail: ignore
