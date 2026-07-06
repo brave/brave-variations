@@ -1,0 +1,61 @@
+[
+  {
+    name: 'PopoverHintNewBehavior',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'PopoverHintNewBehavior',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '150.*',
+      max_version: '152.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'PopoverHintNewBehavior',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 5,
+        feature_association: {
+          disable_feature: [
+            'PopoverHintNewBehavior',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 95,
+      },
+    ],
+    filter: {
+      min_version: '150.*',
+      max_version: '152.*',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]
