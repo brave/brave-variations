@@ -34,6 +34,12 @@ minimumReleaseAgeExclude:
   - react-router@7.15.1
   # Renovate security update: webpack-dev-server@5.2.5
   - webpack-dev-server@5.2.5
+  - qs@6.15.2
+  - brace-expansion@5.0.6
+  - ws@8.21.0
+  - launch-editor@2.14.1
+  - http-proxy-middleware@2.0.10
+  - js-yaml@4.1.2
 
 overrides:
   esbuild@<0.28.1: '>=0.28.1'
