@@ -40,6 +40,7 @@ minimumReleaseAgeExclude:
   - launch-editor@2.14.1
   - http-proxy-middleware@2.0.10
   - js-yaml@4.1.2
+  - websocket-driver@0.7.5
 
 overrides:
   esbuild@<0.28.1: '>=0.28.1'
