@@ -19,6 +19,8 @@
     filter: {
       channel: [
         'NIGHTLY',
+        'BETA',
+        'RELEASE',
       ],
       platform: [
         'WINDOWS',
