@@ -44,7 +44,6 @@ minimumReleaseAgeExclude:
 
 overrides:
   esbuild@<0.28.1: '>=0.28.1'
-  fast-uri@<=3.1.1: '>=3.1.2'
   follow-redirects@<=1.15.11: '>=1.16.0'
   postcss@<8.5.10: '>=8.5.10'
   shell-quote@<1.8.4: '>=1.8.4'
