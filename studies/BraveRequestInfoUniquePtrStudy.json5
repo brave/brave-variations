@@ -20,6 +20,8 @@
       max_version: '151.1.95.13',
       channel: [
         'NIGHTLY',
+        'BETA',
+        'RELEASE',
       ],
       platform: [
         'WINDOWS',
