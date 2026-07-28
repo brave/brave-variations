@@ -1,6 +1,6 @@
 [
   {
-    name: 'AIChatNEARModelsStudy',
+    name: 'AIChatNEARModelsStudy_NightlyBeta',
     experiment: [
       {
         name: 'Enabled',
@@ -29,6 +29,47 @@
     filter: {
       channel: [
         'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'ANDROID',
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+  {
+    name: 'AIChatNEARModelsStudy_Release',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 5,
+        feature_association: {
+          enable_feature: [
+            'AIChatNEARModels',
+          ],
+        },
+        param: [
+          {
+            name: 'encryption',
+            value: 'true',
+          },
+          {
+            name: 'encryption_search',
+            value: 'true',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 95,
+      },
+    ],
+    filter: {
+      min_version: '151.1.93.128',
+      channel: [
+        'RELEASE',
       ],
       platform: [
         'ANDROID',
