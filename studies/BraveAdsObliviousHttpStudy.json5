@@ -37,4 +37,41 @@
       ],
     },
   },
+  {
+    name: 'BraveAdsObliviousHttpStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 10,
+        feature_association: {
+          enable_feature: [
+            'AdsObliviousHttpFeature',
+          ],
+        },
+        param: [
+          {
+            name: 'should_support',
+            value: 'true',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 90,
+      },
+    ],
+    filter: {
+      min_version: '145.1.87.67',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+        'IOS',
+      ],
+    },
+  },
 ]
