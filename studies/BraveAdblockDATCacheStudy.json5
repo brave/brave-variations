@@ -21,6 +21,7 @@
       channel: [
         'BETA',
         'NIGHTLY',
+        'RELEASE'
       ],
       platform: [
         'WINDOWS',
