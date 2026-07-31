@@ -30,4 +30,34 @@
       ],
     },
   },
+  {
+    name: 'BraveAdblockDATCacheStudy',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'AdblockDATCache',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      min_version: '148.1.91.162',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
 ]
