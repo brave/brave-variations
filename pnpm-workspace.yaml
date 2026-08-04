@@ -2,7 +2,7 @@ allowBuilds:
   esbuild: false
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - fast-uri@3.1.2
+  - fast-uri@3.1.2 || 3.1.5
   - '@esbuild/aix-ppc64@0.28.1'
   - '@esbuild/android-arm64@0.28.1'
   - '@esbuild/android-arm@0.28.1'
@@ -35,12 +35,14 @@ minimumReleaseAgeExclude:
   # Renovate security update: webpack-dev-server@5.2.5 || 5.2.6
   - webpack-dev-server@5.2.5 || 5.2.6
   - qs@6.15.2
-  - brace-expansion@5.0.6
+  - brace-expansion@1.1.16 || 1.1.17 || 1.1.18 || 5.0.6 || 5.0.8 || 5.0.9
   - ws@8.21.0
   - launch-editor@2.14.1
   - http-proxy-middleware@2.0.10
   - js-yaml@4.1.2
   - websocket-driver@0.7.5
+  - shell-quote@1.8.5
+  - postcss@8.5.18
 
 overrides:
   esbuild@<0.28.1: '>=0.28.1'
