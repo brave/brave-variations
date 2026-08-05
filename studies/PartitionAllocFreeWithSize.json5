@@ -4,7 +4,7 @@
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 20,
+        probability_weight: 50,
         feature_association: {
           enable_feature: [
             'PartitionAllocFreeWithSize',
@@ -13,7 +13,7 @@
       },
       {
         name: 'Disabled',
-        probability_weight: 80,
+        probability_weight: 50,
         feature_association: {
           disable_feature: [
             'PartitionAllocFreeWithSize',
