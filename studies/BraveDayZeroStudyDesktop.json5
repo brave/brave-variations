@@ -1,0 +1,56 @@
+[
+  {
+    name: 'BraveDayZeroStudyDesktop',
+    experiment: [
+      {
+        name: 'EnabledX',
+        probability_weight: 3,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+            'ShowAIChatInputOnNewTabPage',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'X',
+          },
+          {
+            name: 'day_zero',
+            value: 'true',
+          },
+        ],
+      },
+      {
+        name: 'EnabledY',
+        probability_weight: 3,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+            'SearchNewTabV1Source',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'Y',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 94,
+      },
+    ],
+    filter: {
+      min_version: '151.1.93.134',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+      ],
+    },
+  },
+]
