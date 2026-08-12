@@ -7,6 +7,7 @@
     "build:proto": "tsx src/scripts/generate_proto_ts.ts",
     "build:web": "webpack -c src/web/webpack.config.js --mode=production",
     "clean": "tsx src/scripts/clean.ts",
+    "find_outdated_studies": "tsx src/scripts/find_outdated_studies.ts",
     "lint": "tsx src/scripts/lint.ts",
     "postinstall": "pnpm typecheck:scripts && pnpm build:proto",
     "seed_tools": "tsx src/seed_tools/seed_tools.ts",
