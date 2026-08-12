@@ -1,11 +1,11 @@
 name: Report outdated studies
 
 on:
-  schedule:
-    # Enable when the majority of studies have max_version set.
-    # Also update the channel ID in the Slack action.
-    # Weekly on Monday at 14:00 UTC.
-    # - cron: '0 14 * * 1'
+  # Enable when the majority of studies have max_version set.
+  # Also update the channel ID in the Slack action.
+  # schedule:
+  #  # Weekly on Monday at 14:00 UTC.
+  #  - cron: '0 14 * * 1'
   workflow_dispatch:
 
 permissions:
