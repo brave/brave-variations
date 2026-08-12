@@ -4,7 +4,7 @@
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 100,
+        probability_weight: 33,
         feature_association: {
           enable_feature: [
             'BraveSearchBackupResults',
@@ -47,7 +47,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 0,
+        probability_weight: 67,
       },
     ],
     filter: {
