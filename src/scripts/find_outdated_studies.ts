@@ -89,7 +89,6 @@ async function findOutdatedStudies(
   const outdated: OutdatedStudy[] = [];
 
   for (const file of files) {
-    console.log('processing file:', file);
     const filePath = path.join(studiesDir, file);
     const content = await fs.promises.readFile(filePath, 'utf8');
     const { studies, errors } = parseStudyFile(filePath, content);
