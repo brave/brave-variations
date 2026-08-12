@@ -22,6 +22,7 @@
       },
     ],
     filter: {
+      max_version: '151.*',
       channel: [
         'NIGHTLY',
         'BETA',
