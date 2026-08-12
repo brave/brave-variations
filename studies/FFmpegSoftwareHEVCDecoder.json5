@@ -1,0 +1,40 @@
+[
+  {
+    name: 'FFmpegSoftwareHEVCDecoder',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 0,
+        feature_association: {
+          enable_feature: [
+            'FFmpegSoftwareHEVCDecoder',
+          ],
+        },
+      },
+      {
+        name: 'Disabled',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'FFmpegSoftwareHEVCDecoder',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '149.1.93.34',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'LINUX',
+      ],
+    },
+  },
+]
