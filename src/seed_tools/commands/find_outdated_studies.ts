@@ -3,48 +3,47 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import { program } from '@commander-js/extra-typings';
+import { Command } from '@commander-js/extra-typings';
 import { execFileSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
-import { asPosix } from '../base/path_utils';
-import { parseStudyFile } from '../seed_tools/utils/study_json_utils';
+import { asPosix } from '../../base/path_utils';
+import { parseStudyFile } from '../utils/study_json_utils';
 
 const REPO_BLOB_BASE = 'https://github.com/brave/brave-variations/blob/main/';
 
-program
-  .description(
-    'Find outdated studies: no max_version set and last modified 3+ months ago.',
-  )
-  .argument(
-    '[studies_dir]',
-    'path to the directory containing study files',
-    'studies',
-  )
-  .option(
-    '-m, --months <months>',
-    'minimum months since last modification',
-    (value) => {
-      const months = Number.parseInt(value, 10);
-      if (!Number.isFinite(months) || months < 0) {
-        throw new Error(`Invalid --months value: ${value}`);
-      }
-      return months;
-    },
-    3,
-  )
-  .option(
-    '-o, --output <file>',
-    'write Slack mrkdwn JSON payload to the given file',
-  )
-  .option('--channel <channel>', 'Slack channel to send the payload to')
-  .action(main)
-  .parse();
+export default function createCommand() {
+  return new Command('find_outdated_studies')
+    .description(
+      'Find outdated studies: no max_version set and last modified N+ months ago.',
+    )
+    .argument(
+      '[studies_dir]',
+      'path to the directory containing study files',
+      'studies',
+    )
+    .option(
+      '-m, --months <months>',
+      'minimum months since last modification',
+      (value) => {
+        const months = Number.parseInt(value, 10);
+        if (!Number.isFinite(months) || months < 0) {
+          throw new Error(`Invalid --months value: ${value}`);
+        }
+        return months;
+      },
+      3,
+    )
+    .option(
+      '-o, --output <file>',
+      'write Slack mrkdwn JSON payload to the given file',
+    )
+    .action(main);
+}
 
 interface Options {
   months: number;
   output?: string;
-  channel?: string;
 }
 
 interface OutdatedStudy {
@@ -61,12 +60,9 @@ async function main(studiesDir: string, options: Options) {
       a.date.getTime() - b.date.getTime() || a.name.localeCompare(b.name),
   );
 
-  if (options.output !== undefined && options.channel !== undefined) {
+  if (options.output !== undefined) {
     if (outdated.length > 0) {
-      fs.writeFileSync(
-        options.output,
-        toSlackPayload(outdated, options.channel),
-      );
+      fs.writeFileSync(options.output, toSlackPayload(outdated));
     }
     return;
   }
@@ -133,7 +129,7 @@ function getLastCommit(filePath: string): {
   return { commit, date: new Date(date) };
 }
 
-function findPrAuthor(commit?: string): string {
+function findPrAuthor(commit: string): string {
   if (!commit) {
     return 'unknown';
   }
@@ -179,7 +175,7 @@ function formatDate(date: Date): string {
   });
 }
 
-function toSlackPayload(studies: OutdatedStudy[], channel: string): string {
+function toSlackPayload(studies: OutdatedStudy[]): string {
   const blocks = [
     {
       type: 'header',
@@ -200,10 +196,7 @@ function toSlackPayload(studies: OutdatedStudy[], channel: string): string {
   ];
 
   return (
-    JSON.stringify(
-      { channel, text: 'Outdated studies detected', blocks },
-      null,
-      2,
-    ) + '\n'
+    JSON.stringify({ text: 'Outdated studies detected', blocks }, null, 2) +
+    '\n'
   );
 }

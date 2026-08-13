@@ -38,7 +38,7 @@ jobs:
       - name: Find outdated studies
         env:
           GH_TOKEN: ${{ github.token }}
-        run: pnpm find_outdated_studies --output outdated-studies-slack.json
+        run: pnpm seed_tools find_outdated_studies --output outdated-studies-slack.json
 
       - name: Post to Slack
         if: hashFiles('outdated-studies-slack.json') != ''
