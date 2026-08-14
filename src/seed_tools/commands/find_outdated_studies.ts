@@ -89,8 +89,8 @@ async function findOutdatedStudies(
     const content = await fs.promises.readFile(filePath, 'utf8');
     const { studies, errors } = parseStudyFile(filePath, content);
     if (errors.length > 0) {
-      console.error(`Skipping ${filePath}:\n${errors.join('\n')}`);
-      continue;
+      console.error(`Error parsing ${filePath}:\n${errors.join('\n')}`);
+      process.exit(1);
     }
 
     if (studies.every((study) => study.filter?.max_version)) {
@@ -123,7 +123,8 @@ function getLastCommit(filePath: string): {
     { encoding: 'utf8' },
   ).trim();
   if (!output) {
-    return { commit: '', date: fs.statSync(filePath).mtime };
+    console.error(`Failed to get last commit for ${filePath}`);
+    process.exit(1);
   }
   const [commit, date] = output.split('\n');
   return { commit, date: new Date(date) };
@@ -162,7 +163,7 @@ function findPrAuthor(commit: string): string {
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e);
     console.error(`Failed to look up PR for ${commit}: ${message}`);
-    return 'unknown';
+    process.exit(1);
   }
 }
 
