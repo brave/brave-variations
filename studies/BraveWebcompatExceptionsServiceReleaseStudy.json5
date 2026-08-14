@@ -18,6 +18,7 @@
     ],
     filter: {
       min_version: '128.1.69.150',
+      max_version: '151.1.95.71',
       channel: [
         'RELEASE',
       ],
