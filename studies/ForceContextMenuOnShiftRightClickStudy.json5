@@ -20,7 +20,6 @@
       min_version: '147.1.89.137',
       max_version: '149.*',
       channel: [
-        'RELEASE',
         'BETA',
         'NIGHTLY',
       ],
