@@ -17,6 +17,7 @@
       },
     ],
     filter: {
+      max_version: '151.*',
       channel: [
         'RELEASE',
       ],
