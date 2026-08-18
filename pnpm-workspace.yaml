@@ -39,7 +39,7 @@ minimumReleaseAgeExclude:
   - ws@8.21.0
   - launch-editor@2.14.1
   - http-proxy-middleware@2.0.10
-  - js-yaml@4.1.2
+  - js-yaml@4.3.1
   - websocket-driver@0.7.5
   - shell-quote@1.8.5
   - postcss@8.5.18
