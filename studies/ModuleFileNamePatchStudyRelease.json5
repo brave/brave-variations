@@ -4,20 +4,17 @@
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 50,
+        probability_weight: 100,
         feature_association: {
           enable_feature: [
             'ModuleFileNamePatch',
           ],
         },
       },
-      {
-        name: 'Default',
-        probability_weight: 50,
-      },
     ],
     filter: {
       min_version: '112.1.51.89',
+      max_version: '153.*',
       channel: [
         'RELEASE',
       ],
