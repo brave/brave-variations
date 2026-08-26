@@ -18,6 +18,7 @@
     ],
     filter: {
       min_version: '134.1.77.83',
+      max_version: '152.*',
       channel: [
         'NIGHTLY',
         'BETA',
@@ -49,6 +50,7 @@
     ],
     filter: {
       min_version: '134.1.77.83',
+      max_version: '152.*',
       channel: [
         'RELEASE',
       ],
