@@ -1,13 +1,13 @@
 [
   {
-    name: 'ModuleFileNamePatchStudy',
+    name: 'BraveWalletPolkadotStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'ModuleFileNamePatch',
+            'BraveWalletPolkadot',
           ],
         },
       },
@@ -17,14 +17,15 @@
       },
     ],
     filter: {
-      min_version: '112.1.51.89',
-      max_version: '153.*',
+      min_version: '152.1.94.*',
       channel: [
         'NIGHTLY',
         'BETA',
       ],
       platform: [
         'WINDOWS',
+        'MAC',
+        'LINUX',
       ],
     },
   },
