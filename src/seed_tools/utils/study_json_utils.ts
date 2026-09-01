@@ -12,6 +12,12 @@ export interface Options {
   isChromium?: boolean;
 }
 
+// Extracts the leading `// ! ...` comments from the study file content.
+export function extractStudyFileHeader(content: string): string {
+  const STUDY_FILE_HEADER_PATTERN = /^(?:\/\/ !.*\n)+/;
+  return STUDY_FILE_HEADER_PATTERN.exec(content)?.[0] ?? '';
+}
+
 export function parseStudyFile(
   studyFilePath: string,
   studyFileContent: string,
@@ -84,6 +90,16 @@ export function stringifyStudies(studies: Study[], options?: Options): string {
   return (
     JSON5.stringify(jsonStudies, jsonStudyReplacer.bind(null, options), 2) +
     '\n'
+  );
+}
+
+export function stringifyStudyFile(
+  studies: Study[],
+  originalContent: string,
+  options?: Options,
+): string {
+  return (
+    extractStudyFileHeader(originalContent) + stringifyStudies(studies, options)
   );
 }
 
