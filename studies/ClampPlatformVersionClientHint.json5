@@ -14,6 +14,7 @@
     ],
     filter: {
       min_version: '114.1.52.78',
+      max_version: '151.*',
       channel: [
         'RELEASE',
         'BETA',
