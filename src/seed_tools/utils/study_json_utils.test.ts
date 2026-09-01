@@ -14,6 +14,7 @@ import {
 import {
   extractStudyFileHeader,
   parseStudies,
+  parseStudyFileHeader,
   stringifyStudies,
   stringifyStudyFile,
 } from './study_json_utils';
@@ -327,11 +328,23 @@ describe('study file header', () => {
     );
   });
 
-  it('stringifyStudyFile preserves the header', () => {
+  it('Header with Expire date', () => {
     const original = `// !Expire date: 2026-01-01\n// !Some\n[{name:'study'}]\n`;
+    assert.deepStrictEqual(
+      parseStudyFileHeader(`// !Expire date: 2026-01-01\n${formattedBody}`),
+      { expireDate: new Date('2026-01-01') },
+    );
     assert.strictEqual(
       stringifyStudyFile(parseStudies(original), original),
       `// !Expire date: 2026-01-01\n// !Some\n${formattedBody}`,
+    );
+  });
+
+  it('rejects an invalid Expire date', () => {
+    assert.throws(
+      () =>
+        parseStudyFileHeader(`// !Expire date: 20-031-01\n${formattedBody}`),
+      /Invalid Expire date value "20-031-01"/,
     );
   });
 });
