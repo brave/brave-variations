@@ -11,7 +11,13 @@ import {
   Study_Channel,
   Study_Platform,
 } from '../../proto/generated/study';
-import { parseStudies, stringifyStudies } from './study_json_utils';
+import {
+  extractStudyFileHeader,
+  parseStudies,
+  parseStudyFileHeader,
+  stringifyStudies,
+  stringifyStudyFile,
+} from './study_json_utils';
 
 describe('stringifyStudies', () => {
   it('should convert start_date and end_date to ISO string', () => {
@@ -299,5 +305,46 @@ describe('parseStudies', () => {
       Study_Channel.BETA,
       Study_Channel.STABLE,
     ]);
+  });
+});
+
+describe('study file header', () => {
+  const study = Study.fromJson(
+    { name: 'study' },
+    { ignoreUnknownFields: false },
+  );
+  const formattedBody = stringifyStudies([study]);
+
+  it('extracts leading // ! comments', () => {
+    assert.strictEqual(
+      extractStudyFileHeader(`// ! Deprecated\n${formattedBody}`),
+      '// ! Deprecated\n',
+    );
+    assert.strictEqual(
+      extractStudyFileHeader(
+        `// ! Deprecated\n// ! See issue 1\n${formattedBody}`,
+      ),
+      '// ! Deprecated\n// ! See issue 1\n',
+    );
+  });
+
+  it('Header with Expiry Date', () => {
+    const original = `// !Expiry Date: 2026-01-01\n// !Some\n[{name:'study'}]\n`;
+    assert.deepStrictEqual(
+      parseStudyFileHeader(`// !Expiry Date: 2026-01-01\n${formattedBody}`),
+      { expiryDate: new Date('2026-01-01') },
+    );
+    assert.strictEqual(
+      stringifyStudyFile(parseStudies(original), original),
+      `// !Expiry Date: 2026-01-01\n// !Some\n${formattedBody}`,
+    );
+  });
+
+  it('rejects an invalid Expiry Date', () => {
+    assert.throws(
+      () =>
+        parseStudyFileHeader(`// !Expiry Date: 20-031-01\n${formattedBody}`),
+      /Invalid Expiry Date value "20-031-01"/,
+    );
   });
 });
