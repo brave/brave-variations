@@ -328,23 +328,23 @@ describe('study file header', () => {
     );
   });
 
-  it('Header with Expire date', () => {
-    const original = `// !Expire date: 2026-01-01\n// !Some\n[{name:'study'}]\n`;
+  it('Header with Expiry Date', () => {
+    const original = `// !Expiry Date: 2026-01-01\n// !Some\n[{name:'study'}]\n`;
     assert.deepStrictEqual(
-      parseStudyFileHeader(`// !Expire date: 2026-01-01\n${formattedBody}`),
-      { expireDate: new Date('2026-01-01') },
+      parseStudyFileHeader(`// !Expiry Date: 2026-01-01\n${formattedBody}`),
+      { expiryDate: new Date('2026-01-01') },
     );
     assert.strictEqual(
       stringifyStudyFile(parseStudies(original), original),
-      `// !Expire date: 2026-01-01\n// !Some\n${formattedBody}`,
+      `// !Expiry Date: 2026-01-01\n// !Some\n${formattedBody}`,
     );
   });
 
-  it('rejects an invalid Expire date', () => {
+  it('rejects an invalid Expiry Date', () => {
     assert.throws(
       () =>
-        parseStudyFileHeader(`// !Expire date: 20-031-01\n${formattedBody}`),
-      /Invalid Expire date value "20-031-01"/,
+        parseStudyFileHeader(`// !Expiry Date: 20-031-01\n${formattedBody}`),
+      /Invalid Expiry Date value "20-031-01"/,
     );
   });
 });

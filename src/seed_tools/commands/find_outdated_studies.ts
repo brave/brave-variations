@@ -16,7 +16,7 @@ export default function createCommand() {
   return new Command('find_outdated_studies')
     .description(
       'Find outdated studies: no max_version set and last modified N+ months ago. ' +
-        '// !Expire date: <ISO-8601> overrides the last-modified cutoff.',
+        '// !Expiry Date: <ISO-8601> overrides the last-modified cutoff.',
     )
     .argument(
       '[studies_dir]',
@@ -88,7 +88,7 @@ async function findOutdatedStudies(
   for (const file of files) {
     const filePath = path.join(studiesDir, file);
     const content = await fs.promises.readFile(filePath, 'utf8');
-    const { studies, errors, expireDate } = parseStudyFile(filePath, content);
+    const { studies, errors, expiryDate } = parseStudyFile(filePath, content);
     if (errors.length > 0) {
       console.error(`Error parsing ${filePath}:\n${errors.join('\n')}`);
       process.exit(1);
@@ -99,7 +99,7 @@ async function findOutdatedStudies(
     }
 
     const { commit, date } = getLastCommit(filePath);
-    if (isWithinReviewWindow(date, cutoff, expireDate)) {
+    if (isWithinReviewWindow(date, cutoff, expiryDate)) {
       continue;
     }
 
@@ -115,16 +115,16 @@ async function findOutdatedStudies(
 }
 
 // Last-modified on/after cutoff means the study is still in the review window.
-// `expireDate` overrides that: the study stays in the window until that
+// `expiryDate` overrides that: the study stays in the window until that
 // timestamp, then is reported regardless of last-modified.
 export function isWithinReviewWindow(
   lastModified: Date,
   cutoff: Date,
-  expireDate: Date | undefined,
+  expiryDate: Date | undefined,
   now = new Date(),
 ): boolean {
-  if (expireDate !== undefined) {
-    return expireDate >= now;
+  if (expiryDate !== undefined) {
+    return expiryDate >= now;
   }
   return lastModified >= cutoff;
 }

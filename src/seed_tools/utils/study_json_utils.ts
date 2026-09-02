@@ -19,21 +19,21 @@ export function extractStudyFileHeader(content: string): string {
 }
 
 export function parseStudyFileHeader(content: string): {
-  expireDate?: Date;
+  expiryDate?: Date;
 } {
   const header = extractStudyFileHeader(content);
-  let expireDate: Date | undefined = undefined;
+  let expiryDate: Date | undefined = undefined;
   for (const line of header.split('\n')) {
-    const EXPIRE_DATE_PREFIX = '// !Expire date:';
-    if (line.startsWith(EXPIRE_DATE_PREFIX)) {
-      const value = line.slice(EXPIRE_DATE_PREFIX.length).trim();
-      expireDate = new Date(value);
-      if (Number.isNaN(expireDate.getTime())) {
-        throw new Error(`Invalid Expire date value "${value}"`);
+    const EXPIRY_DATE_PREFIX = '// !Expiry Date:';
+    if (line.startsWith(EXPIRY_DATE_PREFIX)) {
+      const value = line.slice(EXPIRY_DATE_PREFIX.length).trim();
+      expiryDate = new Date(value);
+      if (Number.isNaN(expiryDate.getTime())) {
+        throw new Error(`Invalid Expiry Date value "${value}"`);
       }
     }
   }
-  return { expireDate };
+  return { expiryDate };
 }
 
 export function parseStudyFile(
@@ -43,13 +43,13 @@ export function parseStudyFile(
 ): {
   studies: Study[];
   errors: string[];
-  expireDate?: Date;
+  expiryDate?: Date;
 } {
   let studies: Study[] = [];
   try {
-    const { expireDate } = parseStudyFileHeader(studyFileContent);
+    const { expiryDate } = parseStudyFileHeader(studyFileContent);
     studies = parseStudies(studyFileContent, options);
-    return { studies, errors: [], expireDate };
+    return { studies, errors: [], expiryDate };
   } catch (e) {
     if (e instanceof Error) {
       e.message += ` (${studyFilePath})`;
