@@ -24,6 +24,7 @@
     ],
     filter: {
       min_version: '139.1.81.129',
+      max_version: '152.*',
       channel: [
         'RELEASE',
         'NIGHTLY',
