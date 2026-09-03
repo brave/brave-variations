@@ -10,51 +10,13 @@ import { StudyListModel, StudyModel } from './study_model';
 
 import * as url_utils from '../../core/url_utils';
 
-const getCurrentMajorVersion = new Promise<number>((resolve) => {
-  loadFile(url_utils.getUsedChromiumVersionUrl, 'text')
-    .then((chromeVersionData) => {
-      if (chromeVersionData !== undefined)
-        resolve(chromeVersionData.split('.')[0] ?? 0);
-      resolve(0);
-    })
-    .catch(() => {
-      resolve(0);
-    });
-});
-
-async function loadFile(
-  url: string,
-  responseType: 'arraybuffer' | 'text',
-): Promise<any> {
-  return await new Promise<any>((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true /* async */);
-    xhr.responseType = responseType;
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        resolve(xhr.response);
-      } else {
-        reject(new Error('HTTP status:' + xhr.status));
-      }
-    };
-    xhr.onerror = () => {
-      reject(new Error('XHR error'));
-    };
-    xhr.send(null);
-  });
-}
-
 async function loadSeedFromUrl(url: string, type: SeedType) {
-  const data = await loadFile(url, 'arraybuffer');
+  const data = await (await fetch(url)).arrayBuffer();
   const seedBytes = new Uint8Array(data);
   const seed = VariationsSeed.fromBinary(seedBytes);
   const isBraveSeed = type !== SeedType.UPSTREAM;
 
-  // Desktop/Android could use a different major chrome version.
-  // Use -1 version for Brave studies to make sure that we don't cut
-  // anything important.
-  const minMajorVersion =
-    (await getCurrentMajorVersion) - (isBraveSeed ? 1 : 0);
+  const minMajorVersion = await url_utils.GetChromiumVersionForBraveStable();
   const options: ProcessingOptions = { minMajorVersion, isBraveSeed };
   const studies: StudyModel[] = [];
   seed.study.forEach((study, index) => {

@@ -16,17 +16,17 @@ import {
 import { Study } from '../proto/generated/study';
 import { VariationsSeed } from '../proto/generated/variations_seed';
 import { writeStudyFile } from '../seed_tools/utils/study_json_utils';
-import { downloadUrl, getSeedPath, getStudyPath } from './node_utils';
+import { getSeedPath, getStudyPath } from './node_utils';
 
-export async function fetchChromeSeedData(): Promise<Buffer> {
+export async function fetchChromeSeedData(): Promise<ArrayBuffer> {
   const kChromeSeedUrl =
     'https://clientservices.googleapis.com/chrome-variations/seed';
-  return await downloadUrl(kChromeSeedUrl);
+  return await (await fetch(kChromeSeedUrl)).arrayBuffer();
 }
 
 // Groups studies by name and priority.
 export function groupStudies(
-  seedData: Buffer,
+  seedData: Uint8Array,
   options: ProcessingOptions,
 ): Record<string, Study[]> {
   const map: Record<string, Study[]> = {};
@@ -77,7 +77,7 @@ export function commitAllChanges(directory: string): string | undefined {
 // Processes and serializes a given seed to disk (including grouping to
 // subdirectories/files).
 export async function storeDataToDirectory(
-  seedData: Buffer,
+  seedData: Uint8Array,
   directory: string,
   options: ProcessingOptions,
 ): Promise<void> {
