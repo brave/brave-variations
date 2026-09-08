@@ -38,11 +38,11 @@
     "style-loader": "4.0.0",
     "ts-loader": "9.5.4",
     "tsx": "4.21.0",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "typescript-eslint": "8.59.2",
     "webpack": "5.104.1",
     "webpack-cli": "7.0.2",
-    "webpack-dev-server": "5.2.6"
+    "webpack-dev-server": "6.0.0"
   },
   "devEngines": {
     "runtime": {
