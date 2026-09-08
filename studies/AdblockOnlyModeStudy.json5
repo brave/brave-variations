@@ -24,6 +24,7 @@
     ],
     filter: {
       min_version: '143.1.86.96',
+      max_version: '154.1.96.25',
       channel: [
         'BETA',
         'NIGHTLY',
@@ -60,6 +61,7 @@
     ],
     filter: {
       min_version: '145.1.88.96',
+      max_version: '154.1.96.26',
       channel: [
         'RELEASE',
       ],
