@@ -20,6 +20,7 @@
       min_version: '151.1.95.57',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'ANDROID',
