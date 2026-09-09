@@ -17,7 +17,7 @@
       },
     ],
     filter: {
-      min_version: '151.1.95.57',
+      min_version: '153.1.96.48',
       channel: [
         'NIGHTLY',
         'BETA',
