@@ -41,6 +41,7 @@
     ],
     filter: {
       min_version: '146.*',
+      max_version: '153.*',
       channel: [
         'RELEASE',
       ],
