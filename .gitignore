@@ -6,3 +6,4 @@
 seed.bin
 serialnumber
 *.json.failed
+.DS_Store
