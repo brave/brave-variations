@@ -9,7 +9,7 @@ import { StudyPriority } from '../core/study_processor';
 import { makeSummary, summaryToJson } from '../core/summary';
 import * as url_utils from '../core/url_utils';
 import { VariationsSeed } from '../proto/generated/variations_seed';
-import { downloadUrl, getSeedPath } from './node_utils';
+import { getSeedPath } from './node_utils';
 import {
   commitAllChanges,
   fetchChromeSeedData,
@@ -35,7 +35,7 @@ async function main(): Promise<void> {
       '-m, --chrome-major <number>',
       'Override the current stable major chrome version.' +
         'By default the version is taken from the backend' +
-        '(see getUsedChromiumVersionUrl)',
+        '(see url_utils.GetChromiumVersionForBraveStable)',
       parseInt,
     )
     .option('--no-update', "Don't make any disk changes")
@@ -51,21 +51,7 @@ async function main(): Promise<void> {
   const previousSeedFile = program.args[2];
   let minMajorVersion = program.opts().chromeMajor;
 
-  if (minMajorVersion === undefined) {
-    const chromiumVersionData = await downloadUrl(
-      url_utils.getUsedChromiumVersionUrl,
-    );
-    const chromiumVersionString = chromiumVersionData?.toString().split('.')[0];
-    if (chromiumVersionString === undefined) {
-      program.error(
-        'Failed to get the Chromium version from ' +
-          url_utils.getUsedChromiumVersionUrl,
-      );
-      return;
-    }
-    console.log('Got Chromium version', chromiumVersionString);
-    minMajorVersion = parseInt(chromiumVersionString);
-  }
+  minMajorVersion ??= await url_utils.GetChromiumVersionForBraveStable();
 
   const options: ProcessingOptions = {
     minMajorVersion,
@@ -82,10 +68,11 @@ async function main(): Promise<void> {
     return;
   }
 
-  const seedData =
+  const seedData = new Uint8Array(
     seedFile !== undefined
       ? fs.readFileSync(seedFile)
-      : await fetchChromeSeedData();
+      : await fetchChromeSeedData(),
+  );
   const seed = VariationsSeed.fromBinary(seedData);
   let previousSeedData: Buffer | undefined;
   let newGitSha1: string | undefined;

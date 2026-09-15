@@ -1,37 +1,42 @@
 [
   {
-    name: 'AndroidBottomToolbar_Beta_Nigtly',
+    name: 'BraveWalletPolkadotStudy',
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 100,
+        probability_weight: 25,
         feature_association: {
           enable_feature: [
-            'AndroidBottomToolbar',
+            'BraveWalletPolkadot',
           ],
         },
       },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
     ],
     filter: {
-      min_version: '139.*',
+      min_version: '152.1.94.*',
       channel: [
-        'NIGHTLY',
-        'BETA',
+        'RELEASE',
       ],
       platform: [
-        'ANDROID',
+        'WINDOWS',
+        'MAC',
+        'LINUX',
       ],
     },
   },
   {
-    name: 'AndroidBottomToolbar_Release',
+    name: 'BraveWalletPolkadotStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'AndroidBottomToolbar',
+            'BraveWalletPolkadot',
           ],
         },
       },
@@ -41,12 +46,15 @@
       },
     ],
     filter: {
-      min_version: '139.*',
+      min_version: '152.1.94.*',
       channel: [
-        'RELEASE',
+        'NIGHTLY',
+        'BETA',
       ],
       platform: [
-        'ANDROID',
+        'WINDOWS',
+        'MAC',
+        'LINUX',
       ],
     },
   },

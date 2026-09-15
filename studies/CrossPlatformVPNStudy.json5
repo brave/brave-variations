@@ -19,6 +19,7 @@
     ],
     filter: {
       min_version: '110.1.49.120',
+      max_version: '152.*',
       channel: [
         'NIGHTLY',
         'BETA',

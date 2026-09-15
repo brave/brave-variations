@@ -9,11 +9,6 @@ export const variationsMainUrl = 'https://variations.brave.com/seed';
 export const variationsUpstreamUrl =
   'https://griffin.brave.com/finch-data-private/seed.bin';
 
-// The API is used to detect the current Chromium major version (i.e. cr117).
-// windows-x64 is used just because it's the lagest desktop.
-export const getUsedChromiumVersionUrl =
-  'https://versions.brave.com/latest/release-windows-x64-chromium.version';
-
 function makeSourceGraphUrl(query: string, repo: string, file: string) {
   return (
     `https://sourcegraph.com/search?q=context:global` +
@@ -61,4 +56,27 @@ export function getStudyRawConfigUrl(
 // Returns a link to see the study config at griffin.brave.com.
 export function getGriffinUiUrl(study: string): string {
   return `https://griffin.brave.com/?seed=UPSTREAM&search=${study}`;
+}
+
+let chromiumVersionForBraveStablePromise: Promise<number> | undefined;
+
+// The API is used to detect the current Chromium major version (i.e. cr117).
+export async function GetChromiumVersionForBraveStable(): Promise<number> {
+  return (chromiumVersionForBraveStablePromise ??= (async () => {
+    const getVersion = async (url: string) => {
+      const response = await fetch(url, { cache: 'no-store' });
+      const text = await response.text();
+      return parseInt(text.split('.')[0]);
+    };
+
+    const [windows_version, android_version] = await Promise.all([
+      getVersion(
+        'https://versions.brave.com/latest/release-windows-x64-chromium.version',
+      ),
+      getVersion(
+        'https://versions.brave.com/latest/release-android-chromium.version',
+      ),
+    ]);
+    return Math.min(windows_version, android_version);
+  })());
 }

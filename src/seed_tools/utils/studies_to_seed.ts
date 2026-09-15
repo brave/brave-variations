@@ -167,7 +167,10 @@ async function checkAndOptionallyFixFormat(
   fix: boolean,
 ): Promise<string[]> {
   const errors: string[] = [];
-  const stringifiedStudies = study_json_utils.stringifyStudies(studies);
+  const stringifiedStudies = study_json_utils.stringifyStudyFile(
+    studies,
+    studyArrayString,
+  );
   if (stringifiedStudies !== studyArrayString) {
     if (fix) {
       await fs.writeFile(studyFilePath, stringifiedStudies);

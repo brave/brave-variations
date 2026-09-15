@@ -56,6 +56,7 @@
       "onFail": "error"
     }
   },
+  "packageManager": "pnpm@11.9.0+sha256.2b567aa66026238078ac2e0a33bec3febd60e962987aac697456f3180819b287",
   "type": "commonjs",
   "license": "MPL-2.0",
   "moduleResolution": "node",

@@ -24,6 +24,16 @@
       "schedule": [
         "before 6am on tuesday"
       ]
+    },
+    {
+      "groupName": "pnpm",
+      "matchPackageNames": [
+        "pnpm",
+        "pnpm/action-setup"
+      ],
+      "schedule": [
+        "before 6am on tuesday"
+      ]
     }
   ],
   "schedule": [

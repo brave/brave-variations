@@ -12,6 +12,30 @@ export interface Options {
   isChromium?: boolean;
 }
 
+// Extracts the leading `// ! ...` comments from the study file content.
+export function extractStudyFileHeader(content: string): string {
+  const STUDY_FILE_HEADER_PATTERN = /^(?:\/\/ !.*\n)+/;
+  return STUDY_FILE_HEADER_PATTERN.exec(content)?.[0] ?? '';
+}
+
+export function parseStudyFileHeader(content: string): {
+  expiryDate?: Date;
+} {
+  const header = extractStudyFileHeader(content);
+  let expiryDate: Date | undefined = undefined;
+  for (const line of header.split('\n')) {
+    const EXPIRY_DATE_PREFIX = '// !Expiry Date:';
+    if (line.startsWith(EXPIRY_DATE_PREFIX)) {
+      const value = line.slice(EXPIRY_DATE_PREFIX.length).trim();
+      expiryDate = new Date(value);
+      if (Number.isNaN(expiryDate.getTime())) {
+        throw new Error(`Invalid Expiry Date value "${value}"`);
+      }
+    }
+  }
+  return { expiryDate };
+}
+
 export function parseStudyFile(
   studyFilePath: string,
   studyFileContent: string,
@@ -19,11 +43,13 @@ export function parseStudyFile(
 ): {
   studies: Study[];
   errors: string[];
+  expiryDate?: Date;
 } {
   let studies: Study[] = [];
   try {
+    const { expiryDate } = parseStudyFileHeader(studyFileContent);
     studies = parseStudies(studyFileContent, options);
-    return { studies, errors: [] };
+    return { studies, errors: [], expiryDate };
   } catch (e) {
     if (e instanceof Error) {
       e.message += ` (${studyFilePath})`;
@@ -84,6 +110,16 @@ export function stringifyStudies(studies: Study[], options?: Options): string {
   return (
     JSON5.stringify(jsonStudies, jsonStudyReplacer.bind(null, options), 2) +
     '\n'
+  );
+}
+
+export function stringifyStudyFile(
+  studies: Study[],
+  originalContent: string,
+  options?: Options,
+): string {
+  return (
+    extractStudyFileHeader(originalContent) + stringifyStudies(studies, options)
   );
 }
 
