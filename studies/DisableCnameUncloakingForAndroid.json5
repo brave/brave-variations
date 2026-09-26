@@ -3,17 +3,8 @@
     name: 'DisableCnameUncloakingForAndroid',
     experiment: [
       {
-        name: 'Disabled',
-        probability_weight: 50,
-        feature_association: {
-          disable_feature: [
-            'BraveAdblockCnameUncloaking',
-          ],
-        },
-      },
-      {
         name: 'Reenabled',
-        probability_weight: 50,
+        probability_weight: 100,
       },
     ],
     filter: {
@@ -30,7 +21,7 @@
     experiment: [
       {
         name: 'Disabled',
-        probability_weight: 100,
+        probability_weight: 90,
         feature_association: {
           disable_feature: [
             'BraveAdblockCnameUncloaking',
@@ -39,7 +30,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 0,
+        probability_weight: 10,
       },
     ],
     filter: {
