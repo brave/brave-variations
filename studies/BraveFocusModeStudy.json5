@@ -1,13 +1,13 @@
 [
   {
-    name: 'BraveNTPSuperReferralWallpaperNameDisableStudy',
+    name: 'BraveFocusModeStudy',
     experiment: [
       {
         name: 'Disabled',
         probability_weight: 100,
         feature_association: {
           disable_feature: [
-            'BraveNTPSuperReferralWallpaperName',
+            'BraveFocusMode',
           ],
         },
       },
@@ -17,18 +17,13 @@
       },
     ],
     filter: {
-      min_version: '134.1.76.0',
-      max_version: '138.1.81.88',
       channel: [
-        'NIGHTLY',
-        'BETA',
         'RELEASE',
       ],
       platform: [
         'WINDOWS',
         'MAC',
         'LINUX',
-        'ANDROID',
       ],
     },
   },
