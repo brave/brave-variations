@@ -1,35 +1,40 @@
 [
   {
-    name: 'InProcessBraveAdsServiceStudy',
+    name: 'HistoryEmbeddingsStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'InProcessBraveAdsService',
+            'HistoryEmbeddings',
           ],
         },
         param: [
           {
-            name: 'startup_delay',
-            value: '0s',
+            name: 'WordMatchMinEmbeddingScore',
+            value: '0.4',
+          },
+          {
+            name: 'WordMatchRequiredTermRatio',
+            value: '0.8',
           },
         ],
       },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
     ],
     filter: {
-      min_version: '141.1.83.87',
+      min_version: '152.1.96.13',
       channel: [
         'NIGHTLY',
-        'BETA',
-        'RELEASE',
       ],
       platform: [
         'WINDOWS',
         'MAC',
         'LINUX',
-        'ANDROID',
       ],
     },
   },

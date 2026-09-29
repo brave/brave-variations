@@ -1,13 +1,13 @@
 [
   {
-    name: 'BraveNTPSuperReferralWallpaperNameDisableStudy',
+    name: 'BraveYoutubeFullscreenVideoFitWorkaroundStudy',
     experiment: [
       {
-        name: 'Disabled',
+        name: 'Enabled',
         probability_weight: 100,
         feature_association: {
-          disable_feature: [
-            'BraveNTPSuperReferralWallpaperName',
+          enable_feature: [
+            'BraveYoutubeFullscreenVideoFitWorkaround',
           ],
         },
       },
@@ -17,17 +17,11 @@
       },
     ],
     filter: {
-      min_version: '134.1.76.0',
-      max_version: '138.1.81.88',
       channel: [
         'NIGHTLY',
         'BETA',
-        'RELEASE',
       ],
       platform: [
-        'WINDOWS',
-        'MAC',
-        'LINUX',
         'ANDROID',
       ],
     },

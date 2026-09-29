@@ -1,13 +1,13 @@
 [
   {
-    name: 'BraveNTPBrandedWallpaperSurveyPanelistStudy',
+    name: 'BraveFocusModeStudy',
     experiment: [
       {
-        name: 'Enabled',
+        name: 'Disabled',
         probability_weight: 100,
         feature_association: {
-          enable_feature: [
-            'BraveNTPBrandedWallpaperSurveyPanelist',
+          disable_feature: [
+            'BraveFocusMode',
           ],
         },
       },
@@ -17,19 +17,13 @@
       },
     ],
     filter: {
-      min_version: '138.1.81.80',
-      max_version: '141.1.83.77',
       channel: [
-        'NIGHTLY',
-        'BETA',
         'RELEASE',
       ],
       platform: [
         'WINDOWS',
         'MAC',
         'LINUX',
-        'ANDROID',
-        'IOS',
       ],
     },
   },

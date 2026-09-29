@@ -4,6 +4,32 @@
     experiment: [
       {
         name: 'Disabled',
+        probability_weight: 50,
+        feature_association: {
+          disable_feature: [
+            'BraveAdblockCnameUncloaking',
+          ],
+        },
+      },
+      {
+        name: 'Reenabled',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      channel: [
+        'BETA',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'DisableCnameUncloakingForAndroid',
+    experiment: [
+      {
+        name: 'Disabled',
         probability_weight: 100,
         feature_association: {
           disable_feature: [
@@ -18,8 +44,6 @@
     ],
     filter: {
       channel: [
-        'NIGHTLY',
-        'BETA',
         'RELEASE',
       ],
       platform: [
