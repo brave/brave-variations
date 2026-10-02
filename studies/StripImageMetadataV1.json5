@@ -1,0 +1,32 @@
+[
+  {
+    name: 'StripImageMetadataV1',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'StripImageMetadataV1',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '154.1.98.31',
+      channel: [
+        'NIGHTLY',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]
