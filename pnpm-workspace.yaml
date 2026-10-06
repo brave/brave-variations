@@ -43,6 +43,8 @@ minimumReleaseAgeExclude:
   - websocket-driver@0.7.5
   - shell-quote@1.8.5
   - postcss@8.5.18
+  - braces@3.0.4
+  - source-map-js@1.2.2
 
 overrides:
   esbuild@<0.28.1: '>=0.28.1'
