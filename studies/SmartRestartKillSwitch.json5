@@ -15,9 +15,58 @@
     ],
     filter: {
       min_version: '151.*',
+      max_version: '155.1.99.9',
       channel: [
         'NIGHTLY',
+      ],
+      platform: [
+        'MAC',
+      ],
+    },
+  },
+  {
+    name: 'SmartRestartKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_SmartRestartKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'SmartRestart',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '151.*',
+      max_version: '155.1.98.50',
+      channel: [
         'BETA',
+      ],
+      platform: [
+        'MAC',
+      ],
+    },
+  },
+  {
+    name: 'SmartRestartKillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_SmartRestartKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'SmartRestart',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '151.*',
+      max_version: '155.1.97.54',
+      channel: [
         'RELEASE',
       ],
       platform: [
