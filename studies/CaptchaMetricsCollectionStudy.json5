@@ -1,13 +1,13 @@
 [
   {
-    name: 'PartitionAllocFreeWithSize',
+    name: 'CaptchaMetricsCollectionStudy',
     experiment: [
       {
         name: 'Enabled',
         probability_weight: 100,
         feature_association: {
           enable_feature: [
-            'PartitionAllocFreeWithSize',
+            'CaptchaMetricsCollection',
           ],
         },
       },
@@ -17,13 +17,16 @@
       },
     ],
     filter: {
-      min_version: '149.*',
+      min_version: '154.1.97.49',
       channel: [
         'NIGHTLY',
         'BETA',
         'RELEASE',
       ],
       platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
         'ANDROID',
       ],
     },
