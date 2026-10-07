@@ -21,41 +21,6 @@
       channel: [
         'NIGHTLY',
         'BETA',
-      ],
-      platform: [
-        'ANDROID',
-      ],
-    },
-  },
-  {
-    name: 'PartitionAllocFreeWithSize',
-    experiment: [
-      {
-        name: 'Enabled',
-        probability_weight: 50,
-        feature_association: {
-          enable_feature: [
-            'PartitionAllocFreeWithSize',
-          ],
-        },
-      },
-      {
-        name: 'Disabled',
-        probability_weight: 50,
-        feature_association: {
-          disable_feature: [
-            'PartitionAllocFreeWithSize',
-          ],
-        },
-      },
-      {
-        name: 'Default',
-        probability_weight: 0,
-      },
-    ],
-    filter: {
-      min_version: '149.*',
-      channel: [
         'RELEASE',
       ],
       platform: [
