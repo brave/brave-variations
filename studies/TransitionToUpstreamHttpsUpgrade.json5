@@ -32,4 +32,31 @@
       ],
     },
   },
+  {
+    name: 'TransitionToUpstreamHttpsUpgrade',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'TransitionToUpstreamHttpsUpgrades',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '155.1.99.24',
+      channel: [
+        'NIGHTLY',
+      ],
+      platform: [
+        'IOS',
+      ],
+    },
+  },
 ]
