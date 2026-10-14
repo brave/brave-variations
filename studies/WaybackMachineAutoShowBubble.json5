@@ -1,0 +1,55 @@
+[
+  {
+    name: 'WaybackMachineAutoShowBubble',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 10,
+        feature_association: {
+          disable_feature: [
+            'WaybackMachineAutoShowBubble',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 90,
+      },
+    ],
+    filter: {
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+  {
+    name: 'WaybackMachineAutoShowBubble',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'WaybackMachineAutoShowBubble',
+          ],
+        },
+      },
+    ],
+    filter: {
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
+]
