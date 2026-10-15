@@ -44,7 +44,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 0,
+        probability_weight: 75,
       },
     ],
     filter: {
