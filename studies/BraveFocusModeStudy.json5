@@ -4,7 +4,7 @@
     experiment: [
       {
         name: 'Disabled',
-        probability_weight: 100,
+        probability_weight: 90,
         feature_association: {
           disable_feature: [
             'BraveFocusMode',
@@ -13,7 +13,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 0,
+        probability_weight: 10,
       },
     ],
     filter: {
