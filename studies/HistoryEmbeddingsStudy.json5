@@ -38,4 +38,43 @@
       ],
     },
   },
+  {
+    name: 'HistoryEmbeddingsStudy_Beta',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 50,
+        feature_association: {
+          enable_feature: [
+            'HistoryEmbeddings',
+          ],
+        },
+        param: [
+          {
+            name: 'WordMatchMinEmbeddingScore',
+            value: '0.4',
+          },
+          {
+            name: 'WordMatchRequiredTermRatio',
+            value: '0.8',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 50,
+      },
+    ],
+    filter: {
+      min_version: '152.1.96.13',
+      channel: [
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+      ],
+    },
+  },
 ]
