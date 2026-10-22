@@ -24,12 +24,46 @@
       min_version: '154.1.97.41',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'WINDOWS',
         'MAC',
         'LINUX',
         'ANDROID',
+      ],
+    },
+  },
+  {
+    name: 'TransitionToUpstreamHttpsUpgrade',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'TransitionToUpstreamHttpsUpgrades',
+            'HttpsFirstBalancedMode',
+          ],
+          disable_feature: [
+            'HttpsByDefault',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      min_version: '154.1.97.41',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
       ],
     },
   },
@@ -54,6 +88,7 @@
       min_version: '155.1.99.24',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'IOS',
