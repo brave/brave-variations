@@ -24,6 +24,8 @@
       min_version: '154.1.97.41',
       channel: [
         'NIGHTLY',
+        'BETA',
+        'RELEASE',
       ],
       platform: [
         'WINDOWS',
