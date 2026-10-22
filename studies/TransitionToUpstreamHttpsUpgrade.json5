@@ -56,6 +56,7 @@
       min_version: '155.1.99.24',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'IOS',
