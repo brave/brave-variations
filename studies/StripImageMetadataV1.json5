@@ -20,12 +20,12 @@
       min_version: '154.1.98.31',
       channel: [
         'NIGHTLY',
+        'BETA',
       ],
       platform: [
         'WINDOWS',
         'MAC',
         'LINUX',
-        'ANDROID',
       ],
     },
   },
