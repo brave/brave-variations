@@ -1,0 +1,61 @@
+[
+  {
+    name: 'EnhancedSecurityEventFieldsWin24H2KillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'EnhancedSecurityEventFields',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '154.*',
+      max_version: '158.*',
+      min_os_version: '10.0.26100',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+      ],
+      policy_restriction: 'CRITICAL',
+    },
+  },
+  {
+    name: 'EnhancedSecurityEventFieldsWin24H2KillSwitch',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'Disabled_EmergencyKillSwitch',
+        probability_weight: 5,
+        feature_association: {
+          disable_feature: [
+            'EnhancedSecurityEventFields',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 95,
+      },
+    ],
+    filter: {
+      min_version: '154.*',
+      max_version: '158.*',
+      min_os_version: '10.0.26100',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'WINDOWS',
+      ],
+      policy_restriction: 'CRITICAL',
+    },
+  },
+]
