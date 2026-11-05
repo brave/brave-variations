@@ -3,38 +3,33 @@
     name: 'BraveDayZeroStudyDesktop',
     experiment: [
       {
-        name: 'EnabledX',
+        name: 'ControlJ',
         probability_weight: 3,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
-            'ShowAIChatInputOnNewTabPage',
           ],
         },
         param: [
           {
             name: 'variant',
-            value: 'X',
-          },
-          {
-            name: 'day_zero',
-            value: 'true',
+            value: 'J',
           },
         ],
       },
       {
-        name: 'EnabledY',
+        name: 'EnabledK',
         probability_weight: 3,
         feature_association: {
           enable_feature: [
             'BraveDayZeroExperiment',
-            'SearchNewTabV1Source',
+            'BraveNewsNewUserOptIn',
           ],
         },
         param: [
           {
             name: 'variant',
-            value: 'Y',
+            value: 'K',
           },
         ],
       },
@@ -44,7 +39,7 @@
       },
     ],
     filter: {
-      min_version: '151.1.93.134',
+      min_version: '156.1.98.63',
       channel: [
         'RELEASE',
       ],
