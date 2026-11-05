@@ -30,7 +30,6 @@
         'WINDOWS',
         'MAC',
         'LINUX',
-        'ANDROID',
       ],
     },
   },
@@ -39,7 +38,7 @@
     experiment: [
       {
         name: 'Enabled',
-        probability_weight: 25,
+        probability_weight: 75,
         feature_association: {
           enable_feature: [
             'TransitionToUpstreamHttpsUpgrades',
@@ -52,7 +51,7 @@
       },
       {
         name: 'Default',
-        probability_weight: 75,
+        probability_weight: 25,
       },
     ],
     filter: {
@@ -64,6 +63,35 @@
         'WINDOWS',
         'MAC',
         'LINUX',
+      ],
+    },
+  },
+  {
+    name: 'TransitionToUpstreamHttpsUpgrade',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 25,
+        feature_association: {
+          enable_feature: [
+            'TransitionToUpstreamHttpsUpgrades',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 75,
+      },
+    ],
+    filter: {
+      min_version: '156.1.98.63',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
       ],
     },
   },
