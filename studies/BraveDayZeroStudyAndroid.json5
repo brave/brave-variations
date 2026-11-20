@@ -50,4 +50,67 @@
       ],
     },
   },
+  {
+    name: 'BraveDayZeroStudyAndroid',
+    experiment: [
+      {
+        name: 'EnabledA',
+        probability_weight: 3,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'A',
+          },
+        ],
+      },
+      {
+        name: 'EnabledB',
+        probability_weight: 3,
+        feature_association: {
+          enable_feature: [
+            'BraveDayZeroExperiment',
+          ],
+        },
+        param: [
+          {
+            name: 'variant',
+            value: 'B',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 94,
+      },
+    ],
+    filter: {
+      min_version: '155.1.99.7',
+      channel: [
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+      country: [
+        'AR',
+        'AT',
+        'BR',
+        'CA',
+        'FR',
+        'DE',
+        'IN',
+        'MX',
+        'ES',
+        'GB',
+        'US',
+        'IT',
+        'AU',
+      ],
+    },
+  },
 ]
