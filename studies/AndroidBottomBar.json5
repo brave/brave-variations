@@ -1,0 +1,30 @@
+[
+  {
+    name: 'AndroidBottomBar',
+    experiment: [
+      {
+        name: 'Enabled',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'AndroidBottomBar',
+          ],
+        },
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '159.1.102.24',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+]
