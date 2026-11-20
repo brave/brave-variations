@@ -1,0 +1,29 @@
+[
+  {
+    name: 'ServeJavaCachedZeroSuggest',
+    consistency: 'PERMANENT',
+    experiment: [
+      {
+        name: 'AblationLaunch',
+        probability_weight: 100,
+        feature_association: {
+          disable_feature: [
+            'ServeJavaCachedZeroSuggest',
+          ],
+        },
+      },
+    ],
+    filter: {
+      min_version: '157.*',
+      max_version: '160.*',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+        'RELEASE',
+      ],
+      platform: [
+        'ANDROID',
+      ],
+    },
+  },
+]
