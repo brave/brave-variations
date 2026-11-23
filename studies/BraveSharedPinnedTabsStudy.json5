@@ -20,6 +20,7 @@
       min_version: '159.1.102.29',
       channel: [
         'NIGHTLY',
+        'DEV',
       ],
       platform: [
         'WINDOWS',
