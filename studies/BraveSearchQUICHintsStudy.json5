@@ -1,0 +1,39 @@
+[
+  {
+    name: 'BraveSearchQUICHintsStudy',
+    experiment: [
+      {
+        name: 'BraveSearchQUICHints',
+        probability_weight: 100,
+        feature_association: {
+          enable_feature: [
+            'ConfigureQuicHints',
+          ],
+        },
+        param: [
+          {
+            name: 'quic_hints',
+            value: 'search.brave.com,443,443',
+          },
+        ],
+      },
+      {
+        name: 'Default',
+        probability_weight: 0,
+      },
+    ],
+    filter: {
+      min_version: '144.1.88.0',
+      channel: [
+        'NIGHTLY',
+        'BETA',
+      ],
+      platform: [
+        'WINDOWS',
+        'MAC',
+        'LINUX',
+        'ANDROID',
+      ],
+    },
+  },
+]
