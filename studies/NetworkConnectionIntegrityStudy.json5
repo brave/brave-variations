@@ -17,6 +17,7 @@
       },
     ],
     filter: {
+      max_version: '160.*',
       channel: [
         'NIGHTLY',
       ],
